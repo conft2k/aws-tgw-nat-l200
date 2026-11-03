@@ -88,7 +88,7 @@
 <text x="1234" y="518" font-size="13" text-anchor="middle" fill="#545B64">Transit Gateway 단위 로그 1개</text>
 <text x="1234" y="534" font-size="13" font-weight="700" text-anchor="middle" fill="#232F3E">172.20.N.10 → 172.20.N.10</text>
 <text x="1234" y="550" font-size="13" text-anchor="middle" fill="#545B64">출발지는 바꾸기 전, 목적지는 되돌린 후</text>
-<text x="1234" y="566" font-size="13" text-anchor="middle" fill="#545B64">사전 검증에서 관찰(문서에는 설명 없음)</text>
+<text x="1234" y="566" font-size="13" text-anchor="middle" fill="#545B64">사전 테스트에서 관찰(문서에는 설명 없음)</text>
 <image href="bundle:resource/Amazon-CloudWatch_Logs" x="1436" y="436" width="48" height="48"/>
 <text x="1460" y="502" font-size="14" text-anchor="middle" fill="#232F3E">CloudWatch Logs</text>
 <text x="1460" y="518" font-size="13" text-anchor="middle" fill="#545B64">Logs Insights로 조회</text>

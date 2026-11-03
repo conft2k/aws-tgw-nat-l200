@@ -69,6 +69,6 @@ nav:
   - 부록:
       - 라우터 설정 생성기: router-config.md
       - "1:1 NAT 개념과 제약": concepts.md
-      - 사전 검증에서 관찰한 동작: observed.md
+      - 사전 테스트에서 관찰한 동작: observed.md
       - 문제 해결: troubleshooting.md
       - 참고 문서: references.md

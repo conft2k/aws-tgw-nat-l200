@@ -15,7 +15,7 @@
   </defs>
   <rect width="1778" height="578" fill="#FFFFFF"/>
 
-  <text x="16" y="30" font-size="19" font-weight="700" fill="#232F3E">사전 검증에서 관찰(2026-11-03): NAT system routes 끔 + 원래 대역 광고 중단</text>
+  <text x="16" y="30" font-size="19" font-weight="700" fill="#232F3E">사전 테스트에서 관찰(2026-11-03): NAT system routes 끔 + 원래 대역 광고 중단</text>
 
   <!-- ===== AWS Cloud ===== -->
   <rect x="16" y="48" width="1110" height="420" fill="none" stroke="#232F3E" stroke-width="2"/>

@@ -1,6 +1,6 @@
 # 워크숍 계획: AWS Transit Gateway 1:1 NAT로 겹치는 온프레미스 대역 연결하기 (L200)
 
-> 상태: **초안 3(콘솔 사전 테스트 반영)** · 작성 2026-11-03 · 근거: 사전 검증(2026-11-03, ap-northeast-2, DX Lab Pod 1개), 콘솔 사전 테스트(2026-11-03, 사전 테스트 계정, Pod 89)
+> 상태: **초안 3(콘솔 사전 테스트 반영)** · 작성 2026-11-03 · 근거: 사전 테스트(2026-11-03, ap-northeast-2, DX Lab Pod 1개), 콘솔 사전 테스트(2026-11-03, 사전 테스트 계정, Pod 89)
 
 이 문서는 워크숍 콘텐츠를 쓰기 전에 목표, 과제, 진행 방식을 정하는 계획서입니다. 확정되면 이 계획에 따라 GitHub Pages 사이트를 만듭니다.
 
@@ -69,7 +69,7 @@
 - 라우터와 Linux VM은 DX Lab 포털의 웹 터미널로 접속합니다. 라우터 설정은 참가자 값을 채워 넣는 템플릿(`<POD>`, `<VLAN1>`, `<AWS_PEER1>`, `<BGP_KEY1>` 등)으로 제공하고, 각 값을 어디서 찾는지 표로 안내합니다.
 - 오래 걸리는 프로비저닝은 발표 앞이나 다른 작업과 겹치게 배치합니다. 콘솔 사전 테스트 측정값(13절): hosted connection 수락 → `available` 약 3분, 스택 6분 17초, 게이트웨이 연결 약 3분, 전송 가상 인터페이스는 라우터 BGP 설정 후 약 3분 안에 `available`·BGP `up`, 1:1 NAT 저장 → `enabled` 약 13초.
 - 과제마다 **확인 포인트**(무엇이 보이면 성공인지)와 **문제 해결 팁**을 둡니다. 실패처럼 보이지만 기대한 결과인 단계는 미리 알려 줍니다.
-- 공식 문서 내용과 사전 검증에서 관찰한 내용을 구분해 씁니다. 관찰한 내용에는 "사전 검증에서 관찰(날짜, 조건)"을 붙입니다.
+- 공식 문서 내용과 사전 테스트에서 관찰한 내용을 구분해 씁니다. 관찰한 내용에는 "사전 테스트에서 관찰(날짜, 조건)"을 붙입니다.
 
 ## 6. 진행표(2시간)
 
@@ -103,13 +103,13 @@
 |---|---|---|---|
 | A | NAT 없는 VPC와 원래 경로 | VM ↔ VPC-B, VPC-B → 두 NAT 대역, VPC-B → 원래 주소 `172.20.N.10`, Loopback 출발지 | 목적지와 상관없이 SNAT. 원래 주소로 보내면 VPC-A가 아니라 온프레미스 VM에 도착(VM tcpdump), ping은 0/5·TCP는 시간 초과가 **기대한 결과**(VPC-B Flow Logs에 REJECT) |
 | B | 경로 설치 옵션 | `enable`에서 라우터의 /24 광고를 멈춰 `system` 경로 `blackhole` 확인 → /16 요약 광고로 복구. `disable` 전환은 ① 라우터에서 `100.64.1.0/24`(Null0) 광고 추가 ② 라우팅 테이블에서 `system` 그대로인지 확인 ③ **Manage 1:1 NAT**에서 NAT system route support 끄기 ④ `propagated`로 바뀐 것 확인. 되돌리기는 ① 원래 대역 광고 유지 확인 ② 다시 켜기 ③ `100.64.1.0/24` 광고·Null0 삭제. **원래 대역 광고는 끝까지 유지**합니다(주의 상자) | blackhole과 복구, `disable`에서 `propagated` NAT 경로, 전환 중 손실 없음 |
-| C | 관측 | CloudWatch에서 연결별 `PacketsInNAT`·`PacketsOutNAT`·폐기 지표, Logs Insights로 TGW Flow Logs와 VPC Flow Logs(`pkt-srcaddr`) 비교 | 번역이 일어난 연결마다 NAT 지표 증가(문서). TGW Flow Logs는 양 끝의 실제 주소를 기록(사전 검증에서 관찰) |
+| C | 관측 | CloudWatch에서 연결별 `PacketsInNAT`·`PacketsOutNAT`·폐기 지표, Logs Insights로 TGW Flow Logs와 VPC Flow Logs(`pkt-srcaddr`) 비교 | 번역이 일어난 연결마다 NAT 지표 증가(문서). TGW Flow Logs는 양 끝의 실제 주소를 기록(사전 테스트에서 관찰) |
 | D | 정리 | 8절 순서대로 삭제 | 남은 리소스 없음 |
 
 ### 7.3 주의 상자: NAT System Route Support `disable`과 원래 대역 광고
 
 - 문서: [Routing behavior for 1:1 NAT](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat-routing.html)는 `disable`이면 온프레미스가 원래 CIDR을 광고할 필요가 없고, 원래 CIDR이 다른 연결의 CIDR과 겹치면 NAT CIDR을 광고한 뒤 원래 CIDR 광고를 멈추라고 설명합니다. 이 워크숍의 시나리오가 바로 그 경우입니다.
-- 사전 검증에서 관찰(2026-11-03, ap-northeast-2, Direct Connect 게이트웨이 연결, 50Mbps hosted connection 2개, 라우터 IOS XE 16.12, Pod 1개):
+- 사전 테스트에서 관찰(2026-11-03, ap-northeast-2, Direct Connect 게이트웨이 연결, 50Mbps hosted connection 2개, 라우터 IOS XE 16.12, Pod 1개):
   - 원래 대역 광고를 멈추자 **AWS → 온프레미스 방향**이 끊겼습니다. 온프레미스 → AWS 방향은 전달됐습니다.
   - 다시 광고하자 2초 안에 복구됐습니다. 4번 반복해 4번 모두 같았고, 5분 넘게 유지해도 회복되지 않았습니다.
   - Transit Gateway는 패킷을 번역해 DXGW 쪽 연결로 내보냈지만(`PacketsOutNAT` 평소 수준), 라우터에는 도착하지 않았습니다(인바운드 ACL 카운터 0). 어디서 버려졌는지는 확인하지 못했습니다.
@@ -140,7 +140,7 @@
 | dnf | S3 gateway endpoint(AL2023 저장소만 허용) |
 | 로그 | TGW Flow Logs, VPC Flow Logs(`pkt-srcaddr`·`pkt-dstaddr` 포함, 집계 60초) → CloudWatch Logs(스택과 함께 삭제), 전송용 IAM 역할 |
 
-- 사전 검증에 쓴 템플릿을 바탕으로 만들고, 계정 ID·내부 이름·비공개 저장소 참조는 넣지 않습니다.
+- 사전 테스트에 쓴 템플릿을 바탕으로 만들고, 계정 ID·내부 이름·비공개 저장소 참조는 넣지 않습니다.
 - VPC 라우팅 테이블과 보안 그룹은 NAT 대역을 미리 포함합니다. 과제 4에서 이유를 설명합니다(상대가 NAT 대역으로 보이므로).
 - 허용된 접두사에 VPC-A의 실제 대역을 넣지 않는 이유를 과제 1에서 설명합니다(온프레미스 LAN과 같은 대역이고, 허용된 접두사는 적은 그대로 온프레미스에 광고됨).
 

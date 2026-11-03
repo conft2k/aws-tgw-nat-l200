@@ -143,7 +143,7 @@
 <circle cx="34" cy="520" r="11" fill="#E07000"/>
 <text x="34" y="525" font-size="15" font-weight="700" text-anchor="middle" fill="#FFFFFF">!</text>
 <text x="54" y="514" font-size="13" font-weight="700" fill="#D13212">원래 대역 172.20.N.0/24도 계속 광고하세요.</text>
-<text x="54" y="532" font-size="13" fill="#232F3E">사전 검증에서 관찰: 이 광고가 없으면 AWS → 온프레미스 트래픽이 사라집니다.</text>
+<text x="54" y="532" font-size="13" fill="#232F3E">사전 테스트에서 관찰: 이 광고가 없으면 AWS → 온프레미스 트래픽이 사라집니다.</text>
 </g>
 <rect x="16" y="50" width="940" height="560" fill="none" stroke="#7D8998" stroke-width="1.5"/>
 <text x="28" y="68" font-size="14" font-weight="700" fill="#232F3E">NAT system routes 켬 (기본값)</text>
