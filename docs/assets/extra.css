@@ -1,0 +1,40 @@
+/* screenshots: keep them readable and framed */
+.md-typeset img.shot {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+}
+/* router config generator */
+.gen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.6rem 1rem;
+  margin: 1rem 0;
+}
+.gen-grid label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.gen-grid input {
+  margin-top: 0.2rem;
+  padding: 0.35rem 0.5rem;
+  font: inherit;
+  font-weight: 400;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 4px;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+}
+.gen-out {
+  width: 100%;
+  min-height: 24rem;
+  font-family: var(--md-code-font-family);
+  font-size: 0.72rem;
+  padding: 0.6rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 4px;
+  background: var(--md-code-bg-color);
+  color: var(--md-code-fg-color);
+}
+.gen-msg { font-size: 0.75rem; color: var(--md-accent-fg-color); }

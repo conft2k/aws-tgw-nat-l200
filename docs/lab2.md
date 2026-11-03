@@ -1,0 +1,170 @@
+# 실습 2. 1:1 NAT 적용 (25분)
+
+먼저 같은 대역 때문에 생기는 문제를 눈으로 확인합니다. 그다음 1:1 NAT를 적용해 해결합니다.
+
+!!! tip "콘솔 탭을 두 개 여세요"
+    EC2 터미널은 지금 탭을 터미널 화면으로 바꿉니다. VPC 콘솔을 다른 탭에 따로 열어 두면 오가기 편합니다.
+
+## 2-1. EC2에 접속하기 { #lab2-1 }
+
+VPC-A의 EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2 Instance Connect Endpoint로 브라우저에서 접속합니다.
+
+1. **EC2** 콘솔 → **Instances** → `tgwnat-vpc-a-ec2`를 고르고 **Connect**를 누릅니다.
+2. **In web browser** 탭에서 **EC2 Instance Connect Endpoint**를 고릅니다. 엔드포인트와 사용자 이름(`ec2-user`)은 자동으로 채워집니다.
+3. **Connect**를 누르면 터미널이 열립니다.
+
+![Connect to Linux instance 화면: In web browser 탭에서 EC2 Instance Connect Endpoint가 선택되어 있다](images/console/lab2-eic-01-connect.png){ .shot }
+
+터미널은 최대 1시간 유지됩니다. 끊기면 다시 **Connect**를 누릅니다.
+
+## 2-2. 문제 확인: 응답이 엉뚱한 곳으로 갑니다 { #lab2-2 }
+
+온프레미스 VM에서 VPC-B로 ping을 보내면 무슨 일이 생기는지 봅니다.
+
+![NAT 적용 전 흐름: VM이 VPC-B로 보낸 요청은 도착하지만, VPC-B의 응답은 라우팅 테이블의 172.20.N.0/24 → VPC-A 경로를 따라 VPC-A로 간다](images/diagrams/lab2-overlap-problem.png)
+
+1. VPC-A EC2 터미널에서 ping 패킷을 지켜봅니다.
+
+    ```bash
+    sudo tcpdump -ni ens5 icmp
+    ```
+
+2. VM `vmN` 웹 터미널에서 VPC-B로 ping을 보냅니다.
+
+    ```bash
+    ping -c 8 10.1.1.10
+    ```
+
+**결과(실패가 맞습니다)**
+
+- VM의 ping은 **100% packet loss**로 실패합니다.
+- 그런데 VPC-A EC2에 `10.1.1.10 > 172.20.N.10: ICMP echo reply`가 찍힙니다.
+- VPC-B는 응답을 보냈지만, Transit Gateway가 그 응답을 VPC-A로 보낸 것입니다. 라우팅 테이블에서 `172.20.N.0/24`가 VPC-A를 가리키기 때문입니다.
+
+![VPC-A EC2 터미널: tcpdump에 10.1.1.10에서 172.20.89.10으로 가는 echo reply가 8개 찍혀 있다](images/console/lab2-eic-02-tcpdump-overlap.png){ .shot }
+
+온프레미스에서 VPC-A로는 처음부터 갈 수 없습니다. VPC-A의 주소가 온프레미스 자기 LAN의 주소와 같기 때문입니다. tcpdump는 **Ctrl+C**로 멈춥니다.
+
+## 2-3. 1:1 NAT는 어디서 주소를 바꾸나 { #lab2-3 }
+
+규칙은 Transit Gateway 연결마다 둡니다. 규칙 하나가 양쪽 방향을 모두 처리합니다.
+
+![1:1 NAT가 동작하는 곳: Transit Gateway로 들어올 때 Source CIDR 안의 출발지 주소를 NAT 대역으로 바꾸고(SNAT), 나갈 때 NAT 대역 안의 목적지 주소를 원래 대역으로 되돌린다(DNAT). VPC-B 연결에는 규칙이 없다](images/diagrams/concept-snat-dnat.png)
+
+- **들어올 때**: 보낸 쪽 주소가 규칙의 원래 대역에 있으면 NAT 대역으로 바꿉니다. 목적지가 어디든 바꿉니다.
+- **나갈 때**: 받는 쪽 주소가 NAT 대역에 있으면 원래 주소로 되돌립니다.
+- 주소의 마지막 부분과 포트는 바뀌지 않습니다.
+
+## 2-4. DXGW 연결에 규칙 넣기 { #lab2-4 }
+
+온프레미스 주소 `172.20.N.0/24`가 AWS에서 `100.64.1.0/24`로 보이게 합니다.
+
+1. **VPC** 콘솔 → **Transit gateway attachments**에서 **Resource type**이 **Direct Connect Gateway**인 연결의 ID를 누릅니다.
+2. **1:1 NAT** 탭(**1:1 NAT - new**)에서 **Manage 1:1 NAT**를 누릅니다.
+
+    ![1:1 NAT 탭: NAT Gateway support Disabled, NAT system routes Yes, 규칙 없음](images/console/lab2-nat-01-dxgw-tab.png){ .shot }
+
+3. 아래처럼 설정합니다.
+    - **Enable NAT Gateway support**를 선택합니다.
+    - **NAT system routes**는 선택된 채로 둡니다. NAT 대역 경로를 Transit Gateway가 알아서 만듭니다.
+    - **Add rule**을 누르고 **Rule number** `100`, **Source CIDR** `172.20.N.0/24`, **NAT CIDR** `100.64.1.0/24`를 넣습니다. 입력란 아래에 목록이 뜨면 **Use "…"** 를 고릅니다.
+
+    ![Manage NAT rules 화면: 두 확인란이 선택되어 있고 규칙 100은 172.20.89.0/24 → 100.64.1.0/24](images/console/lab2-nat-02-dxgw-form.png){ .shot }
+
+4. **Save changes**를 누릅니다.
+
+빈 규칙 줄이 남아 있으면 저장되지 않습니다. 빈 줄의 **Remove**를 누르세요.
+
+**성공 확인**: **1:1 NAT** 탭에 **NAT Gateway support: Enabled**, 규칙 상태 **Activated**가 보입니다(리허설에서는 약 13초).
+
+![1:1 NAT 탭: NAT Gateway support Enabled, 규칙 100 Activated](images/console/lab2-nat-04-dxgw-enabled.png){ .shot }
+
+## 2-5. VPC-A 연결에 규칙 넣기 { #lab2-5 }
+
+VPC-A 주소 `172.20.N.0/24`가 밖에서 `100.64.2.0/24`로 보이게 합니다.
+
+1. **Transit gateway attachments**에서 이름이 `tgwnat-attach-vpc-a`인 연결을 누릅니다.
+2. 2-4와 같은 방법으로 **Enable NAT Gateway support**를 선택하고, 규칙 `100`, `172.20.N.0/24` → `100.64.2.0/24`를 넣어 저장합니다.
+
+VPC 연결에서는 **NAT system routes**가 항상 켜져 있어 바꿀 수 없습니다.
+
+![VPC-A 연결의 Manage NAT rules 화면: NAT system routes 확인란이 선택된 채 회색으로 잠겨 있다](images/console/lab2-nat-03-vpca-form.png){ .shot }
+
+**성공 확인**: 이 연결도 **Enabled**, **Activated**가 됩니다.
+
+## 2-6. 라우팅 테이블 다시 보기 { #lab2-6 }
+
+**Transit gateway route tables** → **Routes** 탭을 새로 고칩니다.
+
+![NAT 적용 후 라우팅 테이블: 100.64.1.0/24 System(Direct Connect Gateway), 100.64.2.0/24 System(VPC), 172.20.89.0/24 Propagated(Direct Connect Gateway)](images/console/lab2-tgw-rt-02-after-nat.png){ .shot }
+
+| 경로 | 가는 곳 | 유형 | 설명 |
+|---|---|---|---|
+| `100.64.1.0/24` | Direct Connect Gateway | **System** | 온프레미스의 NAT 대역. Transit Gateway가 만듦 |
+| `100.64.2.0/24` | VPC | **System** | VPC-A의 NAT 대역. VPC-A의 원래 경로를 대신함 |
+| `172.20.N.0/24` | Direct Connect Gateway | Propagated | VPC-A 경로가 빠져서, 온프레미스가 광고한 경로가 보임 |
+
+스택은 VPC 라우팅 테이블과 보안 그룹에 NAT 대역을 미리 넣어 두었습니다. VPC-A의 EC2는 온프레미스를 `100.64.1.0/24`로 보기 때문입니다.
+
+## 2-7. 통신해 보기 { #lab2-7 }
+
+패킷이 지나가며 주소가 이렇게 바뀝니다.
+
+![NAT 후 패킷 흐름 6단계: VM이 172.20.N.10에서 100.64.2.10으로 보내면 DXGW 연결에서 출발지가 100.64.1.10으로, VPC-A 연결에서 목적지가 172.20.N.10으로 바뀐다. 응답은 반대로 바뀐다](images/diagrams/lab2-packet-walk.png)
+
+**온프레미스 → VPC-A** (VM에서)
+
+```bash
+ping -c 5 100.64.2.10
+curl http://100.64.2.10:8080/
+ping -c 3 100.64.2.20
+curl --local-port 40000 http://100.64.2.10:8080/
+```
+
+**성공 확인**
+
+- ping이 모두 성공합니다.
+- `curl` 응답이 `vpc-a-ec2 saw 100.64.1.10:<포트>`입니다. VPC-A는 VM을 **`100.64.1.10`** 으로 봅니다.
+- `100.64.2.20`은 VPC-A EC2의 보조 주소 `172.20.N.20`으로 갑니다. 마지막 숫자는 그대로입니다.
+- `--local-port 40000`으로 보내면 `saw 100.64.1.10:40000`입니다. 포트도 그대로입니다.
+
+**VPC-A → 온프레미스**
+
+1. VM에서 접속 기록을 보여 줄 웹 서버를 띄웁니다. 끝의 `&`는 서버를 뒤에서 돌리라는 뜻입니다.
+
+    ```bash
+    python3 -m http.server 8080 &
+    ```
+
+2. VPC-A EC2 터미널에서 온프레미스의 NAT 주소로 보냅니다.
+
+    ```bash
+    ping -c 4 100.64.1.10
+    curl -s -o /dev/null -w 'HTTP %{http_code}\n' http://100.64.1.10:8080/
+    ```
+
+![VPC-A EC2 터미널: 100.64.1.10으로 ping 4개 성공, curl 결과 HTTP 200](images/console/lab2-eic-03-vpca-to-onprem.png){ .shot }
+
+**성공 확인**: EC2에는 `HTTP 200`이 보입니다. VM 터미널에는 웹 서버 기록이 찍히는데, 맨 앞 주소가 **`100.64.2.10`** 입니다. 온프레미스는 VPC-A EC2를 `100.64.2.10`으로 봅니다. AWS 쪽에서 먼저 보내도 똑같이 동작합니다.
+
+VM의 웹 서버는 `kill %1`로 멈춥니다.
+
+??? note "(선택) UDP로도 확인하기 — 시간이 있으면"
+    VM에서 VPC-A EC2의 UDP 9000번으로 보냅니다.
+
+    ```bash
+    (echo hello; sleep 1) | nc -u -w 2 100.64.2.10 9000; echo
+    ```
+
+    응답이 `vpc-a-ec2 saw 100.64.1.10:<포트> hello`이면 UDP도 같은 방식으로 바뀐 것입니다.
+
+## 정리 { #lab2-summary }
+
+| 확인한 것 | 결과 |
+|---|---|
+| NAT 전 | VM → VPC-B 응답이 VPC-A로 감. VM → VPC-A는 갈 방법이 없음 |
+| NAT 후 | 같은 주소를 쓰는 VM과 EC2가 서로를 `100.64.2.10`, `100.64.1.10`으로 보고 통신 |
+| 1:1 매핑 | 마지막 숫자(.10, .20)와 포트(40000)는 그대로 |
+| 라우팅 | NAT 대역 경로는 Transit Gateway가 **System** 경로로 만듦 |
+
+더 해 보고 싶다면 [추가 과제](extra-a.md)를 하세요. 마지막에는 [리소스 정리](extra-d.md)를 합니다.

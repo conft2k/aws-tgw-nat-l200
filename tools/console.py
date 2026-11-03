@@ -169,15 +169,38 @@ def main() -> int:
               if any(x in all_text() for x in secrets):
                     raise RuntimeError("secret still visible on the page; screenshot refused")
 
-        def shot(name: str, locator=None):
+        def shot(name: str, locator=None, clip=None, margin: int = 16):
+            """Full-window original to shots/raw, cropped (clip locator or box) to docs/images."""
             mask()
             mask_secrets()
             path = SHOTS / f"{name}.png"
+            raw = ROOT / "shots/raw/console" / f"{name}.png"
+            raw.parent.mkdir(parents=True, exist_ok=True)
             if locator is not None:
                 locator.scroll_into_view_if_needed()
                 mask()
                 mask_secrets()
-            P().screenshot(path=str(path))
+            P().screenshot(path=str(raw))
+            box = None
+            if clip is not None and not isinstance(clip, (tuple, list)):
+                clip.scroll_into_view_if_needed()
+                mask()
+                mask_secrets()
+                P().screenshot(path=str(raw))
+                bb = clip.bounding_box()
+                if bb:
+                    vw = P().viewport_size
+                    box = (max(0, bb["x"] - margin), max(0, bb["y"] - margin),
+                           min(vw["width"], bb["x"] + bb["width"] + margin),
+                           min(vw["height"], bb["y"] + bb["height"] + margin))
+            elif clip is not None:
+                box = tuple(clip)
+            if box:
+                P().screenshot(path=str(path), clip={"x": box[0], "y": box[1],
+                                                     "width": box[2] - box[0], "height": box[3] - box[1]})
+            else:
+                import shutil
+                shutil.copy(raw, path)
             print(f"shot {path.relative_to(ROOT)}", flush=True)
 
         if not STATE.exists():

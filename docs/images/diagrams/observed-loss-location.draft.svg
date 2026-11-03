@@ -1,0 +1,169 @@
+<svg viewBox="0 0 1778 578" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+  <!-- Observed behavior (pre-validation 2026-11-03): DXGW attachment NAT system routes OFF and
+       on-premises withdrew 172.20.N.0/24. AWS -> on-premises is lost after the DX gateway.
+       Main line y=210: forward path at y=202 (left -> right), return path at y=218 (green, right -> left). -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/>
+    </marker>
+    <marker id="arrowGrey" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#7D8998"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#1D8102"/>
+    </marker>
+  </defs>
+  <rect width="1778" height="578" fill="#FFFFFF"/>
+
+  <text x="16" y="30" font-size="19" font-weight="700" fill="#232F3E">사전 검증에서 관찰(2026-11-03): NAT system routes 끔 + 원래 대역 광고 중단</text>
+
+  <!-- ===== AWS Cloud ===== -->
+  <rect x="16" y="48" width="1110" height="420" fill="none" stroke="#232F3E" stroke-width="2"/>
+  <image href="bundle:group/AWS-Cloud-logo_32" x="16" y="48" width="32" height="32"/>
+  <text x="58" y="70" font-size="15" font-weight="600" fill="#232F3E">AWS Cloud</text>
+
+  <!-- Region -->
+  <rect x="36" y="82" width="844" height="370" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
+  <image href="bundle:group/Region_32" x="36" y="82" width="24" height="24"/>
+  <text x="68" y="100" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
+
+  <!-- VPC-A -->
+  <rect x="56" y="112" width="200" height="200" fill="none" stroke="#8C4FFF" stroke-width="2"/>
+  <image href="bundle:group/Virtual-private-cloud-VPC_32" x="56" y="112" width="24" height="24"/>
+  <text x="88" y="130" font-size="14" font-weight="600" fill="#8C4FFF">VPC-A</text>
+  <text x="88" y="146" font-size="13" fill="#232F3E">172.20.N.0/24</text>
+
+  <rect x="72" y="158" width="168" height="138" fill="none" stroke="#00A4A6" stroke-width="1.5"/>
+  <image href="bundle:group/Private-subnet_32" x="72" y="158" width="24" height="24"/>
+  <text x="104" y="176" font-size="14" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
+  <image href="bundle:service/Amazon-EC2" x="132" y="186" width="48" height="48"/>
+  <text x="156" y="252" font-size="14" text-anchor="middle" fill="#232F3E">EC2</text>
+  <text x="156" y="268" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
+  <text x="156" y="284" font-size="13" text-anchor="middle" fill="#545B64">ping → 100.64.1.10</text>
+
+  <!-- VPC-A attachment: SNAT -->
+  <text x="346" y="162" font-size="13" text-anchor="middle" fill="#232F3E">VPC-A 연결</text>
+  <text x="346" y="178" font-size="13" text-anchor="middle" fill="#232F3E">출발지 주소 바꾸기</text>
+  <text x="346" y="194" font-size="13" text-anchor="middle" fill="#232F3E">→ 100.64.2.10</text>
+
+  <!-- Transit Gateway + route table (property of the TGW, no line) -->
+  <image href="bundle:service/AWS-Transit-Gateway" x="436" y="186" width="48" height="48"/>
+  <text x="460" y="252" font-size="14" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
+  <!-- TGW route table drawn as a table; leader line to the Transit Gateway node -->
+  <line x1="460" y1="261" x2="460" y2="282" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="316" y="282" width="292" height="34" fill="#8C4FFF" stroke="#8C4FFF" stroke-width="1"/>
+  <rect x="321" y="288" width="22" height="22" fill="#FFFFFF"/>
+  <image href="bundle:resource/Amazon-Route-53_Route-Table" x="322" y="289" width="20" height="20"/>
+  <text x="352" y="304" font-size="14" font-weight="700" fill="#FFFFFF">TGW 라우팅 테이블</text>
+  <rect x="316" y="316" width="124" height="30" fill="#F2F3F3" stroke="#AAB7B8" stroke-width="1"/>
+  <rect x="440" y="316" width="72" height="30" fill="#F2F3F3" stroke="#AAB7B8" stroke-width="1"/>
+  <rect x="512" y="316" width="96" height="30" fill="#F2F3F3" stroke="#AAB7B8" stroke-width="1"/>
+  <text x="326" y="334" font-size="13" font-weight="600" fill="#232F3E">CIDR</text>
+  <text x="450" y="334" font-size="13" font-weight="600" fill="#232F3E">연결</text>
+  <text x="522" y="334" font-size="13" font-weight="600" fill="#232F3E">유형</text>
+  <rect x="316" y="346" width="124" height="30" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+  <rect x="440" y="346" width="72" height="30" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+  <rect x="512" y="346" width="96" height="30" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+  <text x="326" y="364" font-size="13" fill="#232F3E">100.64.1.0/24</text>
+  <text x="450" y="364" font-size="13" fill="#232F3E">DXGW</text>
+  <text x="522" y="364" font-size="13" fill="#232F3E">propagated</text>
+  <rect x="316" y="376" width="124" height="30" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+  <rect x="440" y="376" width="72" height="30" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+  <rect x="512" y="376" width="96" height="30" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+  <text x="326" y="394" font-size="13" fill="#232F3E">100.64.2.0/24</text>
+  <text x="450" y="394" font-size="13" fill="#232F3E">VPC-A</text>
+  <text x="522" y="394" font-size="13" fill="#232F3E">system</text>
+  <rect x="316" y="406" width="292" height="30" fill="#FDF3F2" stroke="#AAB7B8" stroke-width="1"/>
+  <text x="326" y="424" font-size="13" font-weight="600" fill="#D13212">172.20.N.0/24 — 경로 없음</text>
+
+  <!-- DXGW attachment: NAT rule, system routes OFF, DNAT at egress -->
+  <text x="682" y="178" font-size="13" text-anchor="middle" fill="#232F3E">DXGW 연결 · NAT system routes 끔</text>
+  <text x="682" y="194" font-size="13" text-anchor="middle" fill="#232F3E">1:1 NAT 규칙 172.20.N.0/24 → 100.64.1.0/24</text>
+  <text x="682" y="238" font-size="13" text-anchor="middle" fill="#232F3E">나갈 때 목적지 주소 되돌리기 → 172.20.N.10</text>
+
+  <!-- Evidence 1: TGW -> DXGW attachment metrics -->
+  <rect x="548" y="94" width="324" height="64" rx="4" fill="#FFFFFF" stroke="#7D8998" stroke-width="1"/>
+  <text x="560" y="112" font-size="13" font-weight="600" fill="#232F3E">TGW → DXGW 연결</text>
+  <text x="560" y="129" font-size="13" fill="#545B64">PacketsOut = PacketsOutNAT</text>
+  <text x="560" y="146" font-size="13" fill="#545B64">평소와 같음 ≈ 분당 580, TGW 폐기 지표 없음</text>
+  <line x1="862" y1="158" x2="862" y2="199" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
+  <circle cx="862" cy="202" r="3" fill="#7D8998"/>
+
+  <!-- Direct Connect gateway: global, inside the Cloud, outside the Region -->
+  <image href="bundle:resource/AWS-Direct-Connect_Gateway" x="966" y="186" width="48" height="48"/>
+  <text x="990" y="252" font-size="14" text-anchor="middle" fill="#232F3E">Direct Connect gateway</text>
+
+  <!-- loss marker -->
+  <text x="1070" y="184" font-size="13" font-weight="700" text-anchor="middle" fill="#D13212">여기서 사라짐</text>
+  <circle cx="1070" cy="202" r="11" fill="#D13212"/>
+  <text x="1070" y="208" font-size="17" font-weight="700" text-anchor="middle" fill="#FFFFFF">×</text>
+
+  <!-- AWS Direct Connect (DX location, outside the Cloud) -->
+  <image href="bundle:service/AWS-Direct-Connect" x="1186" y="186" width="48" height="48"/>
+  <text x="1210" y="252" font-size="14" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
+  <text x="1210" y="268" font-size="13" text-anchor="middle" fill="#545B64">transit VIF 2개</text>
+
+  <!-- ===== On-premises ===== -->
+  <rect x="1300" y="48" width="462" height="272" fill="none" stroke="#7D8998" stroke-width="2"/>
+  <image href="bundle:group/Corporate-data-center_32" x="1300" y="48" width="24" height="24"/>
+  <text x="1332" y="66" font-size="14" font-weight="600" fill="#7D8998">온프레미스(Pod N)</text>
+  <text x="1332" y="82" font-size="13" fill="#232F3E">LAN 172.20.N.0/24</text>
+
+  <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="1416" y="186" width="48" height="48"/>
+  <text x="1440" y="252" font-size="14" text-anchor="middle" fill="#232F3E">라우터 rtN</text>
+  <text x="1440" y="268" font-size="13" text-anchor="middle" fill="#545B64">광고: 100.64.1.0/24(Null0)</text>
+  <text x="1440" y="284" font-size="13" text-anchor="middle" fill="#545B64">Loopback1 10.200.0.1/32</text>
+  <text x="1440" y="300" font-size="13" font-weight="600" text-anchor="middle" fill="#D13212">172.20.N.0/24 광고 중단</text>
+
+  <image href="bundle:resource/Server" x="1636" y="186" width="48" height="48"/>
+  <text x="1660" y="252" font-size="14" text-anchor="middle" fill="#232F3E">VM vmN</text>
+  <text x="1660" y="268" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
+
+  <!-- Evidence 2: router VIF subinterfaces -->
+  <rect x="1312" y="94" width="262" height="47" rx="4" fill="#FFFFFF" stroke="#7D8998" stroke-width="1"/>
+  <text x="1324" y="112" font-size="13" font-weight="600" fill="#232F3E">라우터 rtN VIF 서브인터페이스</text>
+  <text x="1324" y="129" font-size="13" font-weight="600" fill="#D13212">인바운드 ACL 카운터: 손실 중 증가 0</text>
+  <line x1="1380" y1="141" x2="1380" y2="199" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
+  <circle cx="1380" cy="202" r="3" fill="#7D8998"/>
+
+  <!-- Evidence 3: VM capture -->
+  <rect x="1586" y="94" width="160" height="47" rx="4" fill="#FFFFFF" stroke="#7D8998" stroke-width="1"/>
+  <text x="1598" y="112" font-size="13" font-weight="600" fill="#232F3E">VM vmN</text>
+  <text x="1598" y="129" font-size="13" font-weight="600" fill="#D13212">tcpdump: 0개</text>
+  <line x1="1660" y1="141" x2="1660" y2="183" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- ===== Forward path AWS -> on-premises (y=202) ===== -->
+  <line x1="180" y1="202" x2="432" y2="202" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="484" y1="202" x2="962" y2="202" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="1014" y1="202" x2="1059" y2="202" stroke="#232F3E" stroke-width="1.5"/>
+  <line x1="1081" y1="202" x2="1182" y2="202" stroke="#7D8998" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowGrey)"/>
+  <line x1="1234" y1="202" x2="1412" y2="202" stroke="#7D8998" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowGrey)"/>
+  <line x1="1464" y1="202" x2="1632" y2="202" stroke="#7D8998" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowGrey)"/>
+
+  <!-- ===== Return path on-premises -> AWS (y=218), kept working ===== -->
+  <line x1="1636" y1="218" x2="1468" y2="218" stroke="#1D8102" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
+  <line x1="1416" y1="218" x2="1238" y2="218" stroke="#1D8102" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
+  <line x1="1186" y1="218" x2="1018" y2="218" stroke="#1D8102" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
+  <line x1="966" y1="218" x2="488" y2="218" stroke="#1D8102" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
+  <line x1="436" y1="218" x2="184" y2="218" stroke="#1D8102" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
+  <text x="1550" y="238" font-size="13" font-weight="600" text-anchor="middle" fill="#1D8102">전달됨</text>
+
+  <!-- ===== Symbol legend ===== -->
+  <line x1="1300" y1="356" x2="1336" y2="356" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="1344" y="360" font-size="13" fill="#545B64">AWS → 온프레미스(100.64.1.10으로)</text>
+  <line x1="1300" y1="380" x2="1336" y2="380" stroke="#7D8998" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowGrey)"/>
+  <text x="1344" y="384" font-size="13" fill="#545B64">나머지 경로, 도착한 패킷 0개</text>
+  <line x1="1300" y1="404" x2="1336" y2="404" stroke="#1D8102" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
+  <text x="1344" y="408" font-size="13" fill="#545B64">온프레미스 → AWS(VM → 100.64.2.10): 전달됨</text>
+
+  <!-- ===== Note + doc quote ===== -->
+  <rect x="16" y="484" width="1068" height="78" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
+  <text x="28" y="508" font-size="13" font-weight="600" fill="#232F3E">추정 원인(추론):</text>
+  <text x="28" y="528" font-size="13" fill="#545B64">목적지 주소를 되돌린 뒤의 목적지 172.20.N.10은 원래 주소이므로, Direct Connect gateway가 온프레미스에서 그 주소의 경로를 배워야 하는 것으로 보입니다.</text>
+  <text x="28" y="548" font-size="13" fill="#545B64">172.20.N.0/24를 다시 광고하면 2초 안에 복구됨(4번 중 4번 재현).</text>
+
+  <rect x="1100" y="484" width="662" height="78" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
+  <text x="1112" y="508" font-size="13" font-weight="600" fill="#232F3E">문서:</text>
+  <text x="1112" y="528" font-size="13" fill="#545B64">NatSystemRouteSupport를 disable로 두면 원래 대역을 광고할 필요가 없다고 설명함</text>
+  <text x="1112" y="548" font-size="13" fill="#545B64">(Transit Gateway 가이드, Routing behavior for 1:1 NAT)</text>
+</svg>

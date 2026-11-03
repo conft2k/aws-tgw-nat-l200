@@ -1,0 +1,164 @@
+{
+ "images/console/extraA-01-vpcb-to-original.png": [
+  0,
+  52,
+  1140,
+  236
+ ],
+ "images/console/extraB-01-blackhole.png": [
+  262,
+  588,
+  1428,
+  836
+ ],
+ "images/console/extraB-02-summary-active.png": [
+  262,
+  588,
+  1428,
+  863
+ ],
+ "images/console/extraB-03-disable-form.png": [
+  4,
+  98,
+  1436,
+  702
+ ],
+ "images/console/extraB-04-disable-propagated.png": [
+  262,
+  588,
+  1428,
+  863
+ ],
+ "images/console/extraC-01-nat-metrics.png": [
+  14,
+  108,
+  1426,
+  366
+ ],
+ "images/console/extraC-02-tgw-flow-logs.png": [
+  8,
+  330,
+  1428,
+  1000
+ ],
+ "images/console/extraC-03-vpc-flow-logs.png": [
+  8,
+  330,
+  1428,
+  1000
+ ],
+ "images/console/lab0-cfn-01-upload.png": [
+  296,
+  128,
+  1428,
+  860
+ ],
+ "images/console/lab0-cfn-02-parameters.png": [
+  300,
+  370,
+  1300,
+  945
+ ],
+ "images/console/lab0-cfn-03-ack.png": [
+  296,
+  568,
+  1428,
+  836
+ ],
+ "images/console/lab0-cfn-05-in-progress.png": [
+  478,
+  106,
+  1428,
+  602
+ ],
+ "images/console/lab1-assoc-02-form.png": [
+  12,
+  104,
+  1428,
+  552
+ ],
+ "images/console/lab1-dxgw-02-create.png": [
+  12,
+  104,
+  1428,
+  728
+ ],
+ "images/console/lab1-tgw-rt-01-before-nat.png": [
+  262,
+  588,
+  1428,
+  812
+ ],
+ "images/console/lab1-vif-05-peering.png": [
+  264,
+  552,
+  1428,
+  764
+ ],
+ "images/console/lab1-vif1-01-form.png": [
+  12,
+  126,
+  1428,
+  864
+ ],
+ "images/console/lab2-eic-01-connect.png": [
+  12,
+  104,
+  1428,
+  852
+ ],
+ "images/console/lab2-eic-02-tcpdump-overlap.png": [
+  0,
+  273,
+  1185,
+  516
+ ],
+ "images/console/lab2-eic-03-vpca-to-onprem.png": [
+  0,
+  52,
+  1320,
+  316
+ ],
+ "images/console/lab2-nat-01-dxgw-tab.png": [
+  262,
+  490,
+  1428,
+  864
+ ],
+ "images/console/lab2-nat-02-dxgw-form.png": [
+  4,
+  98,
+  1436,
+  702
+ ],
+ "images/console/lab2-nat-03-vpca-form.png": [
+  4,
+  98,
+  1436,
+  702
+ ],
+ "images/console/lab2-nat-04-dxgw-enabled.png": [
+  262,
+  490,
+  1428,
+  864
+ ],
+ "images/console/lab2-tgw-rt-02-after-nat.png": [
+  262,
+  588,
+  1428,
+  863
+ ],
+ "images/portal/lab0-portal-pod.png": [
+  432,
+  236,
+  1008,
+  700
+ ],
+ "images/portal/lab1-rt-bgp.png": [
+  0,
+  0,
+  810,
+  362
+ ]
+}

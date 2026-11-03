@@ -92,7 +92,7 @@
 | 1 | Direct Connect 연결 | ① **Direct Connect gateways** → **Create Direct Connect gateway**(ASN 65300) ② 스택 완료 후 DXGW 상세 → **Gateway associations** → **Associate gateway**(Transit Gateway, 허용된 접두사 `100.64.2.0/24`, `10.1.1.0/24`) ③ hosted connection마다 **Virtual interfaces** → **Create virtual interface** → **Transit**(Connection 선택, DXGW 선택, VLAN은 자동으로 채워지고 바꿀 수 없음, BGP ASN 65000) ④ 전송 가상 인터페이스 상세의 **Peerings** 탭에서 Your router peer IP, Amazon router peer IP, BGP authentication key 확인 ⑤ 사이트의 라우터 설정 생성기에 값을 넣어 만든 설정을 라우터에 붙여 넣기 ⑥ **Accepted Routes**·**Advertised Routes** 탭으로 주고받은 경로 확인 | 전송 가상 인터페이스 `available`, BGP `up`(콘솔), 라우터 `show ip bgp summary`에서 두 세션 Established, `10.1.1.0/24`·`100.64.2.0/24` 수신 | 20분 |
 | 2 | 기본 통신 | Transit Gateway 라우팅 테이블 확인, 라우터 Loopback1에서 VPC-B로 ping과 TCP 8080 | VPC-B 응답 서버가 `10.200.0.1`을 그대로 봄 | 5분 |
 | 3 | 겹치는 대역 문제 재현 | 라우팅 테이블에서 `172.20.N.0/24`가 VPC-A만 가리키는 것 확인, VPC-A EC2에 **Connect** → **EC2 Instance Connect Endpoint**로 접속해 tcpdump, VM에서 VPC-B로 ping | VM → VPC-B ping 실패(기대한 결과), VPC-A EC2가 VPC-B의 응답을 받음 | 7분 |
-| 4 | 1:1 NAT 적용 | **Transit gateway attachments** → DXGW 쪽 연결 → **1:1 NAT** 탭 → **Manage 1:1 NAT** → **Enable NAT Gateway support** 선택, **NAT system routes**는 선택된 채로 둠, **Add rule**(Rule number 100, Source CIDR `172.20.N.0/24`, NAT CIDR `100.64.1.0/24`) → **Save changes**. VPC-A 쪽 연결도 같은 방법(`100.64.2.0/24`, NAT system routes는 선택된 채 바꿀 수 없음) | 두 연결 모두 **Enabled**, 규칙 **Activated**(30–40초 안). 라우팅 테이블에 `100.64.1.0/24`·`100.64.2.0/24` `system` 경로 | 7분 |
+| 4 | 1:1 NAT 적용 | **Transit gateway attachments** → DXGW 쪽 연결 → **1:1 NAT** 탭 → **Manage 1:1 NAT** → **Enable NAT Gateway support** 선택, **NAT system routes**는 선택된 채로 둠, **Add rule**(Rule number 100, Source CIDR `172.20.N.0/24`, NAT CIDR `100.64.1.0/24`) → **Save changes**. VPC-A 쪽 연결도 같은 방법(`100.64.2.0/24`, NAT system routes는 선택된 채 바꿀 수 없음) | 두 연결 모두 **Enabled**, 규칙 **Activated**(리허설에서 약 13초). 라우팅 테이블에 `100.64.1.0/24`·`100.64.2.0/24` `system` 경로 | 7분 |
 | 5 | 양방향 통신과 1:1 매핑 | VM → `100.64.2.10` `ping`·`curl`, 보조 IP(`100.64.2.20`) `ping`, 고정 출발지 포트(`curl --local-port 40000`). VM에서 `python3 -m http.server 8080`을 띄우고 VPC-A EC2 → `100.64.1.10` `ping`·`curl`. **(선택)** UDP: `(echo hello; sleep 1) \| nc -u -w 2 100.64.2.10 9000`(traditional `nc`와 ncat 모두 동작). 시간이 부족하면 강사가 UDP 단계를 생략 | VPC-A는 `100.64.1.10`, 온프레미스는 `100.64.2.10`으로 봄. 마지막 옥텟·포트 유지. UDP 응답도 `saw 100.64.1.10:<포트>` | 10분 |
 
 실습 1은 25분 안에 과제 1·2(25분), 실습 2는 과제 3·4·5(24분)입니다. 과제 5에서 만든 트래픽은 추가 과제 C의 지표·로그 관측에 다시 씁니다.
@@ -178,7 +178,6 @@
 3. hosted connection 수락 시점: 행사 당일 실습 0 / 전날 참가자에게 미리 수락 안내
 4. 참가자 콘솔 로그인 방법(계정 자격 증명 전달 방식)
 5. Linux VM 준비: 기본 도구만 쓰는 방식으로 바꿈(제안). Pod 이미지를 바꿀 필요가 없는지 확인
-6. 참가자 정보 페이지는 같은 워크숍의 모든 행(다른 참가자의 웹 터미널 링크 포함)을 보여 줍니다. 외부 고객 행사에서 이대로 써도 되는지
 7. 주의 상자 내용의 AWS 확인 요청 여부와 담당
 8. 콘솔 리허설 일정(사전 테스트 계정 전달 후)
 

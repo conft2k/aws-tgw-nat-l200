@@ -1,0 +1,71 @@
+site_name: AWS Transit Gateway 1:1 NAT 워크숍
+site_description: Direct Connect와 AWS Transit Gateway 1:1 NAT로 겹치는 온프레미스 대역을 연결하는 실습(L200)
+site_url: https://conft2k.github.io/ws-aws-tgw-nat-l200/
+repo_url: https://github.com/conft2k/ws-aws-tgw-nat-l200
+repo_name: ws-aws-tgw-nat-l200
+edit_uri: ""
+copyright: MIT License
+
+theme:
+  name: material
+  language: ko
+  features:
+    - navigation.sections
+    - navigation.footer
+    - navigation.top
+    - content.code.copy
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: 어두운 모드
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: 밝은 모드
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+exclude_docs: |
+  *.draft.svg
+
+validation:
+  anchors: warn
+
+extra_css:
+  - assets/extra.css
+
+nav:
+  - 소개: index.md
+  - 사전 준비: prerequisites.md
+  - 용어 풀이: glossary.md
+  - 실습:
+      - "실습 0. 시작하기": lab0.md
+      - "실습 1. Direct Connect 연결": lab1.md
+      - "실습 2. 1:1 NAT 적용": lab2.md
+  - 추가 과제:
+      - "A. NAT 없는 VPC와 원래 경로": extra-a.md
+      - "B. 경로 설치 옵션": extra-b.md
+      - "C. 지표와 Flow Logs": extra-c.md
+      - "D. 리소스 정리": extra-d.md
+  - 부록:
+      - 라우터 설정 생성기: router-config.md
+      - "1:1 NAT 개념과 제약": concepts.md
+      - 사전 검증에서 관찰한 동작: observed.md
+      - 문제 해결: troubleshooting.md
+      - 참고 문서: references.md

@@ -1,0 +1,117 @@
+<svg viewBox="0 0 1920 612" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker>
+<marker id="arrowStart" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6 Z" fill="#232F3E"/></marker>
+<marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#1D8102"/></marker>
+<marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#E07000"/></marker>
+<marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#D13212"/></marker>
+<marker id="arrowGrey" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#7D8998"/></marker>
+</defs>
+<rect width="1920" height="612" fill="#FFFFFF"/>
+<rect x="16" y="257" width="444" height="143" fill="none" stroke="#7D8998" stroke-width="2"/>
+<image href="bundle:group/Corporate-data-center_32" x="16" y="257" width="24" height="24"/>
+<text x="48" y="275" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (Pod N)</text>
+<text x="48" y="291" font-size="13" fill="#232F3E">LAN 172.20.N.0/24</text>
+<rect x="626" y="16" width="1278" height="580" fill="none" stroke="#232F3E" stroke-width="2"/>
+<image href="bundle:group/AWS-Cloud-logo_32" x="626" y="16" width="32" height="32"/>
+<text x="668" y="38" font-size="15" font-weight="600" fill="#232F3E">AWS Cloud</text>
+<rect x="818" y="50" width="1070" height="530" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
+<image href="bundle:group/Region_32" x="818" y="50" width="24" height="24"/>
+<text x="850" y="68" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
+<rect x="1650" y="232" width="222" height="332" fill="none" stroke="#8C4FFF" stroke-width="2"/>
+<image href="bundle:group/Virtual-private-cloud-VPC_32" x="1650" y="232" width="24" height="24"/>
+<text x="1682" y="250" font-size="14" font-weight="600" fill="#8C4FFF">VPC-A</text>
+<text x="1682" y="266" font-size="13" fill="#232F3E">172.20.N.0/24</text>
+<rect x="1666" y="278" width="190" height="270" fill="none" stroke="#00A4A6" stroke-width="1.5"/>
+<image href="bundle:group/Private-subnet_32" x="1666" y="278" width="24" height="24"/>
+<text x="1698" y="296" font-size="14" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
+<image href="bundle:resource/Server" x="48" y="306" width="48" height="48"/>
+<text x="72" y="372" font-size="14" text-anchor="middle" fill="#232F3E">VM vmN</text>
+<text x="72" y="388" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
+<image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="386" y="306" width="48" height="48"/>
+<text x="410" y="372" font-size="14" text-anchor="middle" fill="#232F3E">라우터 rtN</text>
+<text x="410" y="388" font-size="13" text-anchor="middle" fill="#545B64">AS 65000</text>
+<image href="bundle:service/AWS-Direct-Connect" x="520" y="306" width="48" height="48"/>
+<text x="544" y="372" font-size="14" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
+<text x="544" y="388" font-size="13" text-anchor="middle" fill="#545B64">transit VIF 2개</text>
+<image href="bundle:resource/AWS-Direct-Connect_Gateway" x="698" y="306" width="48" height="48"/>
+<text x="722" y="372" font-size="14" text-anchor="middle" fill="#232F3E">Direct Connect gateway</text>
+<text x="722" y="388" font-size="13" text-anchor="middle" fill="#545B64">AS 65300</text>
+<image href="bundle:service/AWS-Transit-Gateway" x="1210" y="306" width="48" height="48"/>
+<text x="1234" y="372" font-size="14" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
+<text x="1234" y="388" font-size="13" text-anchor="middle" fill="#545B64">AS 65400</text>
+<image href="bundle:service/Amazon-EC2" x="1736" y="306" width="48" height="48"/>
+<text x="1760" y="372" font-size="14" text-anchor="middle" fill="#232F3E">EC2</text>
+<text x="1760" y="388" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
+<line x1="100" y1="322" x2="382" y2="322" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="382" y1="338" x2="100" y2="338" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
+<line x1="438" y1="322" x2="516" y2="322" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="516" y1="338" x2="438" y2="338" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
+<line x1="572" y1="322" x2="694" y2="322" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="694" y1="338" x2="572" y2="338" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
+<line x1="750" y1="322" x2="1206" y2="322" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="1206" y1="338" x2="750" y2="338" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
+<line x1="1262" y1="322" x2="1732" y2="322" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="1732" y1="338" x2="1262" y2="338" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
+<text x="120" y="312" font-size="13" font-weight="600" fill="#232F3E">요청 172.20.N.10 → 100.64.2.10</text>
+<text x="120" y="360" font-size="13" font-weight="600" fill="#1D8102">응답 100.64.2.10 → 172.20.N.10</text>
+<text x="1302" y="312" font-size="13" font-weight="600" fill="#232F3E">요청 100.64.1.10 → 172.20.N.10</text>
+<text x="1302" y="360" font-size="13" font-weight="600" fill="#1D8102">응답 172.20.N.10 → 100.64.1.10</text>
+<rect x="830" y="92" width="320" height="104" rx="4" fill="#FFFFFF" stroke="#7D8998" stroke-width="1"/>
+<text x="842" y="112" font-size="13" font-weight="700" fill="#232F3E">DXGW 연결 지표</text>
+<text x="842" y="130" font-size="13" font-weight="600" fill="#232F3E">PacketsInNAT / BytesInNAT</text>
+<text x="842" y="148" font-size="13" fill="#545B64">= 들어올 때 출발지 주소 바꾸기(SNAT) · 요청</text>
+<text x="842" y="166" font-size="13" font-weight="600" fill="#232F3E">PacketsOutNAT / BytesOutNAT</text>
+<text x="842" y="184" font-size="13" fill="#545B64">= 나갈 때 목적지 주소 되돌리기(DNAT) · 응답</text>
+<line x1="1010" y1="196" x2="1010" y2="319" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
+<circle cx="1010" cy="322" r="3" fill="#7D8998"/>
+<rect x="1318" y="92" width="320" height="104" rx="4" fill="#FFFFFF" stroke="#7D8998" stroke-width="1"/>
+<text x="1330" y="112" font-size="13" font-weight="700" fill="#232F3E">VPC-A 연결 지표</text>
+<text x="1330" y="130" font-size="13" font-weight="600" fill="#232F3E">PacketsInNAT / BytesInNAT</text>
+<text x="1330" y="148" font-size="13" fill="#545B64">= 들어올 때 출발지 주소 바꾸기(SNAT) · 응답</text>
+<text x="1330" y="166" font-size="13" font-weight="600" fill="#232F3E">PacketsOutNAT / BytesOutNAT</text>
+<text x="1330" y="184" font-size="13" fill="#545B64">= 나갈 때 목적지 주소 되돌리기(DNAT) · 요청</text>
+<line x1="1600" y1="196" x2="1600" y2="319" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
+<circle cx="1600" cy="322" r="3" fill="#7D8998"/>
+<image href="bundle:service/Amazon-CloudWatch" x="1210" y="116" width="48" height="48"/>
+<text x="1234" y="182" font-size="14" text-anchor="middle" fill="#232F3E">Amazon CloudWatch</text>
+<text x="1234" y="198" font-size="13" text-anchor="middle" fill="#545B64">NAT 지표 (Sum, 1분)</text>
+<text x="1234" y="214" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">두 NAT 연결의 값이 같음</text>
+<polyline points="1198,398 1198,460 1048,460" fill="none" stroke="#232F3E" stroke-width="1.5"/>
+<image href="bundle:service/Amazon-Virtual-Private-Cloud" x="996" y="436" width="48" height="48"/>
+<text x="1020" y="502" font-size="14" text-anchor="middle" fill="#232F3E">VPC-B</text>
+<text x="1020" y="518" font-size="13" text-anchor="middle" fill="#545B64">10.1.1.0/24</text>
+<text x="1020" y="534" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">VPC-B 연결: NAT 지표 0</text>
+<line x1="1234" y1="398" x2="1234" y2="432" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
+<image href="bundle:resource/Amazon-VPC_Flow-Logs" x="1210" y="436" width="48" height="48"/>
+<text x="1234" y="502" font-size="14" text-anchor="middle" fill="#232F3E">TGW Flow Logs</text>
+<text x="1234" y="518" font-size="13" text-anchor="middle" fill="#545B64">Transit Gateway 단위 로그 1개</text>
+<text x="1234" y="534" font-size="13" font-weight="700" text-anchor="middle" fill="#232F3E">172.20.N.10 → 172.20.N.10</text>
+<text x="1234" y="550" font-size="13" text-anchor="middle" fill="#545B64">출발지는 바꾸기 전, 목적지는 되돌린 후</text>
+<text x="1234" y="566" font-size="13" text-anchor="middle" fill="#545B64">사전 검증에서 관찰(문서에는 설명 없음)</text>
+<image href="bundle:resource/Amazon-CloudWatch_Logs" x="1436" y="436" width="48" height="48"/>
+<text x="1460" y="502" font-size="14" text-anchor="middle" fill="#232F3E">CloudWatch Logs</text>
+<text x="1460" y="518" font-size="13" text-anchor="middle" fill="#545B64">Logs Insights로 조회</text>
+<image href="bundle:resource/Amazon-VPC_Flow-Logs" x="1736" y="436" width="48" height="48"/>
+<text x="1760" y="502" font-size="14" text-anchor="middle" fill="#232F3E">VPC Flow Logs</text>
+<text x="1760" y="518" font-size="13" text-anchor="middle" fill="#545B64">EC2 ENI에서 본 주소</text>
+<text x="1760" y="534" font-size="13" font-weight="700" text-anchor="middle" fill="#232F3E">pkt-srcaddr 100.64.1.10</text>
+<line x1="1262" y1="460" x2="1432" y2="460" stroke="#7D8998" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowGrey)"/>
+<line x1="1732" y1="460" x2="1488" y2="460" stroke="#7D8998" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowGrey)"/>
+<rect x="16" y="16" width="586" height="140" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
+<text x="28" y="42" font-size="13" font-weight="700" fill="#232F3E">CloudWatch 지표</text>
+<text x="148.65" y="42" font-size="13" fill="#545B64">NAT 규칙이 실제로 번역한 연결에서만 늘어납니다 (VPC-B 연결은 0).</text>
+<text x="28" y="66" font-size="13" font-weight="700" fill="#232F3E">TGW Flow Logs</text>
+<text x="148.65" y="66" font-size="13" fill="#545B64">양 끝의 실제 주소를 남깁니다: 172.20.N.10 → 172.20.N.10.</text>
+<text x="28" y="90" font-size="13" font-weight="700" fill="#232F3E">VPC Flow Logs</text>
+<text x="148.65" y="90" font-size="13" fill="#545B64">VPC 안에서 보이는 주소를 남깁니다: pkt-srcaddr 100.64.1.10.</text>
+<text x="28" y="114" font-size="13" font-weight="700" fill="#232F3E">확인 방법</text>
+<text x="148.65" y="114" font-size="13" fill="#545B64">상대에게 보인 주소는 VPC Flow Logs나 패킷 캡처로 봅니다.</text>
+<text x="28" y="138" font-size="13" font-weight="700" fill="#232F3E">선</text>
+<line x1="148.65" y1="134" x2="184.65" y2="134" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="192.65" y="138" font-size="13" fill="#545B64">요청</text>
+<line x1="238.65" y1="134" x2="274.65" y2="134" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
+<text x="282.65" y="138" font-size="13" fill="#545B64">응답</text>
+<line x1="328.65" y1="134" x2="364.65" y2="134" stroke="#7D8998" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowGrey)"/>
+<text x="372.65" y="138" font-size="13" fill="#545B64">로그 전송</text>
+</svg>
