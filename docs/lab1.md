@@ -114,7 +114,7 @@ telnet 10.1.1.10 8080 /source-interface Loopback1
 
 `telnet`이 연결되면 `GET / HTTP/1.0`을 입력하고 Enter를 두 번 누릅니다.
 
-사전 검증에서 실제로 나온 출력입니다(Pod 89). 포트 번호와 시간은 매번 다릅니다.
+사전 테스트 때 실제로 나온 출력입니다(Pod 89). 포트 번호와 시간은 매번 다릅니다.
 
 ```text
 rt89#ping 10.1.1.10 source Loopback1 repeat 5

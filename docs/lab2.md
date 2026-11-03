@@ -119,7 +119,7 @@ VPC-A의 EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 
 
     VPC 연결에서 규칙의 원래 대역이 VPC 대역과 다르면(예: `/16` VPC 안의 `/24`) 주소는 바뀌지만 경로는 생기지 않습니다. 그러면 NAT 주소로 오는 패킷(응답 포함)이 VPC로 가지 못합니다. 이때는 NAT 대역 정적 경로를 직접 추가해야 합니다.
 
-**성공 확인**: **1:1 NAT** 탭에 **NAT Gateway support: Enabled**, 규칙 상태 **Activated**가 보입니다(리허설에서는 약 13초).
+**성공 확인**: **1:1 NAT** 탭에 **NAT Gateway support: Enabled**, 규칙 상태 **Activated**가 보입니다(사전 테스트 시 약 13초).
 
 ![1:1 NAT 탭: NAT Gateway support Enabled, 규칙 100 Activated](images/console/lab2-nat-04-dxgw-enabled.png){ .shot }
 
