@@ -108,3 +108,4 @@
 .gen-gutter .gen-badge { font-size: 0.62rem; }
 .gen-msg { font-size: 0.75rem; color: var(--md-accent-fg-color); }
 .gen-msg.gen-warn { color: #c2410c; font-weight: 600; }
+.gen-code:empty::after { content: " "; }
