@@ -93,7 +93,7 @@
 | 2 | 기본 통신 | Transit Gateway 라우팅 테이블 확인, 라우터 Loopback1에서 VPC-B로 ping과 TCP 8080 | VPC-B 응답 서버가 `10.200.0.1`을 그대로 봄 | 5분 |
 | 3 | 겹치는 대역 문제 재현 | 라우팅 테이블에서 `172.20.N.0/24`가 VPC-A만 가리키는 것 확인, VPC-A EC2에 **Connect** → **EC2 Instance Connect Endpoint**로 접속해 tcpdump, VM에서 VPC-B로 ping | VM → VPC-B ping 실패(기대한 결과), VPC-A EC2가 VPC-B의 응답을 받음 | 7분 |
 | 4 | 1:1 NAT 적용 | **Transit gateway attachments** → DXGW 쪽 연결 → **1:1 NAT** 탭 → **Manage 1:1 NAT** → **Enable NAT Gateway support** 선택, **NAT system routes**는 선택된 채로 둠, **Add rule**(Rule number 100, Source CIDR `172.20.N.0/24`, NAT CIDR `100.64.1.0/24`) → **Save changes**. VPC-A 쪽 연결도 같은 방법(`100.64.2.0/24`, NAT system routes는 선택된 채 바꿀 수 없음) | 두 연결 모두 **Enabled**, 규칙 **Activated**(30–40초 안). 라우팅 테이블에 `100.64.1.0/24`·`100.64.2.0/24` `system` 경로 | 7분 |
-| 5 | 양방향 통신과 1:1 매핑 | VM → `100.64.2.10` ping·`curl`·UDP(`nc -u -w 2`), 보조 IP(`100.64.2.20`), 고정 출발지 포트(`curl --local-port 40000`). VM에서 `python3 -m http.server 8080`을 띄우고 VPC-A EC2 → `100.64.1.10` ping·curl | VPC-A는 `100.64.1.10`, 온프레미스는 `100.64.2.10`으로 봄. 마지막 옥텟·포트 유지 | 10분 |
+| 5 | 양방향 통신과 1:1 매핑 | VM → `100.64.2.10` ping·`curl`·UDP(`(echo hello; sleep 1) | nc -u -w 2 …`, traditional `nc`와 ncat 모두 동작), 보조 IP(`100.64.2.20`), 고정 출발지 포트(`curl --local-port 40000`). VM에서 `python3 -m http.server 8080`을 띄우고 VPC-A EC2 → `100.64.1.10` ping·curl | VPC-A는 `100.64.1.10`, 온프레미스는 `100.64.2.10`으로 봄. 마지막 옥텟·포트 유지 | 10분 |
 
 실습 1은 25분 안에 과제 1·2(25분), 실습 2는 과제 3·4·5(24분)입니다. 과제 5에서 만든 트래픽은 추가 과제 C의 지표·로그 관측에 다시 씁니다.
 
