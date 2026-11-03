@@ -105,32 +105,35 @@
   <text x="1210" y="268" font-size="13" text-anchor="middle" fill="#545B64">transit VIF 2개</text>
 
   <!-- ===== On-premises ===== -->
-  <rect x="1300" y="48" width="462" height="272" fill="none" stroke="#7D8998" stroke-width="2"/>
+  <rect x="1300" y="48" width="462" height="280" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="bundle:group/Corporate-data-center_32" x="1300" y="48" width="24" height="24"/>
   <text x="1332" y="66" font-size="14" font-weight="600" fill="#7D8998">온프레미스(Pod N)</text>
   <text x="1332" y="82" font-size="13" fill="#232F3E">LAN 172.20.N.0/24</text>
 
   <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="1416" y="186" width="48" height="48"/>
-  <text x="1440" y="252" font-size="14" text-anchor="middle" fill="#232F3E">라우터 rtN</text>
-  <text x="1440" y="268" font-size="13" text-anchor="middle" fill="#545B64">광고: 100.64.1.0/24(Null0)</text>
-  <text x="1440" y="284" font-size="13" text-anchor="middle" fill="#545B64">Loopback1 10.200.0.1/32</text>
-  <text x="1440" y="300" font-size="13" font-weight="600" text-anchor="middle" fill="#D13212">172.20.N.0/24 광고 중단</text>
+  <text x="1440" y="252" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+  <text x="1440" y="268" font-size="14" text-anchor="middle" fill="#232F3E">rtN</text>
+  <text x="1440" y="284" font-size="13" text-anchor="middle" fill="#545B64">광고: 100.64.1.0/24(Null0)</text>
+  <text x="1440" y="300" font-size="13" text-anchor="middle" fill="#545B64">Loopback1 10.200.0.1/32</text>
+  <text x="1440" y="316" font-size="13" font-weight="600" text-anchor="middle" fill="#D13212">172.20.N.0/24 광고 중단</text>
 
   <image href="bundle:resource/Server" x="1636" y="186" width="48" height="48"/>
-  <text x="1660" y="252" font-size="14" text-anchor="middle" fill="#232F3E">VM vmN</text>
-  <text x="1660" y="268" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
+  <text x="1660" y="252" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 VM</text>
+  <text x="1660" y="268" font-size="14" text-anchor="middle" fill="#232F3E">vmN</text>
+  <text x="1660" y="284" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
 
   <!-- Evidence 2: router VIF subinterfaces -->
-  <rect x="1312" y="94" width="262" height="64" rx="4" fill="#FFFFFF" stroke="#7D8998" stroke-width="1"/>
-  <text x="1324" y="112" font-size="13" font-weight="600" fill="#232F3E">라우터 rtN VIF 서브인터페이스</text>
-  <text x="1324" y="129" font-size="13" font-weight="600" fill="#D13212">인바운드 ACL 카운터(받은 패킷 수):</text>
-  <text x="1324" y="146" font-size="13" font-weight="600" fill="#D13212">손실 중 증가 0</text>
-  <line x1="1380" y1="158" x2="1380" y2="199" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="1312" y="94" width="262" height="81" rx="4" fill="#FFFFFF" stroke="#7D8998" stroke-width="1"/>
+  <text x="1324" y="112" font-size="13" font-weight="600" fill="#232F3E">온프레미스 라우터 rtN</text>
+  <text x="1324" y="129" font-size="13" font-weight="600" fill="#232F3E">VIF 서브인터페이스</text>
+  <text x="1324" y="146" font-size="13" font-weight="600" fill="#D13212">인바운드 ACL 카운터(받은 패킷 수):</text>
+  <text x="1324" y="163" font-size="13" font-weight="600" fill="#D13212">손실 중 증가 0</text>
+  <line x1="1380" y1="175" x2="1380" y2="199" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
   <circle cx="1380" cy="202" r="3" fill="#7D8998"/>
 
   <!-- Evidence 3: VM capture -->
   <rect x="1586" y="94" width="160" height="47" rx="4" fill="#FFFFFF" stroke="#7D8998" stroke-width="1"/>
-  <text x="1598" y="112" font-size="13" font-weight="600" fill="#232F3E">VM vmN</text>
+  <text x="1598" y="112" font-size="13" font-weight="600" fill="#232F3E">온프레미스 VM vmN</text>
   <text x="1598" y="129" font-size="13" font-weight="600" fill="#D13212">tcpdump: 0개</text>
   <line x1="1660" y1="141" x2="1660" y2="183" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
 
@@ -155,7 +158,7 @@
   <line x1="1300" y1="380" x2="1336" y2="380" stroke="#7D8998" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowGrey)"/>
   <text x="1344" y="384" font-size="13" fill="#545B64">나머지 경로, 도착한 패킷 0개</text>
   <line x1="1300" y1="404" x2="1336" y2="404" stroke="#1D8102" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
-  <text x="1344" y="408" font-size="13" fill="#545B64">온프레미스 → AWS(VM → 100.64.2.10): 전달됨</text>
+  <text x="1344" y="408" font-size="13" fill="#545B64">온프레미스 → AWS(온프레미스 VM → 100.64.2.10): 전달됨</text>
 
   <rect x="1300" y="422" width="36" height="16" fill="#FADBD8"/>
   <line x1="1300" y1="430" x2="1336" y2="430" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>

@@ -2,7 +2,7 @@
   <!-- Concept: where TGW 1:1 NAT rewrites addresses (per attachment, both directions). -->
   <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker></defs>
   <rect width="1445" height="441" fill="#FFFFFF"/>
-  <rect x="16" y="140" width="268" height="148" fill="none" stroke="#7D8998" stroke-width="2"/>
+  <rect x="16" y="140" width="268" height="164" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="bundle:group/Corporate-data-center_32" x="16" y="140" width="24" height="24"/>
   <text x="48" y="158" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
   <text x="48" y="174" font-size="13" fill="#232F3E">LAN 172.20.N.0/24</text>
@@ -13,10 +13,12 @@
   <image href="bundle:group/Region_32" x="664" y="50" width="24" height="24"/>
   <text x="696" y="68" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
   <image href="bundle:resource/Server" x="52" y="194" width="48" height="48"/>
-  <text x="76" y="260" font-size="14" text-anchor="middle" fill="#232F3E">VM vmN</text>
-  <text x="76" y="276" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
+  <text x="76" y="260" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 VM</text>
+  <text x="76" y="276" font-size="14" text-anchor="middle" fill="#232F3E">vmN</text>
+  <text x="76" y="292" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
   <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="192" y="194" width="48" height="48"/>
-  <text x="216" y="260" font-size="14" text-anchor="middle" fill="#232F3E">라우터 rtN</text>
+  <text x="216" y="260" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+  <text x="216" y="276" font-size="14" text-anchor="middle" fill="#232F3E">rtN</text>
   <image href="bundle:service/AWS-Direct-Connect" x="350" y="194" width="48" height="48"/>
   <text x="374" y="260" font-size="14" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
   <image href="bundle:resource/AWS-Direct-Connect_Gateway" x="536" y="194" width="48" height="48"/>

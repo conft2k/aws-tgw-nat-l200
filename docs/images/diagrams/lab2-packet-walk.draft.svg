@@ -2,7 +2,7 @@
   <!-- Lab 2 after NAT: packet walk VM -> VPC-A EC2 and back. Orange = the address the step rewrote. -->
   <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker></defs>
   <rect width="1591" height="752" fill="#FFFFFF"/>
-  <rect x="16" y="34" width="284" height="230" fill="none" stroke="#7D8998" stroke-width="2"/>
+  <rect x="16" y="34" width="284" height="246" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="bundle:group/Corporate-data-center_32" x="16" y="34" width="24" height="24"/>
   <text x="48" y="52" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
   <text x="48" y="68" font-size="13" fill="#232F3E">LAN 172.20.N.0/24</text>
@@ -20,10 +20,12 @@
   <image href="bundle:group/Private-subnet_32" x="1249" y="126" width="24" height="24"/>
   <text x="1281" y="144" font-size="14" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
   <image href="bundle:resource/Server" x="52" y="168" width="48" height="48"/>
-  <text x="76" y="234" font-size="14" text-anchor="middle" fill="#232F3E">VM vmN</text>
-  <text x="76" y="250" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
-  <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="212" y="168" width="48" height="48"/>
-  <text x="236" y="234" font-size="14" text-anchor="middle" fill="#232F3E">라우터 rtN</text>
+  <text x="76" y="234" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 VM</text>
+  <text x="76" y="250" font-size="14" text-anchor="middle" fill="#232F3E">vmN</text>
+  <text x="76" y="266" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
+  <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="204" y="168" width="48" height="48"/>
+  <text x="228" y="234" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+  <text x="228" y="250" font-size="14" text-anchor="middle" fill="#232F3E">rtN</text>
   <image href="bundle:service/AWS-Direct-Connect" x="366" y="168" width="48" height="48"/>
   <text x="390" y="234" font-size="14" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
   <text x="390" y="250" font-size="13" text-anchor="middle" fill="#545B64">전송 가상 인터페이스</text>
@@ -36,10 +38,10 @@
   <text x="1384" y="250" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
   <text x="723" y="178" font-size="13" text-anchor="middle" fill="#545B64">DXGW 연결</text>
   <text x="1149" y="178" font-size="13" text-anchor="middle" fill="#545B64">VPC-A 연결</text>
-  <line x1="104" y1="184" x2="204" y2="184" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="208" y1="200" x2="108" y2="200" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <line x1="264" y1="184" x2="358" y2="184" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="362" y1="200" x2="268" y2="200" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <line x1="104" y1="184" x2="196" y2="184" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="200" y1="200" x2="108" y2="200" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <line x1="256" y1="184" x2="358" y2="184" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="362" y1="200" x2="260" y2="200" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
   <line x1="418" y1="184" x2="544" y2="184" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
   <line x1="548" y1="200" x2="422" y2="200" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
   <line x1="604" y1="184" x2="925" y2="184" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
@@ -49,7 +51,7 @@
   <rect x="31" y="80" width="250" height="76" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
   <circle cx="51" cy="100" r="10" fill="#232F3E"/>
   <text x="51" y="104.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-  <text x="69" y="105" font-size="13" font-weight="600" fill="#232F3E">VM이 보냄</text>
+  <text x="69" y="105" font-size="13" font-weight="600" fill="#232F3E">온프레미스 VM이 보냄</text>
   <text x="69" y="125" font-size="13" fill="#545B64">출발지</text>
   <text x="119" y="125" font-size="13" fill="#232F3E">172.20.N.10</text>
   <text x="69" y="142" font-size="13" fill="#545B64">목적지</text>
@@ -79,7 +81,7 @@
   <rect x="1259" y="262" width="250" height="76" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
   <circle cx="1279" cy="282" r="10" fill="#232F3E"/>
   <text x="1279" y="286.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text>
-  <text x="1297" y="287" font-size="13" font-weight="600" fill="#232F3E">EC2가 응답</text>
+  <text x="1297" y="287" font-size="13" font-weight="600" fill="#232F3E">VPC-A EC2가 응답</text>
   <text x="1297" y="307" font-size="13" fill="#545B64">출발지</text>
   <text x="1347" y="307" font-size="13" fill="#232F3E">172.20.N.10</text>
   <text x="1297" y="324" font-size="13" fill="#545B64">목적지</text>
@@ -136,8 +138,8 @@
   <rect x="16" y="572" width="1559" height="164" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
   <circle cx="38" cy="594" r="10" fill="#232F3E"/>
   <text x="38" y="598.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-  <text x="56" y="598.5" font-size="13" font-weight="600" fill="#232F3E">VM이 보냄</text>
-  <text x="261.25" y="598.5" font-size="13" fill="#545B64">VM이 VPC-A EC2의 NAT 주소 100.64.2.10으로 보냅니다. 라우터는 BGP로 받은 경로를 따라 전송 가상 인터페이스로 보냅니다.</text>
+  <text x="56" y="598.5" font-size="13" font-weight="600" fill="#232F3E">온프레미스 VM이 보냄</text>
+  <text x="261.25" y="598.5" font-size="13" fill="#545B64">온프레미스 VM이 VPC-A EC2의 NAT 주소 100.64.2.10으로 보냅니다. 온프레미스 라우터는 BGP로 받은 경로를 따라 전송 가상 인터페이스로 보냅니다.</text>
   <circle cx="38" cy="618" r="10" fill="#232F3E"/>
   <text x="38" y="622.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
   <text x="56" y="622.5" font-size="13" font-weight="600" fill="#232F3E">DXGW 연결 · 들어올 때 SNAT</text>
@@ -145,11 +147,11 @@
   <circle cx="38" cy="642" r="10" fill="#232F3E"/>
   <text x="38" y="646.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
   <text x="56" y="646.5" font-size="13" font-weight="600" fill="#232F3E">VPC-A 연결 · 나갈 때 DNAT</text>
-  <text x="261.25" y="646.5" font-size="13" fill="#545B64">목적지 100.64.2.10이 NAT 대역 100.64.2.0/24 안이므로 원래 주소 172.20.N.10으로 되돌립니다. EC2는 VM을 100.64.1.10으로 봅니다.</text>
+  <text x="261.25" y="646.5" font-size="13" fill="#545B64">목적지 100.64.2.10이 NAT 대역 100.64.2.0/24 안이므로 원래 주소 172.20.N.10으로 되돌립니다. VPC-A EC2는 온프레미스 VM을 100.64.1.10으로 봅니다.</text>
   <circle cx="38" cy="666" r="10" fill="#232F3E"/>
   <text x="38" y="670.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text>
-  <text x="56" y="670.5" font-size="13" font-weight="600" fill="#232F3E">EC2가 응답</text>
-  <text x="261.25" y="670.5" font-size="13" fill="#545B64">EC2가 100.64.1.10으로 응답합니다. 스택이 VPC 라우팅 테이블에 100.64.1.0/24 → Transit Gateway 경로를 넣어 두었습니다.</text>
+  <text x="56" y="670.5" font-size="13" font-weight="600" fill="#232F3E">VPC-A EC2가 응답</text>
+  <text x="261.25" y="670.5" font-size="13" fill="#545B64">VPC-A EC2가 100.64.1.10으로 응답합니다. 스택이 VPC 라우팅 테이블에 100.64.1.0/24 → Transit Gateway 경로를 넣어 두었습니다.</text>
   <circle cx="38" cy="690" r="10" fill="#232F3E"/>
   <text x="38" y="694.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text>
   <text x="56" y="694.5" font-size="13" font-weight="600" fill="#232F3E">VPC-A 연결 · 들어올 때 SNAT</text>
@@ -157,5 +159,5 @@
   <circle cx="38" cy="714" r="10" fill="#232F3E"/>
   <text x="38" y="718.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">6</text>
   <text x="56" y="718.5" font-size="13" font-weight="600" fill="#232F3E">DXGW 연결 · 나갈 때 DNAT</text>
-  <text x="261.25" y="718.5" font-size="13" fill="#545B64">목적지 100.64.1.10을 원래 주소 172.20.N.10으로 되돌려 VM에 전달합니다. VM은 EC2를 100.64.2.10으로 봅니다.</text>
+  <text x="261.25" y="718.5" font-size="13" fill="#545B64">목적지 100.64.1.10을 원래 주소 172.20.N.10으로 되돌려 온프레미스 VM에 전달합니다. 온프레미스 VM은 VPC-A EC2를 100.64.2.10으로 봅니다.</text>
 </svg>

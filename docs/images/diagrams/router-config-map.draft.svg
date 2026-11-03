@@ -14,21 +14,23 @@
   <image href="bundle:group/Region_32" x="1005" y="193" width="24" height="24"/>
   <text x="1037" y="211" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
   <image href="bundle:resource/Server" x="98" y="231" width="48" height="48"/>
-  <text x="122" y="297" font-size="16" text-anchor="middle" fill="#232F3E">VM vmN</text>
-  <circle cx="62.375" cy="318" r="13" fill="#232F3E"/>
-  <text x="62.375" y="323.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-  <text x="81.375" y="323" font-size="15" font-weight="500" fill="#232F3E">온프레미스 대역</text>
-  <text x="122" y="343" font-size="15" font-weight="500" text-anchor="middle" fill="#232F3E">172.20.N.0/24</text>
+  <text x="122" y="297" font-size="16" text-anchor="middle" fill="#232F3E">온프레미스 VM</text>
+  <text x="122" y="315" font-size="16" text-anchor="middle" fill="#232F3E">vmN</text>
+  <circle cx="62.375" cy="336" r="13" fill="#232F3E"/>
+  <text x="62.375" y="341.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+  <text x="81.375" y="341" font-size="15" font-weight="500" fill="#232F3E">온프레미스 대역</text>
+  <text x="122" y="361" font-size="15" font-weight="500" text-anchor="middle" fill="#232F3E">172.20.N.0/24</text>
   <polyline points="150,255 256,255" fill="none" stroke="#232F3E" stroke-width="1.5"/>
   <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="260" y="231" width="48" height="48"/>
-  <text x="284" y="297" font-size="16" text-anchor="middle" fill="#232F3E">라우터 rtN</text>
-  <circle cx="242" cy="318" r="13" fill="#232F3E"/>
-  <text x="242" y="323.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text>
-  <text x="261" y="323" font-size="15" font-weight="500" fill="#232F3E">라우터 ASN</text>
-  <text x="284" y="343" font-size="15" font-weight="500" text-anchor="middle" fill="#232F3E">65000</text>
-  <circle cx="186.125" cy="364" r="13" fill="#232F3E"/>
-  <text x="186.125" y="369.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
-  <text x="205.125" y="369" font-size="15" font-weight="500" fill="#232F3E">Loopback1 10.200.0.1/32</text>
+  <text x="284" y="297" font-size="16" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+  <text x="284" y="315" font-size="16" text-anchor="middle" fill="#232F3E">rtN</text>
+  <circle cx="242" cy="336" r="13" fill="#232F3E"/>
+  <text x="242" y="341.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text>
+  <text x="261" y="341" font-size="15" font-weight="500" fill="#232F3E">라우터 ASN</text>
+  <text x="284" y="361" font-size="15" font-weight="500" text-anchor="middle" fill="#232F3E">65000</text>
+  <circle cx="186.125" cy="382" r="13" fill="#232F3E"/>
+  <text x="186.125" y="387.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
+  <text x="205.125" y="387" font-size="15" font-weight="500" fill="#232F3E">Loopback1 10.200.0.1/32</text>
   <polyline points="312,247 401,247 401,120 713,120" fill="none" stroke="#2563EB" stroke-width="1.5"/>
   <polyline points="769,120 847,120 847,247 893,247" fill="none" stroke="#2563EB" stroke-width="1.5"/>
   <image href="bundle:service/AWS-Direct-Connect" x="717" y="96" width="48" height="48"/>

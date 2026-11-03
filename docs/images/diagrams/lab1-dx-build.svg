@@ -13,8 +13,9 @@
   <image href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0MHB4IiB2aWV3Qm94PSIwIDAgNDAgNDAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+SWNvbi1BcmNoaXRlY3R1cmUtR3JvdXAvMzIvUmVnaW9uXzMyPC90aXRsZT4KICAgIDxnIGlkPSJJY29uLUFyY2hpdGVjdHVyZS1Hcm91cC8zMi9SZWdpb25fMzIiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUiIGZpbGw9IiMwMEE0QTYiIHg9IjAiIHk9IjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PC9yZWN0PgogICAgICAgIDxwYXRoIGQ9Ik0xNCwyMC4wMjYgTDE0LDExLjAyNiBMMjkuMjkzLDExLjAyNiBMMjUuMTQ2LDE1LjE3MiBDMjQuOTUxLDE1LjM2OCAyNC45NTEsMTUuNjg0IDI1LjE0NiwxNS44OCBMMjkuMjkzLDIwLjAyNiBMMTQsMjAuMDI2IFogTTI2LjIwNywxNS41MjYgTDMwLjg1NCwxMC44OCBDMzAuOTk2LDEwLjczNiAzMS4wMzksMTAuNTIyIDMwLjk2MiwxMC4zMzUgQzMwLjg4NSwxMC4xNDggMzAuNzAyLDEwLjAyNiAzMC41LDEwLjAyNiBMMTQsMTAuMDI2IEwxNCw4Ljk3IEMxNC41OTYsOC43NiAxNS4wMjYsOC4xOTggMTUuMDI2LDcuNTMxIEMxNS4wMjYsNi42ODcgMTQuMzQsNiAxMy40OTUsNiBDMTIuNjUsNiAxMS45NjMsNi42ODcgMTEuOTYzLDcuNTMxIEMxMS45NjMsOC4yMDEgMTIuMzk4LDguNzY2IDEzLDguOTczIEwxMywzMy4wMjYgTDEwLDMzLjAyNiBMMTAsMzQuMDI2IEwxNywzNC4wMjYgTDE3LDMzLjAyNiBMMTQsMzMuMDI2IEwxNCwyMS4wMjYgTDMwLjUsMjEuMDI2IEMzMC43MDIsMjEuMDI2IDMwLjg4NSwyMC45MDQgMzAuOTYyLDIwLjcxNyBDMzEuMDM5LDIwLjUzIDMwLjk5NiwyMC4zMTYgMzAuODU0LDIwLjE3MiBMMjYuMjA3LDE1LjUyNiBaIiBpZD0iRmlsbC0xIiBmaWxsPSIjRkZGRkZGIj48L3BhdGg+CiAgICA8L2c+Cjwvc3ZnPg==" x="900" y="155" width="24" height="24"/>
   <text x="932" y="173" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
   <image href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNDhweCIgaGVpZ2h0PSI0OHB4IiB2aWV3Qm94PSIwIDAgNDggNDgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+SWNvbi1SZXNvdXJjZS9OZXR3b3JraW5nLWFuZC1Db250ZW50LURlbGl2ZXJ5L1Jlc19BbWF6b24tVlBDX0N1c3RvbWVyLUdhdGV3YXlfNDg8L3RpdGxlPgogICAgPGcgaWQ9Ikljb24tUmVzb3VyY2UvTmV0d29ya2luZy1hbmQtQ29udGVudC1EZWxpdmVyeS9SZXNfQW1hem9uLVZQQ19DdXN0b21lci1HYXRld2F5XzQ4IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8cGF0aCBkPSJNNDIuMjA4MSwyNC43MDcgTDM3LjgzMzEsMjkuMDgyIEwzNi40MTkxLDI3LjY2OCBMMzkuMDg3MSwyNSBMMjUuMDAwMSwyNSBMMjUuMDAwMSwzOS4wODYgTDI3LjY2ODEsMzYuNDE4IEwyOS4wODIxLDM3LjgzMiBMMjQuNzA3MSw0Mi4yMDcgQzI0LjUxMjEsNDIuNDAyIDI0LjI1NjEsNDIuNSAyNC4wMDAxLDQyLjUgQzIzLjc0NDEsNDIuNSAyMy40ODgxLDQyLjQwMiAyMy4yOTMxLDQyLjIwNyBMMTguOTE4MSwzNy44MzIgTDIwLjMzMjEsMzYuNDE4IEwyMy4wMDAxLDM5LjA4NiBMMjMuMDAwMSwyNSBMOC45MTUxLDI1IEwxMS41ODMxLDI3LjY2OCBMMTAuMTY5MSwyOS4wODIgTDUuNzk0MSwyNC43MDcgQzUuNDAzMSwyNC4zMTYgNS40MDMxLDIzLjY4NCA1Ljc5NDEsMjMuMjkzIEwxMC4xNjkxLDE4LjkxNyBMMTEuNTgzMSwyMC4zMzEgTDguOTE1MSwyMyBMMjMuMDAwMSwyMyBMMjMuMDAwMSw4LjkxMyBMMjAuMzMyMSwxMS41ODEgTDE4LjkxODEsMTAuMTY3IEwyMy4yOTMxLDUuNzkyIEMyMy42ODQxLDUuNDAxIDI0LjMxNjEsNS40MDEgMjQuNzA3MSw1Ljc5MiBMMjkuMDgyMSwxMC4xNjcgTDI3LjY2ODEsMTEuNTgxIEwyNS4wMDAxLDguOTEzIEwyNS4wMDAxLDIzIEwzOS4wODcxLDIzIEwzNi40MTkxLDIwLjMzMSBMMzcuODMzMSwxOC45MTcgTDQyLjIwODEsMjMuMjkzIEM0Mi41OTkxLDIzLjY4NCA0Mi41OTkxLDI0LjMxNiA0Mi4yMDgxLDI0LjcwNyBNMjQuMDAwMSw0NCBDMTIuOTcyMSw0NCA0LjAwMDEsMzUuMDI4IDQuMDAwMSwyNCBDNC4wMDAxLDEyLjk3MiAxMi45NzIxLDQgMjQuMDAwMSw0IEMzNS4wMjgxLDQgNDQuMDAwMSwxMi45NzIgNDQuMDAwMSwyNCBDNDQuMDAwMSwzNS4wMjggMzUuMDI4MSw0NCAyNC4wMDAxLDQ0IE0yNC4wMDAxLDIgQzExLjg2OTEsMiAyLjAwMDEsMTEuODY5IDIuMDAwMSwyNCBDMi4wMDAxLDM2LjEzMSAxMS44NjkxLDQ2IDI0LjAwMDEsNDYgQzM2LjEzMTEsNDYgNDYuMDAwMSwzNi4xMzEgNDYuMDAwMSwyNCBDNDYuMDAwMSwxMS44NjkgMzYuMTMxMSwyIDI0LjAwMDEsMiIgaWQ9IkFXUy1BbWF6b24tVlBDX0N1c3RvbWVyLWdhdGV3YXlfUmVzb3VyY2UtSWNvbl9saWdodC1iZyIgZmlsbD0iIzhDNEZGRiI+PC9wYXRoPgogICAgPC9nPgo8L3N2Zz4=" x="86" y="191" width="48" height="48"/>
-  <text x="110" y="257" font-size="14" text-anchor="middle" fill="#232F3E">라우터 rtN · AS 65000</text>
-  <text x="110" y="273" font-size="13" text-anchor="middle" fill="#545B64">Loopback1 10.200.0.1/32</text>
+  <text x="110" y="257" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+  <text x="110" y="273" font-size="14" text-anchor="middle" fill="#232F3E">rtN · AS 65000</text>
+  <text x="110" y="289" font-size="13" text-anchor="middle" fill="#545B64">Loopback1 10.200.0.1/32</text>
   <circle cx="96" cy="175" r="10" fill="#232F3E"/>
   <text x="96" y="179.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text>
   <polyline points="138,207 200,207 200,140 508,140" fill="none" stroke="#232F3E" stroke-width="1.5"/>
@@ -56,12 +57,13 @@
   <text x="1172" y="257" font-size="14" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
   <text x="1172" y="273" font-size="13" text-anchor="middle" fill="#545B64">AS 65400</text>
   <polyline points="120,187 120,84 810,84 810,187" fill="none" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <text x="534" y="58" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">BGP 광고 (라우터 → AWS)</text>
+  <text x="534" y="58" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">BGP 광고 (온프레미스 라우터 → AWS)</text>
   <text x="534" y="74" font-size="13" text-anchor="middle" fill="#232F3E">172.20.N.0/24 · 10.200.0.1/32</text>
-  <polyline points="800,282 800,394 110,394 110,281" fill="none" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <text x="534" y="412" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">라우터가 받는 경로 = 허용된 접두사</text>
-  <text x="534" y="428" font-size="13" text-anchor="middle" fill="#232F3E">100.64.2.0/24 · 10.1.1.0/24</text>
-  <text x="534" y="444" font-size="13" text-anchor="middle" fill="#545B64">두 VIF 모두 같은 경로 (ECMP)</text>
+  <polyline points="800,282 800,390 110,390 110,297" fill="none" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <text x="534" y="408" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">온프레미스 라우터가 받는 경로</text>
+  <text x="534" y="424" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">= 허용된 접두사</text>
+  <text x="534" y="440" font-size="13" text-anchor="middle" fill="#232F3E">100.64.2.0/24 · 10.1.1.0/24</text>
+  <text x="534" y="456" font-size="13" text-anchor="middle" fill="#545B64">두 VIF 모두 같은 경로 (ECMP)</text>
   <rect x="16" y="468" width="1250" height="191" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
   <circle cx="38" cy="490" r="10" fill="#232F3E"/>
   <text x="38" y="494.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
@@ -75,7 +77,7 @@
   <text x="38" y="542.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
   <text x="56" y="542.5" font-size="13" font-weight="600" fill="#232F3E">Transit Gateway와 게이트웨이 연결</text>
   <text x="301.55" y="542.5" font-size="13" fill="#545B64">Transit Gateway(AS 65400)에 DXGW Transit Gateway 연결(attachment)이 생깁니다.</text>
-  <text x="301.55" y="559.5" font-size="13" fill="#545B64">허용된 접두사 100.64.2.0/24, 10.1.1.0/24가 그대로 라우터에 광고됩니다.</text>
+  <text x="301.55" y="559.5" font-size="13" fill="#545B64">허용된 접두사 100.64.2.0/24, 10.1.1.0/24가 그대로 온프레미스 라우터에 광고됩니다.</text>
   <circle cx="38" cy="579" r="10" fill="#232F3E"/>
   <text x="38" y="583.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text>
   <text x="56" y="583.5" font-size="13" font-weight="600" fill="#232F3E">전송 가상 인터페이스 만들기</text>
@@ -83,7 +85,7 @@
   <text x="301.55" y="600.5" font-size="13" fill="#545B64">BGP + BFD를 쓰고, 피어 IP(169.254.x.x/29)와 BGP 인증 키는 AWS가 만듭니다.</text>
   <circle cx="38" cy="620" r="10" fill="#232F3E"/>
   <text x="38" y="624.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text>
-  <text x="56" y="624.5" font-size="13" font-weight="600" fill="#232F3E">라우터 BGP 설정</text>
+  <text x="56" y="624.5" font-size="13" font-weight="600" fill="#232F3E">온프레미스 라우터 BGP 설정</text>
   <text x="301.55" y="624.5" font-size="13" fill="#545B64">GigabitEthernet1.&lt;VLAN1&gt;, GigabitEthernet2.&lt;VLAN2&gt;에서 AS 65300과 피어링하고 172.20.N.0/24,</text>
   <text x="301.55" y="641.5" font-size="13" fill="#545B64">10.200.0.1/32를 광고합니다. 두 VIF가 같은 경로를 받아 ECMP로 나눠 씁니다.</text>
 </svg>

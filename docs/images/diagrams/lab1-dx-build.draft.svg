@@ -13,8 +13,9 @@
   <image href="bundle:group/Region_32" x="900" y="155" width="24" height="24"/>
   <text x="932" y="173" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
   <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="86" y="191" width="48" height="48"/>
-  <text x="110" y="257" font-size="14" text-anchor="middle" fill="#232F3E">라우터 rtN · AS 65000</text>
-  <text x="110" y="273" font-size="13" text-anchor="middle" fill="#545B64">Loopback1 10.200.0.1/32</text>
+  <text x="110" y="257" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+  <text x="110" y="273" font-size="14" text-anchor="middle" fill="#232F3E">rtN · AS 65000</text>
+  <text x="110" y="289" font-size="13" text-anchor="middle" fill="#545B64">Loopback1 10.200.0.1/32</text>
   <circle cx="96" cy="175" r="10" fill="#232F3E"/>
   <text x="96" y="179.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text>
   <polyline points="138,207 200,207 200,140 508,140" fill="none" stroke="#232F3E" stroke-width="1.5"/>
@@ -56,12 +57,13 @@
   <text x="1172" y="257" font-size="14" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
   <text x="1172" y="273" font-size="13" text-anchor="middle" fill="#545B64">AS 65400</text>
   <polyline points="120,187 120,84 810,84 810,187" fill="none" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <text x="534" y="58" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">BGP 광고 (라우터 → AWS)</text>
+  <text x="534" y="58" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">BGP 광고 (온프레미스 라우터 → AWS)</text>
   <text x="534" y="74" font-size="13" text-anchor="middle" fill="#232F3E">172.20.N.0/24 · 10.200.0.1/32</text>
-  <polyline points="800,282 800,394 110,394 110,281" fill="none" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <text x="534" y="412" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">라우터가 받는 경로 = 허용된 접두사</text>
-  <text x="534" y="428" font-size="13" text-anchor="middle" fill="#232F3E">100.64.2.0/24 · 10.1.1.0/24</text>
-  <text x="534" y="444" font-size="13" text-anchor="middle" fill="#545B64">두 VIF 모두 같은 경로 (ECMP)</text>
+  <polyline points="800,282 800,390 110,390 110,297" fill="none" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <text x="534" y="408" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">온프레미스 라우터가 받는 경로</text>
+  <text x="534" y="424" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">= 허용된 접두사</text>
+  <text x="534" y="440" font-size="13" text-anchor="middle" fill="#232F3E">100.64.2.0/24 · 10.1.1.0/24</text>
+  <text x="534" y="456" font-size="13" text-anchor="middle" fill="#545B64">두 VIF 모두 같은 경로 (ECMP)</text>
   <rect x="16" y="468" width="1250" height="191" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
   <circle cx="38" cy="490" r="10" fill="#232F3E"/>
   <text x="38" y="494.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
@@ -75,7 +77,7 @@
   <text x="38" y="542.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
   <text x="56" y="542.5" font-size="13" font-weight="600" fill="#232F3E">Transit Gateway와 게이트웨이 연결</text>
   <text x="301.55" y="542.5" font-size="13" fill="#545B64">Transit Gateway(AS 65400)에 DXGW Transit Gateway 연결(attachment)이 생깁니다.</text>
-  <text x="301.55" y="559.5" font-size="13" fill="#545B64">허용된 접두사 100.64.2.0/24, 10.1.1.0/24가 그대로 라우터에 광고됩니다.</text>
+  <text x="301.55" y="559.5" font-size="13" fill="#545B64">허용된 접두사 100.64.2.0/24, 10.1.1.0/24가 그대로 온프레미스 라우터에 광고됩니다.</text>
   <circle cx="38" cy="579" r="10" fill="#232F3E"/>
   <text x="38" y="583.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text>
   <text x="56" y="583.5" font-size="13" font-weight="600" fill="#232F3E">전송 가상 인터페이스 만들기</text>
@@ -83,7 +85,7 @@
   <text x="301.55" y="600.5" font-size="13" fill="#545B64">BGP + BFD를 쓰고, 피어 IP(169.254.x.x/29)와 BGP 인증 키는 AWS가 만듭니다.</text>
   <circle cx="38" cy="620" r="10" fill="#232F3E"/>
   <text x="38" y="624.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text>
-  <text x="56" y="624.5" font-size="13" font-weight="600" fill="#232F3E">라우터 BGP 설정</text>
+  <text x="56" y="624.5" font-size="13" font-weight="600" fill="#232F3E">온프레미스 라우터 BGP 설정</text>
   <text x="301.55" y="624.5" font-size="13" fill="#545B64">GigabitEthernet1.&lt;VLAN1&gt;, GigabitEthernet2.&lt;VLAN2&gt;에서 AS 65300과 피어링하고 172.20.N.0/24,</text>
   <text x="301.55" y="641.5" font-size="13" fill="#545B64">10.200.0.1/32를 광고합니다. 두 VIF가 같은 경로를 받아 ECMP로 나눠 씁니다.</text>
 </svg>

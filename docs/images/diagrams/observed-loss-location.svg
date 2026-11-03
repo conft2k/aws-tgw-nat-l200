@@ -105,32 +105,35 @@
   <text x="1210" y="268" font-size="13" text-anchor="middle" fill="#545B64">transit VIF 2개</text>
 
   <!-- ===== On-premises ===== -->
-  <rect x="1300" y="48" width="462" height="272" fill="none" stroke="#7D8998" stroke-width="2"/>
+  <rect x="1300" y="48" width="462" height="280" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0MHB4IiB2aWV3Qm94PSIwIDAgNDAgNDAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+SWNvbi1BcmNoaXRlY3R1cmUtR3JvdXAvMzIvQ29ycG9yYXRlLWRhdGEtY2VudGVyXzMyPC90aXRsZT4KICAgIDxnIGlkPSJJY29uLUFyY2hpdGVjdHVyZS1Hcm91cC8zMi9Db3Jwb3JhdGUtZGF0YS1jZW50ZXJfMzIiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUiIGZpbGw9IiM3RDg5OTgiIHg9IjAiIHk9IjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PC9yZWN0PgogICAgICAgIDxwYXRoIGQ9Ik0xMiwxNyBMMTUuNSwxNyBDMTUuNzc2LDE3IDE2LDE2Ljc3NiAxNiwxNi41IEwxNiw3IEwyMyw3IEwyMywxNi41IEMyMywxNi43NzYgMjMuMjI0LDE3IDIzLjUsMTcgTDI3LDE3IEwyNywzMyBMMTIsMzMgTDEyLDE3IFogTTI4LDMzLjUgTDI4LDE2LjUgQzI4LDE2LjIyNCAyNy43NzYsMTYgMjcuNSwxNiBMMjQsMTYgTDI0LDYuNSBDMjQsNi4yMjQgMjMuNzc2LDYgMjMuNSw2IEwxNS41LDYgQzE1LjIyNCw2IDE1LDYuMjI0IDE1LDYuNSBMMTUsMTYgTDExLjUsMTYgQzExLjIyNCwxNiAxMSwxNi4yMjQgMTEsMTYuNSBMMTEsMzMuNSBDMTEsMzMuNzc2IDExLjIyNCwzNCAxMS41LDM0IEwyNy41LDM0IEMyNy43NzYsMzQgMjgsMzMuNzc2IDI4LDMzLjUgTDI4LDMzLjUgWiBNMjQsMzEgTDI1LDMxIEwyNSwyOSBMMjQsMjkgTDI0LDMxIFogTTE5LDMxIEwyMCwzMSBMMjAsMjkgTDE5LDI5IEwxOSwzMSBaIE0xNCwzMSBMMTUsMzEgTDE1LDI5IEwxNCwyOSBMMTQsMzEgWiBNMjQsMjcgTDI1LDI3IEwyNSwyNCBMMjQsMjQgTDI0LDI3IFogTTE5LDI3IEwyMCwyNyBMMjAsMjQgTDE5LDI0IEwxOSwyNyBaIE0xNCwyNyBMMTUsMjcgTDE1LDI0IEwxNCwyNCBMMTQsMjcgWiBNMjQsMjIgTDI1LDIyIEwyNSwxOSBMMjQsMTkgTDI0LDIyIFogTTE5LDEyIEwyMCwxMiBMMjAsOSBMMTksOSBMMTksMTIgWiBNMTksMTcgTDIwLDE3IEwyMCwxNCBMMTksMTQgTDE5LDE3IFogTTE5LDIyIEwyMCwyMiBMMjAsMTkgTDE5LDE5IEwxOSwyMiBaIE0xNCwyMiBMMTUsMjIgTDE1LDE5IEwxNCwxOSBMMTQsMjIgWiIgaWQ9IkZpbGwtMSIgZmlsbD0iI0ZGRkZGRiI+PC9wYXRoPgogICAgPC9nPgo8L3N2Zz4=" x="1300" y="48" width="24" height="24"/>
   <text x="1332" y="66" font-size="14" font-weight="600" fill="#7D8998">온프레미스(Pod N)</text>
   <text x="1332" y="82" font-size="13" fill="#232F3E">LAN 172.20.N.0/24</text>
 
   <image href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNDhweCIgaGVpZ2h0PSI0OHB4IiB2aWV3Qm94PSIwIDAgNDggNDgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+SWNvbi1SZXNvdXJjZS9OZXR3b3JraW5nLWFuZC1Db250ZW50LURlbGl2ZXJ5L1Jlc19BbWF6b24tVlBDX0N1c3RvbWVyLUdhdGV3YXlfNDg8L3RpdGxlPgogICAgPGcgaWQ9Ikljb24tUmVzb3VyY2UvTmV0d29ya2luZy1hbmQtQ29udGVudC1EZWxpdmVyeS9SZXNfQW1hem9uLVZQQ19DdXN0b21lci1HYXRld2F5XzQ4IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8cGF0aCBkPSJNNDIuMjA4MSwyNC43MDcgTDM3LjgzMzEsMjkuMDgyIEwzNi40MTkxLDI3LjY2OCBMMzkuMDg3MSwyNSBMMjUuMDAwMSwyNSBMMjUuMDAwMSwzOS4wODYgTDI3LjY2ODEsMzYuNDE4IEwyOS4wODIxLDM3LjgzMiBMMjQuNzA3MSw0Mi4yMDcgQzI0LjUxMjEsNDIuNDAyIDI0LjI1NjEsNDIuNSAyNC4wMDAxLDQyLjUgQzIzLjc0NDEsNDIuNSAyMy40ODgxLDQyLjQwMiAyMy4yOTMxLDQyLjIwNyBMMTguOTE4MSwzNy44MzIgTDIwLjMzMjEsMzYuNDE4IEwyMy4wMDAxLDM5LjA4NiBMMjMuMDAwMSwyNSBMOC45MTUxLDI1IEwxMS41ODMxLDI3LjY2OCBMMTAuMTY5MSwyOS4wODIgTDUuNzk0MSwyNC43MDcgQzUuNDAzMSwyNC4zMTYgNS40MDMxLDIzLjY4NCA1Ljc5NDEsMjMuMjkzIEwxMC4xNjkxLDE4LjkxNyBMMTEuNTgzMSwyMC4zMzEgTDguOTE1MSwyMyBMMjMuMDAwMSwyMyBMMjMuMDAwMSw4LjkxMyBMMjAuMzMyMSwxMS41ODEgTDE4LjkxODEsMTAuMTY3IEwyMy4yOTMxLDUuNzkyIEMyMy42ODQxLDUuNDAxIDI0LjMxNjEsNS40MDEgMjQuNzA3MSw1Ljc5MiBMMjkuMDgyMSwxMC4xNjcgTDI3LjY2ODEsMTEuNTgxIEwyNS4wMDAxLDguOTEzIEwyNS4wMDAxLDIzIEwzOS4wODcxLDIzIEwzNi40MTkxLDIwLjMzMSBMMzcuODMzMSwxOC45MTcgTDQyLjIwODEsMjMuMjkzIEM0Mi41OTkxLDIzLjY4NCA0Mi41OTkxLDI0LjMxNiA0Mi4yMDgxLDI0LjcwNyBNMjQuMDAwMSw0NCBDMTIuOTcyMSw0NCA0LjAwMDEsMzUuMDI4IDQuMDAwMSwyNCBDNC4wMDAxLDEyLjk3MiAxMi45NzIxLDQgMjQuMDAwMSw0IEMzNS4wMjgxLDQgNDQuMDAwMSwxMi45NzIgNDQuMDAwMSwyNCBDNDQuMDAwMSwzNS4wMjggMzUuMDI4MSw0NCAyNC4wMDAxLDQ0IE0yNC4wMDAxLDIgQzExLjg2OTEsMiAyLjAwMDEsMTEuODY5IDIuMDAwMSwyNCBDMi4wMDAxLDM2LjEzMSAxMS44NjkxLDQ2IDI0LjAwMDEsNDYgQzM2LjEzMTEsNDYgNDYuMDAwMSwzNi4xMzEgNDYuMDAwMSwyNCBDNDYuMDAwMSwxMS44NjkgMzYuMTMxMSwyIDI0LjAwMDEsMiIgaWQ9IkFXUy1BbWF6b24tVlBDX0N1c3RvbWVyLWdhdGV3YXlfUmVzb3VyY2UtSWNvbl9saWdodC1iZyIgZmlsbD0iIzhDNEZGRiI+PC9wYXRoPgogICAgPC9nPgo8L3N2Zz4=" x="1416" y="186" width="48" height="48"/>
-  <text x="1440" y="252" font-size="14" text-anchor="middle" fill="#232F3E">라우터 rtN</text>
-  <text x="1440" y="268" font-size="13" text-anchor="middle" fill="#545B64">광고: 100.64.1.0/24(Null0)</text>
-  <text x="1440" y="284" font-size="13" text-anchor="middle" fill="#545B64">Loopback1 10.200.0.1/32</text>
-  <text x="1440" y="300" font-size="13" font-weight="600" text-anchor="middle" fill="#D13212">172.20.N.0/24 광고 중단</text>
+  <text x="1440" y="252" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+  <text x="1440" y="268" font-size="14" text-anchor="middle" fill="#232F3E">rtN</text>
+  <text x="1440" y="284" font-size="13" text-anchor="middle" fill="#545B64">광고: 100.64.1.0/24(Null0)</text>
+  <text x="1440" y="300" font-size="13" text-anchor="middle" fill="#545B64">Loopback1 10.200.0.1/32</text>
+  <text x="1440" y="316" font-size="13" font-weight="600" text-anchor="middle" fill="#D13212">172.20.N.0/24 광고 중단</text>
 
   <image href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNDhweCIgaGVpZ2h0PSI0OHB4IiB2aWV3Qm94PSIwIDAgNDggNDgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+SWNvbi1SZXNvdXJjZS9HZW5lcmFsLVJlc291cmNlL1Jlc19UcmFkaXRpb25hbC1zZXJ2ZXJfNDhfTGlnaHQ8L3RpdGxlPgogICAgPGcgaWQ9Ikljb24tUmVzb3VyY2UvR2VuZXJhbC1SZXNvdXJjZS9SZXNfVHJhZGl0aW9uYWwtc2VydmVyXzQ4IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8cGF0aCBkPSJNMTUuNDM3LDIxLjUyIEwzMi4wNjQsMjEuNTIgTDMyLjA2NCwxOS41MiBMMTUuNDM3LDE5LjUyIEwxNS40MzcsMjEuNTIgWiBNMTUuNDM3LDE3LjE5NiBMMzIuMDY0LDE3LjE5NiBMMzIuMDY0LDE1LjE5NiBMMTUuNDM3LDE1LjE5NiBMMTUuNDM3LDE3LjE5NiBaIE0xNS40MzcsMTIuNzYyIEwzMi4wNjQsMTIuNzYyIEwzMi4wNjQsMTAuNzYyIEwxNS40MzcsMTAuNzYyIEwxNS40MzcsMTIuNzYyIFogTTE1LjQzNyw4LjQ5NCBMMzIuMDY0LDguNDk0IEwzMi4wNjQsNi40OTQgTDE1LjQzNyw2LjQ5NCBMMTUuNDM3LDguNDk0IFogTTEzLDQ0LjAxMyBMMzQuNDk5LDQ0LjAxMyBMMzQuNDk5LDQgTDEzLDQgTDEzLDQ0LjAxMyBaIE0zNS4wMzIsMiBMMTIuNDY4LDIgQzExLjY1OSwyIDExLDIuNjU5IDExLDMuNDY5IEwxMSw0NC41NDUgQzExLDQ1LjM1NSAxMS42NTksNDYuMDEzIDEyLjQ2OCw0Ni4wMTMgTDM1LjAzMiw0Ni4wMTMgQzM1Ljg0MSw0Ni4wMTMgMzYuNDk5LDQ1LjM1NSAzNi40OTksNDQuNTQ1IEwzNi40OTksMy40NjkgQzM2LjQ5OSwyLjY1OSAzNS44NDEsMiAzNS4wMzIsMiBMMzUuMDMyLDIgWiIgaWQ9IkZpbGwtMTgiIGZpbGw9IiMyMzJGM0QiPjwvcGF0aD4KICAgIDwvZz4KPC9zdmc+" x="1636" y="186" width="48" height="48"/>
-  <text x="1660" y="252" font-size="14" text-anchor="middle" fill="#232F3E">VM vmN</text>
-  <text x="1660" y="268" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
+  <text x="1660" y="252" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 VM</text>
+  <text x="1660" y="268" font-size="14" text-anchor="middle" fill="#232F3E">vmN</text>
+  <text x="1660" y="284" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
 
   <!-- Evidence 2: router VIF subinterfaces -->
-  <rect x="1312" y="94" width="262" height="64" rx="4" fill="#FFFFFF" stroke="#7D8998" stroke-width="1"/>
-  <text x="1324" y="112" font-size="13" font-weight="600" fill="#232F3E">라우터 rtN VIF 서브인터페이스</text>
-  <text x="1324" y="129" font-size="13" font-weight="600" fill="#D13212">인바운드 ACL 카운터(받은 패킷 수):</text>
-  <text x="1324" y="146" font-size="13" font-weight="600" fill="#D13212">손실 중 증가 0</text>
-  <line x1="1380" y1="158" x2="1380" y2="199" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="1312" y="94" width="262" height="81" rx="4" fill="#FFFFFF" stroke="#7D8998" stroke-width="1"/>
+  <text x="1324" y="112" font-size="13" font-weight="600" fill="#232F3E">온프레미스 라우터 rtN</text>
+  <text x="1324" y="129" font-size="13" font-weight="600" fill="#232F3E">VIF 서브인터페이스</text>
+  <text x="1324" y="146" font-size="13" font-weight="600" fill="#D13212">인바운드 ACL 카운터(받은 패킷 수):</text>
+  <text x="1324" y="163" font-size="13" font-weight="600" fill="#D13212">손실 중 증가 0</text>
+  <line x1="1380" y1="175" x2="1380" y2="199" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
   <circle cx="1380" cy="202" r="3" fill="#7D8998"/>
 
   <!-- Evidence 3: VM capture -->
   <rect x="1586" y="94" width="160" height="47" rx="4" fill="#FFFFFF" stroke="#7D8998" stroke-width="1"/>
-  <text x="1598" y="112" font-size="13" font-weight="600" fill="#232F3E">VM vmN</text>
+  <text x="1598" y="112" font-size="13" font-weight="600" fill="#232F3E">온프레미스 VM vmN</text>
   <text x="1598" y="129" font-size="13" font-weight="600" fill="#D13212">tcpdump: 0개</text>
   <line x1="1660" y1="141" x2="1660" y2="183" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
 
@@ -155,7 +158,7 @@
   <line x1="1300" y1="380" x2="1336" y2="380" stroke="#7D8998" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowGrey)"/>
   <text x="1344" y="384" font-size="13" fill="#545B64">나머지 경로, 도착한 패킷 0개</text>
   <line x1="1300" y1="404" x2="1336" y2="404" stroke="#1D8102" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowGreen)"/>
-  <text x="1344" y="408" font-size="13" fill="#545B64">온프레미스 → AWS(VM → 100.64.2.10): 전달됨</text>
+  <text x="1344" y="408" font-size="13" fill="#545B64">온프레미스 → AWS(온프레미스 VM → 100.64.2.10): 전달됨</text>
 
   <rect x="1300" y="422" width="36" height="16" fill="#FADBD8"/>
   <line x1="1300" y1="430" x2="1336" y2="430" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>

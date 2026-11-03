@@ -54,15 +54,16 @@
 <rect x="520" y="118" width="396" height="378" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
 <image href="bundle:group/Region_32" x="520" y="118" width="24" height="24"/>
 <text x="552" y="136" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
-<rect x="12" y="112" width="160" height="180" fill="none" stroke="#7D8998" stroke-width="2"/>
+<rect x="12" y="112" width="160" height="196" fill="none" stroke="#7D8998" stroke-width="2"/>
 <image href="bundle:group/Corporate-data-center_32" x="12" y="112" width="24" height="24"/>
 <text x="44" y="130" font-size="14" font-weight="600" fill="#7D8998">온프레미스</text>
 <text x="44" y="146" font-size="13" fill="#232F3E">Pod N</text>
 <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="68" y="164" width="48" height="48"/>
-<text x="92" y="230" font-size="14" text-anchor="middle" fill="#232F3E">라우터 rtN</text>
-<text x="92" y="246" font-size="13" text-anchor="middle" fill="#545B64">AS 65000</text>
-<text x="92" y="262" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">광고 172.20.N.0/24</text>
-<text x="92" y="278" font-size="13" text-anchor="middle" fill="#545B64">(또는 172.20.0.0/16)</text>
+<text x="92" y="230" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+<text x="92" y="246" font-size="14" text-anchor="middle" fill="#232F3E">rtN</text>
+<text x="92" y="262" font-size="13" text-anchor="middle" fill="#545B64">AS 65000</text>
+<text x="92" y="278" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">광고 172.20.N.0/24</text>
+<text x="92" y="294" font-size="13" text-anchor="middle" fill="#545B64">(또는 172.20.0.0/16)</text>
 <image href="bundle:service/AWS-Direct-Connect" x="226" y="164" width="48" height="48"/>
 <text x="250" y="230" font-size="14" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
 <text x="250" y="246" font-size="13" text-anchor="middle" fill="#545B64">transit VIF 2개</text>
@@ -115,15 +116,16 @@
 <rect x="520" y="118" width="396" height="298" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
 <image href="bundle:group/Region_32" x="520" y="118" width="24" height="24"/>
 <text x="552" y="136" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
-<rect x="12" y="112" width="160" height="180" fill="none" stroke="#7D8998" stroke-width="2"/>
+<rect x="12" y="112" width="160" height="196" fill="none" stroke="#7D8998" stroke-width="2"/>
 <image href="bundle:group/Corporate-data-center_32" x="12" y="112" width="24" height="24"/>
 <text x="44" y="130" font-size="14" font-weight="600" fill="#7D8998">온프레미스</text>
 <text x="44" y="146" font-size="13" fill="#232F3E">Pod N</text>
 <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="68" y="164" width="48" height="48"/>
-<text x="92" y="230" font-size="14" text-anchor="middle" fill="#232F3E">라우터 rtN</text>
-<text x="92" y="246" font-size="13" text-anchor="middle" fill="#545B64">AS 65000</text>
-<text x="92" y="262" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">광고 100.64.1.0/24</text>
-<text x="92" y="278" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">+ 172.20.N.0/24</text>
+<text x="92" y="230" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+<text x="92" y="246" font-size="14" text-anchor="middle" fill="#232F3E">rtN</text>
+<text x="92" y="262" font-size="13" text-anchor="middle" fill="#545B64">AS 65000</text>
+<text x="92" y="278" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">광고 100.64.1.0/24</text>
+<text x="92" y="294" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">+ 172.20.N.0/24</text>
 <image href="bundle:service/AWS-Direct-Connect" x="226" y="164" width="48" height="48"/>
 <text x="250" y="230" font-size="14" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
 <text x="250" y="246" font-size="13" text-anchor="middle" fill="#545B64">transit VIF 2개</text>
@@ -137,7 +139,7 @@
 <line x1="278" y1="188" x2="397" y2="188" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
 <line x1="453" y1="188" x2="562" y2="188" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
 <text x="342" y="180" font-size="13" fill="#232F3E">BGP</text>
-<text x="12" y="458" font-size="13" font-weight="600" fill="#232F3E">끄면 system 경로가 없습니다. 라우터가 100.64.1.0/24를 직접 광고합니다(Null0 경로 + network).</text>
+<text x="12" y="458" font-size="13" font-weight="600" fill="#232F3E">끄면 system 경로가 없습니다. 온프레미스 라우터가 100.64.1.0/24를 직접 광고합니다(Null0 경로 + network).</text>
 <text x="12" y="478" font-size="13" fill="#545B64">Transit Gateway는 이 경로를 propagated로 학습합니다.</text>
 <rect x="12" y="494" width="916" height="52" fill="#FDEEDD" stroke="#E07000" stroke-width="1.5"/>
 <circle cx="34" cy="520" r="11" fill="#E07000"/>
@@ -156,11 +158,11 @@
 <text x="28" y="676" font-size="13" font-weight="700" fill="#232F3E">켬 → 끔 (안전한 순서)</text>
 <circle cx="232.45" cy="671.5" r="11" fill="#232F3E"/>
 <text x="232.45" y="676" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-<text x="249.45" y="676" font-size="13" fill="#545B64">라우터에서 100.64.1.0/24 광고를 먼저 추가 (system 경로가 그대로 우선)</text>
-<text x="722.8" y="676" font-size="13" font-weight="700" fill="#232F3E">→</text>
-<circle cx="752.8" cy="671.5" r="11" fill="#232F3E"/>
-<text x="752.8" y="676" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-<text x="769.8" y="676" font-size="13" fill="#545B64">NAT system routes 끔 (경로가 propagated로 바뀜)</text>
+<text x="249.45" y="676" font-size="13" fill="#545B64">온프레미스 라우터에서 100.64.1.0/24 광고를 먼저 추가 (system 경로가 그대로 우선)</text>
+<text x="794.95" y="676" font-size="13" font-weight="700" fill="#232F3E">→</text>
+<circle cx="824.95" cy="671.5" r="11" fill="#232F3E"/>
+<text x="824.95" y="676" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+<text x="841.95" y="676" font-size="13" fill="#545B64">NAT system routes 끔 (경로가 propagated로 바뀜)</text>
 <text x="28" y="700" font-size="13" font-weight="700" fill="#232F3E">끔 → 켬 (되돌리기)</text>
 <circle cx="232.45" cy="695.5" r="11" fill="#232F3E"/>
 <text x="232.45" y="700" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
@@ -168,5 +170,5 @@
 <text x="612.95" y="700" font-size="13" font-weight="700" fill="#232F3E">→</text>
 <circle cx="642.95" cy="695.5" r="11" fill="#232F3E"/>
 <text x="642.95" y="700" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-<text x="659.95" y="700" font-size="13" fill="#545B64">라우터의 100.64.1.0/24 광고와 Null0 경로 제거</text>
+<text x="659.95" y="700" font-size="13" fill="#545B64">온프레미스 라우터의 100.64.1.0/24 광고와 Null0 경로 제거</text>
 </svg>

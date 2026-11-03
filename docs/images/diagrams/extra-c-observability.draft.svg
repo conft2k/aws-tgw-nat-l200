@@ -8,7 +8,7 @@
 <marker id="arrowGrey" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#7D8998"/></marker>
 </defs>
 <rect width="1920" height="612" fill="#FFFFFF"/>
-<rect x="16" y="257" width="444" height="143" fill="none" stroke="#7D8998" stroke-width="2"/>
+<rect x="16" y="257" width="444" height="159" fill="none" stroke="#7D8998" stroke-width="2"/>
 <image href="bundle:group/Corporate-data-center_32" x="16" y="257" width="24" height="24"/>
 <text x="48" y="275" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (Pod N)</text>
 <text x="48" y="291" font-size="13" fill="#232F3E">LAN 172.20.N.0/24</text>
@@ -26,11 +26,13 @@
 <image href="bundle:group/Private-subnet_32" x="1666" y="278" width="24" height="24"/>
 <text x="1698" y="296" font-size="14" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
 <image href="bundle:resource/Server" x="48" y="306" width="48" height="48"/>
-<text x="72" y="372" font-size="14" text-anchor="middle" fill="#232F3E">VM vmN</text>
-<text x="72" y="388" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
-<image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="386" y="306" width="48" height="48"/>
-<text x="410" y="372" font-size="14" text-anchor="middle" fill="#232F3E">라우터 rtN</text>
-<text x="410" y="388" font-size="13" text-anchor="middle" fill="#545B64">AS 65000</text>
+<text x="72" y="372" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 VM</text>
+<text x="72" y="388" font-size="14" text-anchor="middle" fill="#232F3E">vmN</text>
+<text x="72" y="404" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
+<image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="366" y="306" width="48" height="48"/>
+<text x="390" y="372" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+<text x="390" y="388" font-size="14" text-anchor="middle" fill="#232F3E">rtN</text>
+<text x="390" y="404" font-size="13" text-anchor="middle" fill="#545B64">AS 65000</text>
 <image href="bundle:service/AWS-Direct-Connect" x="520" y="306" width="48" height="48"/>
 <text x="544" y="372" font-size="14" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
 <text x="544" y="388" font-size="13" text-anchor="middle" fill="#545B64">transit VIF 2개</text>
@@ -43,10 +45,10 @@
 <image href="bundle:service/Amazon-EC2" x="1736" y="306" width="48" height="48"/>
 <text x="1760" y="372" font-size="14" text-anchor="middle" fill="#232F3E">EC2</text>
 <text x="1760" y="388" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
-<line x1="100" y1="322" x2="382" y2="322" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
-<line x1="382" y1="338" x2="100" y2="338" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
-<line x1="438" y1="322" x2="516" y2="322" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
-<line x1="516" y1="338" x2="438" y2="338" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
+<line x1="100" y1="322" x2="362" y2="322" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="362" y1="338" x2="100" y2="338" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
+<line x1="418" y1="322" x2="516" y2="322" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="516" y1="338" x2="418" y2="338" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
 <line x1="572" y1="322" x2="694" y2="322" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
 <line x1="694" y1="338" x2="572" y2="338" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
 <line x1="750" y1="322" x2="1206" y2="322" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
@@ -54,7 +56,7 @@
 <line x1="1262" y1="322" x2="1732" y2="322" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
 <line x1="1732" y1="338" x2="1262" y2="338" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
 <text x="120" y="312" font-size="13" font-weight="600" fill="#232F3E">요청 172.20.N.10 → 100.64.2.10</text>
-<text x="120" y="360" font-size="13" font-weight="600" fill="#1D8102">응답 100.64.2.10 → 172.20.N.10</text>
+<text x="120" y="354" font-size="13" font-weight="600" fill="#1D8102">응답 100.64.2.10 → 172.20.N.10</text>
 <text x="1302" y="312" font-size="13" font-weight="600" fill="#232F3E">요청 100.64.1.10 → 172.20.N.10</text>
 <text x="1302" y="360" font-size="13" font-weight="600" fill="#1D8102">응답 172.20.N.10 → 100.64.1.10</text>
 <rect x="830" y="92" width="320" height="104" rx="4" fill="#FFFFFF" stroke="#7D8998" stroke-width="1"/>
