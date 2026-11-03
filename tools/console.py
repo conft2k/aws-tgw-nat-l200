@@ -60,27 +60,36 @@ def main() -> int:
         page = ctx.new_page()
         page.set_default_timeout(45000)
 
+        cur = {"page": page}
+
+        def P():
+            return cur["page"]
+
+        def use(p):
+            """Point goto/shot/mask at another tab (e.g. the EC2 Instance Connect terminal)."""
+            cur["page"] = p
+
         def goto(path: str):
             url = path if path.startswith("http") else f"https://{REGION}.console.aws.amazon.com{path}"
-            page.goto(url, wait_until="domcontentloaded")
-            if "signin.aws.amazon.com" in page.url or "/oauth" in page.url:
-                page.goto(signin_url(), wait_until="domcontentloaded")
-                page.wait_for_url(re.compile(r".*console\.aws\.amazon\.com.*"), timeout=60000)
-                page.goto(url, wait_until="domcontentloaded")
-            page.wait_for_load_state("load", timeout=60000)
-            page.wait_for_timeout(4000)  # the console keeps polling; never networkidle
+            P().goto(url, wait_until="domcontentloaded")
+            if "signin.aws.amazon.com" in P().url or "/oauth" in P().url:
+                P().goto(signin_url(), wait_until="domcontentloaded")
+                P().wait_for_url(re.compile(r".*console\.aws\.amazon\.com.*"), timeout=60000)
+                P().goto(url, wait_until="domcontentloaded")
+            P().wait_for_load_state("load", timeout=60000)
+            P().wait_for_timeout(4000)  # the console keeps polling; never networkidle
             close_tours()
 
         def close_tours():
             # first-visit console tours ("Service menu" etc.) and info banners
             for _ in range(6):
-                t = page.locator('[data-testid^="awsc-nav-services-tooltip"] button, [data-testid*="tooltip-confirm"]')
+                t = P().locator('[data-testid^="awsc-nav-services-tooltip"] button, [data-testid*="tooltip-confirm"]')
                 vis = [x for x in t.all() if x.is_visible()]
                 if not vis:
                     break
                 vis[-1].click(timeout=3000)
-                page.wait_for_timeout(500)
-            for x in page.get_by_role("button", name=re.compile(r"^(Dismiss|Close)( notification)?$")).all():
+                P().wait_for_timeout(500)
+            for x in P().get_by_role("button", name=re.compile(r"^(Dismiss|Close)( notification)?$")).all():
                 try:
                     if x.is_visible():
                         x.click(timeout=2000)
@@ -88,11 +97,11 @@ def main() -> int:
                     pass
 
         def frames():
-            return [f for f in page.frames if not f.is_detached()]
+            return [f for f in P().frames if not f.is_detached()]
 
         def app():
             # the frame that holds the console page body (VPC console uses an iframe)
-            best, size = page.main_frame, -1
+            best, size = P().main_frame, -1
             for f in frames():
                 if "lotus/" in f.url or "continuum." in f.url:
                     continue  # console nav / search widgets
@@ -100,9 +109,9 @@ def main() -> int:
                     n = len(f.locator("body").inner_text(timeout=3000))
                 except Exception:
                     continue
-                if f is not page.main_frame and n > size:
+                if f is not P().main_frame and n > size:
                     best, size = f, n
-            return best if size > 200 else page.main_frame
+            return best if size > 200 else P().main_frame
 
         def all_text():
             out = []
@@ -168,14 +177,14 @@ def main() -> int:
                 locator.scroll_into_view_if_needed()
                 mask()
                 mask_secrets()
-            page.screenshot(path=str(path))
+            P().screenshot(path=str(path))
             print(f"shot {path.relative_to(ROOT)}", flush=True)
 
         if not STATE.exists():
             page.goto(signin_url(), wait_until="domcontentloaded")
             page.wait_for_url(re.compile(r".*console\.aws\.amazon\.com.*"), timeout=60000)
         try:
-            exec(script, {"page": page, "app": app, "goto": goto, "close_tours": close_tours, "shot": shot, "mask": mask, "REGION": REGION, "re": re})
+            exec(script, {"page": page, "use": use, "app": app, "goto": goto, "close_tours": close_tours, "shot": shot, "mask": mask, "REGION": REGION, "re": re})
         finally:
             STATE.parent.mkdir(parents=True, exist_ok=True)
             ctx.storage_state(path=str(STATE))
