@@ -1,0 +1,7 @@
+# local-only secrets
+*.secret
+__pycache__/
+*.pyc
+# MkDocs build output
+site/
+.venv/
