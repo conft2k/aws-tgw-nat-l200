@@ -6,11 +6,11 @@
 
 그림의 번호는 아래 입력 칸의 번호와 같습니다. 위쪽 회선이 **DX1**, 아래쪽 회선이 **DX2**입니다.
 
-![라우터 설정 값 지도: 공통 값은 1번 Pod 번호, 2번 LAN 대역 172.20.N.0/24, 3번 Loopback1 10.200.0.1/32, 4번 라우터 ASN 65000, 5번 Direct Connect gateway의 Amazon 쪽 ASN 65300이다. DX1(위)은 6번 라우터 인터페이스 GigabitEthernet1, 7번 VLAN, 8번 라우터 쪽 IP, 9번 Amazon 쪽 IP, 10번 BGP 키이고, DX2(아래)는 11번부터 15번까지 같은 순서이다. 두 전송 가상 인터페이스는 Direct Connect gateway와 Transit Gateway(AS 65400)로 이어진다](images/diagrams/router-config-map.png)
+![라우터 설정 값 지도: 공통 값은 1번 Pod 번호, 2번 온프레미스 대역 172.20.N.0/24, 3번 Loopback1 10.200.0.1/32, 4번 라우터 ASN 65000, 5번 Direct Connect gateway의 Amazon 쪽 ASN 65300이다. DX1(위)은 6번 라우터 인터페이스 GigabitEthernet1, 7번 VLAN, 8번 라우터 쪽 IP, 9번 Amazon 쪽 IP, 10번 BGP 키이고, DX2(아래)는 11번부터 15번까지 같은 순서이다. 두 전송 가상 인터페이스는 Direct Connect gateway와 Transit Gateway(AS 65400)로 이어진다](images/diagrams/router-config-map.png)
 
 ## 값 넣기 { #form }
 
-**미리 채움**이라고 적힌 칸에는 워크숍 값이 들어 있습니다. 워크숍에서는 Pod 번호와 DX1·DX2의 VLAN, 피어 IP, BGP 키만 넣으면 됩니다. LAN 대역은 Pod 번호를 넣으면 자동으로 채워집니다.
+**미리 채움**이라고 적힌 칸에는 워크숍 값이 들어 있습니다. 워크숍에서는 Pod 번호와 DX1·DX2의 VLAN, 피어 IP, BGP 키만 넣으면 됩니다. 온프레미스 대역은 Pod 번호를 넣으면 자동으로 채워집니다.
 
 DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 가져옵니다. 피어 IP는 `/29`를 붙인 채로 넣어도 됩니다.
 
@@ -18,7 +18,7 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
   <fieldset class="gen-group gen-common">
     <legend>공통 · 온프레미스와 BGP</legend>
     <label><span class="gen-badge">1</span><span class="gen-name">Pod 번호 N<small>실습 장비 페이지의 podN</small></span><input id="g-pod" inputmode="numeric" placeholder="89"></label>
-    <label><span class="gen-badge">2</span><span class="gen-name">LAN 대역<small>AWS에 광고 · Pod 번호로 채움</small></span><input id="g-lan" placeholder="172.20.N.0/24" spellcheck="false"></label>
+    <label><span class="gen-badge">2</span><span class="gen-name">온프레미스 대역<small>CIDR · AWS에 광고 · Pod 번호로 채움</small></span><input id="g-lan" placeholder="172.20.N.0/24" spellcheck="false"></label>
     <label><span class="gen-badge">3</span><span class="gen-name">Loopback1 주소<small>AWS에 광고 · 미리 채움 · 비우면 만들지 않음</small></span><input id="g-loop" value="10.200.0.1/32" data-default="10.200.0.1/32" spellcheck="false"></label>
     <label><span class="gen-badge">4</span><span class="gen-name">라우터 ASN<small>1-3의 BGP ASN · 미리 채움</small></span><input id="g-asn" inputmode="numeric" value="65000" data-default="65000"></label>
     <label><span class="gen-badge">5</span><span class="gen-name">Amazon 쪽 ASN<small>1-1의 Amazon-side ASN · 미리 채움</small></span><input id="g-amzasn" inputmode="numeric" value="65300" data-default="65300"></label>
@@ -150,7 +150,7 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
     }
     gap();
     add(" address-family ipv4");
-    add("  network " + (v.lan ? addr(v.lan) + " mask " + mask(v.lan, 24) : "<LAN> mask <LAN_MASK>"), "lan");
+    add("  network " + (v.lan ? addr(v.lan) + " mask " + mask(v.lan, 24) : "<ONPREM_NET> mask <ONPREM_MASK>"), "lan");
     if (v.loop) add("  network " + netOf(v.loop, 32) + " mask " + mask(v.loop, 32), "loop");
     add("  maximum-paths 2");
     for (const n of ["1", "2"]) add("  neighbor " + A(n) + " activate", "aws" + n);
@@ -215,7 +215,7 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
 | 번호 | 값 | 찾는 곳 |
 |---|---|---|
 | 1 | Pod 번호 N | 실습 장비 페이지(`podN`) |
-| 2 | LAN 대역 | Pod 번호를 넣으면 `172.20.N.0/24`로 채워짐 |
+| 2 | 온프레미스 대역 | Pod 번호를 넣으면 `172.20.N.0/24`로 채워짐 |
 | 3 | Loopback1 주소 | 워크숍 값 `10.200.0.1/32`가 미리 채워져 있음 |
 | 4 | 라우터 ASN | 1-3에서 전송 가상 인터페이스에 넣은 **BGP ASN**. 워크숍 값 `65000`이 미리 채워져 있음 |
 | 5 | Amazon 쪽 ASN | 1-1에서 Direct Connect gateway에 넣은 **Amazon-side ASN**. 워크숍 값 `65300`이 미리 채워져 있음 |
@@ -237,7 +237,7 @@ ASN은 BGP에서 서로를 알아보는 번호입니다. 라우터 설정의 두
 | `Loopback1` `10.200.0.1/32` | 3 | NAT 규칙에 없는 주소. 주소가 바뀌지 않는 경우를 확인할 때 씀 |
 | `router bgp 65000` | 4 | 라우터 자신의 ASN으로 BGP를 켬 |
 | `neighbor … remote-as 65300` | 5, 9·10, 14·15 | Direct Connect gateway(AS 65300)와 BGP로 경로를 주고받음. BGP 키와 BFD를 함께 씀 |
-| `network 172.20.N.0 …`, `network 10.200.0.1 …` | 2, 3 | 온프레미스 LAN과 Loopback1을 AWS에 광고 |
+| `network 172.20.N.0 …`, `network 10.200.0.1 …` | 2, 3 | 온프레미스 대역과 Loopback1을 AWS에 광고 |
 | `maximum-paths 2` | — | 두 전송 가상 인터페이스로 받은 같은 경로를 함께 씀(ECMP) |
 
 ## 내 환경에서 다시 쓰기 { #reuse }
@@ -245,7 +245,7 @@ ASN은 BGP에서 서로를 알아보는 번호입니다. 라우터 설정의 두
 회선 2개에 전송 가상 인터페이스를 하나씩 두는 구성이라면 이 생성기를 그대로 쓸 수 있습니다. 미리 채워진 값을 내 환경 값으로 바꾸면 됩니다.
 
 - 만들어지는 설정은 Cisco IOS XE 문법입니다. 다른 장비는 문법이 다릅니다.
-- LAN 대역(②)은 라우터의 라우팅 테이블에 **똑같은 대역**이 있어야 광고됩니다. 없으면 `network` 명령만으로는 광고되지 않습니다.
+- 온프레미스 대역(②)은 라우터의 라우팅 테이블에 **똑같은 대역**이 있어야 광고됩니다. 없으면 `network` 명령만으로는 광고되지 않습니다.
 - Loopback1(③)은 이 워크숍의 시험용입니다. 필요 없으면 칸을 비웁니다. 그러면 관련 줄이 만들어지지 않습니다.
 - BFD 값(300ms × 3)과 `maximum-paths 2`는 워크숍 값입니다. 내 환경의 기준에 맞는지 확인하세요.
 - 운영 장비에 넣기 전에 만들어진 설정을 꼭 검토하세요.
