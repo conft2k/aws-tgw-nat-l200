@@ -47,6 +47,9 @@ exclude_docs: |
 validation:
   anchors: warn
 
+hooks:
+  - hooks/cachebust.py
+
 extra_css:
   - assets/extra.css
 
