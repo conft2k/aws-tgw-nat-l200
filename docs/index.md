@@ -20,10 +20,10 @@
 
 - 온프레미스 LAN은 `172.20.N.0/24`입니다.
 - AWS의 VPC-A도 **똑같이** `172.20.N.0/24`를 씁니다.
-- 온프레미스 라우터는 Direct Connect로 AWS에 연결됩니다.
+- 온프레미스 라우터(`rtN`)는 Direct Connect로 AWS에 연결됩니다.
 - 비교를 위해 NAT를 걸지 않는 VPC-B(`10.1.1.0/24`)도 있습니다.
 
-![워크숍 구성도: 온프레미스 Pod N의 라우터가 전송 가상 인터페이스 2개로 Direct Connect gateway와 Transit Gateway에 연결된다. DXGW 연결과 VPC-A 연결에 1:1 NAT 규칙이 있고, Transit Gateway 라우팅 테이블에 NAT 대역의 system 경로가 있다](images/architecture.png)
+![워크숍 구성도: Pod N의 온프레미스 라우터(rtN)가 전송 가상 인터페이스 2개로 Direct Connect gateway와 Transit Gateway에 연결된다. DXGW 연결과 VPC-A 연결에 1:1 NAT 규칙이 있고, Transit Gateway 라우팅 테이블에 NAT 대역의 system 경로가 있다](images/architecture.png)
 
 1:1 NAT를 적용하면 서로 이렇게 보입니다.
 
@@ -33,7 +33,7 @@
 | VPC-A | `172.20.N.0/24` | `100.64.2.0/24` |
 | VPC-B | `10.1.1.0/24` | 그대로 |
 
-예를 들어 온프레미스 VM과 VPC-A의 EC2는 둘 다 `172.20.N.10`을 씁니다. 하지만 VM은 EC2를 `100.64.2.10`으로, EC2는 VM을 `100.64.1.10`으로 봅니다.
+예를 들어 온프레미스 VM(`vmN`)과 VPC-A EC2는 둘 다 `172.20.N.10`을 씁니다. 하지만 온프레미스 VM은 VPC-A EC2를 `100.64.2.10`으로 봅니다. VPC-A EC2는 온프레미스 VM을 `100.64.1.10`으로 봅니다.
 
 ## 무엇을 배우나요
 
@@ -49,7 +49,7 @@
 |---|---|---|
 | 0:00–0:10 | [실습 0](lab0.md) | 로그인, hosted connection 수락, 스택 배포 시작 |
 | 0:10–0:35 | 발표 1 | 시나리오, Direct Connect·Transit Gateway 복습, 1:1 NAT 개념 |
-| 0:35–1:00 | [실습 1](lab1.md) | Direct Connect 연결과 라우터 설정 |
+| 0:35–1:00 | [실습 1](lab1.md) | Direct Connect 연결과 온프레미스 라우터 설정 |
 | 1:00–1:25 | 발표 2 | NAT 규칙과 경로, 관측 방법 |
 | 1:25–1:50 | [실습 2](lab2.md) | 문제 확인 → 1:1 NAT 적용 → 결과 확인 |
 | 1:50–2:00 | 발표 3 | 정리, [리소스 정리](extra-d.md) 안내 |

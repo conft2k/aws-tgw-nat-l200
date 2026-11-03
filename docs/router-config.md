@@ -1,6 +1,6 @@
 # 라우터 설정 생성기
 
-[실습 1-4](lab1.md#lab1-4)에서 적은 값을 넣으면 라우터에 붙여 넣을 설정이 만들어집니다. 값은 이 브라우저 안에서만 쓰이고 어디로도 보내지지 않습니다.
+[실습 1-4](lab1.md#lab1-4)에서 적은 값을 넣으면 온프레미스 라우터(`rtN`)에 붙여 넣을 설정이 만들어집니다. 값은 이 브라우저 안에서만 쓰이고 어디로도 보내지지 않습니다.
 
 ## 값이 쓰이는 곳 { #map }
 
@@ -43,7 +43,7 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
 
 ## 만들어진 설정 { #output }
 
-줄 앞의 번호는 그 줄에 들어간 값입니다. 입력 칸을 누르면 그 값이 들어가는 줄이 강조됩니다. 번호는 복사되지 않습니다. 빈 줄은 읽기 쉽게 넣은 것으로, 붙여 넣어도 라우터가 무시합니다.
+줄 앞의 번호는 그 줄에 들어간 값입니다. 입력 칸을 누르면 그 값이 들어가는 줄이 강조됩니다. 번호는 복사되지 않습니다. 빈 줄은 읽기 쉽게 넣은 것으로, 붙여 넣어도 온프레미스 라우터(`rtN`)가 무시합니다.
 
 <p><button id="g-copy" class="md-button md-button--primary" type="button">복사</button> <span id="g-msg" class="gen-msg" aria-live="polite"></span></p>
 
@@ -196,7 +196,7 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
     try {
       await navigator.clipboard.writeText(text);
       el("msg").classList.remove("gen-warn");
-      el("msg").textContent = "복사했습니다. 라우터 웹 터미널에 붙여 넣으세요.";
+      el("msg").textContent = "복사했습니다. 온프레미스 라우터(rtN) 터미널에 붙여 넣으세요.";
     } catch (e) {
       const r = document.createRange();
       r.selectNodeContents(el("out"));
@@ -227,7 +227,7 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
 
 DX1(6–10)은 `awsdx1_…` 위에 만든 `tgw-nat-vif1`, DX2(11–15)는 `awsdx2_…` 위에 만든 `tgw-nat-vif2`의 값입니다. 두 인터페이스의 값을 섞으면 BGP가 올라오지 않습니다. 생성기는 같은 인터페이스의 두 피어 IP가 같은 `/29`에 있는지 확인해 알려 줍니다.
 
-ASN은 BGP에서 서로를 알아보는 번호입니다. 라우터 설정의 두 ASN이 콘솔에 넣은 값과 다르면 BGP가 올라오지 않습니다. 콘솔에 다른 값을 넣었다면 미리 채워진 값을 그 값으로 바꾸세요.
+ASN은 BGP에서 서로를 알아보는 번호입니다. 만들어진 설정의 두 ASN이 콘솔에 넣은 값과 다르면 BGP가 올라오지 않습니다. 콘솔에 다른 값을 넣었다면 미리 채워진 값을 그 값으로 바꾸세요.
 
 ## 설정이 하는 일 { #explain }
 
@@ -235,7 +235,7 @@ ASN은 BGP에서 서로를 알아보는 번호입니다. 라우터 설정의 두
 |---|---|---|
 | `GigabitEthernet1.<VLAN>`, `GigabitEthernet2.<VLAN>` | 6–8, 11–13 | 전송 가상 인터페이스마다 하나씩 만드는 서브인터페이스. VLAN 번호와 라우터 쪽 IP, 회선 끊김을 빨리 알아채는 BFD를 설정 |
 | `Loopback1` `10.200.0.1/32` | 3 | NAT 규칙에 없는 주소. 주소가 바뀌지 않는 경우를 확인할 때 씀 |
-| `router bgp 65000` | 4 | 라우터 자신의 ASN으로 BGP를 켬 |
+| `router bgp 65000` | 4 | 온프레미스 라우터(`rtN`) 자신의 ASN으로 BGP를 켬 |
 | `neighbor … remote-as 65300` | 5, 9·10, 14·15 | Direct Connect gateway(AS 65300)와 BGP로 경로를 주고받음. BGP 키와 BFD를 함께 씀 |
 | `network 172.20.N.0 …`, `network 10.200.0.1 …` | 2, 3 | 온프레미스 대역과 Loopback1을 AWS에 광고 |
 | `maximum-paths 2` | — | 두 전송 가상 인터페이스로 받은 같은 경로를 함께 씀(ECMP) |

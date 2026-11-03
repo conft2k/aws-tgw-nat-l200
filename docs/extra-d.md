@@ -41,9 +41,9 @@
 
 ![Delete stack 확인 창: 스택 이름을 입력하는 칸이 있다](images/console/extraD-05-delete-stack.png){ .shot }
 
-**성공 확인**: 스택이 목록에서 사라집니다(**DELETE_COMPLETE**). Transit Gateway, VPC, EC2, 로그도 함께 지워집니다.
+**성공 확인**: 스택이 목록에서 사라집니다(**DELETE_COMPLETE**). Transit Gateway, VPC, VPC-A EC2와 VPC-B EC2, 로그도 함께 지워집니다.
 
 ## D-6. 마무리 { #d6 }
 
-- 라우터와 VM에 추가한 설정은 그대로 두어도 됩니다. 운영자가 Pod를 처음 상태로 되돌립니다.
+- 온프레미스 라우터(`rtN`)와 온프레미스 VM(`vmN`)에 추가한 설정은 그대로 두어도 됩니다. 운영자가 Pod를 처음 상태로 되돌립니다.
 - **Connections**에 hosted connection 2개가 **Available**로 남아 있으면 정리가 끝난 것입니다.

@@ -5,11 +5,11 @@
 ## 0-1. 웹 터미널 열어 보기 { #lab0-1 }
 
 1. 실습 장비 페이지를 엽니다. 내 Pod 번호, DX1·DX2 VLAN을 [적어 둡니다](prerequisites.md#notes).
-2. 라우터 `rtN`을 누릅니다. 웹 터미널에 `rtN#`이 보이면 됩니다.
-3. 왼쪽 위 홈 아이콘으로 돌아와 VM `vmN`도 엽니다. `labuser@vmN:~$`가 보이면 됩니다.
+2. 온프레미스 라우터(`rtN`)를 누릅니다. 웹 터미널에 `rtN#`이 보이면 됩니다.
+3. 왼쪽 위 홈 아이콘으로 돌아와 온프레미스 VM(`vmN`)도 엽니다. `labuser@vmN:~$`가 보이면 됩니다.
 
 !!! tip "탭을 여러 개 쓰세요"
-    라우터, VM, AWS 콘솔을 브라우저 탭으로 따로 열어 두면 오가기 편합니다.
+    온프레미스 라우터, 온프레미스 VM, AWS 콘솔을 브라우저 탭으로 따로 열어 두면 오가기 편합니다.
 
 ## 0-2. hosted connection 수락 { #lab0-2 }
 
@@ -23,7 +23,7 @@
 
 ## 0-3. 스택 배포 { #lab0-3 }
 
-스택은 실습에 필요한 바탕을 만듭니다. Transit Gateway, VPC 2개, EC2 2대, EC2 접속용 엔드포인트, 로그 설정입니다. 핵심인 Direct Connect 연결과 1:1 NAT는 이어지는 실습에서 직접 만듭니다.
+스택은 실습에 필요한 바탕을 만듭니다. Transit Gateway, VPC 2개, EC2 2대(VPC-A EC2, VPC-B EC2), EC2 접속용 엔드포인트, 로그 설정입니다. 핵심인 Direct Connect 연결과 1:1 NAT는 이어지는 실습에서 직접 만듭니다.
 
 1. 템플릿 파일을 내려받습니다: [tgw-nat-workshop.yaml](assets/tgw-nat-workshop.yaml){ download }
 2. **CloudFormation** 콘솔 → **Create stack** → **With new resources (standard)** 를 누릅니다.
