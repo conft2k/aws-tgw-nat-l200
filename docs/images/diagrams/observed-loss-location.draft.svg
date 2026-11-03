@@ -108,7 +108,7 @@
   <rect x="1300" y="48" width="462" height="280" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="bundle:group/Corporate-data-center_32" x="1300" y="48" width="24" height="24"/>
   <text x="1332" y="66" font-size="14" font-weight="600" fill="#7D8998">온프레미스(Pod N)</text>
-  <text x="1332" y="82" font-size="13" fill="#232F3E">LAN 172.20.N.0/24</text>
+  <text x="1332" y="82" font-size="13" fill="#232F3E">온프레미스 대역 172.20.N.0/24</text>
 
   <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="1416" y="186" width="48" height="48"/>
   <text x="1440" y="252" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>

@@ -33,7 +33,7 @@
 <rect x="16" y="332" width="396" height="271" fill="none" stroke="#7D8998" stroke-width="2"/>
 <image href="bundle:group/Corporate-data-center_32" x="16" y="332" width="24" height="24"/>
 <text x="48" y="350" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (Pod N)</text>
-<text x="48" y="366" font-size="13" fill="#232F3E">LAN 172.20.N.0/24</text>
+<text x="48" y="366" font-size="13" fill="#232F3E">온프레미스 대역 172.20.N.0/24</text>
 <rect x="576" y="16" width="1088" height="610" fill="none" stroke="#232F3E" stroke-width="2"/>
 <image href="bundle:group/AWS-Cloud-logo_32" x="576" y="16" width="32" height="32"/>
 <text x="618" y="38" font-size="15" font-weight="600" fill="#232F3E">AWS Cloud</text>

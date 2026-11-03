@@ -5,9 +5,9 @@
   <rect x="16" y="86" width="300" height="194" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="bundle:group/Corporate-data-center_32" x="16" y="86" width="24" height="24"/>
   <text x="48" y="104" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
-  <text x="48" y="120" font-size="13" fill="#232F3E">LAN 172.20.N.0/24</text>
+  <text x="48" y="120" font-size="13" fill="#232F3E">온프레미스 대역 172.20.N.0/24</text>
   <text x="16" y="316" font-size="13" fill="#545B64">온프레미스에서 VPC-A로는 아예 갈 수 없음:</text>
-  <text x="16" y="333" font-size="13" fill="#545B64">172.20.N.x는 자기 LAN의 주소이기 때문</text>
+  <text x="16" y="333" font-size="13" fill="#545B64">172.20.N.x는 온프레미스 대역의 주소이기 때문</text>
   <rect x="496" y="16" width="1006" height="488" fill="none" stroke="#232F3E" stroke-width="2"/>
   <image href="bundle:group/AWS-Cloud-logo_32" x="496" y="16" width="32" height="32"/>
   <text x="538" y="38" font-size="15" font-weight="600" fill="#232F3E">AWS Cloud</text>

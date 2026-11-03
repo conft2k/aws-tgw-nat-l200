@@ -43,7 +43,7 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
 
 ![VPC-A EC2 터미널: tcpdump에 10.1.1.10에서 172.20.89.10으로 가는 echo reply가 8개 찍혀 있다](images/console/lab2-eic-02-tcpdump-overlap.png){ .shot }
 
-온프레미스에서 VPC-A로는 처음부터 갈 수 없습니다. VPC-A의 주소가 온프레미스 자기 LAN의 주소와 같기 때문입니다. tcpdump는 **Ctrl+C**로 멈춥니다.
+온프레미스에서 VPC-A로는 처음부터 갈 수 없습니다. VPC-A의 주소가 온프레미스 대역의 주소와 같기 때문입니다. tcpdump는 **Ctrl+C**로 멈춥니다.
 
 ## 2-3. 1:1 NAT는 어디서 주소를 바꾸나 { #lab2-3 }
 

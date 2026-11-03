@@ -7,7 +7,7 @@
 | 항목 | 내용 |
 |---|---|
 | AWS 계정 | 실습용 계정 1개와 콘솔 로그인 정보 |
-| 온프레미스 Pod | 온프레미스 라우터(`rtN`, Cisco)와 온프레미스 VM(`vmN`, Linux). LAN은 `172.20.N.0/24` |
+| 온프레미스 Pod | 온프레미스 라우터(`rtN`, Cisco)와 온프레미스 VM(`vmN`, Linux). 온프레미스 대역은 `172.20.N.0/24` |
 | hosted connection 2개 | 여러분 계정에 **수락 대기**(Ordering) 상태로 들어와 있습니다 |
 | 실습 장비 페이지 | 내 Pod 정보를 보고, 온프레미스 라우터와 온프레미스 VM의 터미널을 여는 페이지(링크는 운영자가 드립니다) |
 
@@ -38,7 +38,7 @@
     콘솔에서 지울 수는 있지만, 지우면 여러분이 다시 만들 수 없습니다. 실습이 끝나도 그대로 두세요. 운영자가 회수합니다.
 
 !!! warning "온프레미스 라우터(`rtN`)의 GigabitEthernet4는 건드리지 마세요"
-    `GigabitEthernet4`는 LAN이자 웹 터미널이 연결되는 길입니다. 실습에서는 `GigabitEthernet1`, `GigabitEthernet2`에 설정을 추가하기만 합니다.
+    `GigabitEthernet4`는 온프레미스 대역(`172.20.N.0/24`)과 웹 터미널이 연결되는 인터페이스입니다. 실습에서는 `GigabitEthernet1`, `GigabitEthernet2`에 설정을 추가하기만 합니다.
 
 ## 비용
 

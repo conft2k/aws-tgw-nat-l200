@@ -9,6 +9,7 @@
 | 온프레미스 | — | 회사 데이터센터처럼 AWS 밖에 있는 네트워크. 이 워크숍에서는 여러분의 Pod(온프레미스 라우터와 온프레미스 VM) |
 | 온프레미스 라우터 | — | Pod의 라우터(`rtN`) |
 | 온프레미스 VM | — | Pod의 Linux VM(`vmN`, `172.20.N.10`) |
+| 온프레미스 대역 | — | 온프레미스 VM이 있는 네트워크 대역. 이 워크숍에서는 `172.20.N.0/24`이고, AWS에 BGP로 광고합니다 |
 | hosted connection(호스팅 연결) | Hosted connection | Direct Connect 파트너가 만들어 여러분 계정에 넘겨 준 회선. 수락해야 쓸 수 있습니다. VLAN 번호는 파트너가 정합니다 |
 | VLAN | VLAN | 한 회선에서 여러 통로를 나누는 번호. hosted connection마다 정해져 있습니다 |
 | ASN | ASN | BGP에서 라우터를 구분하는 번호. 이 워크숍은 온프레미스 라우터 65000, Direct Connect gateway 65300, Transit Gateway 65400을 씁니다 |
