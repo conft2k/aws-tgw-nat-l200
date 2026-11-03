@@ -1,6 +1,6 @@
 # 실습 0. 시작하기 (10분)
 
-오래 걸리는 두 가지를 먼저 시작해 둡니다. hosted connection 수락과 스택 배포입니다. 발표를 듣는 동안 준비가 끝납니다.
+오래 걸리는 두 가지를 먼저 시작해 둡니다. hosted connection 수락과 스택 배포입니다. 준비가 끝나기를 기다리지 않고 실습 1로 넘어갑니다.
 
 ## 0-1. 웹 터미널 열어 보기 { #lab0-1 }
 
@@ -45,4 +45,4 @@
 
 ![스택 이벤트: tgw-nat-workshop이 CREATE_IN_PROGRESS](images/console/lab0-cfn-05-in-progress.png){ .shot }
 
-여기까지 하고 발표를 듣습니다.
+여기까지 하고 [실습 1](lab1.md)로 넘어갑니다.

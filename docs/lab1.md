@@ -1,4 +1,4 @@
-# 실습 1. Direct Connect 연결 (25분)
+# 실습 1. Direct Connect 연결 (30분)
 
 온프레미스 라우터(`rtN`)를 AWS의 Transit Gateway까지 연결합니다. 아직 NAT는 걸지 않습니다.
 
