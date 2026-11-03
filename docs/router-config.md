@@ -91,8 +91,8 @@
 
 | 값 | 찾는 곳 |
 |---|---|
-| Pod 번호 N | 참가자 정보 페이지(`podN`) |
-| VIF 1·2 VLAN | 참가자 정보 페이지, 또는 전송 가상 인터페이스 상세의 **VLAN** |
+| Pod 번호 N | 실습 장비 페이지(`podN`) |
+| VIF 1·2 VLAN | 실습 장비 페이지, 또는 전송 가상 인터페이스 상세의 **VLAN** |
 | Your router peer IP, Amazon router peer IP, BGP authentication key | 전송 가상 인터페이스 상세 → **Peerings** 탭 |
 
 피어 IP는 `/29`를 붙인 채로 넣어도 됩니다. 첫 번째 인터페이스는 `awsdx1_…`(라우터 `GigabitEthernet1`), 두 번째는 `awsdx2_…`(`GigabitEthernet2`)의 것입니다.

@@ -7,7 +7,7 @@
 !   <AWS_IP1>     VIF 1 "Amazon router peer IP" without /29
 !   <BGP_KEY1>    VIF 1 "BGP authentication key"
 !   <MY_IP2>, <AWS_IP2>, <BGP_KEY2>  the same for VIF 2
-! The peer IPs are /29 (mask 255.255.255.248). Do not change GigabitEthernet3/4.
+! The peer IPs are /29 (mask 255.255.255.248). Do not change GigabitEthernet4 (LAN and web terminal path).
 configure terminal
 interface GigabitEthernet1.<VLAN1>
  description DX1 transit VIF

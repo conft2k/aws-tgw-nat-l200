@@ -14,7 +14,7 @@
 
 ### 관찰한 것 { #observed }
 
-![관찰한 손실 위치: VPC-A에서 온프레미스로 가는 패킷이 Transit Gateway에서 주소가 바뀐 뒤 DXGW 연결로 나갔지만, 라우터에는 도착하지 않았다. 반대 방향은 전달됐다](images/diagrams/observed-loss-location.png)
+![관찰한 손실 구간: VPC-A에서 온프레미스로 가는 패킷이 Transit Gateway에서 주소가 바뀌어 DXGW 연결로 나간 것으로 집계됐지만, 라우터에는 도착하지 않았다. 그 사이 어딘가에서 사라졌다. 반대 방향은 전달됐다](images/diagrams/observed-loss-location.png)
 
 조건: 2026-11-03, 서울 리전, DXGW 연결, 같은 파트너의 50Mbps hosted connection 2개, 라우터 Cisco IOS XE 16.12, Pod 1개.
 
@@ -37,10 +37,10 @@
 | 지점 | 끊긴 동안 |
 |---|---|
 | Transit Gateway → DXGW 연결 | 주소를 바꾼 패킷이 평소처럼 나감(`PacketsOut` = `PacketsOutNAT`, 분당 약 580). Transit Gateway가 버린 기록은 없음 |
-| 라우터 도착 | 늘어나지 않음(라우터의 인바운드 ACL 카운터, NAT 주소·원래 주소 모두) |
+| 라우터 도착 | 라우터가 받은 패킷을 세는 카운터(인바운드 ACL)가 늘지 않음. NAT 주소·원래 주소 모두 |
 | VM 도착 | 0개(VM 패킷 캡처, 2·3번째) |
 
-Transit Gateway는 패킷을 DXGW 연결로 내보냈지만, 라우터에는 닿지 않았습니다. 되돌린 목적지는 원래 주소(`172.20.N.10`)입니다. 그래서 Direct Connect gateway가 온프레미스에게서 그 주소의 경로를 배워야 전달할 수 있는 것으로 보입니다(추론). Direct Connect gateway 안은 직접 볼 수 없었습니다.
+패킷은 DXGW 연결로 나간 것으로 집계됐지만(`PacketsOut`), 라우터에는 닿지 않았습니다. 그 사이 어디서 사라졌는지는 정확히 알 수 없습니다. 되돌린 목적지는 원래 주소(`172.20.N.10`)입니다. 그래서 Direct Connect gateway가 온프레미스에게서 그 주소의 경로를 배워야 전달할 수 있는 것으로 보입니다(추론). Direct Connect gateway 안은 직접 볼 수 없었습니다.
 
 ## 워크숍에서의 안내 { #guide }
 

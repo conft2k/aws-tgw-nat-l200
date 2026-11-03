@@ -13,7 +13,8 @@ ping -c 200 100.64.2.10
 1. **CloudWatch** 콘솔 → **Metrics** → **All metrics** → **TransitGateway** → **Per-TransitGatewayAttachment Metrics**를 고릅니다.
 2. 세 Transit Gateway 연결의 `PacketsInNAT`, `PacketsOutNAT`을 선택합니다.
 3. **Graphed metrics** 탭에서 **Statistic**을 **Sum**으로 바꿉니다.
-4. 그래프 종류를 **Number**로 바꾸고, 시간 범위를 ping을 보낸 몇 분으로 맞춥니다.
+4. 그래프 종류를 **Number**로 바꿉니다. **Options** 탭의 **Value**에서 **Time range value**를 고릅니다(시간 범위 전체의 합을 보여 줍니다).
+5. 오른쪽 위 시간 범위를 **Custom**으로 ping을 보낸 몇 분에 맞춥니다.
 
 ![CloudWatch 지표(Number): DXGW와 VPC-A 연결의 PacketsInNAT·PacketsOutNAT가 모두 200, VPC-B는 0](images/console/extraC-01-nat-metrics.png){ .shot }
 
@@ -30,7 +31,11 @@ ping -c 200 100.64.2.10
 
 ## C-2. 두 Flow Logs 비교 { #c2 }
 
-**CloudWatch** → **Logs Insights**에서 쿼리합니다. 새 화면(**Log Analytics**)이 열려도 같습니다. 시간 범위는 **1h**로 둡니다. 쿼리를 넣고 **Run**을 누릅니다. 쿼리 안의 `N`은 내 Pod 번호로 바꿉니다.
+**CloudWatch** → **Logs Insights**를 엽니다. 새 화면(**Log Analytics**)이 열려도 같습니다.
+
+1. **Query scope**의 **Log group**에서 로그 그룹을 고릅니다.
+2. 시간 범위를 **1h**로 둡니다.
+3. 아래 쿼리를 붙여 넣고 **Run**을 누릅니다. 쿼리 안의 `N`은 내 Pod 번호로 바꿉니다.
 
 **TGW Flow Logs** — 로그 그룹 `/tgwnat/tgw-flow-logs`
 
@@ -59,5 +64,7 @@ parse @message "* * * * * * * * * * * * * * * * * * * *" as ver, vpc, eni, srcad
 **결과**
 
 - **TGW Flow Logs**는 VM과 VPC-A EC2 사이 트래픽을 `172.20.N.10 → 172.20.N.10`처럼 **양 끝의 실제 주소**로 남깁니다. 출발지는 바뀌기 전, 목적지는 되돌린 뒤의 주소입니다. 이 내용은 사전 검증(2026-11-03)에서 관찰한 것이고 문서에는 설명이 없습니다.
-- **VPC Flow Logs**는 VPC 안에서 보이는 주소를 남깁니다. VPC-A EC2의 ENI에는 상대가 `100.64.1.10`으로 기록됩니다. Transit Gateway 쪽 ENI의 기록은 `srcaddr`가 그 ENI의 주소로 보이고, 실제 상대는 `pkt_srcaddr`, `pkt_dstaddr`에 있습니다.
+- **VPC Flow Logs**는 VPC 안에서 보이는 주소를 남깁니다. 기록은 ENI(EC2나 Transit Gateway가 VPC 안에서 쓰는 네트워크 인터페이스)마다 남습니다.
+    - EC2의 ENI 기록에는 상대가 `100.64.1.10`으로 보입니다.
+    - Transit Gateway의 ENI 기록에서는 `srcaddr`가 그 ENI 자신의 주소입니다. 실제 상대 주소는 `pkt_srcaddr`, `pkt_dstaddr`에 있습니다.
 - 그래서 "상대에게 어떤 주소로 보였나"는 VPC Flow Logs나 패킷 캡처로 확인합니다.

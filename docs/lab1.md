@@ -2,7 +2,7 @@
 
 온프레미스 라우터를 AWS의 Transit Gateway까지 연결합니다. 아직 NAT는 걸지 않습니다.
 
-연결은 아래 순서로 만듭니다. 번호는 이 실습의 단계 순서입니다.
+아래 그림의 번호 순서로 만듭니다. ①(hosted connection 수락)은 실습 0에서 이미 했습니다.
 
 ![Direct Connect 연결 구성: 라우터의 서브인터페이스 2개가 hosted connection 2개와 전송 가상 인터페이스 2개를 거쳐 Direct Connect gateway와 Transit Gateway에 연결된다. 라우터는 172.20.N.0/24와 10.200.0.1/32를 광고하고, 허용된 접두사 100.64.2.0/24와 10.1.1.0/24를 받는다](images/diagrams/lab1-dx-build.png)
 
@@ -22,7 +22,7 @@ ASN은 BGP에서 쓰는 번호입니다. 이 워크숍은 라우터 65000, Direc
 
 ## 1-2. Transit Gateway와 연결하기 { #lab1-2 }
 
-이 연결은 몇 분 걸리므로 일찍 시작해 둡니다.
+게이트웨이 연결은 몇 분 걸리므로 일찍 시작해 둡니다.
 
 1. **Direct Connect gateways** 목록에서 방금 만든 게이트웨이의 ID를 누릅니다(목록에는 이름 대신 ID가 보입니다).
 2. **Gateway associations** 탭 → **Associate gateway**를 누릅니다.
@@ -71,7 +71,9 @@ hosted connection 하나에는 전송 가상 인터페이스를 하나만 만들
 2. **Peerings** 탭에서 세 값을 적습니다: **BGP authentication key**, **Your router peer IP**, **Amazon router peer IP**.
 3. `tgw-nat-vif2`도 같은 값을 적습니다.
 
-![Peerings 탭: BGP ASN 65000, BGP 키(가림), Your router peer IP 169.254.96.54/29, Amazon router peer IP 169.254.96.49/29, BGP status Up](images/console/lab1-vif-05-peering.png){ .shot }
+![Peerings 탭(라우터 설정 뒤 화면): BGP ASN 65000, BGP 키(가림), Your router peer IP 169.254.96.54/29, Amazon router peer IP 169.254.96.49/29, BGP status Up](images/console/lab1-vif-05-peering.png){ .shot }
+
+위 화면은 라우터 설정을 마친 뒤의 모습입니다. 지금은 **BGP status**가 **Down**이어도 괜찮습니다.
 
 ## 1-5. 라우터 설정 { #lab1-5 }
 
@@ -101,7 +103,7 @@ show ip bgp | begin Network
 - `10.1.1.0/24`와 `100.64.2.0/24`를 받았습니다. 1-2에서 넣은 허용된 접두사입니다.
 - 콘솔의 두 전송 가상 인터페이스가 **Available**, **BGP status**가 **Up**입니다.
 
-이제 VPC-B까지 통신해 봅니다. NAT 규칙과 상관없는 Loopback1 주소(`10.200.0.1`)에서 보냅니다.
+이제 VPC-B까지 통신해 봅니다. Loopback1은 라우터 안의 가상 인터페이스입니다. 주소 `10.200.0.1`은 NAT 규칙의 원래 대역에 없으므로 바뀌지 않습니다.
 
 ```text
 ping 10.1.1.10 source Loopback1 repeat 5
