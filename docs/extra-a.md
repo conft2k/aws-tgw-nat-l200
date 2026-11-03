@@ -18,7 +18,7 @@ VPC-B에는 NAT 규칙이 없습니다. 하지만 DXGW 연결로 **들어오는*
 
 ## A-2. VPC-B → NAT 주소 { #a2 }
 
-1. VM에서 웹 서버를 띄웁니다: `python3 -m http.server 8080 &`
+1. VM에서 웹 서버를 백그라운드로 실행합니다: `python3 -m http.server 8080 &`
 2. VPC-B EC2(`tgwnat-vpc-b-ec2`)에 [실습 2-1](lab2.md#lab2-1)처럼 접속해 실행합니다.
 
     ```bash
