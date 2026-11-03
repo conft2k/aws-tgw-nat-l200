@@ -160,5 +160,23 @@
   0,
   810,
   362
+ ],
+ "images/console/extraD-02-disassociate.png": [
+  420,
+  365,
+  1020,
+  535
+ ],
+ "images/console/extraD-03-delete-vif.png": [
+  420,
+  365,
+  1020,
+  535
+ ],
+ "images/console/extraD-05-delete-stack.png": [
+  420,
+  249,
+  1020,
+  651
  ]
 }
