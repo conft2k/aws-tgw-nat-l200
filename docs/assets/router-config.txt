@@ -1,0 +1,40 @@
+! AWS Transit Gateway 1:1 NAT workshop - on-premises router (Cisco IOS XE)
+! Replace every <...> with your own values before pasting:
+!   <POD>         your pod number N
+!   <VLAN1>       VLAN of transit VIF 1 (hosted connection awsdx1_...)
+!   <VLAN2>       VLAN of transit VIF 2 (hosted connection awsdx2_...)
+!   <MY_IP1>      VIF 1 "Your router peer IP" without /29
+!   <AWS_IP1>     VIF 1 "Amazon router peer IP" without /29
+!   <BGP_KEY1>    VIF 1 "BGP authentication key"
+!   <MY_IP2>, <AWS_IP2>, <BGP_KEY2>  the same for VIF 2
+! The peer IPs are /29 (mask 255.255.255.248). Do not change GigabitEthernet3/4.
+configure terminal
+interface GigabitEthernet1.<VLAN1>
+ description DX1 transit VIF
+ encapsulation dot1Q <VLAN1>
+ ip address <MY_IP1> 255.255.255.248
+ bfd interval 300 min_rx 300 multiplier 3
+interface GigabitEthernet2.<VLAN2>
+ description DX2 transit VIF
+ encapsulation dot1Q <VLAN2>
+ ip address <MY_IP2> 255.255.255.248
+ bfd interval 300 min_rx 300 multiplier 3
+interface Loopback1
+ description source that no NAT rule matches
+ ip address 10.200.0.1 255.255.255.255
+router bgp 65000
+ bgp log-neighbor-changes
+ neighbor <AWS_IP1> remote-as 65300
+ neighbor <AWS_IP1> password <BGP_KEY1>
+ neighbor <AWS_IP1> fall-over bfd
+ neighbor <AWS_IP2> remote-as 65300
+ neighbor <AWS_IP2> password <BGP_KEY2>
+ neighbor <AWS_IP2> fall-over bfd
+ address-family ipv4
+  network 172.20.<POD>.0 mask 255.255.255.0
+  network 10.200.0.1 mask 255.255.255.255
+  maximum-paths 2
+  neighbor <AWS_IP1> activate
+  neighbor <AWS_IP2> activate
+ exit-address-family
+end

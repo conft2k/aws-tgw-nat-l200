@@ -1,0 +1,653 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  AWS Transit Gateway 1:1 NAT workshop (L200): Transit Gateway, VPC-A (uses the
+  same CIDR as your on-premises pod LAN), VPC-B (control VPC, no NAT), one test
+  EC2 instance and one EC2 Instance Connect Endpoint per VPC, an S3 gateway
+  endpoint for dnf, and Transit Gateway / VPC Flow Logs. You create the Direct
+  Connect gateway, transit VIFs, gateway association and 1:1 NAT rules in the
+  console during the workshop.
+
+Parameters:
+  PodNumber:
+    Type: Number
+    MinValue: 1
+    MaxValue: 99
+    Description: Your pod number N from the participant page. VPC-A uses 172.20.N.0/24, the same CIDR as your on-premises pod LAN.
+  OnPremNatCidr:
+    Type: String
+    Default: 100.64.1.0/24
+    Description: NAT CIDR that the on-prem LAN is translated to on the DXGW attachment.
+  VpcANatCidr:
+    Type: String
+    Default: 100.64.2.0/24
+    Description: NAT CIDR that VPC-A is translated to on the VPC-A attachment.
+  CgwLoopbackCidr:
+    Type: String
+    Default: 10.200.0.1/32
+    Description: CGW Loopback1, an on-prem source that no NAT rule matches.
+  VpcBCidr:
+    Type: String
+    Default: 10.1.1.0/24
+  TgwAsn:
+    Type: Number
+    Default: 65400
+  InstanceType:
+    Type: String
+    Default: t4g.micro
+  ImageId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-arm64
+  LogRetentionDays:
+    Type: Number
+    Default: 7
+
+Resources:
+  # ---------------------------------------------------------------- TGW
+  Tgw:
+    Type: AWS::EC2::TransitGateway
+    Properties:
+      Description: tgw-nat-workshop
+      AmazonSideAsn: !Ref TgwAsn
+      DefaultRouteTableAssociation: enable
+      DefaultRouteTablePropagation: enable
+      DnsSupport: enable
+      VpnEcmpSupport: enable
+      Tags:
+        - { Key: Name, Value: tgwnat-tgw }
+
+  # ---------------------------------------------------------------- VPC-A
+  VpcA:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Sub "172.20.${PodNumber}.0/24"
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-a }
+
+  VpcAAppSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VpcA
+      CidrBlock: !Sub "172.20.${PodNumber}.0/26"
+      AvailabilityZone: !Sub "${AWS::Region}a"
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-a-app-2a }
+
+  VpcATgwSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VpcA
+      CidrBlock: !Sub "172.20.${PodNumber}.224/28"
+      AvailabilityZone: !Sub "${AWS::Region}a"
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-a-tgw-2a }
+
+  VpcATgwSubnetC:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VpcA
+      CidrBlock: !Sub "172.20.${PodNumber}.240/28"
+      AvailabilityZone: !Sub "${AWS::Region}c"
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-a-tgw-2c }
+
+  VpcAAppRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VpcA
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-a-app }
+
+  VpcAAppRouteTableAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref VpcAAppSubnet
+      RouteTableId: !Ref VpcAAppRouteTable
+
+  VpcATgwRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VpcA
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-a-tgw }
+
+  VpcATgwRouteTableAssocA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref VpcATgwSubnetA
+      RouteTableId: !Ref VpcATgwRouteTable
+
+  VpcATgwRouteTableAssocC:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref VpcATgwSubnetC
+      RouteTableId: !Ref VpcATgwRouteTable
+
+  VpcAAttachment:
+    Type: AWS::EC2::TransitGatewayVpcAttachment
+    Properties:
+      TransitGatewayId: !Ref Tgw
+      VpcId: !Ref VpcA
+      SubnetIds: [!Ref VpcATgwSubnetA, !Ref VpcATgwSubnetC]
+      Options:
+        ApplianceModeSupport: disable
+        DnsSupport: enable
+      Tags:
+        - { Key: Name, Value: tgwnat-attach-vpc-a }
+
+  VpcARouteOnPremNat:
+    Type: AWS::EC2::Route
+    DependsOn: VpcAAttachment
+    Properties:
+      RouteTableId: !Ref VpcAAppRouteTable
+      DestinationCidrBlock: !Ref OnPremNatCidr
+      TransitGatewayId: !Ref Tgw
+
+  VpcARouteVpcB:
+    Type: AWS::EC2::Route
+    DependsOn: VpcAAttachment
+    Properties:
+      RouteTableId: !Ref VpcAAppRouteTable
+      DestinationCidrBlock: !Ref VpcBCidr
+      TransitGatewayId: !Ref Tgw
+
+  VpcAS3Endpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      VpcId: !Ref VpcA
+      ServiceName: !Sub "com.amazonaws.${AWS::Region}.s3"
+      VpcEndpointType: Gateway
+      RouteTableIds: [!Ref VpcAAppRouteTable]
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: Al2023Repos
+            Effect: Allow
+            Principal: "*"
+            Action: s3:GetObject
+            Resource: !Sub "arn:${AWS::Partition}:s3:::al2023-repos-${AWS::Region}-*/*"
+
+  VpcAEiceSg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: tgwnat VPC-A EICE, SSH out to the test EC2 only
+      VpcId: !Ref VpcA
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          DestinationSecurityGroupId: !Ref VpcAEc2Sg
+          Description: SSH to the test EC2
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-a-eice }
+
+  VpcAEc2Sg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: tgwnat VPC-A test EC2. On-prem is seen as its NAT CIDR.
+      VpcId: !Ref VpcA
+      SecurityGroupIngress:
+        - { IpProtocol: icmp, FromPort: -1, ToPort: -1, CidrIp: !Ref OnPremNatCidr, Description: on-prem via NAT }
+        - { IpProtocol: tcp, FromPort: 8080, ToPort: 8080, CidrIp: !Ref OnPremNatCidr, Description: on-prem via NAT }
+        - { IpProtocol: udp, FromPort: 9000, ToPort: 9000, CidrIp: !Ref OnPremNatCidr, Description: on-prem via NAT }
+        - { IpProtocol: icmp, FromPort: -1, ToPort: -1, CidrIp: !Ref VpcBCidr, Description: VPC-B }
+        - { IpProtocol: tcp, FromPort: 8080, ToPort: 8080, CidrIp: !Ref VpcBCidr, Description: VPC-B }
+        - { IpProtocol: udp, FromPort: 9000, ToPort: 9000, CidrIp: !Ref VpcBCidr, Description: VPC-B }
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-a-ec2 }
+
+  VpcAEc2SgSshFromEice:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref VpcAEc2Sg
+      IpProtocol: tcp
+      FromPort: 22
+      ToPort: 22
+      SourceSecurityGroupId: !Ref VpcAEiceSg
+      Description: SSH from EICE only
+
+  VpcAEice:
+    Type: AWS::EC2::InstanceConnectEndpoint
+    DependsOn: VpcAInstance  # its ENI must not take the instance's fixed IPs
+    Properties:
+      SubnetId: !Ref VpcAAppSubnet
+      SecurityGroupIds: [!Ref VpcAEiceSg]
+      PreserveClientIp: false
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-a-eice }
+
+  VpcAInstance:
+    Type: AWS::EC2::Instance
+    DependsOn: [VpcAS3Endpoint, VpcAAppRouteTableAssoc]
+    Properties:
+      ImageId: !Ref ImageId
+      InstanceType: !Ref InstanceType
+      MetadataOptions:
+        HttpTokens: required
+        HttpEndpoint: enabled
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs: { VolumeType: gp3, VolumeSize: 8, Encrypted: true, DeleteOnTermination: true }
+      NetworkInterfaces:
+        - DeviceIndex: "0"
+          SubnetId: !Ref VpcAAppSubnet
+          GroupSet: [!Ref VpcAEc2Sg]
+          PrivateIpAddresses:
+            - { PrivateIpAddress: !Sub "172.20.${PodNumber}.10", Primary: true }
+            - { PrivateIpAddress: !Sub "172.20.${PodNumber}.20", Primary: false }
+      UserData:
+        Fn::Base64: !Sub
+          - |
+            #!/bin/bash
+            set -euxo pipefail
+            hostnamectl set-hostname ${Host}
+            install -d /opt/tgwnat
+            cat > /opt/tgwnat/echo.py <<'PY'
+            ${EchoServer}
+            PY
+            cat > /etc/systemd/system/tgwnat-echo.service <<'UNIT'
+            [Unit]
+            Description=tgwnat echo server (TCP 8080 HTTP, UDP 9000)
+            Wants=network-online.target
+            After=network-online.target
+            [Service]
+            ExecStart=/usr/bin/python3 -u /opt/tgwnat/echo.py
+            Restart=always
+            [Install]
+            WantedBy=multi-user.target
+            UNIT
+            systemctl daemon-reload
+            systemctl enable --now tgwnat-echo
+            # test tools last, so a dnf failure cannot block the echo server
+            dnf install -y tcpdump nmap-ncat
+          - Host: vpc-a-ec2
+            EchoServer: !FindInMap [Scripts, Echo, Py]
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-a-ec2 }
+
+  # ---------------------------------------------------------------- VPC-B
+  VpcB:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcBCidr
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-b }
+
+  VpcBAppSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VpcB
+      CidrBlock: 10.1.1.0/26
+      AvailabilityZone: !Sub "${AWS::Region}a"
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-b-app-2a }
+
+  VpcBTgwSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VpcB
+      CidrBlock: 10.1.1.224/28
+      AvailabilityZone: !Sub "${AWS::Region}a"
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-b-tgw-2a }
+
+  VpcBTgwSubnetC:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VpcB
+      CidrBlock: 10.1.1.240/28
+      AvailabilityZone: !Sub "${AWS::Region}c"
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-b-tgw-2c }
+
+  VpcBAppRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VpcB
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-b-app }
+
+  VpcBAppRouteTableAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref VpcBAppSubnet
+      RouteTableId: !Ref VpcBAppRouteTable
+
+  VpcBTgwRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VpcB
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-b-tgw }
+
+  VpcBTgwRouteTableAssocA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref VpcBTgwSubnetA
+      RouteTableId: !Ref VpcBTgwRouteTable
+
+  VpcBTgwRouteTableAssocC:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref VpcBTgwSubnetC
+      RouteTableId: !Ref VpcBTgwRouteTable
+
+  VpcBAttachment:
+    Type: AWS::EC2::TransitGatewayVpcAttachment
+    Properties:
+      TransitGatewayId: !Ref Tgw
+      VpcId: !Ref VpcB
+      SubnetIds: [!Ref VpcBTgwSubnetA, !Ref VpcBTgwSubnetC]
+      Options:
+        ApplianceModeSupport: disable
+        DnsSupport: enable
+      Tags:
+        - { Key: Name, Value: tgwnat-attach-vpc-b }
+
+  VpcBRouteOnPremNat:
+    Type: AWS::EC2::Route
+    DependsOn: VpcBAttachment
+    Properties:
+      RouteTableId: !Ref VpcBAppRouteTable
+      DestinationCidrBlock: !Ref OnPremNatCidr
+      TransitGatewayId: !Ref Tgw
+
+  VpcBRouteVpcANat:
+    Type: AWS::EC2::Route
+    DependsOn: VpcBAttachment
+    Properties:
+      RouteTableId: !Ref VpcBAppRouteTable
+      DestinationCidrBlock: !Ref VpcANatCidr
+      TransitGatewayId: !Ref Tgw
+
+  VpcBRoutePodReal:
+    Type: AWS::EC2::Route
+    DependsOn: VpcBAttachment
+    Properties:
+      RouteTableId: !Ref VpcBAppRouteTable
+      DestinationCidrBlock: !Sub "172.20.${PodNumber}.0/24"
+      TransitGatewayId: !Ref Tgw
+
+  VpcBRouteCgwLoopback:
+    Type: AWS::EC2::Route
+    DependsOn: VpcBAttachment
+    Properties:
+      RouteTableId: !Ref VpcBAppRouteTable
+      DestinationCidrBlock: !Ref CgwLoopbackCidr
+      TransitGatewayId: !Ref Tgw
+
+  VpcBS3Endpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      VpcId: !Ref VpcB
+      ServiceName: !Sub "com.amazonaws.${AWS::Region}.s3"
+      VpcEndpointType: Gateway
+      RouteTableIds: [!Ref VpcBAppRouteTable]
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: Al2023Repos
+            Effect: Allow
+            Principal: "*"
+            Action: s3:GetObject
+            Resource: !Sub "arn:${AWS::Partition}:s3:::al2023-repos-${AWS::Region}-*/*"
+
+  VpcBEiceSg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: tgwnat VPC-B EICE, SSH out to the test EC2 only
+      VpcId: !Ref VpcB
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          DestinationSecurityGroupId: !Ref VpcBEc2Sg
+          Description: SSH to the test EC2
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-b-eice }
+
+  VpcBEc2Sg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: tgwnat VPC-B test EC2 (control, no NAT on its attachment)
+      VpcId: !Ref VpcB
+      SecurityGroupIngress:
+        - { IpProtocol: icmp, FromPort: -1, ToPort: -1, CidrIp: !Ref OnPremNatCidr, Description: on-prem via NAT }
+        - { IpProtocol: tcp, FromPort: 8080, ToPort: 8080, CidrIp: !Ref OnPremNatCidr, Description: on-prem via NAT }
+        - { IpProtocol: udp, FromPort: 9000, ToPort: 9000, CidrIp: !Ref OnPremNatCidr, Description: on-prem via NAT }
+        - { IpProtocol: icmp, FromPort: -1, ToPort: -1, CidrIp: !Ref VpcANatCidr, Description: VPC-A via NAT }
+        - { IpProtocol: tcp, FromPort: 8080, ToPort: 8080, CidrIp: !Ref VpcANatCidr, Description: VPC-A via NAT }
+        - { IpProtocol: udp, FromPort: 9000, ToPort: 9000, CidrIp: !Ref VpcANatCidr, Description: VPC-A via NAT }
+        - { IpProtocol: icmp, FromPort: -1, ToPort: -1, CidrIp: !Sub "172.20.${PodNumber}.0/24", Description: real pod CIDR (overlap demo) }
+        - { IpProtocol: tcp, FromPort: 8080, ToPort: 8080, CidrIp: !Sub "172.20.${PodNumber}.0/24", Description: real pod CIDR (overlap demo) }
+        - { IpProtocol: udp, FromPort: 9000, ToPort: 9000, CidrIp: !Sub "172.20.${PodNumber}.0/24", Description: real pod CIDR (overlap demo) }
+        - { IpProtocol: icmp, FromPort: -1, ToPort: -1, CidrIp: !Ref CgwLoopbackCidr, Description: CGW Loopback1 (no NAT) }
+        - { IpProtocol: tcp, FromPort: 8080, ToPort: 8080, CidrIp: !Ref CgwLoopbackCidr, Description: CGW Loopback1 (no NAT) }
+        - { IpProtocol: udp, FromPort: 9000, ToPort: 9000, CidrIp: !Ref CgwLoopbackCidr, Description: CGW Loopback1 (no NAT) }
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-b-ec2 }
+
+  VpcBEc2SgSshFromEice:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref VpcBEc2Sg
+      IpProtocol: tcp
+      FromPort: 22
+      ToPort: 22
+      SourceSecurityGroupId: !Ref VpcBEiceSg
+      Description: SSH from EICE only
+
+  VpcBEice:
+    Type: AWS::EC2::InstanceConnectEndpoint
+    DependsOn: VpcBInstance  # its ENI must not take the instance's fixed IP
+    Properties:
+      SubnetId: !Ref VpcBAppSubnet
+      SecurityGroupIds: [!Ref VpcBEiceSg]
+      PreserveClientIp: false
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-b-eice }
+
+  VpcBInstance:
+    Type: AWS::EC2::Instance
+    DependsOn: [VpcBS3Endpoint, VpcBAppRouteTableAssoc]
+    Properties:
+      ImageId: !Ref ImageId
+      InstanceType: !Ref InstanceType
+      MetadataOptions:
+        HttpTokens: required
+        HttpEndpoint: enabled
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs: { VolumeType: gp3, VolumeSize: 8, Encrypted: true, DeleteOnTermination: true }
+      NetworkInterfaces:
+        - DeviceIndex: "0"
+          SubnetId: !Ref VpcBAppSubnet
+          GroupSet: [!Ref VpcBEc2Sg]
+          PrivateIpAddress: 10.1.1.10
+      UserData:
+        Fn::Base64: !Sub
+          - |
+            #!/bin/bash
+            set -euxo pipefail
+            hostnamectl set-hostname ${Host}
+            install -d /opt/tgwnat
+            cat > /opt/tgwnat/echo.py <<'PY'
+            ${EchoServer}
+            PY
+            cat > /etc/systemd/system/tgwnat-echo.service <<'UNIT'
+            [Unit]
+            Description=tgwnat echo server (TCP 8080 HTTP, UDP 9000)
+            Wants=network-online.target
+            After=network-online.target
+            [Service]
+            ExecStart=/usr/bin/python3 -u /opt/tgwnat/echo.py
+            Restart=always
+            [Install]
+            WantedBy=multi-user.target
+            UNIT
+            systemctl daemon-reload
+            systemctl enable --now tgwnat-echo
+            # test tools last, so a dnf failure cannot block the echo server
+            dnf install -y tcpdump nmap-ncat
+          - Host: vpc-b-ec2
+            EchoServer: !FindInMap [Scripts, Echo, Py]
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-b-ec2 }
+
+  # ---------------------------------------------------------------- Flow Logs
+  TgwFlowLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /tgwnat/tgw-flow-logs
+      RetentionInDays: !Ref LogRetentionDays
+
+  VpcFlowLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /tgwnat/vpc-flow-logs
+      RetentionInDays: !Ref LogRetentionDays
+
+  FlowLogsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Description: tgwnat - deliver TGW and VPC Flow Logs to CloudWatch Logs
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: { Service: vpc-flow-logs.amazonaws.com }
+            Action: sts:AssumeRole
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref AWS::AccountId
+      Policies:
+        - PolicyName: deliver
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                  - logs:DescribeLogStreams
+                Resource:
+                  - !GetAtt TgwFlowLogGroup.Arn
+                  - !GetAtt VpcFlowLogGroup.Arn
+              - Effect: Allow
+                Action: logs:DescribeLogGroups
+                Resource: "*"
+      Tags:
+        - { Key: Name, Value: tgwnat-flow-logs }
+
+  TgwFlowLog:
+    Type: AWS::EC2::FlowLog
+    Properties:
+      ResourceType: TransitGateway
+      ResourceId: !Ref Tgw
+      LogDestinationType: cloud-watch-logs
+      LogGroupName: !Ref TgwFlowLogGroup
+      DeliverLogsPermissionArn: !GetAtt FlowLogsRole.Arn
+      MaxAggregationInterval: 60
+      Tags:
+        - { Key: Name, Value: tgwnat-tgw-flow }
+
+  VpcAFlowLog:
+    Type: AWS::EC2::FlowLog
+    Properties:
+      ResourceType: VPC
+      ResourceId: !Ref VpcA
+      TrafficType: ALL
+      LogDestinationType: cloud-watch-logs
+      LogGroupName: !Ref VpcFlowLogGroup
+      DeliverLogsPermissionArn: !GetAtt FlowLogsRole.Arn
+      MaxAggregationInterval: 60
+      LogFormat: !FindInMap [Scripts, FlowLog, VpcFormat]
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-a-flow }
+
+  VpcBFlowLog:
+    Type: AWS::EC2::FlowLog
+    Properties:
+      ResourceType: VPC
+      ResourceId: !Ref VpcB
+      TrafficType: ALL
+      LogDestinationType: cloud-watch-logs
+      LogGroupName: !Ref VpcFlowLogGroup
+      DeliverLogsPermissionArn: !GetAtt FlowLogsRole.Arn
+      MaxAggregationInterval: 60
+      LogFormat: !FindInMap [Scripts, FlowLog, VpcFormat]
+      Tags:
+        - { Key: Name, Value: tgwnat-vpc-b-flow }
+
+Mappings:
+  Scripts:
+    FlowLog:
+      VpcFormat: >-
+        ${version} ${vpc-id} ${interface-id} ${srcaddr} ${dstaddr} ${pkt-srcaddr}
+        ${pkt-dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes}
+        ${tcp-flags} ${type} ${start} ${end} ${action} ${log-status}
+        ${flow-direction} ${traffic-path}
+    Echo:
+      # TCP 8080: HTTP GET answers with the client address the server saw.
+      # UDP 9000: echoes the datagram back, prefixed with the client address.
+      # Every request is logged to the journal (journalctl -u tgwnat-echo).
+      Py: |
+        import socket, threading, datetime, http.server, socketserver
+        HOST = socket.gethostname()
+        def log(msg):
+            print(datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="milliseconds"), msg, flush=True)
+        class H(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                ip, port = self.client_address[:2]
+                body = f"{HOST} saw {ip}:{port}\n".encode()
+                log(f"tcp8080 from {ip}:{port} {self.path}")
+                self.send_response(200)
+                self.send_header("Content-Type", "text/plain")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+            def log_message(self, *a):
+                pass
+        class S(socketserver.ThreadingMixIn, http.server.HTTPServer):
+            daemon_threads = True
+            allow_reuse_address = True
+        def udp():
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.bind(("0.0.0.0", 9000))
+            while True:
+                data, (ip, port) = s.recvfrom(65535)
+                log(f"udp9000 from {ip}:{port} {len(data)}B")
+                s.sendto(f"{HOST} saw {ip}:{port} ".encode() + data, (ip, port))
+        threading.Thread(target=udp, daemon=True).start()
+        S(("0.0.0.0", 8080), H).serve_forever()
+
+Outputs:
+  TgwId:
+    Value: !Ref Tgw
+    Export: { Name: !Sub "${AWS::StackName}-TgwId" }
+  VpcAAttachmentId:
+    Value: !Ref VpcAAttachment
+    Export: { Name: !Sub "${AWS::StackName}-VpcAAttachmentId" }
+  VpcBAttachmentId:
+    Value: !Ref VpcBAttachment
+    Export: { Name: !Sub "${AWS::StackName}-VpcBAttachmentId" }
+  PodCidr:
+    Value: !Sub "172.20.${PodNumber}.0/24"
+    Export: { Name: !Sub "${AWS::StackName}-PodCidr" }
+  OnPremNatCidr:
+    Value: !Ref OnPremNatCidr
+    Export: { Name: !Sub "${AWS::StackName}-OnPremNatCidr" }
+  VpcANatCidr:
+    Value: !Ref VpcANatCidr
+    Export: { Name: !Sub "${AWS::StackName}-VpcANatCidr" }
+  VpcAInstanceId:
+    Value: !Ref VpcAInstance
+  VpcBInstanceId:
+    Value: !Ref VpcBInstance
+  VpcAEiceId:
+    Value: !Ref VpcAEice
+  VpcBEiceId:
+    Value: !Ref VpcBEice

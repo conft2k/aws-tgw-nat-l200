@@ -5,3 +5,5 @@ __pycache__/
 # MkDocs build output
 site/
 .venv/
+# rehearsal raw logs (timings go into PLAN.md)
+rehearsal/
