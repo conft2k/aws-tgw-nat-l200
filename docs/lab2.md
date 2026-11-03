@@ -66,7 +66,7 @@ VPC-A의 EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 
 
 3. 아래처럼 설정합니다.
     - **Enable NAT Gateway support**를 선택합니다.
-    - **NAT system routes**는 선택된 채로 둡니다. NAT 대역 경로를 Transit Gateway가 알아서 만듭니다.
+    - **NAT system routes**는 선택된 채로 둡니다. NAT 대역 경로를 Transit Gateway가 알아서 만듭니다. 무엇인지는 아래 설명 상자에 있습니다.
     - **Add rule**을 누르고 **Rule number** `100`, **Source CIDR** `172.20.N.0/24`, **NAT CIDR** `100.64.1.0/24`를 넣습니다. 입력란 아래에 목록이 뜨면 **Use "…"** 를 고릅니다.
 
     ![Manage NAT rules 화면: 두 확인란이 선택되어 있고 규칙 100은 172.20.89.0/24 → 100.64.1.0/24](images/console/lab2-nat-02-dxgw-form.png){ .shot }
@@ -74,6 +74,50 @@ VPC-A의 EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 
 4. **Save changes**를 누릅니다.
 
 빈 규칙 줄이 남아 있으면 저장되지 않습니다. 빈 줄의 **Remove**를 누르세요.
+
+!!! info "NAT system routes는 무엇인가요?"
+    **왜 경로가 하나 더 필요한가요?**
+
+    1. NAT를 켜면 온프레미스 VM(`172.20.N.10`)은 AWS 쪽에서 새 주소 `100.64.1.10`으로 보입니다.
+    2. 그래서 VPC-A의 EC2가 VM에게 보내는 패킷은 받는 주소가 `100.64.1.10`입니다. VM이 보낸 요청에 대한 응답도 같습니다.
+    3. 패킷이 Transit Gateway에 오면, Transit Gateway는 라우팅 테이블에서 `100.64.1.10`으로 가는 길을 찾습니다.
+    4. `100.64.1.0/24`는 NAT 규칙에서 새로 정한 대역입니다. 온프레미스 라우터는 이 대역을 광고하지 않습니다. 경로가 없으면 Transit Gateway는 패킷을 어디로 보낼지 몰라 버립니다.
+
+    그래서 "`100.64.1.0/24`는 DXGW 연결(온프레미스 쪽)로 보내라"는 경로가 있어야 합니다. 새 주소로 이사하면 우체국에 새 주소를 알려야 우편물이 오는 것과 비슷합니다.
+
+    **NAT system routes는 이 경로를 누가 만들지 정합니다.** 주소를 바꾸는 일과는 상관없습니다. 주소 변환은 **Enable NAT Gateway support**와 규칙이 정합니다. 공식 문서와 API에서는 이 설정을 NAT system route support(`NatSystemRouteSupport`)라고 부릅니다.
+
+    | 설정 | NAT 대역 경로를 만드는 쪽 | 라우팅 테이블의 유형 |
+    |---|---|---|
+    | 켬(기본값, 이 실습) | Transit Gateway가 자동으로 만듦 | **System** |
+    | 끔 | 온프레미스 라우터가 BGP로 광고하거나, 정적 경로를 직접 추가 | **Propagated**(정적 경로면 **Static**) |
+
+    **DXGW 연결은 고를 수 있는데, VPC 연결은 왜 잠겨 있나요?**
+
+    공식 문서는 연결 종류마다 이 설정을 바꿀 수 있는지만 정하고, 이유는 적지 않습니다. 대신 두 연결에서 NAT 대역 경로가 생기는 방식은 이렇게 다릅니다.
+
+    - **VPC 연결**: 항상 켜져 있습니다. 규칙의 원래 대역이 VPC 대역과 똑같으면, Transit Gateway가 VPC 대역의 Propagated 경로를 NAT 대역의 System 경로로 바꿉니다. 실습 2-6의 `100.64.2.0/24` 경로가 이렇게 생깁니다.
+    - **DXGW 연결**: 켜거나 끌 수 있습니다. 끄면 온프레미스 라우터가 NAT 대역을 직접 광고합니다. 그러면 광고 내용을 직접 정할 수 있습니다. 예를 들어 BGP 피어(회선)마다 더 작은 대역을 광고하거나, AS-path를 늘려 한 회선을 대기용으로 두거나, 두 회선을 똑같이 쓰도록(ECMP) 속성을 맞출 수 있습니다.
+
+    켜 두었을 때 알아 둘 점이 있습니다.
+
+    - 이 경로는 온프레미스가 원래 대역(`172.20.N.0/24`)과 겹치는 경로를 광고하는 동안만 **Active**입니다. 광고가 멈추면 **Blackhole**이 되고, NAT 대역으로 가는 패킷이 버려집니다. 겹치는 경로에는 같은 대역, 그 안의 더 작은 대역, 그것을 포함하는 요약 경로가 모두 해당합니다.
+    - 경로는 이 연결이 **전파(propagation)하는 라우팅 테이블**에만 생깁니다. 다른 라우팅 테이블에서 NAT 대역에 가려면 정적 경로를 직접 추가해야 합니다.
+    - 같은 대역의 경로가 여럿이면 정적(Static) > System > 접두사 목록(Prefix list) > Propagated 순서로 쓰입니다. 직접 만든 정적 경로가 있으면 NAT 경로보다 먼저 쓰입니다.
+
+    끄는 경우와 직접 바꿔 보는 방법은 [추가 과제 B](extra-b.md)에 있습니다.
+
+??? note "연결 종류마다 다릅니다"
+    NAT system routes를 고를 수 있는 연결은 Direct Connect gateway 연결과 BGP를 쓰는 Site-to-Site VPN 연결뿐입니다.
+
+    | 연결 종류 | NAT system routes | NAT 대역에 가는 방법 |
+    |---|---|---|
+    | VPC | 항상 켬(바꿀 수 없음) | 규칙의 원래 대역이 VPC 대역과 **똑같으면** VPC 경로가 NAT 대역 경로로 바뀜 |
+    | Direct Connect gateway, Site-to-Site VPN(BGP) | 켬(기본값) 또는 끔 | Transit Gateway가 만들거나, 온프레미스가 광고하거나, 정적 경로 추가 |
+    | 피어링(정적 라우팅), Site-to-Site VPN(정적 라우팅) | 항상 끔 | NAT 대역 정적 경로를 직접 추가 |
+    | Connect, VPN Concentrator | 항상 끔 | BGP 피어가 NAT 대역을 광고하거나, 정적 경로 추가 |
+
+    VPC 연결에서 규칙의 원래 대역이 VPC 대역과 다르면(예: `/16` VPC 안의 `/24`) 주소는 바뀌지만 경로는 생기지 않습니다. 그러면 NAT 주소로 오는 패킷(응답 포함)이 VPC로 가지 못합니다. 이때는 NAT 대역 정적 경로를 직접 추가해야 합니다.
 
 **성공 확인**: **1:1 NAT** 탭에 **NAT Gateway support: Enabled**, 규칙 상태 **Activated**가 보입니다(리허설에서는 약 13초).
 
@@ -86,7 +130,7 @@ VPC-A 주소 `172.20.N.0/24`가 밖에서 `100.64.2.0/24`로 보이게 합니다
 1. **Transit gateway attachments**에서 이름이 `tgwnat-attach-vpc-a`인 연결을 누릅니다.
 2. 2-4와 같은 방법으로 **Enable NAT Gateway support**를 선택하고, 규칙 `100`, `172.20.N.0/24` → `100.64.2.0/24`를 넣어 저장합니다.
 
-VPC 연결에서는 **NAT system routes**가 항상 켜져 있어 바꿀 수 없습니다.
+VPC 연결에서는 **NAT system routes**가 항상 켜져 있어 바꿀 수 없습니다. DXGW 연결과의 차이는 [2-4의 설명 상자](#lab2-4)에 있습니다.
 
 ![VPC-A 연결의 Manage NAT rules 화면: NAT system routes 확인란이 선택된 채 회색으로 잠겨 있다](images/console/lab2-nat-03-vpca-form.png){ .shot }
 
@@ -100,7 +144,7 @@ VPC 연결에서는 **NAT system routes**가 항상 켜져 있어 바꿀 수 없
 
 | 경로 | 가는 곳 | 유형 | 설명 |
 |---|---|---|---|
-| `100.64.1.0/24` | Direct Connect Gateway | **System** | 온프레미스의 NAT 대역. Transit Gateway가 만듦 |
+| `100.64.1.0/24` | Direct Connect Gateway | **System** | 온프레미스의 NAT 대역. NAT system routes가 켜져 있어 Transit Gateway가 만듦 |
 | `100.64.2.0/24` | VPC | **System** | VPC-A의 NAT 대역. VPC-A의 원래 경로를 대신함 |
 | `172.20.N.0/24` | Direct Connect Gateway | Propagated | VPC-A 경로가 빠져서, 온프레미스가 광고한 경로가 보임 |
 
