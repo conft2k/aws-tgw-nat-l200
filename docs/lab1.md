@@ -110,7 +110,33 @@ ping 10.1.1.10 source Loopback1 repeat 5
 telnet 10.1.1.10 8080 /source-interface Loopback1
 ```
 
+두 명령 모두 보내는 주소를 Loopback1로 정합니다. `ping`은 `source`, `telnet`은 앞에 `/`를 붙인 `/source-interface`로 씁니다.
+
 `telnet`이 연결되면 `GET / HTTP/1.0`을 입력하고 Enter를 두 번 누릅니다.
+
+사전 검증에서 실제로 나온 출력입니다(Pod 89). 포트 번호와 시간은 매번 다릅니다.
+
+```text
+rt89#ping 10.1.1.10 source Loopback1 repeat 5
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.1.1.10, timeout is 2 seconds:
+Packet sent with a source address of 10.200.0.1
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 4/5/9 ms
+rt89#telnet 10.1.1.10 8080 /source-interface Loopback1
+Trying 10.1.1.10, 8080 ... Open
+GET / HTTP/1.0
+
+HTTP/1.0 200 OK
+Server: BaseHTTP/0.6 Python/3.9.25
+Date: Tue, 03 Nov 2026 07:57:11 GMT
+Content-Type: text/plain
+Content-Length: 31
+
+vpc-b-ec2 saw 10.200.0.1:35329
+
+[Connection to 10.1.1.10 closed by foreign host]
+```
 
 **성공 확인**: ping이 `!!!!!`이고, 응답에 `vpc-b-ec2 saw 10.200.0.1:<포트>`가 보입니다. VPC-B가 보낸 쪽 주소를 바뀌지 않은 그대로 봤다는 뜻입니다.
 
