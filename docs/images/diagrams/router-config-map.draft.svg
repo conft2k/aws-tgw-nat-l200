@@ -15,9 +15,9 @@
   <text x="1037" y="211" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
   <image href="bundle:resource/Server" x="98" y="231" width="48" height="48"/>
   <text x="122" y="297" font-size="16" text-anchor="middle" fill="#232F3E">VM vmN</text>
-  <circle cx="44.75" cy="318" r="13" fill="#232F3E"/>
-  <text x="44.75" y="323.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-  <text x="63.75" y="323" font-size="15" font-weight="500" fill="#232F3E">LAN 172.20.89.0/24</text>
+  <circle cx="48.875" cy="318" r="13" fill="#232F3E"/>
+  <text x="48.875" y="323.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+  <text x="67.875" y="323" font-size="15" font-weight="500" fill="#232F3E">LAN 172.20.N.0/24</text>
   <polyline points="150,255 256,255" fill="none" stroke="#232F3E" stroke-width="1.5"/>
   <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="260" y="231" width="48" height="48"/>
   <text x="284" y="297" font-size="16" text-anchor="middle" fill="#232F3E">라우터 rtN</text>
