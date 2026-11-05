@@ -128,9 +128,9 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
 VPC-A 주소 `172.20.N.0/24`가 밖에서 `100.64.2.0/24`로 보이게 합니다.
 
 1. **Transit gateway attachments**에서 이름이 `tgwnat-attach-vpc-a`인 연결을 누릅니다.
-2. 2-4와 같은 방법으로 **Enable NAT Gateway support**를 선택하고, 규칙 `100`, `172.20.N.0/24` → `100.64.2.0/24`를 넣어 저장합니다.
+2. 2-3-4와 같은 방법으로 **Enable NAT Gateway support**를 선택하고, 규칙 `100`, `172.20.N.0/24` → `100.64.2.0/24`를 넣어 저장합니다.
 
-VPC 연결에서는 **NAT system routes**가 항상 켜져 있어 바꿀 수 없습니다. DXGW 연결과의 차이는 [2-4의 설명 상자](#lab2-4)에 있습니다.
+VPC 연결에서는 **NAT system routes**가 항상 켜져 있어 바꿀 수 없습니다. DXGW 연결과의 차이는 [2-3-4의 설명 상자](#lab2-4)에 있습니다.
 
 ![VPC-A 연결의 Manage NAT rules 화면: NAT system routes 확인란이 선택된 채 회색으로 잠겨 있다](images/console/lab2-nat-03-vpca-form.png){ .shot }
 

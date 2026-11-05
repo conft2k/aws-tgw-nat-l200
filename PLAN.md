@@ -75,11 +75,11 @@
 
 | 시간 | 구분 | 내용 |
 |---|---|---|
-| 0:00–0:10 | 실습 0 | 콘솔 로그인(ap-northeast-2), 웹 터미널로 라우터·VM 접속 확인, **hosted connection 2개 수락**, **스택 배포 시작** |
+| 0:00–0:10 | 실습 2-1 | 콘솔 로그인(ap-northeast-2), 웹 터미널로 라우터·VM 접속 확인, **hosted connection 2개 수락**, **스택 배포 시작** |
 | 0:10–0:35 | 발표 1 | 시나리오, Direct Connect·DXGW·Transit Gateway 복습, 겹치는 대역 문제, 1:1 NAT 개념(SNAT·DNAT, 규칙, 상태 없는 번역) |
-| 0:35–1:00 | 실습 1 | DXGW 생성, 게이트웨이 연결과 허용된 접두사(스택 완료 후 바로 시작), 전송 가상 인터페이스 2개, 라우터 BGP·BFD 설정, 세션·경로·기본 통신 확인 |
+| 0:35–1:00 | 실습 2-2 | DXGW 생성, 게이트웨이 연결과 허용된 접두사(스택 완료 후 바로 시작), 전송 가상 인터페이스 2개, 라우터 BGP·BFD 설정, 세션·경로·기본 통신 확인 |
 | 1:00–1:25 | 발표 2 | NAT 규칙과 라우팅(`system` 경로, 경로 우선순위), NAT System Route Support의 두 모드와 **주의 상자**(7절), 관측 방법(지표, Flow Logs) |
-| 1:25–1:50 | 실습 2 | 겹치는 대역 문제 재현 → 1:1 NAT 적용 → 양방향 통신과 1:1 매핑 확인 |
+| 1:25–1:50 | 실습 2-3 | 겹치는 대역 문제 재현 → 1:1 NAT 적용 → 양방향 통신과 1:1 매핑 확인 |
 | 1:50–2:00 | 발표 3 | 정리, 운영 팁, 리소스 정리 안내 |
 
 ## 7. 과제
@@ -88,23 +88,23 @@
 
 | # | 과제 | 참가자가 하는 일 | 확인 포인트 | 시간 |
 |---|---|---|---|---|
-| 0 | 시작하기 | 참가자 정보 페이지에서 내 계정·Pod·hosted connection ID와 VLAN 확인, 콘솔 로그인, 웹 터미널 접속, hosted connection 2개 **Accept**, 템플릿 내려받기 → CloudFormation **Create stack**(Pod 번호 입력, IAM 리소스 생성 확인란 선택) | hosted connection `Pending`→`Available` 진행 중, 스택 `CREATE_IN_PROGRESS` | 10분 |
-| 1 | Direct Connect 연결 | ① **Direct Connect gateways** → **Create Direct Connect gateway**(ASN 65300) ② 스택 완료 후 DXGW 상세 → **Gateway associations** → **Associate gateway**(Transit Gateway, 허용된 접두사 `100.64.2.0/24`, `10.1.1.0/24`) ③ hosted connection마다 **Virtual interfaces** → **Create virtual interface** → **Transit**(Connection 선택, DXGW 선택, VLAN은 자동으로 채워지고 바꿀 수 없음, BGP ASN 65000) ④ 전송 가상 인터페이스 상세의 **Peerings** 탭에서 Your router peer IP, Amazon router peer IP, BGP authentication key 확인 ⑤ 사이트의 라우터 설정 생성기에 값을 넣어 만든 설정을 라우터에 붙여 넣기 ⑥ **Accepted Routes**·**Advertised Routes** 탭으로 주고받은 경로 확인 | 전송 가상 인터페이스 `available`, BGP `up`(콘솔), 라우터 `show ip bgp summary`에서 두 세션 Established, `10.1.1.0/24`·`100.64.2.0/24` 수신 | 20분 |
-| 2 | 기본 통신 | Transit Gateway 라우팅 테이블 확인, 라우터 Loopback1에서 VPC-B로 ping과 TCP 8080 | VPC-B 응답 서버가 `10.200.0.1`을 그대로 봄 | 5분 |
-| 3 | 겹치는 대역 문제 재현 | 라우팅 테이블에서 `172.20.N.0/24`가 VPC-A만 가리키는 것 확인, VPC-A EC2에 **Connect** → **EC2 Instance Connect Endpoint**로 접속해 tcpdump, VM에서 VPC-B로 ping | VM → VPC-B ping 실패(기대한 결과), VPC-A EC2가 VPC-B의 응답을 받음 | 7분 |
-| 4 | 1:1 NAT 적용 | **Transit gateway attachments** → DXGW 쪽 연결 → **1:1 NAT** 탭 → **Manage 1:1 NAT** → **Enable NAT Gateway support** 선택, **NAT system routes**는 선택된 채로 둠, **Add rule**(Rule number 100, Source CIDR `172.20.N.0/24`, NAT CIDR `100.64.1.0/24`) → **Save changes**. VPC-A 쪽 연결도 같은 방법(`100.64.2.0/24`, NAT system routes는 선택된 채 바꿀 수 없음) | 두 연결 모두 **Enabled**, 규칙 **Activated**(사전 테스트 시 약 13초). 라우팅 테이블에 `100.64.1.0/24`·`100.64.2.0/24` `system` 경로 | 7분 |
-| 5 | 양방향 통신과 1:1 매핑 | VM → `100.64.2.10` `ping`·`curl`, 보조 IP(`100.64.2.20`) `ping`, 고정 출발지 포트(`curl --local-port 40000`). VM에서 `python3 -m http.server 8080`을 띄우고 VPC-A EC2 → `100.64.1.10` `ping`·`curl`. **(선택)** UDP: `(echo hello; sleep 1) \| nc -u -w 2 100.64.2.10 9000`(traditional `nc`와 ncat 모두 동작). 시간이 부족하면 강사가 UDP 단계를 생략 | VPC-A는 `100.64.1.10`, 온프레미스는 `100.64.2.10`으로 봄. 마지막 옥텟·포트 유지. UDP 응답도 `saw 100.64.1.10:<포트>` | 10분 |
+| 2-1 | 시작하기 | 참가자 정보 페이지에서 내 계정·Pod·hosted connection ID와 VLAN 확인, 콘솔 로그인, 웹 터미널 접속, hosted connection 2개 **Accept**, 템플릿 내려받기 → CloudFormation **Create stack**(Pod 번호 입력, IAM 리소스 생성 확인란 선택) | hosted connection `Pending`→`Available` 진행 중, 스택 `CREATE_IN_PROGRESS` | 10분 |
+| 2-2-1~2-2-6 | Direct Connect 연결 | ① **Direct Connect gateways** → **Create Direct Connect gateway**(ASN 65300) ② 스택 완료 후 DXGW 상세 → **Gateway associations** → **Associate gateway**(Transit Gateway, 허용된 접두사 `100.64.2.0/24`, `10.1.1.0/24`) ③ hosted connection마다 **Virtual interfaces** → **Create virtual interface** → **Transit**(Connection 선택, DXGW 선택, VLAN은 자동으로 채워지고 바꿀 수 없음, BGP ASN 65000) ④ 전송 가상 인터페이스 상세의 **Peerings** 탭에서 Your router peer IP, Amazon router peer IP, BGP authentication key 확인 ⑤ 사이트의 라우터 설정 생성기에 값을 넣어 만든 설정을 라우터에 붙여 넣기 ⑥ **Accepted Routes**·**Advertised Routes** 탭으로 주고받은 경로 확인 | 전송 가상 인터페이스 `available`, BGP `up`(콘솔), 라우터 `show ip bgp summary`에서 두 세션 Established, `10.1.1.0/24`·`100.64.2.0/24` 수신 | 20분 |
+| 2-2-6~2-2-7 | 기본 통신 | Transit Gateway 라우팅 테이블 확인, 라우터 Loopback1에서 VPC-B로 ping과 TCP 8080 | VPC-B 응답 서버가 `10.200.0.1`을 그대로 봄 | 5분 |
+| 2-3-1~2-3-2 | 겹치는 대역 문제 재현 | 라우팅 테이블에서 `172.20.N.0/24`가 VPC-A만 가리키는 것 확인, VPC-A EC2에 **Connect** → **EC2 Instance Connect Endpoint**로 접속해 tcpdump, VM에서 VPC-B로 ping | VM → VPC-B ping 실패(기대한 결과), VPC-A EC2가 VPC-B의 응답을 받음 | 7분 |
+| 2-3-3~2-3-6 | 1:1 NAT 적용 | **Transit gateway attachments** → DXGW 쪽 연결 → **1:1 NAT** 탭 → **Manage 1:1 NAT** → **Enable NAT Gateway support** 선택, **NAT system routes**는 선택된 채로 둠, **Add rule**(Rule number 100, Source CIDR `172.20.N.0/24`, NAT CIDR `100.64.1.0/24`) → **Save changes**. VPC-A 쪽 연결도 같은 방법(`100.64.2.0/24`, NAT system routes는 선택된 채 바꿀 수 없음) | 두 연결 모두 **Enabled**, 규칙 **Activated**(사전 테스트 시 약 13초). 라우팅 테이블에 `100.64.1.0/24`·`100.64.2.0/24` `system` 경로 | 7분 |
+| 2-3-7 | 양방향 통신과 1:1 매핑 | VM → `100.64.2.10` `ping`·`curl`, 보조 IP(`100.64.2.20`) `ping`, 고정 출발지 포트(`curl --local-port 40000`). VM에서 `python3 -m http.server 8080`을 띄우고 VPC-A EC2 → `100.64.1.10` `ping`·`curl`. **(선택)** UDP: `(echo hello; sleep 1) \| nc -u -w 2 100.64.2.10 9000`(traditional `nc`와 ncat 모두 동작). 시간이 부족하면 강사가 UDP 단계를 생략 | VPC-A는 `100.64.1.10`, 온프레미스는 `100.64.2.10`으로 봄. 마지막 옥텟·포트 유지. UDP 응답도 `saw 100.64.1.10:<포트>` | 10분 |
 
-실습 1은 25분 안에 과제 1·2(25분), 실습 2는 과제 3·4·5(24분)입니다. 과제 5에서 만든 트래픽은 추가 과제 C의 지표·로그 관측에 다시 씁니다.
+실습 2-2는 25분 안에 2-2-1~2-2-7(25분), 실습 2-3은 2-3-1~2-3-7(24분)입니다. 2-3-7에서 만든 트래픽은 추가 과제 3-3의 지표·로그 관측에 다시 씁니다.
 
 ### 7.2 추가 과제(행사 뒤 각자, 사이트에 제공)
 
 | # | 과제 | 내용 | 확인 포인트 |
 |---|---|---|---|
-| A | NAT 없는 VPC와 원래 경로 | VM ↔ VPC-B, VPC-B → 두 NAT 대역, VPC-B → 원래 주소 `172.20.N.10`, Loopback 출발지 | 목적지와 상관없이 SNAT. 원래 주소로 보내면 VPC-A가 아니라 온프레미스 VM에 도착(VM tcpdump), ping은 0/5·TCP는 시간 초과가 **기대한 결과**(VPC-B Flow Logs에 REJECT) |
-| B | 경로 설치 옵션 | `enable`에서 라우터의 /24 광고를 멈춰 `system` 경로 `blackhole` 확인 → /16 요약 광고로 복구. `disable` 전환은 ① 라우터에서 `100.64.1.0/24`(Null0) 광고 추가 ② 라우팅 테이블에서 `system` 그대로인지 확인 ③ **Manage 1:1 NAT**에서 NAT system route support 끄기 ④ `propagated`로 바뀐 것 확인. 되돌리기는 ① 원래 대역 광고 유지 확인 ② 다시 켜기 ③ `100.64.1.0/24` 광고·Null0 삭제. **원래 대역 광고는 끝까지 유지**합니다(주의 상자) | blackhole과 복구, `disable`에서 `propagated` NAT 경로, 전환 중 손실 없음 |
-| C | 관측 | CloudWatch에서 연결별 `PacketsInNAT`·`PacketsOutNAT`·폐기 지표, Logs Insights로 TGW Flow Logs와 VPC Flow Logs(`pkt-srcaddr`) 비교 | 번역이 일어난 연결마다 NAT 지표 증가(문서). TGW Flow Logs는 양 끝의 실제 주소를 기록(사전 테스트에서 관찰) |
-| D | 정리 | 8절 순서대로 삭제 | 남은 리소스 없음 |
+| 3-1 | NAT 없는 VPC와 원래 경로 | VM ↔ VPC-B, VPC-B → 두 NAT 대역, VPC-B → 원래 주소 `172.20.N.10`, Loopback 출발지 | 목적지와 상관없이 SNAT. 원래 주소로 보내면 VPC-A가 아니라 온프레미스 VM에 도착(VM tcpdump), ping은 0/5·TCP는 시간 초과가 **기대한 결과**(VPC-B Flow Logs에 REJECT) |
+| 3-2 | 경로 설치 옵션 | `enable`에서 라우터의 /24 광고를 멈춰 `system` 경로 `blackhole` 확인 → /16 요약 광고로 복구. `disable` 전환은 ① 라우터에서 `100.64.1.0/24`(Null0) 광고 추가 ② 라우팅 테이블에서 `system` 그대로인지 확인 ③ **Manage 1:1 NAT**에서 NAT system route support 끄기 ④ `propagated`로 바뀐 것 확인. 되돌리기는 ① 원래 대역 광고 유지 확인 ② 다시 켜기 ③ `100.64.1.0/24` 광고·Null0 삭제. **원래 대역 광고는 끝까지 유지**합니다(주의 상자) | blackhole과 복구, `disable`에서 `propagated` NAT 경로, 전환 중 손실 없음 |
+| 3-3 | 관측 | CloudWatch에서 연결별 `PacketsInNAT`·`PacketsOutNAT`·폐기 지표, Logs Insights로 TGW Flow Logs와 VPC Flow Logs(`pkt-srcaddr`) 비교 | 번역이 일어난 연결마다 NAT 지표 증가(문서). TGW Flow Logs는 양 끝의 실제 주소를 기록(사전 테스트에서 관찰) |
+| 3-4 | 정리 | 8절 순서대로 삭제 | 남은 리소스 없음 |
 
 ### 7.3 주의 상자: NAT System Route Support `disable`과 원래 대역 광고
 
@@ -113,10 +113,10 @@
   - 원래 대역 광고를 멈추자 **AWS → 온프레미스 방향**이 끊겼습니다. 온프레미스 → AWS 방향은 전달됐습니다.
   - 다시 광고하자 2초 안에 복구됐습니다. 4번 반복해 4번 모두 같았고, 5분 넘게 유지해도 회복되지 않았습니다.
   - Transit Gateway는 패킷을 번역해 DXGW 쪽 연결로 내보냈지만(`PacketsOutNAT` 평소 수준), 라우터에는 도착하지 않았습니다(인바운드 ACL 카운터 0). 어디서 버려졌는지는 확인하지 못했습니다.
-- 안내: 이 워크숍에서는 `disable`에서도 **원래 대역(또는 그것을 포함하는 요약 경로) 광고를 유지**합니다. 참가자가 원래 대역 광고를 멈추는 과제는 두지 않습니다(사용자 결정). 발표 2에서 강사가 설명하고, 사이트 부록에 ID를 뺀 증적 요약(손실 시간표, 카운터, 지표)을 둡니다.
+- 안내: 이 워크숍에서는 `disable`에서도 **원래 대역(또는 그것을 포함하는 요약 경로) 광고를 유지**합니다. 참가자가 원래 대역 광고를 멈추는 과제는 두지 않습니다(사용자 결정). 발표 2에서 강사가 설명하고, 사이트 부록 4-3에 ID를 뺀 증적 요약(손실 시간표, 카운터, 지표)을 둡니다.
 - 게시 전에 AWS Support·문서 피드백으로 확인을 요청하고 결과를 이 상자에 적습니다. 행사 전마다 다시 확인합니다.
 
-## 8. 정리 순서(추가 과제 D)
+## 8. 정리 순서(추가 과제 3-4)
 
 1. 두 Transit Gateway 연결의 1:1 NAT를 끕니다(규칙은 남아도 됨).
 2. DXGW의 게이트웨이 연결을 지우고 `disassociated`가 될 때까지 기다립니다. DXGW 쪽 Transit Gateway 연결이 남아 있으면 Transit Gateway를 지울 수 없습니다.
@@ -141,13 +141,13 @@
 | 로그 | TGW Flow Logs, VPC Flow Logs(`pkt-srcaddr`·`pkt-dstaddr` 포함, 집계 60초) → CloudWatch Logs(스택과 함께 삭제), 전송용 IAM 역할 |
 
 - 사전 테스트에 쓴 템플릿을 바탕으로 만들고, 계정 ID·내부 이름·비공개 저장소 참조는 넣지 않습니다.
-- VPC 라우팅 테이블과 보안 그룹은 NAT 대역을 미리 포함합니다. 과제 4에서 이유를 설명합니다(상대가 NAT 대역으로 보이므로).
-- 허용된 접두사에 VPC-A의 실제 대역을 넣지 않는 이유를 과제 1에서 설명합니다(온프레미스 LAN과 같은 대역이고, 허용된 접두사는 적은 그대로 온프레미스에 광고됨).
+- VPC 라우팅 테이블과 보안 그룹은 NAT 대역을 미리 포함합니다. 실습 2-3에서 이유를 설명합니다(상대가 NAT 대역으로 보이므로).
+- 허용된 접두사에 VPC-A의 실제 대역을 넣지 않는 이유를 2-2-2에서 설명합니다(온프레미스 LAN과 같은 대역이고, 허용된 접두사는 적은 그대로 온프레미스에 광고됨).
 
 ## 10. 사이트 구성
 
 - MkDocs Material, GitHub Actions로 GitHub Pages(`https://ws.nettfc.net/aws-tgw-nat-l200/`)에 게시합니다.
-- 페이지: 소개(시나리오·구성도·목표·진행표) → 사전 준비 → 실습 0–2(과제 0–5) → 추가 과제 A–D → 부록(라우터 설정 템플릿, 값 찾는 곳, 문제 해결, 1:1 NAT 개념과 제약 요약, 주의 상자 증적 요약, 참고 문서).
+- 페이지: 1. 시작하기 전에(1-1 소개: 시나리오·구성도·목표·진행표, 1-2 사전 준비, 1-3 용어 풀이) → 2. 실습(2-1~2-3) → 3. 추가 과제(3-1~3-4) → 4. 부록(4-1~4-5: 라우터 설정 템플릿, 값 찾는 곳, 문제 해결, 1:1 NAT 개념과 제약 요약, 주의 상자 증적 요약, 참고 문서).
 - 구성도는 skill-aws-arch-diagram(공식 AWS 아이콘)으로 그립니다. 흐름을 ASCII 그림으로 그리지 않습니다.
 - 스크린샷은 사전 테스트 계정의 영어 콘솔에서 찍고 계정 ID를 가립니다.
 - 문제 해결 팁(예): hosted connection에는 VIF를 하나만 만들 수 있으므로 잘못 만든 VIF는 지우고 다시 만듦, VLAN은 hosted connection 값과 같아야 함, BGP 키·주소 오타, MTU 1500 유지, 라우터의 LAN·관리 인터페이스는 웹 터미널 경로이므로 건드리지 않음.
@@ -164,18 +164,18 @@
 | Linux VM | Pod VM에 기본으로 있는 도구만 씁니다: `ping`, `curl`, `python3`(`-m http.server`로 접속한 상대 주소 확인), `nc`(traditional, UDP 선택 단계), `tcpdump`. VM이 UDP를 받는 쪽일 때는 `nc`가 상대 주소를 보여 주지 않으므로 `tcpdump`로 봅니다. 사전 테스트 때 Pod의 apt 프록시에 연결되지 않아 ncat을 설치할 수 없었으므로 추가 설치에 의존하지 않습니다 |
 | 라우터 | LAN 인터페이스만 설정된 상태에서 시작합니다(운영자가 복원). 참가자가 VIF 서브인터페이스, BFD, BGP, Loopback1을 추가합니다 |
 | 시계 | 라우터와 VM의 시계는 NTP로 맞춰져 있지 않을 수 있습니다. 시각 비교는 AWS 쪽 기록을 기준으로 안내합니다 |
-| 콘솔 절차 검증 | 과제 0–5, 추가 과제 A–D(정리 포함)를 사전 테스트 계정의 영어 콘솔로 사전 테스트했습니다(13절) |
+| 콘솔 절차 검증 | 실습 2-1~2-3, 추가 과제 3-1~3-4(정리 포함)를 사전 테스트 계정의 영어 콘솔로 사전 테스트했습니다(13절) |
 | hosted connection 대기 | 사전 테스트에서는 수락 후 약 3분 만에 `available`이 됐습니다. 행사 규모에서도 같은지는 확인하지 못했습니다 |
 
 ## 12. 결정 사항
 
 **결정됨(2026-11-03)**
-- 레벨 L200, 과제 7(원래 대역 철회)은 주의 상자 설명만, 템플릿은 내려받아 업로드, 콘솔 스크린샷 포함, 영어 콘솔, 2시간(발표 1시간 + 실습 1시간)
+- 레벨 L200, 원래 대역 철회는 과제로 두지 않고 주의 상자 설명만, 템플릿은 내려받아 업로드, 콘솔 스크린샷 포함, 영어 콘솔, 2시간(발표 1시간 + 실습 1시간)
 
 **결정이 필요한 항목**
 1. 고객 워크숍에서 쓸 Pod 모드(모드에 따라 VLAN 대역이 다름)
 2. 참가자 AWS 계정의 소유와 비용 부담(hosted connection 포트 요금은 수락할 때부터 청구)
-3. hosted connection 수락 시점: 행사 당일 실습 0 / 전날 참가자에게 미리 수락 안내
+3. hosted connection 수락 시점: 행사 당일 실습 2-1 / 전날 참가자에게 미리 수락 안내
 4. 참가자 콘솔 로그인 방법(계정 자격 증명 전달 방식)
 5. Linux VM 준비: 기본 도구만 쓰는 방식으로 바꿈(제안). Pod 이미지를 바꿀 필요가 없는지 확인
 7. 주의 상자 내용의 AWS 확인 요청 여부와 담당
@@ -195,7 +195,7 @@
 | 1:1 NAT | DXGW 쪽 08:20:08 저장 → 08:20:21 `enabled`, VPC-A 쪽 08:22:05 → 08:22:19 | 탭 이름은 **1:1 NAT - new**, 폼 제목은 **Manage NAT rules**. VPC 연결은 **NAT system routes**가 선택된 채 잠김. 빈 규칙 행이 있으면 저장되지 않음(**Remove**로 지움) |
 | 라우팅 테이블 | `100.64.1.0/24`(DXGW)·`100.64.2.0/24`(VPC) **System**, `172.20.89.0/24`는 DXGW Propagated | Routes 탭의 **Route type** 열 |
 | 양방향·1:1 | VM → VPC-A ping 5/5, `saw 100.64.1.10:42306`, UDP `saw 100.64.1.10:33792`, `.20` 3/3, `:40000` 유지. VPC-A → VM ping 4/4, VM `http.server` 로그에 `100.64.2.10` | VM은 기본 도구만 사용 |
-| 정리(추가 과제 D) | 09:47:22 시작 → 09:59:57 스택 삭제 완료(약 13분). NAT 끄기 약 1분, 게이트웨이 연결 끊기 약 2분, VIF 삭제 약 3분, DXGW 즉시, 스택 약 2.5분 | 스택 삭제 확인 창에 스택 이름 입력 필요. 끝난 뒤 hosted connection 2개는 Available로 남음 |
+| 정리(추가 과제 3-4) | 09:47:22 시작 → 09:59:57 스택 삭제 완료(약 13분). NAT 끄기 약 1분, 게이트웨이 연결 끊기 약 2분, VIF 삭제 약 3분, DXGW 즉시, 스택 약 2.5분 | 스택 삭제 확인 창에 스택 이름 입력 필요. 끝난 뒤 hosted connection 2개는 Available로 남음 |
 
 ## 참고
 

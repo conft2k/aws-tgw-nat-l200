@@ -20,8 +20,8 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
     <label><span class="gen-badge">1</span><span class="gen-name">Pod 번호 N<small>실습 장비 페이지의 podN</small></span><input id="g-pod" inputmode="numeric" placeholder="89"></label>
     <label><span class="gen-badge">2</span><span class="gen-name">온프레미스 대역<small>CIDR · AWS에 광고 · Pod 번호로 채움</small></span><input id="g-lan" placeholder="172.20.N.0/24" spellcheck="false"></label>
     <label><span class="gen-badge">3</span><span class="gen-name">Loopback1 주소<small>AWS에 광고 · 미리 채움 · 비우면 만들지 않음</small></span><input id="g-loop" value="10.200.0.1/32" data-default="10.200.0.1/32" spellcheck="false"></label>
-    <label><span class="gen-badge">4</span><span class="gen-name">라우터 ASN<small>1-3의 BGP ASN · 미리 채움</small></span><input id="g-asn" inputmode="numeric" value="65000" data-default="65000"></label>
-    <label><span class="gen-badge">5</span><span class="gen-name">Amazon 쪽 ASN<small>1-1의 Amazon-side ASN · 미리 채움</small></span><input id="g-amzasn" inputmode="numeric" value="65300" data-default="65300"></label>
+    <label><span class="gen-badge">4</span><span class="gen-name">라우터 ASN<small>2-2-3의 BGP ASN · 미리 채움</small></span><input id="g-asn" inputmode="numeric" value="65000" data-default="65000"></label>
+    <label><span class="gen-badge">5</span><span class="gen-name">Amazon 쪽 ASN<small>2-2-1의 Amazon-side ASN · 미리 채움</small></span><input id="g-amzasn" inputmode="numeric" value="65300" data-default="65300"></label>
   </fieldset>
   <fieldset class="gen-group gen-dx1">
     <legend>DX1 · <code>awsdx1_…</code> · <code>tgw-nat-vif1</code></legend>
@@ -217,8 +217,8 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
 | 1 | Pod 번호 N | 실습 장비 페이지(`podN`) |
 | 2 | 온프레미스 대역 | Pod 번호를 넣으면 `172.20.N.0/24`로 채워짐 |
 | 3 | Loopback1 주소 | 워크숍 값 `10.200.0.1/32`가 미리 채워져 있음 |
-| 4 | 라우터 ASN | 1-3에서 전송 가상 인터페이스에 넣은 **BGP ASN**. 워크숍 값 `65000`이 미리 채워져 있음 |
-| 5 | Amazon 쪽 ASN | 1-1에서 Direct Connect gateway에 넣은 **Amazon-side ASN**. 워크숍 값 `65300`이 미리 채워져 있음 |
+| 4 | 라우터 ASN | 2-2-3에서 전송 가상 인터페이스에 넣은 **BGP ASN**. 워크숍 값 `65000`이 미리 채워져 있음 |
+| 5 | Amazon 쪽 ASN | 2-2-1에서 Direct Connect gateway에 넣은 **Amazon-side ASN**. 워크숍 값 `65300`이 미리 채워져 있음 |
 | 6, 11 | 라우터 인터페이스 | 워크숍 값 `GigabitEthernet1`, `GigabitEthernet2`가 미리 채워져 있음 |
 | 7, 12 | VLAN | 실습 장비 페이지, 또는 전송 가상 인터페이스 상세의 **VLAN** |
 | 8, 13 | Your router peer IP | 전송 가상 인터페이스 상세 → **Peerings** 탭 |
