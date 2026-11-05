@@ -1,17 +1,17 @@
-# 실습 1. Direct Connect 연결 (30분)
+# 2-2. Direct Connect 연결 (30분)
 
 온프레미스 라우터(`rtN`)를 AWS의 Transit Gateway까지 연결합니다. 아직 NAT는 걸지 않습니다.
 
-아래 그림의 번호 순서로 만듭니다. ①(hosted connection 수락)은 실습 0에서 이미 했습니다.
+아래 그림의 번호 순서로 만듭니다. ①(hosted connection 수락)은 실습 2-1에서 이미 했습니다.
 
 ![Direct Connect 연결 구성: 온프레미스 라우터(rtN)의 서브인터페이스 2개가 hosted connection 2개와 전송 가상 인터페이스 2개를 거쳐 Direct Connect gateway와 Transit Gateway에 연결된다. 온프레미스 라우터는 172.20.N.0/24와 10.200.0.1/32를 광고하고, 허용된 접두사 100.64.2.0/24와 10.1.1.0/24를 받는다](images/diagrams/lab1-dx-build.png)
 
 시작하기 전에 확인합니다.
 
-- 실습 0의 hosted connection 2개가 **Available**인가요?
+- 실습 2-1의 hosted connection 2개가 **Available**인가요?
 - 스택 `tgw-nat-workshop`이 **CREATE_COMPLETE**인가요? 아직이면 1-1과 1-3을 먼저 하고, 스택이 끝나면 1-2를 합니다.
 
-## 1-1. Direct Connect gateway 만들기 { #lab1-1 }
+## 2-2-1. Direct Connect gateway 만들기 { #lab1-1 }
 
 1. **Direct Connect** 콘솔 → **Direct Connect gateways** → **Create Direct Connect gateway**를 누릅니다.
 2. **Name**에 `tgw-nat-dxgw`, **Amazon-side ASN**에 `65300`을 넣고 **Create Direct Connect gateway**를 누릅니다.
@@ -20,7 +20,7 @@
 
 ASN은 BGP에서 쓰는 번호입니다. 이 워크숍은 온프레미스 라우터(`rtN`) 65000, Direct Connect gateway 65300, Transit Gateway 65400으로 서로 다르게 씁니다.
 
-## 1-2. Transit Gateway와 연결하기 { #lab1-2 }
+## 2-2-2. Transit Gateway와 연결하기 { #lab1-2 }
 
 게이트웨이 연결은 몇 분 걸리므로 일찍 시작해 둡니다.
 
@@ -40,7 +40,7 @@ ASN은 BGP에서 쓰는 번호입니다. 이 워크숍은 온프레미스 라우
 
 **성공 확인**: 상태가 **associating**에서 약 3분 뒤 **associated**가 됩니다.
 
-## 1-3. 전송 가상 인터페이스 2개 만들기 { #lab1-3 }
+## 2-2-3. 전송 가상 인터페이스 2개 만들기 { #lab1-3 }
 
 hosted connection마다 하나씩 만듭니다.
 
@@ -65,7 +65,7 @@ hosted connection 하나에는 전송 가상 인터페이스를 하나만 만들
 
 **성공 확인**: 두 인터페이스의 상태가 **Pending** 또는 **Down**입니다. 온프레미스 라우터 설정을 마치면 **Available**이 됩니다.
 
-## 1-4. BGP 값 확인 { #lab1-4 }
+## 2-2-4. BGP 값 확인 { #lab1-4 }
 
 1. **Virtual interfaces**에서 `tgw-nat-vif1`의 ID를 누릅니다.
 2. **Peerings** 탭에서 세 값을 적습니다: **BGP authentication key**, **Your router peer IP**, **Amazon router peer IP**.
@@ -75,7 +75,7 @@ hosted connection 하나에는 전송 가상 인터페이스를 하나만 만들
 
 위 화면은 온프레미스 라우터(`rtN`) 설정을 마친 뒤의 모습입니다. 지금은 **BGP status**가 **Down**이어도 괜찮습니다.
 
-## 1-5. 온프레미스 라우터 설정 { #lab1-5 }
+## 2-2-5. 온프레미스 라우터 설정 { #lab1-5 }
 
 1. [라우터 설정 생성기](router-config.md)를 새 탭으로 엽니다.
 2. 페이지 위 그림에서 각 값이 어디에 쓰이는지 번호로 확인합니다. Pod 번호는 ①에 넣습니다. 온프레미스 대역(②)은 자동으로 채워집니다. Loopback1, ASN, 라우터 인터페이스는 워크숍 값이 미리 채워져 있습니다. ASN(④⑤)이 1-1, 1-3에서 넣은 값과 같은지만 봅니다. `tgw-nat-vif1` 값은 DX1(⑦–⑩), `tgw-nat-vif2` 값은 DX2(⑫–⑮) 칸에 넣습니다. 설정이 만들어지면 **복사**를 누릅니다.
@@ -86,7 +86,7 @@ hosted connection 하나에는 전송 가상 인터페이스를 하나만 만들
 ??? tip "콘솔의 Sample configuration"
     전송 가상 인터페이스의 **Actions** → **Sample configuration**에서도 라우터 설정 예시를 내려받을 수 있습니다. 다만 온프레미스 라우터의 종류가 목록에 없어 손볼 곳이 많습니다. 그래서 생성기를 씁니다.
 
-## 1-6. 연결 확인 { #lab1-6 }
+## 2-2-6. 연결 확인 { #lab1-6 }
 
 온프레미스 라우터(`rtN`) 터미널에서 실행합니다.
 
@@ -140,10 +140,10 @@ vpc-b-ec2 saw 10.200.0.1:35329
 
 **성공 확인**: ping이 `!!!!!`이고, 응답에 `vpc-b-ec2 saw 10.200.0.1:<포트>`가 보입니다. VPC-B가 보낸 쪽 주소를 바뀌지 않은 그대로 봤다는 뜻입니다.
 
-## 1-7. 라우팅 테이블 보기 { #lab1-7 }
+## 2-2-7. 라우팅 테이블 보기 { #lab1-7 }
 
 **VPC** 콘솔 → **Transit gateway route tables** → 라우팅 테이블 ID → **Routes** 탭을 엽니다.
 
 ![Transit Gateway 라우팅 테이블: 10.1.1.0/24(VPC), 10.200.0.1/32(Direct Connect Gateway), 172.20.89.0/24(VPC) 세 경로가 Propagated](images/console/lab1-tgw-rt-01-before-nat.png){ .shot }
 
-`172.20.N.0/24`가 VPC-A 하나만 가리킵니다. 온프레미스도 같은 대역을 광고했지만 보이지 않습니다. 같은 대역이면 VPC의 경로가 우선하기 때문입니다. 실습 2에서 이 때문에 생기는 문제를 확인합니다.
+`172.20.N.0/24`가 VPC-A 하나만 가리킵니다. 온프레미스도 같은 대역을 광고했지만 보이지 않습니다. 같은 대역이면 VPC의 경로가 우선하기 때문입니다. 실습 2-3에서 이 때문에 생기는 문제를 확인합니다.

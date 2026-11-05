@@ -1,4 +1,4 @@
-# 추가 과제 C. 지표와 로그로 확인하기
+# 3-3. 지표와 로그로 확인하기
 
 1:1 NAT가 정말 주소를 바꿨는지 CloudWatch 지표와 Flow Logs로 확인합니다. 지표와 로그는 몇 분 늦게 나타납니다. 그래서 먼저 온프레미스 VM(`vmN`) 터미널에서 트래픽을 만들고 3~5분 기다립니다.
 
@@ -8,7 +8,7 @@ ping -c 200 100.64.2.10
 
 ![지표와 로그가 기록하는 곳: DXGW 연결과 VPC-A 연결에서 PacketsInNAT·PacketsOutNAT가 늘어나고 VPC-B는 0이다. TGW Flow Logs는 양 끝의 실제 주소를, VPC Flow Logs는 VPC 안에서 보이는 주소를 기록한다](images/diagrams/extra-c-observability.png)
 
-## C-1. NAT 지표 { #c1 }
+## 3-3-1. NAT 지표 { #c1 }
 
 1. **CloudWatch** 콘솔 → **Metrics** → **All metrics** → **TransitGateway** → **Per-TransitGatewayAttachment Metrics**를 고릅니다.
 2. 세 Transit Gateway 연결의 `PacketsInNAT`, `PacketsOutNAT`을 선택합니다.
@@ -27,9 +27,9 @@ ping -c 200 100.64.2.10
 |---|---|
 | `PacketsInNAT` | 그 연결로 **들어올 때** 출발지 주소를 바꾼 패킷 수 |
 | `PacketsOutNAT` | 그 연결로 **나갈 때** 목적지 주소를 되돌린 패킷 수 |
-| `PacketDropCountBlackhole` | Blackhole 경로 때문에 버린 패킷 수([추가 과제 B-1](extra-b.md#b1)에서 늘어남) |
+| `PacketDropCountBlackhole` | Blackhole 경로 때문에 버린 패킷 수([3-2-1](extra-b.md#b1)에서 늘어남) |
 
-## C-2. 두 Flow Logs 비교 { #c2 }
+## 3-3-2. 두 Flow Logs 비교 { #c2 }
 
 **CloudWatch** → **Logs Insights**를 엽니다. 새 화면(**Log Analytics**)이 열려도 같습니다.
 

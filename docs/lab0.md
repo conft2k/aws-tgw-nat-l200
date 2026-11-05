@@ -1,8 +1,8 @@
-# 실습 0. 시작하기 (10분)
+# 2-1. 시작하기 (10분)
 
-오래 걸리는 두 가지를 먼저 시작해 둡니다. hosted connection 수락과 스택 배포입니다. 준비가 끝나기를 기다리지 않고 실습 1로 넘어갑니다.
+오래 걸리는 두 가지를 먼저 시작해 둡니다. hosted connection 수락과 스택 배포입니다. 준비가 끝나기를 기다리지 않고 실습 2-2로 넘어갑니다.
 
-## 0-1. 웹 터미널 열어 보기 { #lab0-1 }
+## 2-1-1. 웹 터미널 열어 보기 { #lab0-1 }
 
 1. 실습 장비 페이지를 엽니다. 내 Pod 번호, DX1·DX2 VLAN을 [적어 둡니다](prerequisites.md#notes).
 2. 온프레미스 라우터(`rtN`)를 누릅니다. 웹 터미널에 `rtN#`이 보이면 됩니다.
@@ -11,7 +11,7 @@
 !!! tip "탭을 여러 개 쓰세요"
     온프레미스 라우터, 온프레미스 VM, AWS 콘솔을 브라우저 탭으로 따로 열어 두면 오가기 편합니다.
 
-## 0-2. hosted connection 수락 { #lab0-2 }
+## 2-1-2. hosted connection 수락 { #lab0-2 }
 
 1. AWS 콘솔에 로그인합니다. 오른쪽 위 리전을 **Asia Pacific (Seoul)** 로 맞춥니다.
 2. **Direct Connect** 콘솔 → 왼쪽 메뉴 **Connections**를 엽니다.
@@ -21,7 +21,7 @@
 
 **성공 확인**: 상태가 **Pending**으로 바뀝니다. 몇 분 뒤 **Available**이 됩니다(사전 테스트 시 약 3분). 기다리지 말고 다음으로 넘어갑니다.
 
-## 0-3. 스택 배포 { #lab0-3 }
+## 2-1-3. 스택 배포 { #lab0-3 }
 
 스택은 실습에 필요한 바탕을 만듭니다. Transit Gateway, VPC 2개, EC2 2대(VPC-A EC2, VPC-B EC2), EC2 접속용 엔드포인트, 로그 설정입니다. 핵심인 Direct Connect 연결과 1:1 NAT는 이어지는 실습에서 직접 만듭니다.
 
@@ -45,4 +45,4 @@
 
 ![스택 이벤트: tgw-nat-workshop이 CREATE_IN_PROGRESS](images/console/lab0-cfn-05-in-progress.png){ .shot }
 
-여기까지 하고 [실습 1](lab1.md)로 넘어갑니다.
+여기까지 하고 [실습 2-2](lab1.md)로 넘어갑니다.

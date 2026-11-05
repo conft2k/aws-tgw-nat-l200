@@ -54,22 +54,22 @@ extra_css:
   - assets/extra.css
 
 nav:
-  - 시작하기 전에:
-      - "1. 소개": index.md
-      - "2. 사전 준비": prerequisites.md
-      - "3. 용어 풀이": glossary.md
-  - 실습:
-      - "실습 0. 시작하기": lab0.md
-      - "실습 1. Direct Connect 연결": lab1.md
-      - "실습 2. 1:1 NAT 적용": lab2.md
-  - 추가 과제:
-      - "A. NAT 없는 VPC와 원래 경로": extra-a.md
-      - "B. 경로 설치 옵션": extra-b.md
-      - "C. 지표와 Flow Logs": extra-c.md
-      - "D. 리소스 정리": extra-d.md
-  - 부록:
-      - "부록 1. 라우터 설정 생성기": router-config.md
-      - "부록 2. 1:1 NAT 개념과 제약": concepts.md
-      - "부록 3. 사전 테스트에서 관찰한 동작": observed.md
-      - "부록 4. 문제 해결": troubleshooting.md
-      - "부록 5. 참고 문서": references.md
+  - "1. 시작하기 전에":
+      - "1-1. 소개": index.md
+      - "1-2. 사전 준비": prerequisites.md
+      - "1-3. 용어 풀이": glossary.md
+  - "2. 실습":
+      - "2-1. 시작하기": lab0.md
+      - "2-2. Direct Connect 연결": lab1.md
+      - "2-3. 1:1 NAT 적용": lab2.md
+  - "3. 추가 과제":
+      - "3-1. NAT 없는 VPC와 원래 경로": extra-a.md
+      - "3-2. 경로 설치 옵션": extra-b.md
+      - "3-3. 지표와 Flow Logs": extra-c.md
+      - "3-4. 리소스 정리": extra-d.md
+  - "4. 부록":
+      - "4-1. 라우터 설정 생성기": router-config.md
+      - "4-2. 1:1 NAT 개념과 제약": concepts.md
+      - "4-3. 사전 테스트에서 관찰한 동작": observed.md
+      - "4-4. 문제 해결": troubleshooting.md
+      - "4-5. 참고 문서": references.md
