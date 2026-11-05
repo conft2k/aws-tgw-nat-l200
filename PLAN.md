@@ -15,7 +15,7 @@
 | 콘솔 | 영어 콘솔 기준. 메뉴·버튼 이름은 영어 그대로 굵게 쓰고, 설명은 한국어로 씁니다 |
 | 스크린샷 | 주요 화면마다 넣습니다. 계정 ID 등은 가립니다 |
 | 템플릿 | 사이트에서 YAML을 내려받아 CloudFormation 콘솔에서 업로드합니다 |
-| 게시 | GitHub Pages(공개 저장소 `ws-aws-tgw-nat-l200`) |
+| 게시 | GitHub Pages(공개 저장소 `aws-tgw-nat-l200`) |
 
 ## 2. 시나리오
 
@@ -146,7 +146,7 @@
 
 ## 10. 사이트 구성
 
-- MkDocs Material, GitHub Actions로 GitHub Pages(`https://conft2k.github.io/ws-aws-tgw-nat-l200/`)에 게시합니다.
+- MkDocs Material, GitHub Actions로 GitHub Pages(`https://ws.nettfc.net/aws-tgw-nat-l200/`)에 게시합니다.
 - 페이지: 소개(시나리오·구성도·목표·진행표) → 사전 준비 → 실습 0–2(과제 0–5) → 추가 과제 A–D → 부록(라우터 설정 템플릿, 값 찾는 곳, 문제 해결, 1:1 NAT 개념과 제약 요약, 주의 상자 증적 요약, 참고 문서).
 - 구성도는 skill-aws-arch-diagram(공식 AWS 아이콘)으로 그립니다. 흐름을 ASCII 그림으로 그리지 않습니다.
 - 스크린샷은 사전 테스트 계정의 영어 콘솔에서 찍고 계정 ID를 가립니다.

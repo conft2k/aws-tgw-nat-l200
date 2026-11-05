@@ -2,7 +2,7 @@
 
 온프레미스와 AWS VPC가 같은 IP 대역을 쓸 때, Direct Connect와 AWS Transit Gateway 1:1 NAT로 양쪽을 번역해 연결하는 과정을 직접 따라 하는 워크숍입니다.
 
-- 워크숍 사이트: https://conft2k.github.io/ws-aws-tgw-nat-l200/
+- 워크숍 사이트: https://ws.nettfc.net/aws-tgw-nat-l200/
 - 진행 계획과 사전 테스트 기록: [PLAN.md](PLAN.md)
 
 ## 구성

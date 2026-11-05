@@ -1,8 +1,8 @@
 site_name: AWS Transit Gateway 1:1 NAT 워크숍
 site_description: Direct Connect와 AWS Transit Gateway 1:1 NAT로 겹치는 온프레미스 대역을 연결하는 실습(L200)
-site_url: https://conft2k.github.io/ws-aws-tgw-nat-l200/
-repo_url: https://github.com/conft2k/ws-aws-tgw-nat-l200
-repo_name: ws-aws-tgw-nat-l200
+site_url: https://ws.nettfc.net/aws-tgw-nat-l200/
+repo_url: https://github.com/conft2k/aws-tgw-nat-l200
+repo_name: aws-tgw-nat-l200
 edit_uri: ""
 copyright: MIT License
 
