@@ -213,7 +213,7 @@ curl --local-port 40000 http://100.64.2.10:8080/
 
     VPC-A EC2는 온프레미스 VM을 UDP에서도 `100.64.1.10`으로 봅니다. TCP(`curl`)와 같습니다.
 
-## 정리 { #lab2-summary }
+## 2-8. 정리 { #lab2-summary }
 
 | 확인한 것 | 결과 |
 |---|---|
