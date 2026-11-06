@@ -6,6 +6,14 @@
 
 ![Direct Connect 연결 구성: 온프레미스 라우터(rtN)의 서브인터페이스 2개가 hosted connection 2개와 전송 가상 인터페이스 2개를 거쳐 Direct Connect gateway와 Transit Gateway에 연결된다. 온프레미스 라우터는 172.20.N.0/24와 10.200.0.1/32를 광고하고, 허용된 접두사 100.64.2.0/24와 10.1.1.0/24를 받는다](images/diagrams/lab1-dx-build.png)
 
+| 번호 | 단계 | 내용 |
+|---|---|---|
+| ① | hosted connection 수락 | 파트너가 VLAN을 정해 만든 50 Mbps hosted connection 2개를 Direct Connect 콘솔에서 각각 수락합니다. |
+| ② | Direct Connect gateway 만들기 | Amazon 측 ASN은 65300입니다. 특정 리전에 속하지 않는 글로벌 리소스입니다. |
+| ③ | Transit Gateway와 게이트웨이 연결 | Transit Gateway(AS 65400)에 DXGW Transit Gateway 연결(attachment)이 생깁니다. 허용된 접두사 `100.64.2.0/24`, `10.1.1.0/24`가 그대로 온프레미스 라우터에 광고됩니다. |
+| ④ | 전송 가상 인터페이스 만들기 | hosted connection마다 하나씩, 그 VLAN으로 만들고 Direct Connect gateway에 붙입니다. BGP + BFD를 쓰고, 피어 IP(`169.254.x.x/29`)와 BGP 인증 키는 AWS가 만듭니다. |
+| ⑤ | 온프레미스 라우터 BGP 설정 | `GigabitEthernet1.<VLAN1>`, `GigabitEthernet2.<VLAN2>`에서 AS 65300과 피어링하고 `172.20.N.0/24`, `10.200.0.1/32`를 광고합니다. 두 VIF가 같은 경로를 받아 ECMP로 나눠 씁니다. |
+
 시작하기 전에 확인합니다.
 
 - 실습 2-1의 hosted connection 2개가 **Available**인가요?

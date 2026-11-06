@@ -1,7 +1,7 @@
-<svg viewBox="0 0 1518 638" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<svg viewBox="0 0 1518 520" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
   <!-- Lab 2 before NAT: overlapping 172.20.N.0/24. Green = request (1), red dashed = reply (2). -->
   <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker><marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#1D8102"/></marker><marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#D13212"/></marker></defs>
-  <rect width="1518" height="638" fill="#FFFFFF"/>
+  <rect width="1518" height="520" fill="#FFFFFF"/>
   <rect x="16" y="86" width="300" height="194" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="bundle:group/Corporate-data-center_32" x="16" y="86" width="24" height="24"/>
   <text x="48" y="104" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
@@ -94,15 +94,4 @@
   <text x="925" y="396" font-size="13" fill="#232F3E">propagated</text>
   <text x="713" y="430" font-size="13" font-weight="600" fill="#D13212">온프레미스가 광고한 172.20.N.0/24는 보이지 않음</text>
   <text x="713" y="447" font-size="13" fill="#545B64">— 같은 접두사에서는 VPC 경로가 우선</text>
-  <rect x="16" y="520" width="1486" height="102" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
-  <circle cx="38" cy="542" r="10" fill="#1D8102"/>
-  <text x="38" y="546.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-  <text x="56" y="546.5" font-size="13" font-weight="600" fill="#232F3E">온프레미스 VM → VPC-B EC2 (요청)</text>
-  <text x="297.6" y="546.5" font-size="13" fill="#545B64">온프레미스 VM(172.20.N.10)이 10.1.1.10으로 ping을 보냅니다. Direct Connect를 거쳐 TGW 경로 10.1.1.0/24 → VPC-B로 가고,</text>
-  <text x="297.6" y="563.5" font-size="13" fill="#545B64">VPC-B EC2가 요청을 받아 응답합니다.</text>
-  <circle cx="38" cy="583" r="10" fill="#D13212"/>
-  <text x="38" y="587.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-  <text x="56" y="587.5" font-size="13" font-weight="600" fill="#232F3E">VPC-B EC2 → VPC-A (응답)</text>
-  <text x="297.6" y="587.5" font-size="13" fill="#545B64">172.20.N.10으로 가는 응답이 172.20.N.0/24 → VPC-A 경로를 따라 VPC-A로 갑니다.</text>
-  <text x="297.6" y="604.5" font-size="13" fill="#545B64">VPC-A EC2의 tcpdump에는 응답이 보이지만, 온프레미스 VM은 받지 못합니다(100% packet loss).</text>
 </svg>

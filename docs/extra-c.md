@@ -8,6 +8,15 @@ ping -c 200 100.64.2.10
 
 ![지표와 로그가 기록하는 곳: DXGW 연결과 VPC-A 연결에서 PacketsInNAT·PacketsOutNAT가 늘어나고 VPC-B는 0이다. TGW Flow Logs는 양 끝의 실제 주소를, VPC Flow Logs는 VPC 안에서 보이는 주소를 기록한다](images/diagrams/extra-c-observability.png)
 
+| 보는 곳 | 내용 |
+|---|---|
+| **CloudWatch 지표** | NAT 규칙이 실제로 번역한 연결에서만 늘어납니다(VPC-B 연결은 0). |
+| **TGW Flow Logs** | 양 끝의 실제 주소를 남깁니다: `172.20.N.10` → `172.20.N.10`. |
+| **VPC Flow Logs** | VPC 안에서 보이는 주소를 남깁니다: `pkt-srcaddr` `100.64.1.10`. |
+| **확인 방법** | 상대에게 보인 주소는 VPC Flow Logs나 패킷 캡처로 봅니다. |
+
+그림의 선: 검은 실선 화살표는 요청, 초록 점선 화살표는 응답, 회색 점선 화살표는 로그 전송입니다.
+
 ## 3-3-1. NAT 지표 { #c1 }
 
 1. **CloudWatch** 콘솔 → **Metrics** → **All metrics** → **TransitGateway** → **Per-TransitGatewayAttachment Metrics**를 고릅니다.

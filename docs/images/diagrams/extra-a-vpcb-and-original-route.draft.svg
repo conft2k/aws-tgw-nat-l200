@@ -1,4 +1,4 @@
-<svg viewBox="0 0 1680 689" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<svg viewBox="0 0 1680 642" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
 <defs>
 <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker>
 <marker id="arrowStart" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6 Z" fill="#232F3E"/></marker>
@@ -7,29 +7,7 @@
 <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#D13212"/></marker>
 <marker id="arrowGrey" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#7D8998"/></marker>
 </defs>
-<rect width="1680" height="689" fill="#FFFFFF"/>
-<rect x="16" y="16" width="536" height="300" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
-<circle cx="38" cy="37.5" r="12" fill="#1D8102"/>
-<text x="38" y="42" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">A1</text>
-<text x="56" y="42" font-size="13" font-weight="600" fill="#232F3E">온프레미스 VM → VPC-B 10.1.1.10</text>
-<text x="56" y="62" font-size="13" fill="#545B64">VPC-B에는 NAT 규칙이 없지만 DXGW 연결이 출발지 172.20.N.10을</text>
-<text x="56" y="78" font-size="13" fill="#545B64">100.64.1.10으로 바꿉니다(SNAT). 목적지와 상관없이 출발지 주소를</text>
-<text x="56" y="94" font-size="13" fill="#545B64">바꿉니다. VPC-B EC2는 100.64.1.10을 보고, 응답은 목적지 주소를</text>
-<text x="56" y="110" font-size="13" fill="#545B64">되돌려(DNAT) 온프레미스 VM으로 돌아옵니다.</text>
-<circle cx="38" cy="133.5" r="12" fill="#1D8102"/>
-<text x="38" y="138" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">A2</text>
-<text x="56" y="138" font-size="13" font-weight="600" fill="#232F3E">VPC-B → 100.64.2.10 · 100.64.1.10</text>
-<text x="56" y="158" font-size="13" fill="#545B64">VPC-B 연결에는 NAT가 없어 출발지 10.1.1.10은 그대로입니다. 받는 쪽</text>
-<text x="56" y="174" font-size="13" fill="#545B64">연결이 목적지 주소만 되돌립니다(DNAT): VPC-A 연결은 100.64.2.10 →</text>
-<text x="56" y="190" font-size="13" fill="#545B64">172.20.N.10, DXGW 연결은 100.64.1.10 → 172.20.N.10.</text>
-<circle cx="38" cy="213.5" r="12" fill="#E07000"/>
-<text x="38" y="218" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">A3</text>
-<text x="56" y="218" font-size="13" font-weight="600" fill="#232F3E">VPC-B → 172.20.N.10 (원래 주소)</text>
-<text x="56" y="238" font-size="13" fill="#545B64">라우팅 테이블에 남은 원래 경로 172.20.N.0/24 → DXGW(propagated)를</text>
-<text x="56" y="254" font-size="13" fill="#545B64">따라, 요청은 VPC-A가 아니라 온프레미스 VM에 도착합니다.</text>
-<text x="56" y="270" font-size="13" fill="#545B64">온프레미스 VM의 응답은 출발지가 100.64.1.10으로 바뀌어(SNAT) 보낸 주소와</text>
-<text x="56" y="286" font-size="13" fill="#545B64">다른 곳에서 옵니다: ping 0/3은 응답 주소가 달라서(추론),</text>
-<text x="56" y="302" font-size="13" fill="#545B64">TCP는 SYN-ACK가 보안 그룹에서 REJECT됩니다(VPC Flow Logs).</text>
+<rect width="1680" height="642" fill="#FFFFFF"/>
 <rect x="16" y="332" width="396" height="271" fill="none" stroke="#7D8998" stroke-width="2"/>
 <image href="bundle:group/Corporate-data-center_32" x="16" y="332" width="24" height="24"/>
 <text x="48" y="350" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (Pod N)</text>
@@ -172,6 +150,4 @@
 <rect x="1288" y="248" width="104" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
 <text x="1298" y="268.5" font-size="13" fill="#232F3E">propagated</text>
 <text x="1400" y="236.5" font-size="13" font-weight="700" fill="#E07000">← 원래 경로가 남아 있음 (A3)</text>
-<rect x="16" y="627" width="398.5" height="40" fill="#FDEEDD" stroke="#E07000" stroke-width="1.5"/>
-<text x="30" y="653" font-size="15" font-weight="700" fill="#D13212">NAT를 건 VPC의 원래 주소로는 보내지 않게 하세요.</text>
 </svg>

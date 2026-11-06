@@ -100,20 +100,4 @@
 <text x="1760" y="534" font-size="13" font-weight="700" text-anchor="middle" fill="#232F3E">pkt-srcaddr 100.64.1.10</text>
 <line x1="1262" y1="460" x2="1432" y2="460" stroke="#7D8998" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowGrey)"/>
 <line x1="1732" y1="460" x2="1488" y2="460" stroke="#7D8998" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowGrey)"/>
-<rect x="16" y="16" width="586" height="140" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
-<text x="28" y="42" font-size="13" font-weight="700" fill="#232F3E">CloudWatch 지표</text>
-<text x="148.65" y="42" font-size="13" fill="#545B64">NAT 규칙이 실제로 번역한 연결에서만 늘어납니다 (VPC-B 연결은 0).</text>
-<text x="28" y="66" font-size="13" font-weight="700" fill="#232F3E">TGW Flow Logs</text>
-<text x="148.65" y="66" font-size="13" fill="#545B64">양 끝의 실제 주소를 남깁니다: 172.20.N.10 → 172.20.N.10.</text>
-<text x="28" y="90" font-size="13" font-weight="700" fill="#232F3E">VPC Flow Logs</text>
-<text x="148.65" y="90" font-size="13" fill="#545B64">VPC 안에서 보이는 주소를 남깁니다: pkt-srcaddr 100.64.1.10.</text>
-<text x="28" y="114" font-size="13" font-weight="700" fill="#232F3E">확인 방법</text>
-<text x="148.65" y="114" font-size="13" fill="#545B64">상대에게 보인 주소는 VPC Flow Logs나 패킷 캡처로 봅니다.</text>
-<text x="28" y="138" font-size="13" font-weight="700" fill="#232F3E">선</text>
-<line x1="148.65" y1="134" x2="184.65" y2="134" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
-<text x="192.65" y="138" font-size="13" fill="#545B64">요청</text>
-<line x1="238.65" y1="134" x2="274.65" y2="134" stroke="#1D8102" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
-<text x="282.65" y="138" font-size="13" fill="#545B64">응답</text>
-<line x1="328.65" y1="134" x2="364.65" y2="134" stroke="#7D8998" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowGrey)"/>
-<text x="372.65" y="138" font-size="13" fill="#545B64">로그 전송</text>
 </svg>

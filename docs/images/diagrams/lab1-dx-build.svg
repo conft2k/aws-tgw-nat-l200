@@ -1,7 +1,7 @@
-<svg viewBox="0 0 1282 675" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<svg viewBox="0 0 1282 468" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
   <!-- Lab 1: how the Direct Connect side is built (pod N). Badges = creation order 1-5. -->
   <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker></defs>
-  <rect width="1282" height="675" fill="#FFFFFF"/>
+  <rect width="1282" height="468" fill="#FFFFFF"/>
   <rect x="16" y="16" width="388" height="436" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0MHB4IiB2aWV3Qm94PSIwIDAgNDAgNDAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+SWNvbi1BcmNoaXRlY3R1cmUtR3JvdXAvMzIvQ29ycG9yYXRlLWRhdGEtY2VudGVyXzMyPC90aXRsZT4KICAgIDxnIGlkPSJJY29uLUFyY2hpdGVjdHVyZS1Hcm91cC8zMi9Db3Jwb3JhdGUtZGF0YS1jZW50ZXJfMzIiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUiIGZpbGw9IiM3RDg5OTgiIHg9IjAiIHk9IjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PC9yZWN0PgogICAgICAgIDxwYXRoIGQ9Ik0xMiwxNyBMMTUuNSwxNyBDMTUuNzc2LDE3IDE2LDE2Ljc3NiAxNiwxNi41IEwxNiw3IEwyMyw3IEwyMywxNi41IEMyMywxNi43NzYgMjMuMjI0LDE3IDIzLjUsMTcgTDI3LDE3IEwyNywzMyBMMTIsMzMgTDEyLDE3IFogTTI4LDMzLjUgTDI4LDE2LjUgQzI4LDE2LjIyNCAyNy43NzYsMTYgMjcuNSwxNiBMMjQsMTYgTDI0LDYuNSBDMjQsNi4yMjQgMjMuNzc2LDYgMjMuNSw2IEwxNS41LDYgQzE1LjIyNCw2IDE1LDYuMjI0IDE1LDYuNSBMMTUsMTYgTDExLjUsMTYgQzExLjIyNCwxNiAxMSwxNi4yMjQgMTEsMTYuNSBMMTEsMzMuNSBDMTEsMzMuNzc2IDExLjIyNCwzNCAxMS41LDM0IEwyNy41LDM0IEMyNy43NzYsMzQgMjgsMzMuNzc2IDI4LDMzLjUgTDI4LDMzLjUgWiBNMjQsMzEgTDI1LDMxIEwyNSwyOSBMMjQsMjkgTDI0LDMxIFogTTE5LDMxIEwyMCwzMSBMMjAsMjkgTDE5LDI5IEwxOSwzMSBaIE0xNCwzMSBMMTUsMzEgTDE1LDI5IEwxNCwyOSBMMTQsMzEgWiBNMjQsMjcgTDI1LDI3IEwyNSwyNCBMMjQsMjQgTDI0LDI3IFogTTE5LDI3IEwyMCwyNyBMMjAsMjQgTDE5LDI0IEwxOSwyNyBaIE0xNCwyNyBMMTUsMjcgTDE1LDI0IEwxNCwyNCBMMTQsMjcgWiBNMjQsMjIgTDI1LDIyIEwyNSwxOSBMMjQsMTkgTDI0LDIyIFogTTE5LDEyIEwyMCwxMiBMMjAsOSBMMTksOSBMMTksMTIgWiBNMTksMTcgTDIwLDE3IEwyMCwxNCBMMTksMTQgTDE5LDE3IFogTTE5LDIyIEwyMCwyMiBMMjAsMTkgTDE5LDE5IEwxOSwyMiBaIE0xNCwyMiBMMTUsMjIgTDE1LDE5IEwxNCwxOSBMMTQsMjIgWiIgaWQ9IkZpbGwtMSIgZmlsbD0iI0ZGRkZGRiI+PC9wYXRoPgogICAgPC9nPgo8L3N2Zz4=" x="16" y="16" width="24" height="24"/>
   <text x="48" y="34" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
@@ -64,28 +64,4 @@
   <text x="534" y="424" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">= 허용된 접두사</text>
   <text x="534" y="440" font-size="13" text-anchor="middle" fill="#232F3E">100.64.2.0/24 · 10.1.1.0/24</text>
   <text x="534" y="456" font-size="13" text-anchor="middle" fill="#545B64">두 VIF 모두 같은 경로 (ECMP)</text>
-  <rect x="16" y="468" width="1250" height="191" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
-  <circle cx="38" cy="490" r="10" fill="#232F3E"/>
-  <text x="38" y="494.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-  <text x="56" y="494.5" font-size="13" font-weight="600" fill="#232F3E">hosted connection 수락</text>
-  <text x="301.55" y="494.5" font-size="13" fill="#545B64">파트너가 VLAN을 정해 만든 50 Mbps hosted connection 2개를 Direct Connect 콘솔에서 각각 수락합니다.</text>
-  <circle cx="38" cy="514" r="10" fill="#232F3E"/>
-  <text x="38" y="518.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-  <text x="56" y="518.5" font-size="13" font-weight="600" fill="#232F3E">Direct Connect gateway 만들기</text>
-  <text x="301.55" y="518.5" font-size="13" fill="#545B64">Amazon 측 ASN은 65300입니다. 특정 리전에 속하지 않는 글로벌 리소스입니다.</text>
-  <circle cx="38" cy="538" r="10" fill="#232F3E"/>
-  <text x="38" y="542.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
-  <text x="56" y="542.5" font-size="13" font-weight="600" fill="#232F3E">Transit Gateway와 게이트웨이 연결</text>
-  <text x="301.55" y="542.5" font-size="13" fill="#545B64">Transit Gateway(AS 65400)에 DXGW Transit Gateway 연결(attachment)이 생깁니다.</text>
-  <text x="301.55" y="559.5" font-size="13" fill="#545B64">허용된 접두사 100.64.2.0/24, 10.1.1.0/24가 그대로 온프레미스 라우터에 광고됩니다.</text>
-  <circle cx="38" cy="579" r="10" fill="#232F3E"/>
-  <text x="38" y="583.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text>
-  <text x="56" y="583.5" font-size="13" font-weight="600" fill="#232F3E">전송 가상 인터페이스 만들기</text>
-  <text x="301.55" y="583.5" font-size="13" fill="#545B64">hosted connection마다 하나씩, 그 VLAN으로 만들고 Direct Connect gateway에 붙입니다.</text>
-  <text x="301.55" y="600.5" font-size="13" fill="#545B64">BGP + BFD를 쓰고, 피어 IP(169.254.x.x/29)와 BGP 인증 키는 AWS가 만듭니다.</text>
-  <circle cx="38" cy="620" r="10" fill="#232F3E"/>
-  <text x="38" y="624.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text>
-  <text x="56" y="624.5" font-size="13" font-weight="600" fill="#232F3E">온프레미스 라우터 BGP 설정</text>
-  <text x="301.55" y="624.5" font-size="13" fill="#545B64">GigabitEthernet1.&lt;VLAN1&gt;, GigabitEthernet2.&lt;VLAN2&gt;에서 AS 65300과 피어링하고 172.20.N.0/24,</text>
-  <text x="301.55" y="641.5" font-size="13" fill="#545B64">10.200.0.1/32를 광고합니다. 두 VIF가 같은 경로를 받아 ECMP로 나눠 씁니다.</text>
 </svg>

@@ -177,22 +177,4 @@
   <rect x="1480" y="207" width="116" height="18" rx="3" fill="#E7157B"/>
   <text x="1538" y="220" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">CloudFormation</text>
 
-  <!-- ===== Legend pane (outside the Cloud, left column) ===== -->
-  <rect x="16" y="466" width="622" height="194" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
-  <text x="28" y="484" font-size="14" font-weight="600" fill="#232F3E">서로 어떻게 보이나</text>
-  <text x="28" y="506" font-size="13" font-weight="600" fill="#232F3E">온프레미스 172.20.N.x</text>
-  <text x="204" y="506" font-size="13" fill="#545B64">AWS에서는 100.64.1.x로 보임</text>
-  <text x="28" y="528" font-size="13" font-weight="600" fill="#232F3E">VPC-A 172.20.N.x</text>
-  <text x="204" y="528" font-size="13" fill="#545B64">온프레미스와 VPC-B에서는 100.64.2.x로 보임</text>
-  <text x="28" y="550" font-size="13" font-weight="600" fill="#232F3E">VPC-B, Loopback1</text>
-  <text x="204" y="550" font-size="13" fill="#545B64">변환 없이 그대로 보임 (10.1.1.x, 10.200.0.1)</text>
-  <text x="28" y="572" font-size="13" font-weight="600" fill="#232F3E">호스트 비트와 포트</text>
-  <text x="204" y="572" font-size="13" fill="#545B64">그대로 (예: 172.20.N.10 → 100.64.1.10)</text>
-  <text x="28" y="600" font-size="13" font-weight="600" fill="#232F3E">누가 만드나</text>
-  <rect x="28" y="609" width="90" height="18" rx="3" fill="#232F3E"/>
-  <text x="73" y="622" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
-  <text x="156" y="622" font-size="13" fill="#545B64">실습하면서 AWS 콘솔에서 직접 만듭니다</text>
-  <rect x="28" y="631" width="116" height="18" rx="3" fill="#E7157B"/>
-  <text x="86" y="644" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">CloudFormation</text>
-  <text x="156" y="644" font-size="13" fill="#545B64">실습 스택이 미리 배포 (태그 붙은 VPC는 안의 리소스까지)</text>
 </svg>

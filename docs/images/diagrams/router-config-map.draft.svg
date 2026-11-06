@@ -1,6 +1,6 @@
-<svg viewBox="0 0 1339 542" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<svg viewBox="0 0 1339 478" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
   <!-- Router config map (docs/router-config.md): badges 1-15 = input field numbers (1-5 common, 6-10 DX1, 11-15 DX2). Blue = DX1 (upper path), orange = DX2 (lower path). Example values = form placeholders (Pod 89). -->
-  <rect width="1339" height="542" fill="#FFFFFF"/>
+  <rect width="1339" height="478" fill="#FFFFFF"/>
   <rect x="16" y="16" width="637" height="446" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="bundle:group/Corporate-data-center_32" x="16" y="16" width="24" height="24"/>
   <text x="48" y="34" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
@@ -90,7 +90,4 @@
   <image href="bundle:service/AWS-Transit-Gateway" x="1132" y="231" width="48" height="48"/>
   <text x="1156" y="297" font-size="16" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
   <text x="1156" y="315" font-size="14" text-anchor="middle" fill="#7D8998">AS 65400</text>
-  <text x="16" y="488" font-size="14" fill="#545B64">번호 = 아래 입력 칸 번호</text>
-  <text x="16" y="510" font-size="14" fill="#545B64">값은 전송 가상 인터페이스 상세 → Peerings 탭에서 확인</text>
-  <text x="16" y="532" font-size="14" fill="#545B64">대역·ASN·인터페이스 이름은 워크숍 값이 미리 채워져 있음</text>
 </svg>

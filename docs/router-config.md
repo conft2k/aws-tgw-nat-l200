@@ -8,6 +8,9 @@
 
 ![라우터 설정 값 지도: 공통 값은 1번 Pod 번호, 2번 온프레미스 대역 172.20.N.0/24, 3번 Loopback1 10.200.0.1/32, 4번 라우터 ASN 65000, 5번 Direct Connect gateway의 Amazon 쪽 ASN 65300이다. DX1(위)은 6번 라우터 인터페이스 GigabitEthernet1, 7번 VLAN, 8번 라우터 쪽 IP, 9번 Amazon 쪽 IP, 10번 BGP 키이고, DX2(아래)는 11번부터 15번까지 같은 순서이다. 두 전송 가상 인터페이스는 Direct Connect gateway와 Transit Gateway(AS 65400)로 이어진다](images/diagrams/router-config-map.png)
 
+- 값은 전송 가상 인터페이스 상세 → **Peerings** 탭에서 확인합니다.
+- 대역·ASN·인터페이스 이름은 워크숍 값이 미리 채워져 있습니다.
+
 ## 4-1-2. 값 넣기 { #form }
 
 **미리 채움**이라고 적힌 칸에는 워크숍 값이 들어 있습니다. 워크숍에서는 Pod 번호와 DX1·DX2의 VLAN, 피어 IP, BGP 키만 넣으면 됩니다. 온프레미스 대역은 Pod 번호를 넣으면 자동으로 채워집니다.

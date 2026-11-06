@@ -1,4 +1,4 @@
-<svg viewBox="0 0 1936 734" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<svg viewBox="0 0 1936 544" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
 <defs>
 <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker>
 <marker id="arrowStart" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6 Z" fill="#232F3E"/></marker>
@@ -7,7 +7,7 @@
 <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#D13212"/></marker>
 <marker id="arrowGrey" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#7D8998"/></marker>
 </defs>
-<rect width="1936" height="734" fill="#FFFFFF"/>
+<rect width="1936" height="544" fill="#FFFFFF"/>
 <text x="16" y="34" font-size="17" font-weight="700" fill="#232F3E">DXGW 연결의 NAT system routes: 켬과 끔</text>
 <text x="377.1" y="34" font-size="13" fill="#545B64">1:1 NAT 규칙 172.20.N.0/24 → 100.64.1.0/24</text>
 <g transform="translate(16,0)">
@@ -77,10 +77,6 @@
 <line x1="278" y1="188" x2="397" y2="188" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
 <line x1="453" y1="188" x2="562" y2="188" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
 <text x="342" y="180" font-size="13" fill="#232F3E">BGP</text>
-<text x="12" y="538" font-size="13" font-weight="600" fill="#232F3E">켜면 Transit Gateway가 100.64.1.0/24를 system 경로로 만듭니다.</text>
-<text x="12" y="558" font-size="13" fill="#545B64">이 경로는 온프레미스가 원래 대역과 겹치는 경로를 광고하는 동안만 Active입니다:</text>
-<text x="12" y="576" font-size="13" fill="#545B64">같은 대역 172.20.N.0/24 · 더 작은 대역(more specific) · 요약 경로(예: 172.20.0.0/16).</text>
-<text x="12" y="594" font-size="13" fill="#545B64">겹치는 광고가 모두 사라지면 통신이 바로 끊기고, 약 15초 뒤 경로가 Blackhole로 보입니다.</text>
 </g>
 <g transform="translate(980,0)">
 <rect x="532" y="272" width="364" height="32" fill="#8C4FFF" stroke="#8C4FFF" stroke-width="1"/>
@@ -139,36 +135,9 @@
 <line x1="278" y1="188" x2="397" y2="188" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
 <line x1="453" y1="188" x2="562" y2="188" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
 <text x="342" y="180" font-size="13" fill="#232F3E">BGP</text>
-<text x="12" y="458" font-size="13" font-weight="600" fill="#232F3E">끄면 system 경로가 없습니다. 온프레미스 라우터가 100.64.1.0/24를 직접 광고합니다(Null0 경로 + network).</text>
-<text x="12" y="478" font-size="13" fill="#545B64">Transit Gateway는 이 경로를 propagated로 학습합니다.</text>
-<rect x="12" y="494" width="916" height="52" fill="#FDEEDD" stroke="#E07000" stroke-width="1.5"/>
-<circle cx="34" cy="520" r="11" fill="#E07000"/>
-<text x="34" y="525" font-size="15" font-weight="700" text-anchor="middle" fill="#FFFFFF">!</text>
-<text x="54" y="514" font-size="13" font-weight="700" fill="#D13212">원래 대역 172.20.N.0/24도 계속 광고하세요.</text>
-<text x="54" y="532" font-size="13" fill="#232F3E">사전 테스트에서 관찰: 이 광고가 없으면 AWS → 온프레미스 트래픽이 사라집니다.</text>
 </g>
-<rect x="16" y="50" width="940" height="560" fill="none" stroke="#7D8998" stroke-width="1.5"/>
+<rect x="16" y="50" width="940" height="478" fill="none" stroke="#7D8998" stroke-width="1.5"/>
 <text x="28" y="68" font-size="14" font-weight="700" fill="#232F3E">NAT system routes 켬 (기본값)</text>
-<rect x="980" y="50" width="940" height="560" fill="none" stroke="#7D8998" stroke-width="1.5"/>
+<rect x="980" y="50" width="940" height="478" fill="none" stroke="#7D8998" stroke-width="1.5"/>
 <text x="992" y="68" font-size="14" font-weight="700" fill="#232F3E">NAT system routes 끔</text>
-<rect x="16" y="626" width="1904" height="92" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
-<text x="28" y="652" font-size="13" font-weight="700" fill="#232F3E">같은 접두사의 경로 우선순위</text>
-<text x="221.45" y="652" font-size="13" font-weight="700" fill="#232F3E">static &gt; system &gt; propagated</text>
-<text x="435.65" y="652" font-size="13" fill="#545B64">— 켜져 있는 동안에는 직접 광고한 100.64.1.0/24보다 system 경로가 우선합니다.</text>
-<text x="28" y="676" font-size="13" font-weight="700" fill="#232F3E">켬 → 끔 (안전한 순서)</text>
-<circle cx="232.45" cy="671.5" r="11" fill="#232F3E"/>
-<text x="232.45" y="676" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-<text x="249.45" y="676" font-size="13" fill="#545B64">온프레미스 라우터에서 100.64.1.0/24 광고를 먼저 추가 (system 경로가 그대로 우선)</text>
-<text x="794.95" y="676" font-size="13" font-weight="700" fill="#232F3E">→</text>
-<circle cx="824.95" cy="671.5" r="11" fill="#232F3E"/>
-<text x="824.95" y="676" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-<text x="841.95" y="676" font-size="13" fill="#545B64">NAT system routes 끔 (경로가 propagated로 바뀜)</text>
-<text x="28" y="700" font-size="13" font-weight="700" fill="#232F3E">끔 → 켬 (되돌리기)</text>
-<circle cx="232.45" cy="695.5" r="11" fill="#232F3E"/>
-<text x="232.45" y="700" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-<text x="249.45" y="700" font-size="13" fill="#545B64">NAT system routes 먼저 켬 (경로가 system으로 돌아옴)</text>
-<text x="612.95" y="700" font-size="13" font-weight="700" fill="#232F3E">→</text>
-<circle cx="642.95" cy="695.5" r="11" fill="#232F3E"/>
-<text x="642.95" y="700" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-<text x="659.95" y="700" font-size="13" fill="#545B64">온프레미스 라우터의 100.64.1.0/24 광고와 Null0 경로 제거</text>
 </svg>

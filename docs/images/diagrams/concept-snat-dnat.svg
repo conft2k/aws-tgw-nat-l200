@@ -1,7 +1,7 @@
-<svg viewBox="0 0 1445 441" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<svg viewBox="0 0 1445 381" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
   <!-- Concept: where TGW 1:1 NAT rewrites addresses (per attachment, both directions). -->
   <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker></defs>
-  <rect width="1445" height="441" fill="#FFFFFF"/>
+  <rect width="1445" height="381" fill="#FFFFFF"/>
   <rect x="16" y="140" width="268" height="164" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0MHB4IiB2aWV3Qm94PSIwIDAgNDAgNDAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+SWNvbi1BcmNoaXRlY3R1cmUtR3JvdXAvMzIvQ29ycG9yYXRlLWRhdGEtY2VudGVyXzMyPC90aXRsZT4KICAgIDxnIGlkPSJJY29uLUFyY2hpdGVjdHVyZS1Hcm91cC8zMi9Db3Jwb3JhdGUtZGF0YS1jZW50ZXJfMzIiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUiIGZpbGw9IiM3RDg5OTgiIHg9IjAiIHk9IjAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PC9yZWN0PgogICAgICAgIDxwYXRoIGQ9Ik0xMiwxNyBMMTUuNSwxNyBDMTUuNzc2LDE3IDE2LDE2Ljc3NiAxNiwxNi41IEwxNiw3IEwyMyw3IEwyMywxNi41IEMyMywxNi43NzYgMjMuMjI0LDE3IDIzLjUsMTcgTDI3LDE3IEwyNywzMyBMMTIsMzMgTDEyLDE3IFogTTI4LDMzLjUgTDI4LDE2LjUgQzI4LDE2LjIyNCAyNy43NzYsMTYgMjcuNSwxNiBMMjQsMTYgTDI0LDYuNSBDMjQsNi4yMjQgMjMuNzc2LDYgMjMuNSw2IEwxNS41LDYgQzE1LjIyNCw2IDE1LDYuMjI0IDE1LDYuNSBMMTUsMTYgTDExLjUsMTYgQzExLjIyNCwxNiAxMSwxNi4yMjQgMTEsMTYuNSBMMTEsMzMuNSBDMTEsMzMuNzc2IDExLjIyNCwzNCAxMS41LDM0IEwyNy41LDM0IEMyNy43NzYsMzQgMjgsMzMuNzc2IDI4LDMzLjUgTDI4LDMzLjUgWiBNMjQsMzEgTDI1LDMxIEwyNSwyOSBMMjQsMjkgTDI0LDMxIFogTTE5LDMxIEwyMCwzMSBMMjAsMjkgTDE5LDI5IEwxOSwzMSBaIE0xNCwzMSBMMTUsMzEgTDE1LDI5IEwxNCwyOSBMMTQsMzEgWiBNMjQsMjcgTDI1LDI3IEwyNSwyNCBMMjQsMjQgTDI0LDI3IFogTTE5LDI3IEwyMCwyNyBMMjAsMjQgTDE5LDI0IEwxOSwyNyBaIE0xNCwyNyBMMTUsMjcgTDE1LDI0IEwxNCwyNCBMMTQsMjcgWiBNMjQsMjIgTDI1LDIyIEwyNSwxOSBMMjQsMTkgTDI0LDIyIFogTTE5LDEyIEwyMCwxMiBMMjAsOSBMMTksOSBMMTksMTIgWiBNMTksMTcgTDIwLDE3IEwyMCwxNCBMMTksMTQgTDE5LDE3IFogTTE5LDIyIEwyMCwyMiBMMjAsMTkgTDE5LDE5IEwxOSwyMiBaIE0xNCwyMiBMMTUsMjIgTDE1LDE5IEwxNCwxOSBMMTQsMjIgWiIgaWQ9IkZpbGwtMSIgZmlsbD0iI0ZGRkZGRiI+PC9wYXRoPgogICAgPC9nPgo8L3N2Zz4=" x="16" y="140" width="24" height="24"/>
   <text x="48" y="158" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
@@ -57,7 +57,4 @@
   <polyline points="1082,226 1120,226 1120,272 1318,272" fill="none" stroke="#232F3E" stroke-width="1.5"/>
   <text x="1219" y="264" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">VPC-B 연결: 규칙 없음</text>
   <text x="1219" y="292" font-size="13" text-anchor="middle" fill="#545B64">→ 아무것도 바꾸지 않음</text>
-  <rect x="16" y="381" width="1413" height="44" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
-  <text x="28" y="407.5" font-size="13" font-weight="600" fill="#232F3E">상태 없음(stateless) · 1:1</text>
-  <text x="232.7" y="407.5" font-size="13" fill="#545B64">호스트 비트와 포트는 그대로 (172.20.N.10 ↔ 100.64.1.10, 172.20.N.10 ↔ 100.64.2.10)</text>
 </svg>

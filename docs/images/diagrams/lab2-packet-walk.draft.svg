@@ -1,7 +1,7 @@
-<svg viewBox="0 0 1591 752" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<svg viewBox="0 0 1591 572" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
   <!-- Lab 2 after NAT: packet walk VM -> VPC-A EC2 and back. Orange = the address the step rewrote. -->
   <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker></defs>
-  <rect width="1591" height="752" fill="#FFFFFF"/>
+  <rect width="1591" height="572" fill="#FFFFFF"/>
   <rect x="16" y="34" width="284" height="246" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="bundle:group/Corporate-data-center_32" x="16" y="34" width="24" height="24"/>
   <text x="48" y="52" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
@@ -135,29 +135,4 @@
   <text x="942" y="512" font-size="13" fill="#232F3E">DXGW</text>
   <rect x="1008" y="490" width="100" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
   <text x="1018" y="512" font-size="13" fill="#232F3E">propagated</text>
-  <rect x="16" y="572" width="1559" height="164" fill="#F8F9F9" stroke="#D5DBDB" stroke-width="1"/>
-  <circle cx="38" cy="594" r="10" fill="#232F3E"/>
-  <text x="38" y="598.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-  <text x="56" y="598.5" font-size="13" font-weight="600" fill="#232F3E">온프레미스 VM이 보냄</text>
-  <text x="261.25" y="598.5" font-size="13" fill="#545B64">온프레미스 VM이 VPC-A EC2의 NAT 주소 100.64.2.10으로 보냅니다. 온프레미스 라우터는 BGP로 받은 경로를 따라 전송 가상 인터페이스로 보냅니다.</text>
-  <circle cx="38" cy="618" r="10" fill="#232F3E"/>
-  <text x="38" y="622.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-  <text x="56" y="622.5" font-size="13" font-weight="600" fill="#232F3E">DXGW 연결 · 들어올 때 SNAT</text>
-  <text x="261.25" y="622.5" font-size="13" fill="#545B64">출발지 172.20.N.10이 Source CIDR 172.20.N.0/24 안이므로 NAT 대역의 100.64.1.10으로 바뀝니다. 경로: 100.64.2.0/24 → VPC-A (system).</text>
-  <circle cx="38" cy="642" r="10" fill="#232F3E"/>
-  <text x="38" y="646.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
-  <text x="56" y="646.5" font-size="13" font-weight="600" fill="#232F3E">VPC-A 연결 · 나갈 때 DNAT</text>
-  <text x="261.25" y="646.5" font-size="13" fill="#545B64">목적지 100.64.2.10이 NAT 대역 100.64.2.0/24 안이므로 원래 주소 172.20.N.10으로 되돌립니다. VPC-A EC2는 온프레미스 VM을 100.64.1.10으로 봅니다.</text>
-  <circle cx="38" cy="666" r="10" fill="#232F3E"/>
-  <text x="38" y="670.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text>
-  <text x="56" y="670.5" font-size="13" font-weight="600" fill="#232F3E">VPC-A EC2가 응답</text>
-  <text x="261.25" y="670.5" font-size="13" fill="#545B64">VPC-A EC2가 100.64.1.10으로 응답합니다. 스택이 VPC 라우팅 테이블에 100.64.1.0/24 → Transit Gateway 경로를 넣어 두었습니다.</text>
-  <circle cx="38" cy="690" r="10" fill="#232F3E"/>
-  <text x="38" y="694.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text>
-  <text x="56" y="694.5" font-size="13" font-weight="600" fill="#232F3E">VPC-A 연결 · 들어올 때 SNAT</text>
-  <text x="261.25" y="694.5" font-size="13" fill="#545B64">출발지 172.20.N.10이 NAT 대역의 100.64.2.10으로 바뀝니다. 경로: 100.64.1.0/24 → DXGW (system).</text>
-  <circle cx="38" cy="714" r="10" fill="#232F3E"/>
-  <text x="38" y="718.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">6</text>
-  <text x="56" y="718.5" font-size="13" font-weight="600" fill="#232F3E">DXGW 연결 · 나갈 때 DNAT</text>
-  <text x="261.25" y="718.5" font-size="13" fill="#545B64">목적지 100.64.1.10을 원래 주소 172.20.N.10으로 되돌려 온프레미스 VM에 전달합니다. 온프레미스 VM은 VPC-A EC2를 100.64.2.10으로 봅니다.</text>
 </svg>
