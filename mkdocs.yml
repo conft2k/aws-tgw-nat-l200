@@ -9,6 +9,10 @@ copyright: MIT License
 theme:
   name: material
   language: ko
+  # fonts come from extra_css (Pretendard is not on Google Fonts)
+  font: false
+  logo: assets/icons/transit-gateway.svg
+  favicon: assets/icons/transit-gateway.svg
   features:
     - navigation.sections
     - navigation.footer
@@ -18,13 +22,15 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-night
         name: 어두운 모드
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: indigo
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-sunny
         name: 밝은 모드
@@ -51,6 +57,8 @@ hooks:
   - hooks/cachebust.py
 
 extra_css:
+  - https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css
+  - https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap
   - assets/extra.css
 
 nav:
