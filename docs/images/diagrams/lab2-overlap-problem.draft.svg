@@ -1,13 +1,13 @@
-<svg viewBox="0 0 1234 672" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<svg viewBox="0 0 1234 636" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
   <!-- Lab 2 before NAT: overlapping 172.20.N.0/24. Green = request (1), red dashed = reply (2). Sized for a ~900 CSS px column: 19.5px labels, 16.7px secondary text. -->
   <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker><marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#1D8102"/></marker><marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#D13212"/></marker></defs>
-  <rect width="1234" height="672" fill="#FFFFFF"/>
+  <rect width="1234" height="636" fill="#FFFFFF"/>
   <rect x="12" y="382" width="345" height="220" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="bundle:group/Corporate-data-center_32" x="12" y="382" width="32" height="32"/>
   <text x="52" y="404" font-size="19.5" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
   <text x="52" y="422" font-size="16.7" fill="#232F3E">온프레미스 대역 172.20.N.0/24</text>
-  <text x="12" y="634" font-size="16.7" fill="#3D4550">온프레미스에서 VPC-A로는 아예 갈 수 없음:</text>
-  <text x="12" y="656" font-size="16.7" fill="#3D4550">172.20.N.x는 온프레미스 대역의 주소이기 때문</text>
+  <text x="12" y="346" font-size="16.7" fill="#3D4550">온프레미스에서 VPC-A로는 아예 갈 수 없음:</text>
+  <text x="12" y="368" font-size="16.7" fill="#3D4550">172.20.N.x는 온프레미스 대역의 주소이기 때문</text>
   <rect x="581" y="16" width="641" height="608" fill="none" stroke="#232F3E" stroke-width="2"/>
   <image href="bundle:group/AWS-Cloud-logo_32" x="581" y="16" width="40" height="40"/>
   <text x="631" y="43" font-size="21" font-weight="600" fill="#232F3E">AWS Cloud</text>
@@ -67,33 +67,35 @@
   <text x="882" y="548" font-size="16.7" font-weight="600" text-anchor="middle" fill="#D13212">응답이 VPC-A로 감 —</text>
   <text x="882" y="569" font-size="16.7" font-weight="600" text-anchor="middle" fill="#D13212">온프레미스 VM은</text>
   <text x="882" y="590" font-size="16.7" font-weight="600" text-anchor="middle" fill="#D13212">받지 못함</text>
-  <rect x="439" y="88" width="422.645" height="262" fill="#FFFFFF"/>
-  <rect x="447" y="96" width="320" height="40" fill="#8C4FFF"/>
-  <text x="459" y="123" font-size="19.5" font-weight="600" fill="#FFFFFF">TGW 라우팅 테이블 (NAT 적용 전)</text>
-  <rect x="447" y="136" width="138" height="38" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="457" y="161" font-size="16.7" font-weight="600" fill="#232F3E">CIDR</text>
-  <rect x="585" y="136" width="70" height="38" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="595" y="161" font-size="16.7" font-weight="600" fill="#232F3E">연결</text>
-  <rect x="655" y="136" width="112" height="38" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="665" y="161" font-size="16.7" font-weight="600" fill="#232F3E">유형</text>
-  <rect x="447" y="174" width="138" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="457" y="199" font-size="16.7" font-weight="600" fill="#D13212">172.20.N.0/24</text>
-  <rect x="585" y="174" width="70" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="595" y="199" font-size="16.7" font-weight="600" fill="#D13212">VPC-A</text>
-  <rect x="655" y="174" width="112" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="665" y="199" font-size="16.7" font-weight="600" fill="#D13212">propagated</text>
-  <rect x="447" y="212" width="138" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="457" y="237" font-size="16.7" fill="#232F3E">10.1.1.0/24</text>
-  <rect x="585" y="212" width="70" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="595" y="237" font-size="16.7" fill="#232F3E">VPC-B</text>
-  <rect x="655" y="212" width="112" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="665" y="237" font-size="16.7" fill="#232F3E">propagated</text>
-  <rect x="447" y="250" width="138" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="457" y="275" font-size="16.7" fill="#232F3E">10.200.0.1/32</text>
-  <rect x="585" y="250" width="70" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="595" y="275" font-size="16.7" fill="#232F3E">DXGW</text>
-  <rect x="655" y="250" width="112" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="665" y="275" font-size="16.7" fill="#232F3E">propagated</text>
-  <text x="447" y="316" font-size="16.7" font-weight="600" fill="#D13212">온프레미스가 광고한 172.20.N.0/24는 보이지 않음</text>
-  <text x="447" y="338" font-size="16.7" fill="#3D4550">— 같은 접두사에서는 VPC 경로가 우선</text>
+  <rect x="534" y="149" width="340" height="279" fill="#FFFFFF"/>
+  <rect x="542" y="157" width="328" height="40" fill="#8C4FFF"/>
+  <text x="554" y="184" font-size="19.5" font-weight="600" fill="#FFFFFF">TGW 라우팅 테이블 (NAT 적용 전)</text>
+  <rect x="542" y="197" width="146" height="38" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+  <text x="552" y="222" font-size="16.7" font-weight="600" fill="#232F3E">CIDR</text>
+  <rect x="688" y="197" width="70" height="38" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+  <text x="698" y="222" font-size="16.7" font-weight="600" fill="#232F3E">연결</text>
+  <rect x="758" y="197" width="112" height="38" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+  <text x="768" y="222" font-size="16.7" font-weight="600" fill="#232F3E">유형</text>
+  <rect x="542" y="235" width="146" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="552" y="260" font-size="16.7" font-weight="600" fill="#D13212">172.20.N.0/24</text>
+  <rect x="688" y="235" width="70" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="698" y="260" font-size="16.7" font-weight="600" fill="#D13212">VPC-A</text>
+  <rect x="758" y="235" width="112" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="768" y="260" font-size="16.7" font-weight="600" fill="#D13212">propagated</text>
+  <rect x="542" y="273" width="146" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="552" y="298" font-size="16.7" fill="#232F3E">10.1.1.0/24</text>
+  <rect x="688" y="273" width="70" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="698" y="298" font-size="16.7" fill="#232F3E">VPC-B</text>
+  <rect x="758" y="273" width="112" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="768" y="298" font-size="16.7" fill="#232F3E">propagated</text>
+  <rect x="542" y="311" width="146" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="552" y="336" font-size="16.7" fill="#232F3E">10.200.0.1/32</text>
+  <rect x="688" y="311" width="70" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="698" y="336" font-size="16.7" fill="#232F3E">DXGW</text>
+  <rect x="758" y="311" width="112" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="768" y="336" font-size="16.7" fill="#232F3E">propagated</text>
+  <text x="542" y="377" font-size="16.7" font-weight="600" fill="#D13212">온프레미스가 광고한 172.20.N.0/24는</text>
+  <text x="542" y="398" font-size="16.7" font-weight="600" fill="#D13212">보이지 않음</text>
+  <text x="542" y="420" font-size="16.7" fill="#3D4550">— 같은 접두사에서는 VPC 경로가 우선</text>
+  <line x1="862" y1="349" x2="862" y2="436" stroke="#8C4FFF" stroke-width="1.5" stroke-dasharray="4,3"/>
 </svg>

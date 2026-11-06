@@ -3,43 +3,44 @@
 <rect width="1156" height="706" fill="#FFFFFF"/>
 <text x="8" y="30" font-size="20" font-weight="700" fill="#232F3E">DXGW 연결의 NAT system routes: 켬과 끔</text>
 <text x="438" y="30" font-size="16" fill="#232F3E">1:1 NAT 규칙 172.20.N.0/24 → 100.64.1.0/24</text>
-<rect x="724" y="152" width="402" height="34" fill="#8C4FFF" stroke="#8C4FFF" stroke-width="1"/>
-<text x="734" y="174" font-size="16" font-weight="700" fill="#FFFFFF">온프레미스가 172.20.N.0/24(또는 /16) 광고 중</text>
-<rect x="724" y="186" width="133" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="733" y="207" font-size="16" font-weight="700" fill="#232F3E">CIDR</text>
-<rect x="857" y="186" width="64" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="866" y="207" font-size="16" font-weight="700" fill="#232F3E">연결</text>
-<rect x="921" y="186" width="107" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="930" y="207" font-size="16" font-weight="700" fill="#232F3E">유형</text>
+<line x1="668" y1="176" x2="732" y2="176" stroke="#8C4FFF" stroke-width="1.5" stroke-dasharray="4,3"/>
+<polyline points="719,176 719,285 732,285" fill="none" stroke="#8C4FFF" stroke-width="1.5" stroke-dasharray="4,3"/>
+<rect x="732" y="152" width="394" height="34" fill="#8C4FFF" stroke="#8C4FFF" stroke-width="1"/>
+<text x="742" y="174" font-size="16" font-weight="700" fill="#FFFFFF">온프레미스가 172.20.N.0/24(또는 /16) 광고 중</text>
+<rect x="732" y="186" width="132" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="741" y="207" font-size="16" font-weight="700" fill="#232F3E">CIDR</text>
+<rect x="864" y="186" width="59" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="873" y="207" font-size="16" font-weight="700" fill="#232F3E">연결</text>
+<rect x="923" y="186" width="105" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="932" y="207" font-size="16" font-weight="700" fill="#232F3E">유형</text>
 <rect x="1028" y="186" width="98" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
 <text x="1037" y="207" font-size="16" font-weight="700" fill="#232F3E">상태</text>
-<rect x="724" y="220" width="133" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="733" y="241" font-size="16" fill="#232F3E">100.64.1.0/24</text>
-<rect x="857" y="220" width="64" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="866" y="241" font-size="16" fill="#232F3E">DXGW</text>
-<rect x="921" y="220" width="107" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="930" y="241" font-size="16" fill="#232F3E">system</text>
+<rect x="732" y="220" width="132" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="741" y="241" font-size="16" fill="#232F3E">100.64.1.0/24</text>
+<rect x="864" y="220" width="59" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="873" y="241" font-size="16" fill="#232F3E">DXGW</text>
+<rect x="923" y="220" width="105" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="932" y="241" font-size="16" fill="#232F3E">system</text>
 <rect x="1028" y="220" width="98" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
 <text x="1037" y="241" font-size="16" font-weight="700" fill="#1D8102">Active</text>
-<rect x="724" y="268" width="402" height="34" fill="#D13212" stroke="#D13212" stroke-width="1"/>
-<text x="734" y="290" font-size="16" font-weight="700" fill="#FFFFFF">온프레미스가 겹치는 경로 광고 중단</text>
-<rect x="724" y="302" width="133" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="733" y="323" font-size="16" font-weight="700" fill="#232F3E">CIDR</text>
-<rect x="857" y="302" width="64" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="866" y="323" font-size="16" font-weight="700" fill="#232F3E">연결</text>
-<rect x="921" y="302" width="107" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="930" y="323" font-size="16" font-weight="700" fill="#232F3E">유형</text>
+<rect x="732" y="268" width="394" height="34" fill="#D13212" stroke="#D13212" stroke-width="1"/>
+<text x="742" y="290" font-size="16" font-weight="700" fill="#FFFFFF">온프레미스가 겹치는 경로 광고 중단</text>
+<rect x="732" y="302" width="132" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="741" y="323" font-size="16" font-weight="700" fill="#232F3E">CIDR</text>
+<rect x="864" y="302" width="59" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="873" y="323" font-size="16" font-weight="700" fill="#232F3E">연결</text>
+<rect x="923" y="302" width="105" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="932" y="323" font-size="16" font-weight="700" fill="#232F3E">유형</text>
 <rect x="1028" y="302" width="98" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
 <text x="1037" y="323" font-size="16" font-weight="700" fill="#232F3E">상태</text>
-<rect x="724" y="336" width="133" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="733" y="357" font-size="16" fill="#232F3E">100.64.1.0/24</text>
-<rect x="857" y="336" width="64" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="866" y="357" font-size="16" fill="#232F3E">DXGW</text>
-<rect x="921" y="336" width="107" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="930" y="357" font-size="16" fill="#232F3E">system</text>
+<rect x="732" y="336" width="132" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="741" y="357" font-size="16" fill="#232F3E">100.64.1.0/24</text>
+<rect x="864" y="336" width="59" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="873" y="357" font-size="16" fill="#232F3E">DXGW</text>
+<rect x="923" y="336" width="105" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="932" y="357" font-size="16" fill="#232F3E">system</text>
 <rect x="1028" y="336" width="98" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
 <text x="1037" y="357" font-size="16" font-weight="700" fill="#D13212">Blackhole</text>
-<line x1="668" y1="176" x2="724" y2="176" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
 <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="85" y="152" width="48" height="48"/>
 <text x="109" y="220" font-size="18" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
 <text x="109" y="242" font-size="18" text-anchor="middle" fill="#232F3E">rtN</text>
@@ -72,33 +73,33 @@
 <text x="363" y="168" font-size="16" text-anchor="middle" fill="#232F3E">BGP</text>
 <rect x="8" y="46" width="1140" height="354" fill="none" stroke="#7D8998" stroke-width="1.5"/>
 <text x="20" y="67" font-size="18" font-weight="700" fill="#232F3E">NAT system routes 켬 (기본값)</text>
-<rect x="724" y="522" width="402" height="34" fill="#8C4FFF" stroke="#8C4FFF" stroke-width="1"/>
-<text x="734" y="544" font-size="16" font-weight="700" fill="#FFFFFF">NAT system routes 끔 + 온프레미스가 직접 광고</text>
-<rect x="724" y="556" width="133" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="733" y="577" font-size="16" font-weight="700" fill="#232F3E">CIDR</text>
-<rect x="857" y="556" width="64" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="866" y="577" font-size="16" font-weight="700" fill="#232F3E">연결</text>
-<rect x="921" y="556" width="107" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="930" y="577" font-size="16" font-weight="700" fill="#232F3E">유형</text>
+<line x1="668" y1="546" x2="732" y2="546" stroke="#8C4FFF" stroke-width="1.5" stroke-dasharray="4,3"/>
+<rect x="732" y="522" width="394" height="34" fill="#8C4FFF" stroke="#8C4FFF" stroke-width="1"/>
+<text x="742" y="544" font-size="16" font-weight="700" fill="#FFFFFF">NAT system routes 끔 + 온프레미스가 직접 광고</text>
+<rect x="732" y="556" width="132" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="741" y="577" font-size="16" font-weight="700" fill="#232F3E">CIDR</text>
+<rect x="864" y="556" width="59" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="873" y="577" font-size="16" font-weight="700" fill="#232F3E">연결</text>
+<rect x="923" y="556" width="105" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="932" y="577" font-size="16" font-weight="700" fill="#232F3E">유형</text>
 <rect x="1028" y="556" width="98" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
 <text x="1037" y="577" font-size="16" font-weight="700" fill="#232F3E">상태</text>
-<rect x="724" y="590" width="133" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="733" y="611" font-size="16" fill="#232F3E">100.64.1.0/24</text>
-<rect x="857" y="590" width="64" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="866" y="611" font-size="16" fill="#232F3E">DXGW</text>
-<rect x="921" y="590" width="107" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="930" y="611" font-size="16" fill="#232F3E">propagated</text>
+<rect x="732" y="590" width="132" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="741" y="611" font-size="16" fill="#232F3E">100.64.1.0/24</text>
+<rect x="864" y="590" width="59" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="873" y="611" font-size="16" fill="#232F3E">DXGW</text>
+<rect x="923" y="590" width="105" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="932" y="611" font-size="16" fill="#232F3E">propagated</text>
 <rect x="1028" y="590" width="98" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
 <text x="1037" y="611" font-size="16" font-weight="700" fill="#1D8102">Active</text>
-<rect x="724" y="624" width="133" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="733" y="645" font-size="16" fill="#232F3E">172.20.N.0/24</text>
-<rect x="857" y="624" width="64" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="866" y="645" font-size="16" fill="#232F3E">DXGW</text>
-<rect x="921" y="624" width="107" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="930" y="645" font-size="16" fill="#232F3E">propagated</text>
+<rect x="732" y="624" width="132" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="741" y="645" font-size="16" fill="#232F3E">172.20.N.0/24</text>
+<rect x="864" y="624" width="59" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="873" y="645" font-size="16" fill="#232F3E">DXGW</text>
+<rect x="923" y="624" width="105" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="932" y="645" font-size="16" fill="#232F3E">propagated</text>
 <rect x="1028" y="624" width="98" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
 <text x="1037" y="645" font-size="16" font-weight="700" fill="#1D8102">Active</text>
-<line x1="668" y1="546" x2="724" y2="546" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
 <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="85" y="522" width="48" height="48"/>
 <text x="109" y="590" font-size="18" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
 <text x="109" y="612" font-size="18" text-anchor="middle" fill="#232F3E">rtN</text>

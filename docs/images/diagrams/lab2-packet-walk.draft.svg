@@ -1,15 +1,15 @@
-<svg viewBox="0 0 1270 896" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<svg viewBox="0 0 1275 739" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
   <!-- Lab 2 after NAT: packet walk VM -> VPC-A EC2 and back. Orange = the address the step rewrote. -->
   <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker></defs>
-  <rect width="1270" height="896" fill="#FFFFFF"/>
+  <rect width="1275" height="739" fill="#FFFFFF"/>
   <rect x="16" y="128" width="305.2" height="299.2" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="bundle:group/Corporate-data-center_32" x="16" y="128" width="28" height="28"/>
   <text x="52" y="150" font-size="20" font-weight="600" fill="#5F6B7A">온프레미스 (내 Pod N)</text>
   <text x="52" y="168" font-size="17" fill="#232F3E">온프레미스 대역 172.20.N.0/24</text>
-  <rect x="451.2" y="16" width="802.8" height="864.2" fill="none" stroke="#232F3E" stroke-width="2"/>
+  <rect x="451.2" y="16" width="808.2" height="707.2" fill="none" stroke="#232F3E" stroke-width="2"/>
   <image href="bundle:group/AWS-Cloud-logo_32" x="451.2" y="16" width="32" height="32"/>
   <text x="491.2" y="41" font-size="21" font-weight="600" fill="#232F3E">AWS Cloud</text>
-  <rect x="625.2" y="58" width="612.8" height="806.2" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
+  <rect x="625.2" y="58" width="618.2" height="649.2" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
   <image href="bundle:group/Region_32" x="625.2" y="58" width="28" height="28"/>
   <text x="661.2" y="80" font-size="20" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
   <rect x="949.1" y="196" width="272.9" height="324.2" fill="none" stroke="#8C4FFF" stroke-width="2"/>
@@ -74,16 +74,16 @@
   <text x="735.2" y="257" font-size="17" fill="#232F3E">100.64.2.10</text>
   <line x1="662.2" y1="271.2" x2="662.2" y2="306.2" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
   <circle cx="662.2" cy="303.2" r="3" fill="#687078"/>
-  <rect x="913.1" y="94" width="274.2" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
-  <rect x="899.1" y="101.7" width="28" height="28" fill="#FFFFFF"/>
-  <circle cx="913.1" cy="115.7" r="13" fill="#232F3E"/>
-  <text x="913.1" y="121.6" font-size="17" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
-  <text x="933.1" y="120.8" font-size="17" font-weight="600" fill="#232F3E">VPC-A 연결 · 나갈 때 DNAT</text>
-  <text x="933.1" y="144.8" font-size="17" fill="#3B4553">출발지</text>
-  <text x="994.1" y="144.8" font-size="17" fill="#232F3E">100.64.1.10</text>
-  <text x="933.1" y="167.8" font-size="17" fill="#3B4553">목적지</text>
-  <text x="994.1" y="167.8" font-size="17" font-weight="600" fill="#C7511F">172.20.N.10</text>
-  <line x1="933.1" y1="182" x2="933.1" y2="306.2" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="953.1" y="94" width="274.2" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
+  <rect x="939.1" y="101.7" width="28" height="28" fill="#FFFFFF"/>
+  <circle cx="953.1" cy="115.7" r="13" fill="#232F3E"/>
+  <text x="953.1" y="121.6" font-size="17" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
+  <text x="973.1" y="120.8" font-size="17" font-weight="600" fill="#232F3E">VPC-A 연결 · 나갈 때 DNAT</text>
+  <text x="973.1" y="144.8" font-size="17" fill="#3B4553">출발지</text>
+  <text x="1034.2" y="144.8" font-size="17" fill="#232F3E">100.64.1.10</text>
+  <text x="973.1" y="167.8" font-size="17" fill="#3B4553">목적지</text>
+  <text x="1034.2" y="167.8" font-size="17" font-weight="600" fill="#C7511F">172.20.N.10</text>
+  <polyline points="933.1,300.2 933.1,115.7 940.1,115.7" fill="none" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
   <circle cx="933.1" cy="303.2" r="3" fill="#687078"/>
   <rect x="994.1" y="400.2" width="195.8" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
   <rect x="980.1" y="407.9" width="28" height="28" fill="#FFFFFF"/>
@@ -96,18 +96,18 @@
   <text x="1075.2" y="474" font-size="17" fill="#232F3E">100.64.1.10</text>
   <line x1="1044.2" y1="400.2" x2="1044.2" y2="316.2" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
   <circle cx="1044.2" cy="319.2" r="3" fill="#687078"/>
-  <rect x="913.1" y="534.2" width="274.2" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
-  <rect x="899.1" y="541.9" width="28" height="28" fill="#FFFFFF"/>
-  <circle cx="913.1" cy="555.9" r="13" fill="#232F3E"/>
-  <text x="913.1" y="561.9" font-size="17" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text>
-  <text x="933.1" y="561" font-size="17" font-weight="600" fill="#232F3E">VPC-A 연결 · 들어올 때 SNAT</text>
-  <text x="933.1" y="585" font-size="17" fill="#3B4553">출발지</text>
-  <text x="994.1" y="585" font-size="17" font-weight="600" fill="#C7511F">100.64.2.10</text>
-  <text x="933.1" y="608" font-size="17" fill="#3B4553">목적지</text>
-  <text x="994.1" y="608" font-size="17" fill="#232F3E">100.64.1.10</text>
-  <line x1="933.1" y1="534.2" x2="933.1" y2="316.2" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="953.1" y="534.2" width="274.2" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
+  <rect x="939.1" y="541.9" width="28" height="28" fill="#FFFFFF"/>
+  <circle cx="953.1" cy="555.9" r="13" fill="#232F3E"/>
+  <text x="953.1" y="561.9" font-size="17" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text>
+  <text x="973.1" y="561" font-size="17" font-weight="600" fill="#232F3E">VPC-A 연결 · 들어올 때 SNAT</text>
+  <text x="973.1" y="585" font-size="17" fill="#3B4553">출발지</text>
+  <text x="1034.2" y="585" font-size="17" font-weight="600" fill="#C7511F">100.64.2.10</text>
+  <text x="973.1" y="608" font-size="17" fill="#3B4553">목적지</text>
+  <text x="1034.2" y="608" font-size="17" fill="#232F3E">100.64.1.10</text>
+  <polyline points="933.1,322.2 933.1,555.9 940.1,555.9" fill="none" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
   <circle cx="933.1" cy="319.2" r="3" fill="#687078"/>
-  <rect x="654.2" y="377.2" width="264.9" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
+  <rect x="654.2" y="377.2" width="247.9" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
   <rect x="640.2" y="384.9" width="28" height="28" fill="#FFFFFF"/>
   <circle cx="654.2" cy="398.9" r="13" fill="#232F3E"/>
   <text x="654.2" y="404.8" font-size="17" font-weight="700" text-anchor="middle" fill="#FFFFFF">6</text>
@@ -118,31 +118,34 @@
   <text x="735.2" y="451" font-size="17" font-weight="600" fill="#C7511F">172.20.N.10</text>
   <line x1="662.2" y1="377.2" x2="662.2" y2="316.2" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
   <circle cx="662.2" cy="319.2" r="3" fill="#687078"/>
-  <rect x="641.2" y="638.2" width="321.8" height="62" fill="#8C4FFF"/>
-  <text x="653.2" y="664.2" font-size="20" font-weight="600" fill="#FFFFFF">TGW 라우팅 테이블</text>
-  <text x="653.2" y="686.2" font-size="20" font-weight="600" fill="#FFFFFF">(1:1 NAT 적용 후)</text>
-  <rect x="641.2" y="700.2" width="141.5" height="37" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="651.2" y="723" font-size="17" font-weight="600" fill="#232F3E">CIDR</text>
-  <rect x="782.8" y="700.2" width="66.8" height="37" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="792.8" y="723" font-size="17" font-weight="600" fill="#232F3E">연결</text>
-  <rect x="849.5" y="700.2" width="113.5" height="37" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="859.5" y="723" font-size="17" font-weight="600" fill="#232F3E">유형</text>
-  <rect x="641.2" y="737.2" width="141.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="651.2" y="760" font-size="17" fill="#232F3E">100.64.1.0/24</text>
-  <rect x="782.8" y="737.2" width="66.8" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="792.8" y="760" font-size="17" fill="#232F3E">DXGW</text>
-  <rect x="849.5" y="737.2" width="113.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="859.5" y="760" font-size="17" fill="#232F3E">system</text>
-  <rect x="641.2" y="774.2" width="141.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="651.2" y="797" font-size="17" fill="#232F3E">100.64.2.0/24</text>
-  <rect x="782.8" y="774.2" width="66.8" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="792.8" y="797" font-size="17" fill="#232F3E">VPC-A</text>
-  <rect x="849.5" y="774.2" width="113.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="859.5" y="797" font-size="17" fill="#232F3E">system</text>
-  <rect x="641.2" y="811.2" width="141.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="651.2" y="834" font-size="17" fill="#232F3E">172.20.N.0/24</text>
-  <rect x="782.8" y="811.2" width="66.8" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="792.8" y="834" font-size="17" fill="#232F3E">DXGW</text>
-  <rect x="849.5" y="811.2" width="113.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="859.5" y="834" font-size="17" fill="#232F3E">propagated</text>
+  <polyline points="815,331.2 914.1,331.2 914.1,481.2" fill="none" stroke="#8C4FFF" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- TGW route table: drawn last on a white background; it may sit over container borders -->
+  <rect x="598.4" y="480.2" width="323.8" height="212" fill="#FFFFFF"/>
+  <rect x="599.4" y="481.2" width="321.8" height="62" fill="#8C4FFF"/>
+  <text x="611.4" y="507.2" font-size="20" font-weight="600" fill="#FFFFFF">TGW 라우팅 테이블</text>
+  <text x="611.4" y="529.2" font-size="20" font-weight="600" fill="#FFFFFF">(1:1 NAT 적용 후)</text>
+  <rect x="599.4" y="543.2" width="141.5" height="37" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+  <text x="609.4" y="566" font-size="17" font-weight="600" fill="#232F3E">CIDR</text>
+  <rect x="740.9" y="543.2" width="66.8" height="37" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+  <text x="750.9" y="566" font-size="17" font-weight="600" fill="#232F3E">연결</text>
+  <rect x="807.6" y="543.2" width="113.5" height="37" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+  <text x="817.6" y="566" font-size="17" font-weight="600" fill="#232F3E">유형</text>
+  <rect x="599.4" y="580.2" width="141.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="609.4" y="603" font-size="17" fill="#232F3E">100.64.1.0/24</text>
+  <rect x="740.9" y="580.2" width="66.8" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="750.9" y="603" font-size="17" fill="#232F3E">DXGW</text>
+  <rect x="807.6" y="580.2" width="113.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="817.6" y="603" font-size="17" fill="#232F3E">system</text>
+  <rect x="599.4" y="617.2" width="141.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="609.4" y="640" font-size="17" fill="#232F3E">100.64.2.0/24</text>
+  <rect x="740.9" y="617.2" width="66.8" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="750.9" y="640" font-size="17" fill="#232F3E">VPC-A</text>
+  <rect x="807.6" y="617.2" width="113.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="817.6" y="640" font-size="17" fill="#232F3E">system</text>
+  <rect x="599.4" y="654.2" width="141.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="609.4" y="677" font-size="17" fill="#232F3E">172.20.N.0/24</text>
+  <rect x="740.9" y="654.2" width="66.8" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="750.9" y="677" font-size="17" fill="#232F3E">DXGW</text>
+  <rect x="807.6" y="654.2" width="113.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="817.6" y="677" font-size="17" fill="#232F3E">propagated</text>
 </svg>
