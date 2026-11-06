@@ -1,138 +1,148 @@
-<svg viewBox="0 0 1591 572" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<svg viewBox="0 0 1270 896" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
   <!-- Lab 2 after NAT: packet walk VM -> VPC-A EC2 and back. Orange = the address the step rewrote. -->
   <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker></defs>
-  <rect width="1591" height="572" fill="#FFFFFF"/>
-  <rect x="16" y="34" width="284" height="246" fill="none" stroke="#7D8998" stroke-width="2"/>
-  <image href="bundle:group/Corporate-data-center_32" x="16" y="34" width="24" height="24"/>
-  <text x="48" y="52" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
-  <text x="48" y="68" font-size="13" fill="#232F3E">온프레미스 대역 172.20.N.0/24</text>
-  <rect x="480" y="16" width="1095" height="540" fill="none" stroke="#232F3E" stroke-width="2"/>
-  <image href="bundle:group/AWS-Cloud-logo_32" x="480" y="16" width="32" height="32"/>
-  <text x="522" y="38" font-size="15" font-weight="600" fill="#232F3E">AWS Cloud</text>
-  <rect x="677" y="50" width="878" height="490" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
-  <image href="bundle:group/Region_32" x="677" y="50" width="24" height="24"/>
-  <text x="709" y="68" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
-  <rect x="1233" y="80" width="302" height="280" fill="none" stroke="#8C4FFF" stroke-width="2"/>
-  <image href="bundle:group/Virtual-private-cloud-VPC_32" x="1233" y="80" width="24" height="24"/>
-  <text x="1265" y="98" font-size="14" font-weight="600" fill="#8C4FFF">VPC-A</text>
-  <text x="1265" y="114" font-size="13" fill="#232F3E">172.20.N.0/24</text>
-  <rect x="1249" y="126" width="270" height="222" fill="none" stroke="#00A4A6" stroke-width="1.5"/>
-  <image href="bundle:group/Private-subnet_32" x="1249" y="126" width="24" height="24"/>
-  <text x="1281" y="144" font-size="14" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
-  <image href="bundle:resource/Server" x="52" y="168" width="48" height="48"/>
-  <text x="76" y="234" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 VM</text>
-  <text x="76" y="250" font-size="14" text-anchor="middle" fill="#232F3E">vmN</text>
-  <text x="76" y="266" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
-  <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="204" y="168" width="48" height="48"/>
-  <text x="228" y="234" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
-  <text x="228" y="250" font-size="14" text-anchor="middle" fill="#232F3E">rtN</text>
-  <image href="bundle:service/AWS-Direct-Connect" x="366" y="168" width="48" height="48"/>
-  <text x="390" y="234" font-size="14" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
-  <text x="390" y="250" font-size="13" text-anchor="middle" fill="#545B64">전송 가상 인터페이스</text>
-  <image href="bundle:resource/AWS-Direct-Connect_Gateway" x="552" y="168" width="48" height="48"/>
-  <text x="576" y="234" font-size="14" text-anchor="middle" fill="#232F3E">Direct Connect gateway</text>
-  <image href="bundle:service/AWS-Transit-Gateway" x="933" y="168" width="48" height="48"/>
-  <text x="957" y="234" font-size="14" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
-  <image href="bundle:service/Amazon-EC2" x="1360" y="168" width="48" height="48"/>
-  <text x="1384" y="234" font-size="14" text-anchor="middle" fill="#232F3E">EC2</text>
-  <text x="1384" y="250" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
-  <text x="723" y="178" font-size="13" text-anchor="middle" fill="#545B64">DXGW 연결</text>
-  <text x="1149" y="178" font-size="13" text-anchor="middle" fill="#545B64">VPC-A 연결</text>
-  <line x1="104" y1="184" x2="196" y2="184" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="200" y1="200" x2="108" y2="200" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <line x1="256" y1="184" x2="358" y2="184" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="362" y1="200" x2="260" y2="200" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <line x1="418" y1="184" x2="544" y2="184" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="548" y1="200" x2="422" y2="200" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <line x1="604" y1="184" x2="925" y2="184" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="929" y1="200" x2="608" y2="200" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <line x1="985" y1="184" x2="1352" y2="184" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="1356" y1="200" x2="989" y2="200" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <rect x="31" y="80" width="250" height="76" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
-  <circle cx="51" cy="100" r="10" fill="#232F3E"/>
-  <text x="51" y="104.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-  <text x="69" y="105" font-size="13" font-weight="600" fill="#232F3E">온프레미스 VM이 보냄</text>
-  <text x="69" y="125" font-size="13" fill="#545B64">출발지</text>
-  <text x="119" y="125" font-size="13" fill="#232F3E">172.20.N.10</text>
-  <text x="69" y="142" font-size="13" fill="#545B64">목적지</text>
-  <text x="119" y="142" font-size="13" fill="#232F3E">100.64.2.10</text>
-  <line x1="156" y1="156" x2="156" y2="181" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
-  <circle cx="156" cy="184" r="3" fill="#7D8998"/>
-  <rect x="693" y="80" width="250" height="76" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
-  <circle cx="713" cy="100" r="10" fill="#232F3E"/>
-  <text x="713" y="104.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-  <text x="731" y="105" font-size="13" font-weight="600" fill="#232F3E">DXGW 연결 · 들어올 때 SNAT</text>
-  <text x="731" y="125" font-size="13" fill="#545B64">출발지</text>
-  <text x="781" y="125" font-size="13" font-weight="600" fill="#C7511F">100.64.1.10</text>
-  <text x="731" y="142" font-size="13" fill="#545B64">목적지</text>
-  <text x="781" y="142" font-size="13" fill="#232F3E">100.64.2.10</text>
-  <line x1="887" y1="156" x2="887" y2="181" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
-  <circle cx="887" cy="184" r="3" fill="#7D8998"/>
-  <rect x="971" y="80" width="250" height="76" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
-  <circle cx="991" cy="100" r="10" fill="#232F3E"/>
-  <text x="991" y="104.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
-  <text x="1009" y="105" font-size="13" font-weight="600" fill="#232F3E">VPC-A 연결 · 나갈 때 DNAT</text>
-  <text x="1009" y="125" font-size="13" fill="#545B64">출발지</text>
-  <text x="1059" y="125" font-size="13" fill="#232F3E">100.64.1.10</text>
-  <text x="1009" y="142" font-size="13" fill="#545B64">목적지</text>
-  <text x="1059" y="142" font-size="13" font-weight="600" fill="#C7511F">172.20.N.10</text>
-  <line x1="1027" y1="156" x2="1027" y2="181" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
-  <circle cx="1027" cy="184" r="3" fill="#7D8998"/>
-  <rect x="1259" y="262" width="250" height="76" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
-  <circle cx="1279" cy="282" r="10" fill="#232F3E"/>
-  <text x="1279" y="286.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text>
-  <text x="1297" y="287" font-size="13" font-weight="600" fill="#232F3E">VPC-A EC2가 응답</text>
-  <text x="1297" y="307" font-size="13" fill="#545B64">출발지</text>
-  <text x="1347" y="307" font-size="13" fill="#232F3E">172.20.N.10</text>
-  <text x="1297" y="324" font-size="13" fill="#545B64">목적지</text>
-  <text x="1347" y="324" font-size="13" fill="#232F3E">100.64.1.10</text>
-  <line x1="1334" y1="262" x2="1334" y2="203" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
-  <circle cx="1334" cy="200" r="3" fill="#7D8998"/>
-  <rect x="971" y="262" width="250" height="76" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
-  <circle cx="991" cy="282" r="10" fill="#232F3E"/>
-  <text x="991" y="286.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text>
-  <text x="1009" y="287" font-size="13" font-weight="600" fill="#232F3E">VPC-A 연결 · 들어올 때 SNAT</text>
-  <text x="1009" y="307" font-size="13" fill="#545B64">출발지</text>
-  <text x="1059" y="307" font-size="13" font-weight="600" fill="#C7511F">100.64.2.10</text>
-  <text x="1009" y="324" font-size="13" fill="#545B64">목적지</text>
-  <text x="1059" y="324" font-size="13" fill="#232F3E">100.64.1.10</text>
-  <line x1="1027" y1="262" x2="1027" y2="203" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
-  <circle cx="1027" cy="200" r="3" fill="#7D8998"/>
-  <rect x="693" y="262" width="250" height="76" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
-  <circle cx="713" cy="282" r="10" fill="#232F3E"/>
-  <text x="713" y="286.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">6</text>
-  <text x="731" y="287" font-size="13" font-weight="600" fill="#232F3E">DXGW 연결 · 나갈 때 DNAT</text>
-  <text x="731" y="307" font-size="13" fill="#545B64">출발지</text>
-  <text x="781" y="307" font-size="13" fill="#232F3E">100.64.2.10</text>
-  <text x="731" y="324" font-size="13" fill="#545B64">목적지</text>
-  <text x="781" y="324" font-size="13" font-weight="600" fill="#C7511F">172.20.N.10</text>
-  <line x1="887" y1="262" x2="887" y2="203" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
-  <circle cx="887" cy="200" r="3" fill="#7D8998"/>
-  <line x1="957" y1="354" x2="957" y2="242" stroke="#7D8998" stroke-width="1"/>
-  <rect x="806" y="354" width="302" height="34" fill="#8C4FFF"/>
-  <text x="820" y="375" font-size="14" font-weight="600" fill="#FFFFFF">TGW 라우팅 테이블 (1:1 NAT 적용 후)</text>
-  <rect x="806" y="388" width="126" height="34" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="816" y="410" font-size="13" font-weight="600" fill="#232F3E">CIDR</text>
-  <rect x="932" y="388" width="76" height="34" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="942" y="410" font-size="13" font-weight="600" fill="#232F3E">연결</text>
-  <rect x="1008" y="388" width="100" height="34" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="1018" y="410" font-size="13" font-weight="600" fill="#232F3E">유형</text>
-  <rect x="806" y="422" width="126" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="816" y="444" font-size="13" fill="#232F3E">100.64.1.0/24</text>
-  <rect x="932" y="422" width="76" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="942" y="444" font-size="13" fill="#232F3E">DXGW</text>
-  <rect x="1008" y="422" width="100" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1018" y="444" font-size="13" fill="#232F3E">system</text>
-  <rect x="806" y="456" width="126" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="816" y="478" font-size="13" fill="#232F3E">100.64.2.0/24</text>
-  <rect x="932" y="456" width="76" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="942" y="478" font-size="13" fill="#232F3E">VPC-A</text>
-  <rect x="1008" y="456" width="100" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1018" y="478" font-size="13" fill="#232F3E">system</text>
-  <rect x="806" y="490" width="126" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="816" y="512" font-size="13" fill="#232F3E">172.20.N.0/24</text>
-  <rect x="932" y="490" width="76" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="942" y="512" font-size="13" fill="#232F3E">DXGW</text>
-  <rect x="1008" y="490" width="100" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1018" y="512" font-size="13" fill="#232F3E">propagated</text>
+  <rect width="1270" height="896" fill="#FFFFFF"/>
+  <rect x="16" y="128" width="305.2" height="299.2" fill="none" stroke="#7D8998" stroke-width="2"/>
+  <image href="bundle:group/Corporate-data-center_32" x="16" y="128" width="28" height="28"/>
+  <text x="52" y="150" font-size="20" font-weight="600" fill="#5F6B7A">온프레미스 (내 Pod N)</text>
+  <text x="52" y="168" font-size="17" fill="#232F3E">온프레미스 대역 172.20.N.0/24</text>
+  <rect x="451.2" y="16" width="802.8" height="864.2" fill="none" stroke="#232F3E" stroke-width="2"/>
+  <image href="bundle:group/AWS-Cloud-logo_32" x="451.2" y="16" width="32" height="32"/>
+  <text x="491.2" y="41" font-size="21" font-weight="600" fill="#232F3E">AWS Cloud</text>
+  <rect x="625.2" y="58" width="612.8" height="806.2" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
+  <image href="bundle:group/Region_32" x="625.2" y="58" width="28" height="28"/>
+  <text x="661.2" y="80" font-size="20" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
+  <rect x="949.1" y="196" width="272.9" height="324.2" fill="none" stroke="#8C4FFF" stroke-width="2"/>
+  <image href="bundle:group/Virtual-private-cloud-VPC_32" x="949.1" y="196" width="28" height="28"/>
+  <text x="985.1" y="218" font-size="20" font-weight="600" fill="#8C4FFF">VPC-A</text>
+  <text x="985.1" y="236" font-size="17" fill="#232F3E">172.20.N.0/24</text>
+  <rect x="965.1" y="249.2" width="240.8" height="255" fill="none" stroke="#00A4A6" stroke-width="1.5"/>
+  <image href="bundle:group/Private-subnet_32" x="965.1" y="249.2" width="28" height="28"/>
+  <text x="1001.1" y="271.2" font-size="20" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
+  <image href="bundle:resource/Server" x="68.5" y="283.2" width="56" height="56"/>
+  <text x="96.5" y="360.2" font-size="20" text-anchor="middle" fill="#232F3E">온프레미스 VM</text>
+  <text x="96.5" y="384.2" font-size="20" text-anchor="middle" fill="#232F3E">vmN</text>
+  <text x="96.5" y="406" font-size="17" text-anchor="middle" fill="#3B4553">172.20.N.10</text>
+  <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="197" y="283.2" width="56" height="56"/>
+  <text x="225" y="360.2" font-size="20" text-anchor="middle" fill="#232F3E">온프레미스</text>
+  <text x="225" y="384.2" font-size="20" text-anchor="middle" fill="#232F3E">라우터</text>
+  <text x="225" y="408.2" font-size="20" text-anchor="middle" fill="#232F3E">rtN</text>
+  <image href="bundle:service/AWS-Direct-Connect" x="358.2" y="283.2" width="56" height="56"/>
+  <text x="386.2" y="360.2" font-size="20" text-anchor="middle" fill="#232F3E">AWS Direct</text>
+  <text x="386.2" y="384.2" font-size="20" text-anchor="middle" fill="#232F3E">Connect</text>
+  <text x="386.2" y="406" font-size="17" text-anchor="middle" fill="#3B4553">전송 가상</text>
+  <text x="386.2" y="427" font-size="17" text-anchor="middle" fill="#3B4553">인터페이스</text>
+  <image href="bundle:resource/AWS-Direct-Connect_Gateway" x="510.2" y="283.2" width="56" height="56"/>
+  <text x="538.2" y="360.2" font-size="20" text-anchor="middle" fill="#232F3E">Direct Connect</text>
+  <text x="538.2" y="384.2" font-size="20" text-anchor="middle" fill="#232F3E">gateway</text>
+  <image href="bundle:service/AWS-Transit-Gateway" x="759" y="283.2" width="56" height="56"/>
+  <text x="787" y="360.2" font-size="20" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
+  <image href="bundle:service/Amazon-EC2" x="1077.6" y="283.2" width="56" height="56"/>
+  <text x="1105.6" y="360.2" font-size="20" text-anchor="middle" fill="#232F3E">EC2</text>
+  <text x="1105.6" y="382" font-size="17" text-anchor="middle" fill="#3B4553">172.20.N.10</text>
+  <text x="670.2" y="294.2" font-size="17" fill="#3B4553">DXGW 연결</text>
+  <text x="823" y="294.2" font-size="17" fill="#3B4553">VPC-A 연결</text>
+  <line x1="128.5" y1="303.2" x2="189" y2="303.2" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="193" y1="319.2" x2="132.5" y2="319.2" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <line x1="257" y1="303.2" x2="350.2" y2="303.2" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="354.2" y1="319.2" x2="261" y2="319.2" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <line x1="418.2" y1="303.2" x2="502.2" y2="303.2" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="506.2" y1="319.2" x2="422.2" y2="319.2" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <line x1="570.2" y1="303.2" x2="751" y2="303.2" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="755" y1="319.2" x2="574.2" y2="319.2" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <line x1="819" y1="303.2" x2="1069.6" y2="303.2" stroke="#232F3E" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="1073.6" y1="319.2" x2="823" y2="319.2" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <rect x="45" y="181.2" width="205.4" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
+  <rect x="31" y="188.9" width="28" height="28" fill="#FFFFFF"/>
+  <circle cx="45" cy="202.9" r="13" fill="#232F3E"/>
+  <text x="45" y="208.8" font-size="17" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
+  <text x="65" y="208" font-size="17" font-weight="600" fill="#232F3E">온프레미스 VM이 보냄</text>
+  <text x="65" y="232" font-size="17" fill="#3B4553">출발지</text>
+  <text x="126" y="232" font-size="17" fill="#232F3E">172.20.N.10</text>
+  <text x="65" y="255" font-size="17" fill="#3B4553">목적지</text>
+  <text x="126" y="255" font-size="17" fill="#232F3E">100.64.2.10</text>
+  <line x1="160.8" y1="269.2" x2="160.8" y2="306.2" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
+  <circle cx="160.8" cy="303.2" r="3" fill="#687078"/>
+  <rect x="654.2" y="183.2" width="264.9" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
+  <rect x="640.2" y="190.9" width="28" height="28" fill="#FFFFFF"/>
+  <circle cx="654.2" cy="204.9" r="13" fill="#232F3E"/>
+  <text x="654.2" y="210.8" font-size="17" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+  <text x="674.2" y="210" font-size="17" font-weight="600" fill="#232F3E">DXGW 연결 · 들어올 때 SNAT</text>
+  <text x="674.2" y="234" font-size="17" fill="#3B4553">출발지</text>
+  <text x="735.2" y="234" font-size="17" font-weight="600" fill="#C7511F">100.64.1.10</text>
+  <text x="674.2" y="257" font-size="17" fill="#3B4553">목적지</text>
+  <text x="735.2" y="257" font-size="17" fill="#232F3E">100.64.2.10</text>
+  <line x1="662.2" y1="271.2" x2="662.2" y2="306.2" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
+  <circle cx="662.2" cy="303.2" r="3" fill="#687078"/>
+  <rect x="913.1" y="94" width="274.2" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
+  <rect x="899.1" y="101.7" width="28" height="28" fill="#FFFFFF"/>
+  <circle cx="913.1" cy="115.7" r="13" fill="#232F3E"/>
+  <text x="913.1" y="121.6" font-size="17" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
+  <text x="933.1" y="120.8" font-size="17" font-weight="600" fill="#232F3E">VPC-A 연결 · 나갈 때 DNAT</text>
+  <text x="933.1" y="144.8" font-size="17" fill="#3B4553">출발지</text>
+  <text x="994.1" y="144.8" font-size="17" fill="#232F3E">100.64.1.10</text>
+  <text x="933.1" y="167.8" font-size="17" fill="#3B4553">목적지</text>
+  <text x="994.1" y="167.8" font-size="17" font-weight="600" fill="#C7511F">172.20.N.10</text>
+  <line x1="933.1" y1="182" x2="933.1" y2="306.2" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
+  <circle cx="933.1" cy="303.2" r="3" fill="#687078"/>
+  <rect x="994.1" y="400.2" width="195.8" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
+  <rect x="980.1" y="407.9" width="28" height="28" fill="#FFFFFF"/>
+  <circle cx="994.1" cy="421.9" r="13" fill="#232F3E"/>
+  <text x="994.1" y="427.8" font-size="17" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text>
+  <text x="1014.1" y="427" font-size="17" font-weight="600" fill="#232F3E">VPC-A EC2가 응답</text>
+  <text x="1014.1" y="451" font-size="17" fill="#3B4553">출발지</text>
+  <text x="1075.2" y="451" font-size="17" fill="#232F3E">172.20.N.10</text>
+  <text x="1014.1" y="474" font-size="17" fill="#3B4553">목적지</text>
+  <text x="1075.2" y="474" font-size="17" fill="#232F3E">100.64.1.10</text>
+  <line x1="1044.2" y1="400.2" x2="1044.2" y2="316.2" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
+  <circle cx="1044.2" cy="319.2" r="3" fill="#687078"/>
+  <rect x="913.1" y="534.2" width="274.2" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
+  <rect x="899.1" y="541.9" width="28" height="28" fill="#FFFFFF"/>
+  <circle cx="913.1" cy="555.9" r="13" fill="#232F3E"/>
+  <text x="913.1" y="561.9" font-size="17" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text>
+  <text x="933.1" y="561" font-size="17" font-weight="600" fill="#232F3E">VPC-A 연결 · 들어올 때 SNAT</text>
+  <text x="933.1" y="585" font-size="17" fill="#3B4553">출발지</text>
+  <text x="994.1" y="585" font-size="17" font-weight="600" fill="#C7511F">100.64.2.10</text>
+  <text x="933.1" y="608" font-size="17" fill="#3B4553">목적지</text>
+  <text x="994.1" y="608" font-size="17" fill="#232F3E">100.64.1.10</text>
+  <line x1="933.1" y1="534.2" x2="933.1" y2="316.2" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
+  <circle cx="933.1" cy="319.2" r="3" fill="#687078"/>
+  <rect x="654.2" y="377.2" width="264.9" height="88" fill="#FFFFFF" stroke="#7D8998" stroke-width="1" rx="4"/>
+  <rect x="640.2" y="384.9" width="28" height="28" fill="#FFFFFF"/>
+  <circle cx="654.2" cy="398.9" r="13" fill="#232F3E"/>
+  <text x="654.2" y="404.8" font-size="17" font-weight="700" text-anchor="middle" fill="#FFFFFF">6</text>
+  <text x="674.2" y="404" font-size="17" font-weight="600" fill="#232F3E">DXGW 연결 · 나갈 때 DNAT</text>
+  <text x="674.2" y="428" font-size="17" fill="#3B4553">출발지</text>
+  <text x="735.2" y="428" font-size="17" fill="#232F3E">100.64.2.10</text>
+  <text x="674.2" y="451" font-size="17" fill="#3B4553">목적지</text>
+  <text x="735.2" y="451" font-size="17" font-weight="600" fill="#C7511F">172.20.N.10</text>
+  <line x1="662.2" y1="377.2" x2="662.2" y2="316.2" stroke="#687078" stroke-width="1" stroke-dasharray="3,2"/>
+  <circle cx="662.2" cy="319.2" r="3" fill="#687078"/>
+  <rect x="641.2" y="638.2" width="321.8" height="62" fill="#8C4FFF"/>
+  <text x="653.2" y="664.2" font-size="20" font-weight="600" fill="#FFFFFF">TGW 라우팅 테이블</text>
+  <text x="653.2" y="686.2" font-size="20" font-weight="600" fill="#FFFFFF">(1:1 NAT 적용 후)</text>
+  <rect x="641.2" y="700.2" width="141.5" height="37" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+  <text x="651.2" y="723" font-size="17" font-weight="600" fill="#232F3E">CIDR</text>
+  <rect x="782.8" y="700.2" width="66.8" height="37" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+  <text x="792.8" y="723" font-size="17" font-weight="600" fill="#232F3E">연결</text>
+  <rect x="849.5" y="700.2" width="113.5" height="37" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+  <text x="859.5" y="723" font-size="17" font-weight="600" fill="#232F3E">유형</text>
+  <rect x="641.2" y="737.2" width="141.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="651.2" y="760" font-size="17" fill="#232F3E">100.64.1.0/24</text>
+  <rect x="782.8" y="737.2" width="66.8" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="792.8" y="760" font-size="17" fill="#232F3E">DXGW</text>
+  <rect x="849.5" y="737.2" width="113.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="859.5" y="760" font-size="17" fill="#232F3E">system</text>
+  <rect x="641.2" y="774.2" width="141.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="651.2" y="797" font-size="17" fill="#232F3E">100.64.2.0/24</text>
+  <rect x="782.8" y="774.2" width="66.8" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="792.8" y="797" font-size="17" fill="#232F3E">VPC-A</text>
+  <rect x="849.5" y="774.2" width="113.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="859.5" y="797" font-size="17" fill="#232F3E">system</text>
+  <rect x="641.2" y="811.2" width="141.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="651.2" y="834" font-size="17" fill="#232F3E">172.20.N.0/24</text>
+  <rect x="782.8" y="811.2" width="66.8" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="792.8" y="834" font-size="17" fill="#232F3E">DXGW</text>
+  <rect x="849.5" y="811.2" width="113.5" height="37" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="859.5" y="834" font-size="17" fill="#232F3E">propagated</text>
 </svg>

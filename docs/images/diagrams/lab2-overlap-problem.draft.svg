@@ -1,97 +1,99 @@
-<svg viewBox="0 0 1518 520" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
-  <!-- Lab 2 before NAT: overlapping 172.20.N.0/24. Green = request (1), red dashed = reply (2). -->
+<svg viewBox="0 0 1234 672" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+  <!-- Lab 2 before NAT: overlapping 172.20.N.0/24. Green = request (1), red dashed = reply (2). Sized for a ~900 CSS px column: 19.5px labels, 16.7px secondary text. -->
   <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker><marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#1D8102"/></marker><marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#D13212"/></marker></defs>
-  <rect width="1518" height="520" fill="#FFFFFF"/>
-  <rect x="16" y="86" width="300" height="194" fill="none" stroke="#7D8998" stroke-width="2"/>
-  <image href="bundle:group/Corporate-data-center_32" x="16" y="86" width="24" height="24"/>
-  <text x="48" y="104" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
-  <text x="48" y="120" font-size="13" fill="#232F3E">온프레미스 대역 172.20.N.0/24</text>
-  <text x="16" y="316" font-size="13" fill="#545B64">온프레미스에서 VPC-A로는 아예 갈 수 없음:</text>
-  <text x="16" y="333" font-size="13" fill="#545B64">172.20.N.x는 온프레미스 대역의 주소이기 때문</text>
-  <rect x="496" y="16" width="1006" height="488" fill="none" stroke="#232F3E" stroke-width="2"/>
-  <image href="bundle:group/AWS-Cloud-logo_32" x="496" y="16" width="32" height="32"/>
-  <text x="538" y="38" font-size="15" font-weight="600" fill="#232F3E">AWS Cloud</text>
-  <rect x="693" y="50" width="789" height="438" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
-  <image href="bundle:group/Region_32" x="693" y="50" width="24" height="24"/>
-  <text x="725" y="68" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
-  <rect x="1195" y="80" width="267" height="184" fill="none" stroke="#8C4FFF" stroke-width="2"/>
-  <image href="bundle:group/Virtual-private-cloud-VPC_32" x="1195" y="80" width="24" height="24"/>
-  <text x="1227" y="98" font-size="14" font-weight="600" fill="#8C4FFF">VPC-B</text>
-  <text x="1227" y="114" font-size="13" fill="#232F3E">10.1.1.0/24</text>
-  <rect x="1211" y="126" width="235" height="126" fill="none" stroke="#00A4A6" stroke-width="1.5"/>
-  <image href="bundle:group/Private-subnet_32" x="1211" y="126" width="24" height="24"/>
-  <text x="1243" y="144" font-size="14" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
-  <image href="bundle:service/Amazon-EC2" x="1309" y="154" width="48" height="48"/>
-  <text x="1333" y="220" font-size="14" text-anchor="middle" fill="#232F3E">EC2 · 10.1.1.10</text>
-  <text x="1333" y="236" font-size="13" text-anchor="middle" fill="#545B64">요청을 받고 응답함</text>
-  <rect x="1195" y="288" width="267" height="184" fill="none" stroke="#8C4FFF" stroke-width="2"/>
-  <image href="bundle:group/Virtual-private-cloud-VPC_32" x="1195" y="288" width="24" height="24"/>
-  <text x="1227" y="306" font-size="14" font-weight="600" fill="#8C4FFF">VPC-A</text>
-  <text x="1227" y="322" font-size="13" fill="#232F3E">172.20.N.0/24 (온프레미스와 같음)</text>
-  <rect x="1211" y="334" width="235" height="126" fill="none" stroke="#00A4A6" stroke-width="1.5"/>
-  <image href="bundle:group/Private-subnet_32" x="1211" y="334" width="24" height="24"/>
-  <text x="1243" y="352" font-size="14" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
-  <image href="bundle:service/Amazon-EC2" x="1309" y="362" width="48" height="48"/>
-  <text x="1333" y="428" font-size="14" text-anchor="middle" fill="#232F3E">EC2 · 172.20.N.10</text>
-  <text x="1333" y="444" font-size="13" font-weight="600" text-anchor="middle" fill="#D13212">tcpdump에 응답이 보임</text>
-  <image href="bundle:resource/Server" x="52" y="154" width="48" height="48"/>
-  <text x="76" y="220" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 VM</text>
-  <text x="76" y="236" font-size="14" text-anchor="middle" fill="#232F3E">vmN</text>
-  <text x="76" y="252" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10</text>
-  <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="192" y="154" width="48" height="48"/>
-  <text x="216" y="220" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
-  <text x="216" y="236" font-size="14" text-anchor="middle" fill="#232F3E">rtN</text>
-  <text x="216" y="252" font-size="13" text-anchor="middle" fill="#545B64">광고: 172.20.N.0/24</text>
-  <text x="216" y="268" font-size="13" text-anchor="middle" fill="#545B64">및 10.200.0.1/32</text>
-  <image href="bundle:service/AWS-Direct-Connect" x="382" y="154" width="48" height="48"/>
-  <text x="406" y="220" font-size="14" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
-  <text x="406" y="236" font-size="13" text-anchor="middle" fill="#545B64">전송 가상 인터페이스 2개</text>
-  <image href="bundle:resource/AWS-Direct-Connect_Gateway" x="568" y="154" width="48" height="48"/>
-  <text x="592" y="220" font-size="14" text-anchor="middle" fill="#232F3E">Direct Connect gateway</text>
-  <image href="bundle:service/AWS-Transit-Gateway" x="1059" y="154" width="48" height="48"/>
-  <text x="1083" y="220" font-size="14" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
-  <line x1="104" y1="178" x2="184" y2="178" stroke="#1D8102" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
-  <line x1="244" y1="178" x2="374" y2="178" stroke="#1D8102" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
-  <line x1="434" y1="178" x2="560" y2="178" stroke="#1D8102" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
-  <line x1="620" y1="178" x2="1051" y2="178" stroke="#1D8102" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
-  <circle cx="146" cy="164" r="10" fill="#1D8102"/>
-  <text x="146" y="168.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-  <text x="874" y="170" font-size="13" text-anchor="middle" fill="#545B64">DXGW 연결</text>
-  <line x1="1111" y1="168" x2="1301" y2="168" stroke="#1D8102" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
-  <line x1="1305" y1="182" x2="1115" y2="182" stroke="#D13212" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowRed)"/>
-  <circle cx="1243" cy="196" r="10" fill="#D13212"/>
-  <text x="1243" y="200.5" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-  <polyline points="1111,196 1167,196 1167,386 1301,386" fill="none" stroke="#D13212" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowRed)"/>
-  <text x="1157" y="252" font-size="13" font-weight="600" text-anchor="end" fill="#D13212">응답이 VPC-A로 감 —</text>
-  <text x="1157" y="269" font-size="13" font-weight="600" text-anchor="end" fill="#D13212">온프레미스 VM은</text>
-  <text x="1157" y="286" font-size="13" font-weight="600" text-anchor="end" fill="#D13212">받지 못함</text>
-  <polyline points="991,238 991,194 1053,194" fill="none" stroke="#7D8998" stroke-width="1"/>
-  <rect x="713" y="238" width="302" height="34" fill="#8C4FFF"/>
-  <text x="727" y="259" font-size="14" font-weight="600" fill="#FFFFFF">TGW 라우팅 테이블 (NAT 적용 전)</text>
-  <rect x="713" y="272" width="126" height="34" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="723" y="294" font-size="13" font-weight="600" fill="#232F3E">CIDR</text>
-  <rect x="839" y="272" width="76" height="34" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="849" y="294" font-size="13" font-weight="600" fill="#232F3E">연결</text>
-  <rect x="915" y="272" width="100" height="34" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="925" y="294" font-size="13" font-weight="600" fill="#232F3E">유형</text>
-  <rect x="713" y="306" width="126" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="723" y="328" font-size="13" font-weight="600" fill="#D13212">172.20.N.0/24</text>
-  <rect x="839" y="306" width="76" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="849" y="328" font-size="13" font-weight="600" fill="#D13212">VPC-A</text>
-  <rect x="915" y="306" width="100" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="925" y="328" font-size="13" font-weight="600" fill="#D13212">propagated</text>
-  <rect x="713" y="340" width="126" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="723" y="362" font-size="13" fill="#232F3E">10.1.1.0/24</text>
-  <rect x="839" y="340" width="76" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="849" y="362" font-size="13" fill="#232F3E">VPC-B</text>
-  <rect x="915" y="340" width="100" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="925" y="362" font-size="13" fill="#232F3E">propagated</text>
-  <rect x="713" y="374" width="126" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="723" y="396" font-size="13" fill="#232F3E">10.200.0.1/32</text>
-  <rect x="839" y="374" width="76" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="849" y="396" font-size="13" fill="#232F3E">DXGW</text>
-  <rect x="915" y="374" width="100" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="925" y="396" font-size="13" fill="#232F3E">propagated</text>
-  <text x="713" y="430" font-size="13" font-weight="600" fill="#D13212">온프레미스가 광고한 172.20.N.0/24는 보이지 않음</text>
-  <text x="713" y="447" font-size="13" fill="#545B64">— 같은 접두사에서는 VPC 경로가 우선</text>
+  <rect width="1234" height="672" fill="#FFFFFF"/>
+  <rect x="12" y="382" width="345" height="220" fill="none" stroke="#7D8998" stroke-width="2"/>
+  <image href="bundle:group/Corporate-data-center_32" x="12" y="382" width="32" height="32"/>
+  <text x="52" y="404" font-size="19.5" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
+  <text x="52" y="422" font-size="16.7" fill="#232F3E">온프레미스 대역 172.20.N.0/24</text>
+  <text x="12" y="634" font-size="16.7" fill="#3D4550">온프레미스에서 VPC-A로는 아예 갈 수 없음:</text>
+  <text x="12" y="656" font-size="16.7" fill="#3D4550">172.20.N.x는 온프레미스 대역의 주소이기 때문</text>
+  <rect x="581" y="16" width="641" height="608" fill="none" stroke="#232F3E" stroke-width="2"/>
+  <image href="bundle:group/AWS-Cloud-logo_32" x="581" y="16" width="40" height="40"/>
+  <text x="631" y="43" font-size="21" font-weight="600" fill="#232F3E">AWS Cloud</text>
+  <rect x="757" y="60" width="453" height="548" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
+  <image href="bundle:group/Region_32" x="757" y="60" width="32" height="32"/>
+  <text x="797" y="82" font-size="19.5" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
+  <rect x="975" y="352" width="223" height="214" fill="none" stroke="#8C4FFF" stroke-width="2"/>
+  <image href="bundle:group/Virtual-private-cloud-VPC_32" x="975" y="352" width="32" height="32"/>
+  <text x="1015" y="374" font-size="19.5" font-weight="600" fill="#8C4FFF">VPC-B</text>
+  <text x="1015" y="392" font-size="16.7" fill="#232F3E">10.1.1.0/24</text>
+  <rect x="985" y="406" width="203" height="150" fill="none" stroke="#00A4A6" stroke-width="1.5"/>
+  <image href="bundle:group/Private-subnet_32" x="985" y="406" width="32" height="32"/>
+  <text x="1025" y="428" font-size="19.5" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
+  <rect x="975" y="98" width="223" height="234" fill="none" stroke="#8C4FFF" stroke-width="2"/>
+  <image href="bundle:group/Virtual-private-cloud-VPC_32" x="975" y="98" width="32" height="32"/>
+  <text x="1015" y="120" font-size="19.5" font-weight="600" fill="#8C4FFF">VPC-A</text>
+  <text x="1015" y="138" font-size="16.7" fill="#232F3E">172.20.N.0/24</text>
+  <text x="1015" y="156" font-size="16.7" fill="#232F3E">(온프레미스와 같음)</text>
+  <rect x="985" y="170" width="203" height="152" fill="none" stroke="#00A4A6" stroke-width="1.5"/>
+  <image href="bundle:group/Private-subnet_32" x="985" y="170" width="32" height="32"/>
+  <text x="1025" y="192" font-size="19.5" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
+  <image href="bundle:resource/Server" x="61" y="440" width="56" height="56"/>
+  <text x="89" y="519" font-size="19.5" text-anchor="middle" fill="#232F3E">온프레미스 VM</text>
+  <text x="89" y="542" font-size="19.5" text-anchor="middle" fill="#232F3E">vmN</text>
+  <text x="89" y="563" font-size="16.7" text-anchor="middle" fill="#3D4550">172.20.N.10</text>
+  <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="231" y="440" width="56" height="56"/>
+  <text x="259" y="519" font-size="19.5" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+  <text x="259" y="542" font-size="19.5" text-anchor="middle" fill="#232F3E">rtN</text>
+  <text x="259" y="563" font-size="16.7" text-anchor="middle" fill="#3D4550">광고: 172.20.N.0/24</text>
+  <text x="259" y="584" font-size="16.7" text-anchor="middle" fill="#3D4550">및 10.200.0.1/32</text>
+  <image href="bundle:service/AWS-Direct-Connect" x="441" y="440" width="56" height="56"/>
+  <text x="469" y="519" font-size="19.5" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
+  <text x="469" y="540" font-size="16.7" text-anchor="middle" fill="#3D4550">전송 가상 인터페이스 2개</text>
+  <image href="bundle:resource/AWS-Direct-Connect_Gateway" x="642" y="440" width="56" height="56"/>
+  <text x="670" y="519" font-size="19.5" text-anchor="middle" fill="#232F3E">Direct Connect</text>
+  <text x="670" y="542" font-size="19.5" text-anchor="middle" fill="#232F3E">gateway</text>
+  <image href="bundle:service/AWS-Transit-Gateway" x="854" y="440" width="56" height="56"/>
+  <text x="882" y="519" font-size="19.5" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
+  <image href="bundle:service/Amazon-EC2" x="1058" y="440" width="56" height="56"/>
+  <text x="1086" y="519" font-size="19.5" text-anchor="middle" fill="#232F3E">EC2 · 10.1.1.10</text>
+  <text x="1086" y="540" font-size="16.7" text-anchor="middle" fill="#3D4550">요청을 받고 응답함</text>
+  <image href="bundle:service/Amazon-EC2" x="1058" y="206" width="56" height="56"/>
+  <text x="1086" y="285" font-size="19.5" text-anchor="middle" fill="#232F3E">EC2 · 172.20.N.10</text>
+  <text x="1086" y="306" font-size="16.7" font-weight="600" text-anchor="middle" fill="#D13212">tcpdump에 응답이 보임</text>
+  <line x1="121" y1="468" x2="227" y2="468" stroke="#1D8102" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+  <line x1="291" y1="468" x2="437" y2="468" stroke="#1D8102" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+  <line x1="501" y1="468" x2="638" y2="468" stroke="#1D8102" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+  <line x1="702" y1="468" x2="850" y2="468" stroke="#1D8102" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+  <line x1="914" y1="468" x2="1054" y2="468" stroke="#1D8102" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+  <circle cx="174" cy="451" r="13" fill="#1D8102"/>
+  <text x="174" y="457" font-weight="700" font-size="16.7" text-anchor="middle" fill="#FFFFFF">1</text>
+  <text x="805.5" y="460" font-size="16.7" text-anchor="middle" fill="#3D4550">DXGW 연결</text>
+  <line x1="1054" y1="454" x2="914" y2="454" stroke="#D13212" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowRed)"/>
+  <circle cx="942.5" cy="437" r="13" fill="#D13212"/>
+  <text x="942.5" y="443" font-weight="700" font-size="16.7" text-anchor="middle" fill="#FFFFFF">2</text>
+  <polyline points="882,436 882,234 1054,234" fill="none" stroke="#D13212" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrowRed)"/>
+  <text x="882" y="548" font-size="16.7" font-weight="600" text-anchor="middle" fill="#D13212">응답이 VPC-A로 감 —</text>
+  <text x="882" y="569" font-size="16.7" font-weight="600" text-anchor="middle" fill="#D13212">온프레미스 VM은</text>
+  <text x="882" y="590" font-size="16.7" font-weight="600" text-anchor="middle" fill="#D13212">받지 못함</text>
+  <rect x="439" y="88" width="422.645" height="262" fill="#FFFFFF"/>
+  <rect x="447" y="96" width="320" height="40" fill="#8C4FFF"/>
+  <text x="459" y="123" font-size="19.5" font-weight="600" fill="#FFFFFF">TGW 라우팅 테이블 (NAT 적용 전)</text>
+  <rect x="447" y="136" width="138" height="38" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+  <text x="457" y="161" font-size="16.7" font-weight="600" fill="#232F3E">CIDR</text>
+  <rect x="585" y="136" width="70" height="38" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+  <text x="595" y="161" font-size="16.7" font-weight="600" fill="#232F3E">연결</text>
+  <rect x="655" y="136" width="112" height="38" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+  <text x="665" y="161" font-size="16.7" font-weight="600" fill="#232F3E">유형</text>
+  <rect x="447" y="174" width="138" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="457" y="199" font-size="16.7" font-weight="600" fill="#D13212">172.20.N.0/24</text>
+  <rect x="585" y="174" width="70" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="595" y="199" font-size="16.7" font-weight="600" fill="#D13212">VPC-A</text>
+  <rect x="655" y="174" width="112" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="665" y="199" font-size="16.7" font-weight="600" fill="#D13212">propagated</text>
+  <rect x="447" y="212" width="138" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="457" y="237" font-size="16.7" fill="#232F3E">10.1.1.0/24</text>
+  <rect x="585" y="212" width="70" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="595" y="237" font-size="16.7" fill="#232F3E">VPC-B</text>
+  <rect x="655" y="212" width="112" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="665" y="237" font-size="16.7" fill="#232F3E">propagated</text>
+  <rect x="447" y="250" width="138" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="457" y="275" font-size="16.7" fill="#232F3E">10.200.0.1/32</text>
+  <rect x="585" y="250" width="70" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="595" y="275" font-size="16.7" fill="#232F3E">DXGW</text>
+  <rect x="655" y="250" width="112" height="38" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+  <text x="665" y="275" font-size="16.7" fill="#232F3E">propagated</text>
+  <text x="447" y="316" font-size="16.7" font-weight="600" fill="#D13212">온프레미스가 광고한 172.20.N.0/24는 보이지 않음</text>
+  <text x="447" y="338" font-size="16.7" fill="#3D4550">— 같은 접두사에서는 VPC 경로가 우선</text>
 </svg>

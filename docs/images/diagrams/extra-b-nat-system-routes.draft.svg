@@ -1,143 +1,134 @@
-<svg viewBox="0 0 1936 544" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
-<defs>
-<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker>
-<marker id="arrowStart" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6 Z" fill="#232F3E"/></marker>
-<marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#1D8102"/></marker>
-<marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#E07000"/></marker>
-<marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#D13212"/></marker>
-<marker id="arrowGrey" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#7D8998"/></marker>
-</defs>
-<rect width="1936" height="544" fill="#FFFFFF"/>
-<text x="16" y="34" font-size="17" font-weight="700" fill="#232F3E">DXGW 연결의 NAT system routes: 켬과 끔</text>
-<text x="377.1" y="34" font-size="13" fill="#545B64">1:1 NAT 규칙 172.20.N.0/24 → 100.64.1.0/24</text>
-<g transform="translate(16,0)">
-<rect x="532" y="272" width="364" height="32" fill="#8C4FFF" stroke="#8C4FFF" stroke-width="1"/>
-<text x="542" y="292.5" font-size="13" font-weight="700" fill="#FFFFFF">온프레미스가 172.20.N.0/24(또는 /16) 광고 중</text>
-<rect x="532" y="304" width="116" height="32" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="542" y="324.5" font-size="13" font-weight="700" fill="#232F3E">CIDR</text>
-<rect x="648" y="304" width="60" height="32" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="658" y="324.5" font-size="13" font-weight="700" fill="#232F3E">연결</text>
-<rect x="708" y="304" width="96" height="32" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="718" y="324.5" font-size="13" font-weight="700" fill="#232F3E">유형</text>
-<rect x="804" y="304" width="92" height="32" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="814" y="324.5" font-size="13" font-weight="700" fill="#232F3E">상태</text>
-<rect x="532" y="336" width="116" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="542" y="356.5" font-size="13" fill="#232F3E">100.64.1.0/24</text>
-<rect x="648" y="336" width="60" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="658" y="356.5" font-size="13" fill="#232F3E">DXGW</text>
-<rect x="708" y="336" width="96" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="718" y="356.5" font-size="13" fill="#232F3E">system</text>
-<rect x="804" y="336" width="92" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="814" y="356.5" font-size="13" font-weight="700" fill="#1D8102">Active</text>
-<rect x="532" y="384" width="364" height="32" fill="#D13212" stroke="#D13212" stroke-width="1"/>
-<text x="542" y="404.5" font-size="13" font-weight="700" fill="#FFFFFF">온프레미스가 겹치는 경로 광고 중단</text>
-<rect x="532" y="416" width="116" height="32" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="542" y="436.5" font-size="13" font-weight="700" fill="#232F3E">CIDR</text>
-<rect x="648" y="416" width="60" height="32" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="658" y="436.5" font-size="13" font-weight="700" fill="#232F3E">연결</text>
-<rect x="708" y="416" width="96" height="32" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="718" y="436.5" font-size="13" font-weight="700" fill="#232F3E">유형</text>
-<rect x="804" y="416" width="92" height="32" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="814" y="436.5" font-size="13" font-weight="700" fill="#232F3E">상태</text>
-<rect x="532" y="448" width="116" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="542" y="468.5" font-size="13" fill="#232F3E">100.64.1.0/24</text>
-<rect x="648" y="448" width="60" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="658" y="468.5" font-size="13" fill="#232F3E">DXGW</text>
-<rect x="708" y="448" width="96" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="718" y="468.5" font-size="13" fill="#232F3E">system</text>
-<rect x="804" y="448" width="92" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="814" y="468.5" font-size="13" font-weight="700" fill="#D13212">Blackhole</text>
-<line x1="590" y1="254" x2="590" y2="272" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
-<rect x="330" y="84" width="598" height="428" fill="none" stroke="#232F3E" stroke-width="2"/>
-<image href="bundle:group/AWS-Cloud-logo_32" x="330" y="84" width="32" height="32"/>
-<text x="372" y="106" font-size="15" font-weight="600" fill="#232F3E">AWS Cloud</text>
-<rect x="520" y="118" width="396" height="378" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
-<image href="bundle:group/Region_32" x="520" y="118" width="24" height="24"/>
-<text x="552" y="136" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
-<rect x="12" y="112" width="160" height="196" fill="none" stroke="#7D8998" stroke-width="2"/>
-<image href="bundle:group/Corporate-data-center_32" x="12" y="112" width="24" height="24"/>
-<text x="44" y="130" font-size="14" font-weight="600" fill="#7D8998">온프레미스</text>
-<text x="44" y="146" font-size="13" fill="#232F3E">Pod N</text>
-<image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="68" y="164" width="48" height="48"/>
-<text x="92" y="230" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
-<text x="92" y="246" font-size="14" text-anchor="middle" fill="#232F3E">rtN</text>
-<text x="92" y="262" font-size="13" text-anchor="middle" fill="#545B64">AS 65000</text>
-<text x="92" y="278" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">광고 172.20.N.0/24</text>
-<text x="92" y="294" font-size="13" text-anchor="middle" fill="#545B64">(또는 172.20.0.0/16)</text>
-<image href="bundle:service/AWS-Direct-Connect" x="226" y="164" width="48" height="48"/>
-<text x="250" y="230" font-size="14" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
-<text x="250" y="246" font-size="13" text-anchor="middle" fill="#545B64">transit VIF 2개</text>
-<image href="bundle:resource/AWS-Direct-Connect_Gateway" x="401" y="164" width="48" height="48"/>
-<text x="425" y="230" font-size="14" text-anchor="middle" fill="#232F3E">Direct Connect gateway</text>
-<text x="425" y="246" font-size="13" text-anchor="middle" fill="#545B64">AS 65300</text>
-<image href="bundle:service/AWS-Transit-Gateway" x="566" y="164" width="48" height="48"/>
-<text x="590" y="230" font-size="14" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
-<text x="590" y="246" font-size="13" text-anchor="middle" fill="#545B64">AS 65400</text>
-<line x1="120" y1="188" x2="222" y2="188" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-<line x1="278" y1="188" x2="397" y2="188" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-<line x1="453" y1="188" x2="562" y2="188" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-<text x="342" y="180" font-size="13" fill="#232F3E">BGP</text>
-</g>
-<g transform="translate(980,0)">
-<rect x="532" y="272" width="364" height="32" fill="#8C4FFF" stroke="#8C4FFF" stroke-width="1"/>
-<text x="542" y="292.5" font-size="13" font-weight="700" fill="#FFFFFF">NAT system routes 끔 + 온프레미스가 직접 광고</text>
-<rect x="532" y="304" width="116" height="32" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="542" y="324.5" font-size="13" font-weight="700" fill="#232F3E">CIDR</text>
-<rect x="648" y="304" width="60" height="32" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="658" y="324.5" font-size="13" font-weight="700" fill="#232F3E">연결</text>
-<rect x="708" y="304" width="96" height="32" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="718" y="324.5" font-size="13" font-weight="700" fill="#232F3E">유형</text>
-<rect x="804" y="304" width="92" height="32" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
-<text x="814" y="324.5" font-size="13" font-weight="700" fill="#232F3E">상태</text>
-<rect x="532" y="336" width="116" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="542" y="356.5" font-size="13" fill="#232F3E">100.64.1.0/24</text>
-<rect x="648" y="336" width="60" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="658" y="356.5" font-size="13" fill="#232F3E">DXGW</text>
-<rect x="708" y="336" width="96" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="718" y="356.5" font-size="13" fill="#232F3E">propagated</text>
-<rect x="804" y="336" width="92" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="814" y="356.5" font-size="13" font-weight="700" fill="#1D8102">Active</text>
-<rect x="532" y="368" width="116" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="542" y="388.5" font-size="13" fill="#232F3E">172.20.N.0/24</text>
-<rect x="648" y="368" width="60" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="658" y="388.5" font-size="13" fill="#232F3E">DXGW</text>
-<rect x="708" y="368" width="96" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="718" y="388.5" font-size="13" fill="#232F3E">propagated</text>
-<rect x="804" y="368" width="92" height="32" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
-<text x="814" y="388.5" font-size="13" font-weight="700" fill="#1D8102">Active</text>
-<line x1="590" y1="254" x2="590" y2="272" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
-<rect x="330" y="84" width="598" height="348" fill="none" stroke="#232F3E" stroke-width="2"/>
-<image href="bundle:group/AWS-Cloud-logo_32" x="330" y="84" width="32" height="32"/>
-<text x="372" y="106" font-size="15" font-weight="600" fill="#232F3E">AWS Cloud</text>
-<rect x="520" y="118" width="396" height="298" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
-<image href="bundle:group/Region_32" x="520" y="118" width="24" height="24"/>
-<text x="552" y="136" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
-<rect x="12" y="112" width="160" height="196" fill="none" stroke="#7D8998" stroke-width="2"/>
-<image href="bundle:group/Corporate-data-center_32" x="12" y="112" width="24" height="24"/>
-<text x="44" y="130" font-size="14" font-weight="600" fill="#7D8998">온프레미스</text>
-<text x="44" y="146" font-size="13" fill="#232F3E">Pod N</text>
-<image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="68" y="164" width="48" height="48"/>
-<text x="92" y="230" font-size="14" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
-<text x="92" y="246" font-size="14" text-anchor="middle" fill="#232F3E">rtN</text>
-<text x="92" y="262" font-size="13" text-anchor="middle" fill="#545B64">AS 65000</text>
-<text x="92" y="278" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">광고 100.64.1.0/24</text>
-<text x="92" y="294" font-size="13" font-weight="600" text-anchor="middle" fill="#232F3E">+ 172.20.N.0/24</text>
-<image href="bundle:service/AWS-Direct-Connect" x="226" y="164" width="48" height="48"/>
-<text x="250" y="230" font-size="14" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
-<text x="250" y="246" font-size="13" text-anchor="middle" fill="#545B64">transit VIF 2개</text>
-<image href="bundle:resource/AWS-Direct-Connect_Gateway" x="401" y="164" width="48" height="48"/>
-<text x="425" y="230" font-size="14" text-anchor="middle" fill="#232F3E">Direct Connect gateway</text>
-<text x="425" y="246" font-size="13" text-anchor="middle" fill="#545B64">AS 65300</text>
-<image href="bundle:service/AWS-Transit-Gateway" x="566" y="164" width="48" height="48"/>
-<text x="590" y="230" font-size="14" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
-<text x="590" y="246" font-size="13" text-anchor="middle" fill="#545B64">AS 65400</text>
-<line x1="120" y1="188" x2="222" y2="188" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-<line x1="278" y1="188" x2="397" y2="188" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-<line x1="453" y1="188" x2="562" y2="188" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-<text x="342" y="180" font-size="13" fill="#232F3E">BGP</text>
-</g>
-<rect x="16" y="50" width="940" height="478" fill="none" stroke="#7D8998" stroke-width="1.5"/>
-<text x="28" y="68" font-size="14" font-weight="700" fill="#232F3E">NAT system routes 켬 (기본값)</text>
-<rect x="980" y="50" width="940" height="478" fill="none" stroke="#7D8998" stroke-width="1.5"/>
-<text x="992" y="68" font-size="14" font-weight="700" fill="#232F3E">NAT system routes 끔</text>
+<svg viewBox="0 0 1156 706" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker></defs>
+<rect width="1156" height="706" fill="#FFFFFF"/>
+<text x="8" y="30" font-size="20" font-weight="700" fill="#232F3E">DXGW 연결의 NAT system routes: 켬과 끔</text>
+<text x="438" y="30" font-size="16" fill="#232F3E">1:1 NAT 규칙 172.20.N.0/24 → 100.64.1.0/24</text>
+<rect x="724" y="152" width="402" height="34" fill="#8C4FFF" stroke="#8C4FFF" stroke-width="1"/>
+<text x="734" y="174" font-size="16" font-weight="700" fill="#FFFFFF">온프레미스가 172.20.N.0/24(또는 /16) 광고 중</text>
+<rect x="724" y="186" width="133" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="733" y="207" font-size="16" font-weight="700" fill="#232F3E">CIDR</text>
+<rect x="857" y="186" width="64" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="866" y="207" font-size="16" font-weight="700" fill="#232F3E">연결</text>
+<rect x="921" y="186" width="107" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="930" y="207" font-size="16" font-weight="700" fill="#232F3E">유형</text>
+<rect x="1028" y="186" width="98" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="1037" y="207" font-size="16" font-weight="700" fill="#232F3E">상태</text>
+<rect x="724" y="220" width="133" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="733" y="241" font-size="16" fill="#232F3E">100.64.1.0/24</text>
+<rect x="857" y="220" width="64" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="866" y="241" font-size="16" fill="#232F3E">DXGW</text>
+<rect x="921" y="220" width="107" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="930" y="241" font-size="16" fill="#232F3E">system</text>
+<rect x="1028" y="220" width="98" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="1037" y="241" font-size="16" font-weight="700" fill="#1D8102">Active</text>
+<rect x="724" y="268" width="402" height="34" fill="#D13212" stroke="#D13212" stroke-width="1"/>
+<text x="734" y="290" font-size="16" font-weight="700" fill="#FFFFFF">온프레미스가 겹치는 경로 광고 중단</text>
+<rect x="724" y="302" width="133" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="733" y="323" font-size="16" font-weight="700" fill="#232F3E">CIDR</text>
+<rect x="857" y="302" width="64" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="866" y="323" font-size="16" font-weight="700" fill="#232F3E">연결</text>
+<rect x="921" y="302" width="107" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="930" y="323" font-size="16" font-weight="700" fill="#232F3E">유형</text>
+<rect x="1028" y="302" width="98" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="1037" y="323" font-size="16" font-weight="700" fill="#232F3E">상태</text>
+<rect x="724" y="336" width="133" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="733" y="357" font-size="16" fill="#232F3E">100.64.1.0/24</text>
+<rect x="857" y="336" width="64" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="866" y="357" font-size="16" fill="#232F3E">DXGW</text>
+<rect x="921" y="336" width="107" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="930" y="357" font-size="16" fill="#232F3E">system</text>
+<rect x="1028" y="336" width="98" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="1037" y="357" font-size="16" font-weight="700" fill="#D13212">Blackhole</text>
+<line x1="668" y1="176" x2="724" y2="176" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
+<image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="85" y="152" width="48" height="48"/>
+<text x="109" y="220" font-size="18" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+<text x="109" y="242" font-size="18" text-anchor="middle" fill="#232F3E">rtN</text>
+<text x="109" y="264" font-size="16" text-anchor="middle" fill="#232F3E">AS 65000</text>
+<text x="109" y="284" font-size="16" font-weight="500" text-anchor="middle" fill="#232F3E">광고 172.20.N.0/24</text>
+<text x="109" y="304" font-size="16" text-anchor="middle" fill="#232F3E">(또는 172.20.0.0/16)</text>
+<rect x="14" y="82" width="190" height="236" fill="none" stroke="#7D8998" stroke-width="2"/>
+<image href="bundle:group/Corporate-data-center_32" x="14" y="82" width="28" height="28"/>
+<text x="50" y="103" font-size="18" font-weight="600" fill="#7D8998">온프레미스</text>
+<text x="50" y="121" font-size="16" fill="#232F3E">Pod N</text>
+<image href="bundle:service/AWS-Direct-Connect" x="278" y="152" width="48" height="48"/>
+<text x="302" y="220" font-size="18" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
+<text x="302" y="242" font-size="16" text-anchor="middle" fill="#232F3E">transit VIF 2개</text>
+<image href="bundle:resource/AWS-Direct-Connect_Gateway" x="454" y="152" width="48" height="48"/>
+<text x="478" y="220" font-size="18" text-anchor="middle" fill="#232F3E">Direct Connect</text>
+<text x="478" y="242" font-size="18" text-anchor="middle" fill="#232F3E">gateway</text>
+<text x="478" y="264" font-size="16" text-anchor="middle" fill="#232F3E">AS 65300</text>
+<image href="bundle:service/AWS-Transit-Gateway" x="616" y="152" width="48" height="48"/>
+<text x="640" y="220" font-size="18" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
+<text x="640" y="242" font-size="16" text-anchor="middle" fill="#232F3E">AS 65400</text>
+<rect x="556" y="118" width="576" height="262" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
+<image href="bundle:group/Region_32" x="556" y="118" width="28" height="28"/>
+<text x="592" y="139" font-size="18" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
+<rect x="400" y="82" width="740" height="308" fill="none" stroke="#232F3E" stroke-width="2"/>
+<image href="bundle:group/AWS-Cloud-logo_32" x="400" y="82" width="32" height="32"/>
+<text x="442" y="105" font-size="19" font-weight="600" fill="#232F3E">AWS Cloud</text>
+<line x1="137" y1="176" x2="274" y2="176" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<line x1="330" y1="176" x2="450" y2="176" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<line x1="506" y1="176" x2="612" y2="176" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<text x="363" y="168" font-size="16" text-anchor="middle" fill="#232F3E">BGP</text>
+<rect x="8" y="46" width="1140" height="354" fill="none" stroke="#7D8998" stroke-width="1.5"/>
+<text x="20" y="67" font-size="18" font-weight="700" fill="#232F3E">NAT system routes 켬 (기본값)</text>
+<rect x="724" y="522" width="402" height="34" fill="#8C4FFF" stroke="#8C4FFF" stroke-width="1"/>
+<text x="734" y="544" font-size="16" font-weight="700" fill="#FFFFFF">NAT system routes 끔 + 온프레미스가 직접 광고</text>
+<rect x="724" y="556" width="133" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="733" y="577" font-size="16" font-weight="700" fill="#232F3E">CIDR</text>
+<rect x="857" y="556" width="64" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="866" y="577" font-size="16" font-weight="700" fill="#232F3E">연결</text>
+<rect x="921" y="556" width="107" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="930" y="577" font-size="16" font-weight="700" fill="#232F3E">유형</text>
+<rect x="1028" y="556" width="98" height="34" fill="#EAEDED" stroke="#AAB7B8" stroke-width="1"/>
+<text x="1037" y="577" font-size="16" font-weight="700" fill="#232F3E">상태</text>
+<rect x="724" y="590" width="133" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="733" y="611" font-size="16" fill="#232F3E">100.64.1.0/24</text>
+<rect x="857" y="590" width="64" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="866" y="611" font-size="16" fill="#232F3E">DXGW</text>
+<rect x="921" y="590" width="107" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="930" y="611" font-size="16" fill="#232F3E">propagated</text>
+<rect x="1028" y="590" width="98" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="1037" y="611" font-size="16" font-weight="700" fill="#1D8102">Active</text>
+<rect x="724" y="624" width="133" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="733" y="645" font-size="16" fill="#232F3E">172.20.N.0/24</text>
+<rect x="857" y="624" width="64" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="866" y="645" font-size="16" fill="#232F3E">DXGW</text>
+<rect x="921" y="624" width="107" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="930" y="645" font-size="16" fill="#232F3E">propagated</text>
+<rect x="1028" y="624" width="98" height="34" fill="#FFFFFF" stroke="#AAB7B8" stroke-width="1"/>
+<text x="1037" y="645" font-size="16" font-weight="700" fill="#1D8102">Active</text>
+<line x1="668" y1="546" x2="724" y2="546" stroke="#7D8998" stroke-width="1" stroke-dasharray="3,2"/>
+<image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="85" y="522" width="48" height="48"/>
+<text x="109" y="590" font-size="18" text-anchor="middle" fill="#232F3E">온프레미스 라우터</text>
+<text x="109" y="612" font-size="18" text-anchor="middle" fill="#232F3E">rtN</text>
+<text x="109" y="634" font-size="16" text-anchor="middle" fill="#232F3E">AS 65000</text>
+<text x="109" y="654" font-size="16" font-weight="500" text-anchor="middle" fill="#232F3E">광고 100.64.1.0/24</text>
+<text x="109" y="674" font-size="16" font-weight="500" text-anchor="middle" fill="#232F3E">+ 172.20.N.0/24</text>
+<rect x="14" y="452" width="190" height="236" fill="none" stroke="#7D8998" stroke-width="2"/>
+<image href="bundle:group/Corporate-data-center_32" x="14" y="452" width="28" height="28"/>
+<text x="50" y="473" font-size="18" font-weight="600" fill="#7D8998">온프레미스</text>
+<text x="50" y="491" font-size="16" fill="#232F3E">Pod N</text>
+<image href="bundle:service/AWS-Direct-Connect" x="278" y="522" width="48" height="48"/>
+<text x="302" y="590" font-size="18" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
+<text x="302" y="612" font-size="16" text-anchor="middle" fill="#232F3E">transit VIF 2개</text>
+<image href="bundle:resource/AWS-Direct-Connect_Gateway" x="454" y="522" width="48" height="48"/>
+<text x="478" y="590" font-size="18" text-anchor="middle" fill="#232F3E">Direct Connect</text>
+<text x="478" y="612" font-size="18" text-anchor="middle" fill="#232F3E">gateway</text>
+<text x="478" y="634" font-size="16" text-anchor="middle" fill="#232F3E">AS 65300</text>
+<image href="bundle:service/AWS-Transit-Gateway" x="616" y="522" width="48" height="48"/>
+<text x="640" y="590" font-size="18" text-anchor="middle" fill="#232F3E">Transit Gateway</text>
+<text x="640" y="612" font-size="16" text-anchor="middle" fill="#232F3E">AS 65400</text>
+<rect x="556" y="488" width="576" height="180" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
+<image href="bundle:group/Region_32" x="556" y="488" width="28" height="28"/>
+<text x="592" y="509" font-size="18" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
+<rect x="400" y="452" width="740" height="226" fill="none" stroke="#232F3E" stroke-width="2"/>
+<image href="bundle:group/AWS-Cloud-logo_32" x="400" y="452" width="32" height="32"/>
+<text x="442" y="475" font-size="19" font-weight="600" fill="#232F3E">AWS Cloud</text>
+<line x1="137" y1="546" x2="274" y2="546" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<line x1="330" y1="546" x2="450" y2="546" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<line x1="506" y1="546" x2="612" y2="546" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<text x="363" y="538" font-size="16" text-anchor="middle" fill="#232F3E">BGP</text>
+<rect x="8" y="416" width="1140" height="282" fill="none" stroke="#7D8998" stroke-width="1.5"/>
+<text x="20" y="437" font-size="18" font-weight="700" fill="#232F3E">NAT system routes 끔</text>
 </svg>

@@ -1,180 +1,150 @@
-<svg viewBox="0 0 1728 676" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
-  <!-- Workshop: Transit Gateway 1:1 NAT over Direct Connect (participant pod N), Korean labels.
-       Main line y=346: router -> Direct Connect (two transit VIFs) -> DX gateway -> TGW.
-       VPC-A above the TGW, VPC-B below it; attachments are plain lines (topology, no arrowheads).
-       The TGW route table is drawn as a table with a thin leader line to the TGW.
-       Tags: dark = the participant creates it in the console; pink = the CloudFormation stack deploys it. -->
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-      <path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/>
-    </marker>
-  </defs>
-  <rect width="1728" height="676" fill="#FFFFFF"/>
-
-  <!-- ===== On-premises (pod N) ===== -->
-  <rect x="16" y="86" width="268" height="346" fill="none" stroke="#7D8998" stroke-width="2"/>
-  <image href="bundle:group/Corporate-data-center_32" x="16" y="86" width="24" height="24"/>
-  <text x="48" y="104" font-size="14" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
-  <text x="48" y="120" font-size="13" fill="#232F3E">LAN 172.20.N.0/24</text>
-  <image href="bundle:resource/Server" x="126" y="132" width="48" height="48"/>
-  <text x="150" y="198" font-size="14" text-anchor="middle" fill="#232F3E">VM vmN · 172.20.N.10</text>
-  <line x1="150" y1="206" x2="150" y2="318" stroke="#232F3E" stroke-width="1.5"/>
-  <image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="126" y="322" width="48" height="48"/>
-  <text x="150" y="388" font-size="14" text-anchor="middle" fill="#232F3E">라우터 rtN · AS 65000</text>
-  <text x="150" y="404" font-size="13" text-anchor="middle" fill="#545B64">LAN 172.20.N.1</text>
-  <text x="150" y="420" font-size="13" text-anchor="middle" fill="#545B64">Loopback1 10.200.0.1/32 (NAT 없음)</text>
-
-  <!-- ===== Two transit VIFs: router -> Direct Connect location -> DX gateway ===== -->
-  <line x1="178" y1="338" x2="517" y2="338" stroke="#232F3E" stroke-width="1.5"/>
-  <line x1="178" y1="354" x2="517" y2="354" stroke="#232F3E" stroke-width="1.5"/>
-  <rect x="296" y="267" width="90" height="18" rx="3" fill="#232F3E"/>
-  <text x="341" y="280" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
-  <text x="296" y="298" font-size="13" fill="#232F3E">전송 가상 인터페이스 1</text>
-  <text x="296" y="314" font-size="13" fill="#545B64">(VLAN은 hosted</text>
-  <text x="296" y="330" font-size="13" fill="#545B64">connection 1의 값)</text>
-  <text x="296" y="372" font-size="13" fill="#232F3E">전송 가상 인터페이스 2</text>
-  <rect x="296" y="377" width="90" height="18" rx="3" fill="#232F3E"/>
-  <text x="341" y="390" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
-
-  <image href="bundle:service/AWS-Direct-Connect" x="521" y="322" width="48" height="48"/>
-  <text x="545" y="388" font-size="14" text-anchor="middle" fill="#232F3E">AWS Direct Connect</text>
-  <text x="545" y="404" font-size="13" text-anchor="middle" fill="#545B64">hosted connection 2개 · 50Mbps</text>
-  <rect x="484" y="409" width="90" height="18" rx="3" fill="#232F3E"/>
-  <text x="529" y="422" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
-  <text x="580" y="422" font-size="13" fill="#545B64">수락</text>
-  <line x1="573" y1="338" x2="772" y2="338" stroke="#232F3E" stroke-width="1.5"/>
-  <line x1="573" y1="354" x2="772" y2="354" stroke="#232F3E" stroke-width="1.5"/>
-
-  <!-- ===== AWS Cloud ===== -->
-  <rect x="662" y="16" width="1050" height="644" fill="none" stroke="#232F3E" stroke-width="2"/>
-  <image href="bundle:group/AWS-Cloud-logo_32" x="662" y="16" width="32" height="32"/>
-  <text x="704" y="38" font-size="15" font-weight="600" fill="#232F3E">AWS Cloud</text>
-
-  <!-- Direct Connect gateway: global, inside the Cloud, outside the Region -->
-  <image href="bundle:resource/AWS-Direct-Connect_Gateway" x="776" y="322" width="48" height="48"/>
-  <text x="800" y="388" font-size="14" text-anchor="middle" fill="#232F3E">Direct Connect gateway · AS 65300</text>
-  <text x="800" y="404" font-size="13" text-anchor="middle" fill="#545B64">허용된 접두사:</text>
-  <text x="800" y="420" font-size="13" text-anchor="middle" fill="#545B64">100.64.2.0/24, 10.1.1.0/24</text>
-  <rect x="755" y="427" width="90" height="18" rx="3" fill="#232F3E"/>
-  <text x="800" y="440" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
-
-  <!-- ===== Region ===== -->
-  <rect x="936" y="50" width="760" height="594" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
-  <image href="bundle:group/Region_32" x="936" y="50" width="24" height="24"/>
-  <text x="968" y="68" font-size="14" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
-
-  <!-- DX gateway attachment (gateway association) with its 1:1 NAT rule -->
-  <line x1="828" y1="346" x2="1172" y2="346" stroke="#232F3E" stroke-width="1.5"/>
-  <text x="948" y="322" font-size="13" fill="#232F3E">1:1 NAT 규칙 100:</text>
-  <rect x="1072" y="309" width="90" height="18" rx="3" fill="#232F3E"/>
-  <text x="1117" y="322" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
-  <text x="948" y="338" font-size="13" fill="#232F3E">172.20.N.0/24 → 100.64.1.0/24</text>
-  <text x="948" y="366" font-size="13" fill="#545B64">게이트웨이 연결</text>
-  <rect x="1050" y="353" width="90" height="18" rx="3" fill="#232F3E"/>
-  <text x="1095" y="366" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
-
-  <!-- Transit Gateway -->
-  <image href="bundle:service/AWS-Transit-Gateway" x="1176" y="322" width="48" height="48"/>
-  <text x="1200" y="388" font-size="14" text-anchor="middle" fill="#232F3E">Transit Gateway · AS 65400</text>
-  <rect x="1142" y="393" width="116" height="18" rx="3" fill="#E7157B"/>
-  <text x="1200" y="406" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">CloudFormation</text>
-
-  <!-- TGW route table as a table, thin leader line to the TGW -->
-  <line x1="1228" y1="346" x2="1396" y2="346" stroke="#7D8998" stroke-width="1"/>
-  <rect x="1396" y="329" width="284" height="34" fill="#8C4FFF"/>
-  <text x="1408" y="350" font-size="14" font-weight="600" fill="#FFFFFF">TGW 라우팅 테이블 (1:1 NAT 적용 후)</text>
-  <rect x="1396" y="363" width="116" height="30" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="1406" y="381.5" font-size="13" font-weight="600" fill="#232F3E">CIDR</text>
-  <rect x="1512" y="363" width="70" height="30" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="1522" y="381.5" font-size="13" font-weight="600" fill="#232F3E">연결</text>
-  <rect x="1582" y="363" width="98" height="30" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
-  <text x="1592" y="381.5" font-size="13" font-weight="600" fill="#232F3E">유형</text>
-  <rect x="1396" y="393" width="116" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1406" y="411.5" font-size="13" fill="#232F3E">100.64.1.0/24</text>
-  <rect x="1512" y="393" width="70" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1522" y="411.5" font-size="13" fill="#232F3E">DXGW</text>
-  <rect x="1582" y="393" width="98" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1592" y="411.5" font-size="13" fill="#232F3E">system</text>
-  <rect x="1396" y="423" width="116" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1406" y="441.5" font-size="13" fill="#232F3E">100.64.2.0/24</text>
-  <rect x="1512" y="423" width="70" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1522" y="441.5" font-size="13" fill="#232F3E">VPC-A</text>
-  <rect x="1582" y="423" width="98" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1592" y="441.5" font-size="13" fill="#232F3E">system</text>
-  <rect x="1396" y="453" width="116" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1406" y="471.5" font-size="13" fill="#232F3E">172.20.N.0/24</text>
-  <rect x="1512" y="453" width="70" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1522" y="471.5" font-size="13" fill="#232F3E">DXGW</text>
-  <rect x="1582" y="453" width="98" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1592" y="471.5" font-size="13" fill="#232F3E">propagated</text>
-  <rect x="1396" y="483" width="116" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1406" y="501.5" font-size="13" fill="#232F3E">10.200.0.1/32</text>
-  <rect x="1512" y="483" width="70" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1522" y="501.5" font-size="13" fill="#232F3E">DXGW</text>
-  <rect x="1582" y="483" width="98" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1592" y="501.5" font-size="13" fill="#232F3E">propagated</text>
-  <rect x="1396" y="513" width="116" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1406" y="531.5" font-size="13" fill="#232F3E">10.1.1.0/24</text>
-  <rect x="1512" y="513" width="70" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1522" y="531.5" font-size="13" fill="#232F3E">VPC-B</text>
-  <rect x="1582" y="513" width="98" height="30" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
-  <text x="1592" y="531.5" font-size="13" fill="#232F3E">propagated</text>
-
-  <!-- VPC-A attachment with its 1:1 NAT rule -->
-  <line x1="1200" y1="318" x2="1200" y2="272" stroke="#232F3E" stroke-width="1.5"/>
-  <text x="1212" y="292" font-size="13" fill="#232F3E">1:1 NAT 규칙 100:</text>
-  <rect x="1336" y="279" width="90" height="18" rx="3" fill="#232F3E"/>
-  <text x="1381" y="292" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
-  <text x="1212" y="308" font-size="13" fill="#232F3E">172.20.N.0/24 → 100.64.2.0/24</text>
-
-  <!-- VPC-B attachment, no NAT (starts below the TGW label block) -->
-  <line x1="1200" y1="416" x2="1200" y2="442" stroke="#232F3E" stroke-width="1.5"/>
-  <text x="1212" y="430" font-size="13" fill="#232F3E">NAT 없음</text>
-
-  <!-- ===== VPC-A ===== -->
-  <rect x="952" y="86" width="428" height="186" fill="none" stroke="#8C4FFF" stroke-width="2"/>
-  <image href="bundle:group/Virtual-private-cloud-VPC_32" x="952" y="86" width="24" height="24"/>
-  <text x="984" y="104" font-size="14" font-weight="600" fill="#8C4FFF">VPC-A</text>
-  <text x="984" y="120" font-size="13" fill="#232F3E">172.20.N.0/24 (온프레미스와 같은 대역)</text>
-  <rect x="1252" y="91" width="116" height="18" rx="3" fill="#E7157B"/>
-  <text x="1310" y="104" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">CloudFormation</text>
-  <rect x="964" y="132" width="404" height="124" fill="none" stroke="#00A4A6" stroke-width="1.5"/>
-  <image href="bundle:group/Private-subnet_32" x="964" y="132" width="24" height="24"/>
-  <text x="996" y="150" font-size="14" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
-  <image href="bundle:service/Amazon-EC2" x="1060" y="160" width="48" height="48"/>
-  <text x="1084" y="226" font-size="14" text-anchor="middle" fill="#232F3E">EC2</text>
-  <text x="1084" y="242" font-size="13" text-anchor="middle" fill="#545B64">172.20.N.10 (+ 보조 IP .20)</text>
-  <image href="bundle:resource/Amazon-VPC_Endpoints" x="1248" y="160" width="48" height="48"/>
-  <text x="1272" y="226" font-size="14" text-anchor="middle" fill="#232F3E">EICE</text>
-  <text x="1272" y="242" font-size="13" text-anchor="middle" fill="#545B64">EC2 Instance Connect</text>
-  <line x1="1244" y1="184" x2="1112" y2="184" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <text x="1178" y="178" font-size="13" text-anchor="middle" fill="#232F3E">SSH</text>
-
-  <!-- ===== VPC-B ===== -->
-  <rect x="952" y="442" width="428" height="186" fill="none" stroke="#8C4FFF" stroke-width="2"/>
-  <image href="bundle:group/Virtual-private-cloud-VPC_32" x="952" y="442" width="24" height="24"/>
-  <text x="984" y="460" font-size="14" font-weight="600" fill="#8C4FFF">VPC-B</text>
-  <text x="984" y="476" font-size="13" fill="#232F3E">10.1.1.0/24 (대조군, NAT 없음)</text>
-  <rect x="1252" y="447" width="116" height="18" rx="3" fill="#E7157B"/>
-  <text x="1310" y="460" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">CloudFormation</text>
-  <rect x="964" y="488" width="404" height="124" fill="none" stroke="#00A4A6" stroke-width="1.5"/>
-  <image href="bundle:group/Private-subnet_32" x="964" y="488" width="24" height="24"/>
-  <text x="996" y="506" font-size="14" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
-  <image href="bundle:service/Amazon-EC2" x="1060" y="516" width="48" height="48"/>
-  <text x="1084" y="582" font-size="14" text-anchor="middle" fill="#232F3E">EC2</text>
-  <text x="1084" y="598" font-size="13" text-anchor="middle" fill="#545B64">10.1.1.10</text>
-  <image href="bundle:resource/Amazon-VPC_Endpoints" x="1248" y="516" width="48" height="48"/>
-  <text x="1272" y="582" font-size="14" text-anchor="middle" fill="#232F3E">EICE</text>
-  <text x="1272" y="598" font-size="13" text-anchor="middle" fill="#545B64">EC2 Instance Connect</text>
-  <line x1="1244" y1="540" x2="1112" y2="540" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
-  <text x="1178" y="534" font-size="13" text-anchor="middle" fill="#232F3E">SSH</text>
-
-  <!-- ===== Regional service ===== -->
-  <image href="bundle:service/Amazon-CloudWatch" x="1514" y="100" width="48" height="48"/>
-  <text x="1538" y="166" font-size="14" text-anchor="middle" fill="#232F3E">Amazon CloudWatch</text>
-  <text x="1538" y="182" font-size="13" text-anchor="middle" fill="#545B64">지표 (PacketsInNAT / PacketsOutNAT)</text>
-  <text x="1538" y="198" font-size="13" text-anchor="middle" fill="#545B64">로그 (TGW·VPC Flow Logs)</text>
-  <rect x="1480" y="207" width="116" height="18" rx="3" fill="#E7157B"/>
-  <text x="1538" y="220" font-size="13" font-weight="600" text-anchor="middle" fill="#FFFFFF">CloudFormation</text>
-
+<svg viewBox="0 0 1147 991" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#232F3E"/></marker>
+</defs>
+<rect width="1147" height="991" fill="#FFFFFF"/>
+<rect x="16" y="16" width="482" height="223" fill="none" stroke="#7D8998" stroke-width="2"/>
+<image href="bundle:group/Corporate-data-center_32" x="16" y="16" width="24" height="24"/>
+<text x="48" y="35" font-size="19" font-weight="600" fill="#7D8998">온프레미스 (내 Pod N)</text>
+<text x="48" y="53" font-size="16" fill="#232F3E">LAN 172.20.N.0/24</text>
+<image href="bundle:resource/Server" x="113" y="92" width="48" height="48"/>
+<text x="137" y="160" font-size="19" text-anchor="middle" fill="#232F3E">VM vmN · 172.20.N.10</text>
+<line x1="165" y1="116" x2="342" y2="116" stroke="#232F3E" stroke-width="1.5"/>
+<image href="bundle:resource/Amazon-VPC_Customer-Gateway" x="346" y="92" width="48" height="48"/>
+<text x="370" y="160" font-size="19" text-anchor="middle" fill="#232F3E">라우터 rtN · AS 65000</text>
+<text x="370" y="181" font-size="16" text-anchor="middle" fill="#3B4552">LAN 172.20.N.1</text>
+<text x="370" y="202" font-size="16" text-anchor="middle" fill="#3B4552">Loopback1 10.200.0.1/32</text>
+<text x="370" y="223" font-size="16" text-anchor="middle" fill="#3B4552">(NAT 없음)</text>
+<line x1="398" y1="108" x2="707" y2="108" stroke="#232F3E" stroke-width="1.5"/>
+<line x1="398" y1="124" x2="707" y2="124" stroke="#232F3E" stroke-width="1.5"/>
+<rect x="512" y="20.5" width="118.8" height="22" fill="#232F3E" rx="3"/>
+<text x="571.4" y="37" font-size="16" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
+<text x="512" y="58" font-size="16" fill="#232F3E">전송 가상 인터페이스 1</text>
+<text x="512" y="79" font-size="16" fill="#3B4552">(VLAN은 hosted</text>
+<text x="512" y="100" font-size="16" fill="#3B4552">connection 1의 값)</text>
+<text x="512" y="144" font-size="16" fill="#232F3E">전송 가상 인터페이스 2</text>
+<rect x="512" y="151.5" width="118.8" height="22" fill="#232F3E" rx="3"/>
+<text x="571.4" y="168" font-size="16" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
+<image href="bundle:service/AWS-Direct-Connect" x="711" y="92" width="48" height="48"/>
+<text x="771" y="106" font-size="19" fill="#232F3E">AWS Direct Connect</text>
+<text x="771" y="128" font-size="16" fill="#3B4552">hosted connection 2개 · 50Mbps</text>
+<rect x="771" y="135.5" width="118.8" height="22" fill="#232F3E" rx="3"/>
+<text x="830.4" y="152" font-size="16" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
+<text x="897.8" y="152" font-size="16" fill="#3B4552">수락</text>
+<line x1="727" y1="144" x2="727" y2="285" stroke="#232F3E" stroke-width="1.5"/>
+<line x1="743" y1="144" x2="743" y2="285" stroke="#232F3E" stroke-width="1.5"/>
+<image href="bundle:resource/AWS-Direct-Connect_Gateway" x="711" y="289" width="48" height="48"/>
+<text x="699" y="309" font-size="19" text-anchor="end" fill="#232F3E">Direct Connect gateway</text>
+<text x="699" y="330" font-size="16" text-anchor="end" fill="#3B4552">AS 65300</text>
+<text x="771" y="298" font-size="16" fill="#3B4552">허용된 접두사:</text>
+<text x="771" y="319" font-size="16" fill="#3B4552">100.64.2.0/24, 10.1.1.0/24</text>
+<rect x="771" y="328.5" width="118.8" height="22" fill="#232F3E" rx="3"/>
+<text x="830.4" y="345" font-size="16" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
+<text x="749" y="415" font-size="16" fill="#232F3E">1:1 NAT 규칙 100:</text>
+<rect x="903.4" y="398.5" width="118.8" height="22" fill="#232F3E" rx="3"/>
+<text x="962.8" y="415" font-size="16" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
+<text x="749" y="438" font-size="16" fill="#232F3E">172.20.N.0/24 → 100.64.1.0/24</text>
+<text x="749" y="465" font-size="16" fill="#3B4552">게이트웨이 연결</text>
+<rect x="877.8" y="448.5" width="118.8" height="22" fill="#232F3E" rx="3"/>
+<text x="937.2" y="465" font-size="16" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
+<line x1="735" y1="341" x2="735" y2="525" stroke="#232F3E" stroke-width="1.5"/>
+<image href="bundle:service/AWS-Transit-Gateway" x="711" y="529" width="48" height="48"/>
+<text x="771" y="501" font-size="19" fill="#232F3E">Transit Gateway · AS 65400</text>
+<rect x="771" y="508.5" width="137.2" height="22" fill="#E7157B" rx="3"/>
+<text x="839.6" y="525" font-size="16" font-weight="600" text-anchor="middle" fill="#FFFFFF">CloudFormation</text>
+<rect x="48" y="403" width="368" height="259" fill="none" stroke="#8C4FFF" stroke-width="2"/>
+<image href="bundle:group/Virtual-private-cloud-VPC_32" x="48" y="403" width="24" height="24"/>
+<text x="80" y="422" font-size="19" font-weight="600" fill="#8C4FFF">VPC-A</text>
+<text x="80" y="440" font-size="16" fill="#232F3E">172.20.N.0/24</text>
+<text x="80" y="458" font-size="16" fill="#232F3E">(온프레미스와 같은 대역)</text>
+<rect x="266.8" y="405.5" width="137.2" height="22" fill="#E7157B" rx="3"/>
+<text x="335.4" y="422" font-size="16" font-weight="600" text-anchor="middle" fill="#FFFFFF">CloudFormation</text>
+<rect x="60" y="471" width="344" height="179" fill="none" stroke="#00A4A6" stroke-width="1.5"/>
+<image href="bundle:group/Private-subnet_32" x="60" y="471" width="24" height="24"/>
+<text x="92" y="490" font-size="19" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
+<image href="bundle:service/Amazon-EC2" x="116" y="503" width="48" height="48"/>
+<text x="140" y="571" font-size="19" text-anchor="middle" fill="#232F3E">EC2</text>
+<text x="140" y="592" font-size="16" text-anchor="middle" fill="#3B4552">172.20.N.10</text>
+<text x="140" y="613" font-size="16" text-anchor="middle" fill="#3B4552">(+ 보조 IP .20)</text>
+<image href="bundle:resource/Amazon-VPC_Endpoints" x="282" y="503" width="48" height="48"/>
+<text x="306" y="571" font-size="19" text-anchor="middle" fill="#232F3E">EICE</text>
+<text x="306" y="592" font-size="16" text-anchor="middle" fill="#3B4552">EC2 Instance Connect</text>
+<line x1="278" y1="527" x2="168" y2="527" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<text x="223" y="519" font-size="16" text-anchor="middle" fill="#232F3E">SSH</text>
+<line x1="707" y1="553" x2="416" y2="553" stroke="#232F3E" stroke-width="1.5"/>
+<text x="430" y="521" font-size="16" fill="#232F3E">1:1 NAT 규칙 100:</text>
+<rect x="584.4" y="504.5" width="118.8" height="22" fill="#232F3E" rx="3"/>
+<text x="643.8" y="521" font-size="16" font-weight="600" text-anchor="middle" fill="#FFFFFF">콘솔에서 직접</text>
+<text x="430" y="544" font-size="16" fill="#232F3E">172.20.N.0/24 → 100.64.2.0/24</text>
+<line x1="763" y1="553" x2="787" y2="553" stroke="#7D8998" stroke-width="1"/>
+<rect x="787" y="535" width="312" height="36" fill="#8C4FFF"/>
+<text x="797" y="559" font-size="16" font-weight="600" fill="#FFFFFF">TGW 라우팅 테이블 (1:1 NAT 적용 후)</text>
+<rect x="787" y="571" width="134" height="36" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+<text x="797" y="594" font-size="16" font-weight="600" fill="#232F3E">CIDR</text>
+<rect x="921" y="571" width="68" height="36" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+<text x="931" y="594" font-size="16" font-weight="600" fill="#232F3E">연결</text>
+<rect x="989" y="571" width="110" height="36" fill="#F2F3F3" stroke="#879196" stroke-width="1"/>
+<text x="999" y="594" font-size="16" font-weight="600" fill="#232F3E">유형</text>
+<rect x="787" y="607" width="134" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="797" y="629" font-size="16" fill="#232F3E">100.64.1.0/24</text>
+<rect x="921" y="607" width="68" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="931" y="629" font-size="16" fill="#232F3E">DXGW</text>
+<rect x="989" y="607" width="110" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="999" y="629" font-size="16" fill="#232F3E">system</text>
+<rect x="787" y="641" width="134" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="797" y="663" font-size="16" fill="#232F3E">100.64.2.0/24</text>
+<rect x="921" y="641" width="68" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="931" y="663" font-size="16" fill="#232F3E">VPC-A</text>
+<rect x="989" y="641" width="110" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="999" y="663" font-size="16" fill="#232F3E">system</text>
+<rect x="787" y="675" width="134" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="797" y="697" font-size="16" fill="#232F3E">172.20.N.0/24</text>
+<rect x="921" y="675" width="68" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="931" y="697" font-size="16" fill="#232F3E">DXGW</text>
+<rect x="989" y="675" width="110" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="999" y="697" font-size="16" fill="#232F3E">propagated</text>
+<rect x="787" y="709" width="134" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="797" y="731" font-size="16" fill="#232F3E">10.200.0.1/32</text>
+<rect x="921" y="709" width="68" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="931" y="731" font-size="16" fill="#232F3E">DXGW</text>
+<rect x="989" y="709" width="110" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="999" y="731" font-size="16" fill="#232F3E">propagated</text>
+<rect x="787" y="743" width="134" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="797" y="765" font-size="16" fill="#232F3E">10.1.1.0/24</text>
+<rect x="921" y="743" width="68" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="931" y="765" font-size="16" fill="#232F3E">VPC-B</text>
+<rect x="989" y="743" width="110" height="34" fill="#FFFFFF" stroke="#879196" stroke-width="1"/>
+<text x="999" y="765" font-size="16" fill="#232F3E">propagated</text>
+<line x1="735" y1="581" x2="735" y2="684" stroke="#232F3E" stroke-width="1.5"/>
+<text x="723" y="611" font-size="16" text-anchor="end" fill="#232F3E">NAT 없음</text>
+<rect x="401" y="684" width="368" height="259" fill="none" stroke="#8C4FFF" stroke-width="2"/>
+<image href="bundle:group/Virtual-private-cloud-VPC_32" x="401" y="684" width="24" height="24"/>
+<text x="433" y="703" font-size="19" font-weight="600" fill="#8C4FFF">VPC-B</text>
+<text x="433" y="721" font-size="16" fill="#232F3E">10.1.1.0/24</text>
+<text x="433" y="739" font-size="16" fill="#232F3E">(대조군, NAT 없음)</text>
+<rect x="541" y="686.5" width="137.2" height="22" fill="#E7157B" rx="3"/>
+<text x="609.6" y="703" font-size="16" font-weight="600" text-anchor="middle" fill="#FFFFFF">CloudFormation</text>
+<rect x="413" y="752" width="344" height="179" fill="none" stroke="#00A4A6" stroke-width="1.5"/>
+<image href="bundle:group/Private-subnet_32" x="413" y="752" width="24" height="24"/>
+<text x="445" y="771" font-size="19" font-weight="600" fill="#00A4A6">프라이빗 서브넷</text>
+<image href="bundle:service/Amazon-EC2" x="469" y="784" width="48" height="48"/>
+<text x="493" y="852" font-size="19" text-anchor="middle" fill="#232F3E">EC2</text>
+<text x="493" y="873" font-size="16" text-anchor="middle" fill="#3B4552">10.1.1.10</text>
+<image href="bundle:resource/Amazon-VPC_Endpoints" x="635" y="784" width="48" height="48"/>
+<text x="659" y="852" font-size="19" text-anchor="middle" fill="#232F3E">EICE</text>
+<text x="659" y="873" font-size="16" text-anchor="middle" fill="#3B4552">EC2 Instance Connect</text>
+<line x1="631" y1="808" x2="521" y2="808" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+<text x="576" y="800" font-size="16" text-anchor="middle" fill="#232F3E">SSH</text>
+<image href="bundle:service/Amazon-CloudWatch" x="194" y="730" width="48" height="48"/>
+<text x="218" y="798" font-size="19" text-anchor="middle" fill="#232F3E">Amazon CloudWatch</text>
+<text x="218" y="819" font-size="16" text-anchor="middle" fill="#3B4552">지표 (PacketsInNAT / PacketsOutNAT)</text>
+<text x="218" y="840" font-size="16" text-anchor="middle" fill="#3B4552">로그 (TGW·VPC Flow Logs)</text>
+<rect x="149.4" y="846.5" width="137.2" height="22" fill="#E7157B" rx="3"/>
+<text x="218" y="863" font-size="16" font-weight="600" text-anchor="middle" fill="#FFFFFF">CloudFormation</text>
+<rect x="32" y="369" width="1083" height="590" fill="none" stroke="#00A4A6" stroke-width="2" stroke-dasharray="3,3"/>
+<image href="bundle:group/Region_32" x="32" y="369" width="24" height="24"/>
+<text x="64" y="388" font-size="19" font-weight="600" fill="#00A4A6">아시아 태평양(서울) ap-northeast-2</text>
+<rect x="16" y="257" width="1115" height="718" fill="none" stroke="#232F3E" stroke-width="2"/>
+<image href="bundle:group/AWS-Cloud-logo_32" x="16" y="257" width="32" height="32"/>
+<text x="58" y="280" font-size="19" font-weight="600" fill="#232F3E">AWS Cloud</text>
 </svg>
