@@ -12,6 +12,7 @@
 | `docs/` | 사이트 본문(MkDocs Material). `docs/assets/tgw-nat-workshop.yaml`은 참가자용 CloudFormation 템플릿 |
 | `docs/images/` | 구성도와 콘솔·웹 터미널 스크린샷. 계정 ID는 `111122223333`, BGP 키와 hosted connection ID는 가렸습니다. 그 밖의 리소스 ID는 사전 테스트 계정의 값입니다 |
 | `tools/console.py` | 콘솔 사전 테스트와 스크린샷용 Playwright 스크립트 |
+| `tools/diagrams/` | 구성도 10개의 생성 스크립트. 고치는 방법은 [`tools/diagrams/README.md`](tools/diagrams/README.md) |
 
 ## 페이지 번호
 
