@@ -65,15 +65,15 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
     ![1:1 NAT 탭: NAT Gateway support Disabled, NAT system routes Yes, 규칙 없음](images/console/lab2-nat-01-dxgw-tab.png){ .shot }
 
 3. 아래처럼 설정합니다.
-    - **Enable NAT Gateway support**를 선택합니다.
+    - **Enable NAT Gateway support**를 선택합니다. 선택하면 아래에 빈 규칙 줄이 하나 생깁니다.
     - **NAT system routes**는 선택된 채로 둡니다. NAT 대역 경로를 Transit Gateway가 알아서 만듭니다. 무엇인지는 아래 설명 상자에 있습니다.
-    - **Add rule**을 누르고 **Rule number** `100`, **Source CIDR** `172.20.N.0/24`, **NAT CIDR** `100.64.1.0/24`를 넣습니다. 입력란 아래에 목록이 뜨면 **Use "…"** 를 고릅니다.
+    - 생긴 규칙 줄에 **Rule number** `100`, **Source CIDR** `172.20.N.0/24`, **NAT CIDR** `100.64.1.0/24`를 넣습니다. 입력란 아래에 목록이 뜨면 **Use "…"** 를 고릅니다. **Add rule**은 누르지 않습니다.
 
     ![Manage NAT rules 화면: 두 확인란이 선택되어 있고 규칙 100은 172.20.89.0/24 → 100.64.1.0/24](images/console/lab2-nat-02-dxgw-form.png){ .shot }
 
 4. **Save changes**를 누릅니다.
 
-빈 규칙 줄이 남아 있으면 저장되지 않습니다. 빈 줄의 **Remove**를 누르세요.
+빈 규칙 줄이 남아 있으면 `Rule number is required.` 같은 오류가 나고 저장되지 않습니다. **Add rule**을 눌러 줄이 더 생겼다면 빈 줄의 **Remove**를 누르세요.
 
 !!! info "NAT system routes는 무엇인가요?"
     **왜 경로가 하나 더 필요한가요?**
@@ -119,7 +119,7 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
 
     VPC 연결에서 규칙의 원래 대역이 VPC 대역과 다르면(예: `/16` VPC 안의 `/24`) 주소는 바뀌지만 경로는 생기지 않습니다. 그러면 NAT 주소로 오는 패킷(응답 포함)이 VPC로 가지 못합니다. 이때는 NAT 대역 정적 경로를 직접 추가해야 합니다.
 
-**성공 확인**: **1:1 NAT** 탭에 **NAT Gateway support: Enabled**, 규칙 상태 **Activated**가 보입니다(사전 테스트 시 약 13초).
+**성공 확인**: **1:1 NAT** 탭에 **NAT Gateway support: Enabled**, 규칙 상태 **Activated**가 보입니다(사전 테스트 시 30초 안). **Enabling**이면 잠시 뒤 새로 고칩니다.
 
 ![1:1 NAT 탭: NAT Gateway support Enabled, 규칙 100 Activated](images/console/lab2-nat-04-dxgw-enabled.png){ .shot }
 
@@ -128,7 +128,7 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
 VPC-A 주소 `172.20.N.0/24`가 밖에서 `100.64.2.0/24`로 보이게 합니다.
 
 1. **Transit gateway attachments**에서 이름이 `tgwnat-attach-vpc-a`인 연결을 누릅니다.
-2. 2-3-4와 같은 방법으로 **Enable NAT Gateway support**를 선택하고, 규칙 `100`, `172.20.N.0/24` → `100.64.2.0/24`를 넣어 저장합니다.
+2. 2-3-4와 같은 방법으로 **Enable NAT Gateway support**를 선택하고, 자동으로 생긴 규칙 줄에 `100`, `172.20.N.0/24` → `100.64.2.0/24`를 넣어 저장합니다.
 
 VPC 연결에서는 **NAT system routes**가 항상 켜져 있어 바꿀 수 없습니다. DXGW 연결과의 차이는 [2-3-4의 설명 상자](#lab2-4)에 있습니다.
 
@@ -179,8 +179,10 @@ curl --local-port 40000 http://100.64.2.10:8080/
 1. 온프레미스 VM(`vmN`) 터미널에서 웹 서버를 백그라운드로 실행합니다. 이 웹 서버는 접속해 온 상대의 주소를 이 터미널에 기록합니다. 명령 끝의 `&`는 백그라운드 실행을 뜻합니다. 그래서 서버가 도는 동안에도 같은 터미널에서 다른 명령을 입력할 수 있습니다.
 
     ```bash
-    python3 -m http.server 8080 &
+    pkill -f 'http.server 8080'; python3 -m http.server 8080 &
     ```
+
+    앞의 `pkill`은 전에 띄운 웹 서버가 남아 있으면 끕니다. 웹 터미널이 끊겼다가 다시 열리면, 전에 띄운 서버가 포트를 잡은 채 응답하지 못하기 때문입니다.
 
 2. VPC-A EC2 터미널에서 온프레미스의 NAT 주소로 보냅니다.
 
@@ -204,11 +206,11 @@ curl --local-port 40000 http://100.64.2.10:8080/
 
     응답이 `vpc-a-ec2 saw 100.64.1.10:<포트> hello`이면 UDP도 같은 방식으로 바뀐 것입니다.
 
-    사전 테스트 때 실제로 나온 출력입니다(Pod 89). 이때는 보낼 글자를 `lab2-udp`로 했습니다. 보낸 글자가 응답 끝에 그대로 붙습니다. 포트 번호는 매번 다릅니다.
+    사전 테스트 때 실제로 나온 출력입니다(Pod 89). 보낸 글자(`hello`)가 응답 끝에 그대로 붙습니다. 포트 번호는 매번 다릅니다.
 
     ```text
-    labuser@vm89:~$ echo lab2-udp | nc -u -w 2 100.64.2.10 9000; echo
-    vpc-a-ec2 saw 100.64.1.10:33792 lab2-udp
+    labuser@vm89:~$ (echo hello; sleep 1) | nc -u -w 2 100.64.2.10 9000; echo
+    vpc-a-ec2 saw 100.64.1.10:53541 hello
     ```
 
     VPC-A EC2는 온프레미스 VM을 UDP에서도 `100.64.1.10`으로 봅니다. TCP(`curl`)와 같습니다.

@@ -92,8 +92,8 @@
 | 2-2-1~2-2-6 | Direct Connect 연결 | ① **Direct Connect gateways** → **Create Direct Connect gateway**(ASN 65300) ② 스택 완료 후 DXGW 상세 → **Gateway associations** → **Associate gateway**(Transit Gateway, 허용된 접두사 `100.64.2.0/24`, `10.1.1.0/24`) ③ hosted connection마다 **Virtual interfaces** → **Create virtual interface** → **Transit**(Connection 선택, DXGW 선택, VLAN은 자동으로 채워지고 바꿀 수 없음, BGP ASN 65000) ④ 전송 가상 인터페이스 상세의 **Peerings** 탭에서 Your router peer IP, Amazon router peer IP, BGP authentication key 확인 ⑤ 사이트의 라우터 설정 생성기에 값을 넣어 만든 설정을 라우터에 붙여 넣기 ⑥ **Accepted Routes**·**Advertised Routes** 탭으로 주고받은 경로 확인 | 전송 가상 인터페이스 `available`, BGP `up`(콘솔), 라우터 `show ip bgp summary`에서 두 세션 Established, `10.1.1.0/24`·`100.64.2.0/24` 수신 | 20분 |
 | 2-2-6~2-2-7 | 기본 통신 | Transit Gateway 라우팅 테이블 확인, 라우터 Loopback1에서 VPC-B로 ping과 TCP 8080 | VPC-B 응답 서버가 `10.200.0.1`을 그대로 봄 | 5분 |
 | 2-3-1~2-3-2 | 겹치는 대역 문제 재현 | 라우팅 테이블에서 `172.20.N.0/24`가 VPC-A만 가리키는 것 확인, VPC-A EC2에 **Connect** → **EC2 Instance Connect Endpoint**로 접속해 tcpdump, VM에서 VPC-B로 ping | VM → VPC-B ping 실패(기대한 결과), VPC-A EC2가 VPC-B의 응답을 받음 | 7분 |
-| 2-3-3~2-3-6 | 1:1 NAT 적용 | **Transit gateway attachments** → DXGW 쪽 연결 → **1:1 NAT** 탭 → **Manage 1:1 NAT** → **Enable NAT Gateway support** 선택, **NAT system routes**는 선택된 채로 둠, **Add rule**(Rule number 100, Source CIDR `172.20.N.0/24`, NAT CIDR `100.64.1.0/24`) → **Save changes**. VPC-A 쪽 연결도 같은 방법(`100.64.2.0/24`, NAT system routes는 선택된 채 바꿀 수 없음) | 두 연결 모두 **Enabled**, 규칙 **Activated**(사전 테스트 시 약 13초). 라우팅 테이블에 `100.64.1.0/24`·`100.64.2.0/24` `system` 경로 | 7분 |
-| 2-3-7 | 양방향 통신과 1:1 매핑 | VM → `100.64.2.10` `ping`·`curl`, 보조 IP(`100.64.2.20`) `ping`, 고정 출발지 포트(`curl --local-port 40000`). VM에서 `python3 -m http.server 8080`을 띄우고 VPC-A EC2 → `100.64.1.10` `ping`·`curl`. **(선택)** UDP: `(echo hello; sleep 1) \| nc -u -w 2 100.64.2.10 9000`(traditional `nc`와 ncat 모두 동작). 시간이 부족하면 강사가 UDP 단계를 생략 | VPC-A는 `100.64.1.10`, 온프레미스는 `100.64.2.10`으로 봄. 마지막 옥텟·포트 유지. UDP 응답도 `saw 100.64.1.10:<포트>` | 10분 |
+| 2-3-3~2-3-6 | 1:1 NAT 적용 | **Transit gateway attachments** → DXGW 쪽 연결 → **1:1 NAT** 탭 → **Manage 1:1 NAT** → **Enable NAT Gateway support** 선택(빈 규칙 줄이 자동으로 생김), **NAT system routes**는 선택된 채로 둠, 생긴 줄에 Rule number 100, Source CIDR `172.20.N.0/24`, NAT CIDR `100.64.1.0/24` → **Save changes**. VPC-A 쪽 연결도 같은 방법(`100.64.2.0/24`, NAT system routes는 선택된 채 바꿀 수 없음) | 두 연결 모두 **Enabled**, 규칙 **Activated**(사전 테스트 시 30초 안). 라우팅 테이블에 `100.64.1.0/24`·`100.64.2.0/24` `system` 경로 | 7분 |
+| 2-3-7 | 양방향 통신과 1:1 매핑 | VM → `100.64.2.10` `ping`·`curl`, 보조 IP(`100.64.2.20`) `ping`, 고정 출발지 포트(`curl --local-port 40000`). VM에서 `pkill -f 'http.server 8080'; python3 -m http.server 8080 &`로 웹 서버를 띄우고 VPC-A EC2 → `100.64.1.10` `ping`·`curl`. **(선택)** UDP: `(echo hello; sleep 1) \| nc -u -w 2 100.64.2.10 9000`(traditional `nc`와 ncat 모두 동작). 시간이 부족하면 강사가 UDP 단계를 생략 | VPC-A는 `100.64.1.10`, 온프레미스는 `100.64.2.10`으로 봄. 마지막 옥텟·포트 유지. UDP 응답도 `saw 100.64.1.10:<포트>` | 10분 |
 
 실습 2-2는 25분 안에 2-2-1~2-2-7(25분), 실습 2-3은 2-3-1~2-3-7(24분)입니다. 2-3-7에서 만든 트래픽은 추가 과제 3-3의 지표·로그 관측에 다시 씁니다.
 
@@ -196,6 +196,23 @@
 | 라우팅 테이블 | `100.64.1.0/24`(DXGW)·`100.64.2.0/24`(VPC) **System**, `172.20.89.0/24`는 DXGW Propagated | Routes 탭의 **Route type** 열 |
 | 양방향·1:1 | VM → VPC-A ping 5/5, `saw 100.64.1.10:42306`, UDP `saw 100.64.1.10:33792`, `.20` 3/3, `:40000` 유지. VPC-A → VM ping 4/4, VM `http.server` 로그에 `100.64.2.10` | VM은 기본 도구만 사용 |
 | 정리(추가 과제 3-4) | 09:47:22 시작 → 09:59:57 스택 삭제 완료(약 13분). NAT 끄기 약 1분, 게이트웨이 연결 끊기 약 2분, VIF 삭제 약 3분, DXGW 즉시, 스택 약 2.5분 | 스택 삭제 확인 창에 스택 이름 입력 필요. 끝난 뒤 hosted connection 2개는 Available로 남음 |
+
+### 13.1 재검증(2026-11-06, DX 랩 초기화 뒤, Pod 89)
+
+참가자 접속 링크로 포털에 들어가 온프레미스 라우터와 VM 단계를 웹 터미널에서 진행했습니다. AWS 쪽은 1:1 NAT 설정을 콘솔에서, 나머지는 같은 동작의 CLI로 했습니다. hosted connection은 이미 `available`이라 수락 단계는 다시 하지 못했습니다.
+
+| 단계 | 측정(UTC) | 바뀐 점과 문서에 반영한 것 |
+|---|---|---|
+| 스택 배포 | 10:33:34 → 10:39:49(6분 15초) | 같음 |
+| 게이트웨이 연결 | 10:41:20 → 10:43:48 `associated`(약 2분 30초) | 같음 |
+| 전송 가상 인터페이스 | 라우터 설정 뒤 10:44:39·10:47:47 `available`·BGP `up` | 같음. 라우터 설정은 사이트 생성기의 **복사** 결과를 그대로 붙여 넣음(`%` 오류 없음) |
+| 1:1 NAT | DXGW 쪽 10:58:54 저장 → 7초 안 `activated`, VPC-A 쪽 10:59:38 → 11:00:03 `enabled` | **Enable NAT Gateway support**를 선택하면 빈 규칙 줄이 자동으로 생김. 여기서 **Add rule**을 누르면 빈 줄이 남아 `Rule number is required.`로 저장 실패 → 2-3-4·2-3-5 절차를 고침 |
+| 통신 | 2-2-6, 2-3-2, 2-3-7, 3-1의 결과가 문서와 같음 | 예시 출력(ping 시간, 날짜, 포트, UDP 명령)을 이번 결과로 바꿈 |
+| 웹 터미널 재접속 | 끊긴 세션에서 띄운 `http.server`가 포트를 잡은 채 응답하지 않음(`HTTP 000`, 새로 띄우면 `Address already in use`) | 서버를 띄우는 명령을 `pkill -f 'http.server 8080'; python3 -m http.server 8080 &`로 바꾸고 문제 해결 표에 추가 |
+| NAT system routes | 광고를 멈추면 15초 뒤 `blackhole`, 요약 광고로 9초 뒤 `active`. 끄면 10초 안 `propagated` | 같음 |
+| 지표·로그 | ping 200개 구간 Sum: DXGW·VPC-A `PacketsInNAT`·`PacketsOutNAT` 203(확인용 ping 3개 포함), VPC-B 0. Flow Logs 쿼리 결과 같음 | 같음 |
+| 정리 | 11:40:14 시작 → 11:51:08 스택 삭제 완료(약 11분). NAT 끄기 약 1분 20초, 연결 끊기 2분, VIF 삭제 4분 17초, 스택 3분 | VIF 삭제 시간을 약 4분으로 고침 |
+| 포털 화면 | 실습 장비 페이지 모양이 바뀜(VLAN 배지, 연결선, 사용 설명서·AWS 콘솔 버튼) | 1-2 사전 준비와 2-2-6의 포털 스크린샷을 새로 찍음 |
 
 ## 참고
 

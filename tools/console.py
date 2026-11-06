@@ -196,8 +196,15 @@ def main() -> int:
             elif clip is not None:
                 box = tuple(clip)
             if box:
+                box = tuple(int(round(v)) for v in box)
                 P().screenshot(path=str(path), clip={"x": box[0], "y": box[1],
                                                      "width": box[2] - box[0], "height": box[3] - box[1]})
+                # keep shots/crops.json in step so shots/crop.py reproduces this crop from the raw file
+                crops_file = ROOT / "shots/crops.json"
+                text = crops_file.read_text()
+                crops = json.loads(text)
+                crops[f"images/console/{name}.png"] = list(box)
+                crops_file.write_text(json.dumps(crops, indent=1) + ("\n" if text.endswith("\n") else ""))
             else:
                 import shutil
                 shutil.copy(raw, path)

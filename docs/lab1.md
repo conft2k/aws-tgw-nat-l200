@@ -122,18 +122,18 @@ Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 10.1.1.10, timeout is 2 seconds:
 Packet sent with a source address of 10.200.0.1
 !!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 4/5/9 ms
+Success rate is 100 percent (5/5), round-trip min/avg/max = 5/6/10 ms
 rt89#telnet 10.1.1.10 8080 /source-interface Loopback1
 Trying 10.1.1.10, 8080 ... Open
 GET / HTTP/1.0
 
 HTTP/1.0 200 OK
 Server: BaseHTTP/0.6 Python/3.9.25
-Date: Tue, 03 Nov 2026 07:57:11 GMT
+Date: Fri, 06 Nov 2026 10:50:05 GMT
 Content-Type: text/plain
 Content-Length: 31
 
-vpc-b-ec2 saw 10.200.0.1:35329
+vpc-b-ec2 saw 10.200.0.1:30721
 
 [Connection to 10.1.1.10 closed by foreign host]
 ```

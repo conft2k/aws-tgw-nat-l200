@@ -18,7 +18,7 @@ VPC-B에는 NAT 규칙이 없습니다. 하지만 DXGW 연결로 **들어오는*
 
 ## 3-1-2. VPC-B → NAT 주소 { #a2 }
 
-1. 온프레미스 VM(`vmN`) 터미널에서 웹 서버를 백그라운드로 실행합니다: `python3 -m http.server 8080 &`
+1. 온프레미스 VM(`vmN`) 터미널에서 웹 서버를 백그라운드로 실행합니다. [2-3-7](lab2.md#lab2-7)과 같은 명령입니다: `pkill -f 'http.server 8080'; python3 -m http.server 8080 &`
 2. VPC-B EC2(`tgwnat-vpc-b-ec2`)에 [2-3-1](lab2.md#lab2-1)처럼 접속해 실행합니다.
 
     ```bash
