@@ -178,5 +178,23 @@
   249,
   1020,
   651
+ ],
+ "images/console/lab0-hc-01-ordering.png": [
+  268,
+  223,
+  1424,
+  496
+ ],
+ "images/console/lab0-hc-02-accept-dialog.png": [
+  420,
+  375,
+  1020,
+  525
+ ],
+ "images/console/lab0-hc-03-pending.png": [
+  268,
+  223,
+  1424,
+  496
  ]
 }

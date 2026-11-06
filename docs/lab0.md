@@ -16,10 +16,19 @@
 1. AWS 콘솔에 로그인합니다. 오른쪽 위 리전을 **Asia Pacific (Seoul)** 로 맞춥니다.
 2. **Direct Connect** 콘솔 → 왼쪽 메뉴 **Connections**를 엽니다.
 3. 이름이 `awsdx1_…`, `awsdx2_…`인 hosted connection 2개가 보입니다. 상태는 **Ordering**입니다.
-4. 첫 번째를 선택하고 **Accept hosted connection**을 누릅니다. 확인 창이 나오면 수락합니다.
-5. 두 번째도 같은 방법으로 수락합니다.
 
-**성공 확인**: 상태가 **Pending**으로 바뀝니다. 몇 분 뒤 **Available**이 됩니다(사전 테스트 시 약 3분). 기다리지 말고 다음으로 넘어갑니다.
+    ![Connections 목록: awsdx1_189와 awsdx2_289 두 hosted connection이 Ordering 상태이고, Accept hosted connection 버튼은 아직 회색이다](images/console/lab0-hc-01-ordering.png){ .shot }
+
+4. `awsdx1_…` 줄 왼쪽의 확인란을 선택하고 **Accept hosted connection**을 누릅니다.
+5. 확인 창에서 **Confirm**을 누릅니다.
+
+    ![Accept hosted connection 확인 창: Cancel과 Confirm 버튼](images/console/lab0-hc-02-accept-dialog.png){ .shot }
+
+6. `awsdx2_…`도 같은 방법으로 수락합니다.
+
+**성공 확인**: 두 연결의 상태가 **Pending**으로 바뀝니다. 몇 분 뒤 **Available**이 됩니다(사전 테스트 시 3~6분). 기다리지 말고 다음으로 넘어갑니다.
+
+![Connections 목록: 두 hosted connection이 Pending 상태](images/console/lab0-hc-03-pending.png){ .shot }
 
 ## 2-1-3. 스택 배포 { #lab0-3 }
 
