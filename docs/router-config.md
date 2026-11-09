@@ -11,6 +11,11 @@
 - 값은 전송 가상 인터페이스 상세 → **Peerings** 탭에서 확인합니다.
 - 대역·ASN·인터페이스 이름은 워크숍 값이 미리 채워져 있습니다.
 
+!!! warning "그림의 값은 Pod 89의 예시입니다"
+    그림의 VLAN과 피어 IP, 아래 Pod 번호·VLAN·피어 IP 입력 칸에 흐리게 보이는 예시 값(`89`, `189`, `169.254.96.54/29` 등)은 사전 테스트에 쓴 **Pod 89의 값**입니다. 그대로 쓰지 마세요. **Pod 번호부터 VLAN, 피어 IP, BGP 키까지 모두 내 Pod와 내 전송 가상 인터페이스의 값으로 바꿔 넣어야 합니다.** 값이 맞지 않으면 BGP 세션이 올라오지 않거나 온프레미스 대역이 제대로 광고되지 않습니다.
+
+    **미리 채움** 칸은 모든 참가자가 같이 쓰는 워크숍 값이므로 워크숍에서는 그대로 둡니다. 워크숍이 아닌 내 환경에서 쓸 때는 이 칸도 내 환경의 값으로 바꿉니다([4-1-6](#reuse)).
+
 ## 4-1-2. 값 넣기 { #form }
 
 **미리 채움**이라고 적힌 칸에는 워크숍 값이 들어 있습니다. 워크숍에서는 Pod 번호와 DX1·DX2의 VLAN, 피어 IP, BGP 키만 넣으면 됩니다. 온프레미스 대역은 Pod 번호를 넣으면 자동으로 채워집니다.
@@ -48,7 +53,7 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
 
 줄 앞의 번호는 그 줄에 들어간 값입니다. 입력 칸을 누르면 그 값이 들어가는 줄이 강조됩니다. 번호는 복사되지 않습니다. 빈 줄은 읽기 쉽게 넣은 것으로, 붙여 넣어도 온프레미스 라우터(`rtN`)가 무시합니다.
 
-<p><button id="g-copy" class="md-button md-button--primary" type="button">복사</button> <span id="g-msg" class="gen-msg" aria-live="polite"></span></p>
+<div class="gen-actions"><span id="g-msg" class="gen-msg" aria-live="polite"></span><button id="g-copy" class="md-button gen-copy" type="button">복사</button></div>
 
 <pre id="g-out" class="gen-out"></pre>
 

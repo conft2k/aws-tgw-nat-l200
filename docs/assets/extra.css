@@ -215,6 +215,28 @@
   -webkit-user-select: none;
 }
 .gen-gutter .gen-badge { font-size: 0.62rem; }
+.gen-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  margin: 1rem 0 0.6rem;
+}
+.md-typeset .md-button.gen-copy {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0.4em 1.4em;
+  white-space: nowrap;
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+}
+.md-typeset .md-button.gen-copy:hover,
+.md-typeset .md-button.gen-copy:focus {
+  border-color: #1d4ed8;
+  background: #1d4ed8;
+  color: #ffffff;
+}
 .gen-msg { font-size: 0.8rem; color: var(--md-accent-fg-color); }
 .gen-msg.gen-warn { color: #c2410c; font-weight: 600; }
 .gen-code:empty::after { content: " "; }
