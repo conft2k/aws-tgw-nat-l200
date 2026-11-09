@@ -23,7 +23,7 @@
 - 온프레미스 라우터(`rtN`)는 Direct Connect로 AWS에 연결됩니다.
 - 비교를 위해 NAT를 걸지 않는 VPC-B(`10.1.1.0/24`)도 있습니다.
 
-![워크숍 구성도: Pod N의 온프레미스 라우터(rtN)가 전송 가상 인터페이스 2개로 Direct Connect gateway와 Transit Gateway에 연결된다. DXGW 연결과 VPC-A 연결에 1:1 NAT 규칙이 있고, Transit Gateway 라우팅 테이블에 NAT 대역의 system 경로가 있다](images/architecture.png)
+![워크숍 구성도: 왼쪽의 Pod N 온프레미스 라우터(rtN)에서 전송 가상 인터페이스 2개가 AWS Direct Connect를 지나 Direct Connect gateway에 닿고, Direct Connect gateway가 오른쪽의 Transit Gateway에 연결된다. Transit Gateway에서 위로 VPC-A, 아래로 VPC-B(NAT 없음)가 연결된다. DXGW 연결과 VPC-A 연결에 1:1 NAT 규칙이 있고, Transit Gateway 라우팅 테이블에 NAT 대역의 system 경로가 있다](images/architecture.png)
 
 그림의 태그는 누가 만드는지를 뜻합니다.
 
