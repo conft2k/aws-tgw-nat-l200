@@ -149,7 +149,7 @@ GET / HTTP/1.0
 ```
 
 !!! warning "`Open` 뒤에 바로 끊기면"
-    `Open` 다음에 응답 없이 `[Connection to 10.1.1.10 closed by foreign host]`가 나오면 `telnet` 명령만 다시 넣고, `Open`이 나온 뒤에 `GET / HTTP/1.0`을 넣으세요. 2026-11-09 전에 내려받은 템플릿으로 만든 스택의 서버는 `GET` 줄보다 빈 줄(Enter)이 먼저 오면 연결을 끊습니다. 명령을 여러 줄 한꺼번에 붙여 넣으면 이렇게 될 수 있습니다.
+    `Open` 다음에 응답 없이 `[Connection to 10.1.1.10 closed by foreign host]`가 나오면 `telnet` 명령만 다시 넣고, `Open`이 나온 뒤에 `GET / HTTP/1.0`을 넣으세요.
 
 사전 테스트 때 실제로 나온 출력입니다(Pod 89). 포트 번호와 시간은 매번 다릅니다.
 
