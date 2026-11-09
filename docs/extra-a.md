@@ -84,7 +84,7 @@ ICMP와 TCP는 VPC-B EC2의 보안 그룹에서 다르게 처리됩니다.
     - SYN-ACK는 `100.64.1.10:8080` → `10.1.1.10:<curl의 임시 포트>`로 옵니다. 출발지가 요청의 목적지와 달라 응답으로 인식되지 않습니다.
     - 그래서 새로 들어오는 트래픽으로 인바운드 규칙을 봅니다. 규칙의 TCP 8080은 VPC-B EC2 쪽 목적지 포트입니다. SYN-ACK의 목적지 포트는 curl의 임시 포트라 맞는 규칙이 없어 거부됩니다(**REJECT**).
 - **ICMP**: 인바운드 규칙이 `100.64.1.0/24`의 ICMP를 모두 허용합니다. 그래서 응답으로 인식되지 않아도 보안 그룹에서 막히지 않습니다.
-    - 그런데도 ping이 0/3인 것은 보낸 주소와 다른 주소에서 온 응답을 ping이 성공으로 세지 않기 때문으로 보입니다(추론).
+    - 응답은 VPC-B EC2까지 실제로 도착합니다(아래 tcpdump). 그런데도 ping이 0/3인 것은 보낸 주소와 다른 주소에서 온 응답을 ping이 성공으로 세지 않기 때문으로 보입니다(추론).
 
 TCP 거부는 VPC Flow Logs로 확인할 수 있습니다. 사전 테스트(2026-11-03)에서 이 **REJECT** 기록을 확인했습니다. 로그는 몇 분 늦게 나타나므로 3~5분 기다린 뒤 [3-3-2](extra-c.md#c2)와 같은 방법으로 로그 그룹 `/tgwnat/vpc-flow-logs`에서 아래 쿼리를 실행합니다.
 
@@ -98,6 +98,27 @@ parse @message "* * * * * * * * * * * * * * * * * * * *" as ver, vpc, eni, srcad
 
 - `proto`가 `6`(TCP), `srcport`가 `8080`인 기록이 이 실습에서 예상하는 TCP 응답(SYN-ACK)의 거부 기록입니다. `dstport`는 curl의 임시 포트입니다. 이 쿼리는 TCP 플래그(`flags`)를 표시하지 않습니다. 개별 패킷이 SYN-ACK인지까지 보려면 온프레미스 VM의 tcpdump에서 `Flags [S.]`를 확인합니다.
 - 보안 그룹이 ICMP를 허용하므로 `proto`가 `1`(ICMP)인 기록은 나오지 않습니다.
+- 2026-11-09 Pod 89에서 이 쿼리를 실행하면 `srcport` `8080`, `dstport` `58660`(curl의 임시 포트)인 REJECT 기록 2건이 나왔고, ICMP 기록은 없었습니다.
+
+VPC-B EC2에 무엇이 도착하는지는 VPC-B EC2 터미널의 tcpdump로 직접 볼 수 있습니다. 온프레미스 VM의 웹 서버가 떠 있는 상태에서 실행합니다.
+
+```bash
+sudo timeout 15 tcpdump -nli ens5 'icmp or tcp port 8080' &
+ping -c 3 -W 2 172.20.N.10
+curl -s -m 5 -o /dev/null -w 'HTTP %{http_code}\n' http://172.20.N.10:8080/
+```
+
+2026-11-09 Pod 89에서 나온 출력의 일부입니다.
+
+```text
+IP 10.1.1.10 > 172.20.89.10: ICMP echo request, id 30932, seq 1, length 64
+IP 100.64.1.10 > 10.1.1.10: ICMP echo reply, id 30932, seq 1, length 64
+IP 10.1.1.10.58660 > 172.20.89.10.webcache: Flags [S], seq 432682825, ...
+IP 10.1.1.10.58660 > 172.20.89.10.webcache: Flags [S], seq 432682825, ...
+```
+
+- ICMP 응답(`echo reply`)은 출발지가 `100.64.1.10`으로 바뀐 채 VPC-B EC2에 도착합니다.
+- TCP는 `Flags [S]`(SYN)만 다시 보내집니다. 응답(SYN-ACK)은 보안 그룹에서 거부되어 EC2까지 오지 않습니다.
 
 !!! warning "실제 환경에서 주의할 점"
     NAT를 건 VPC의 원래 주소로는 다른 네트워크가 보내지 않게 하세요. 의도하지 않은 곳(이 실습에서는 온프레미스)으로 갈 수 있습니다.

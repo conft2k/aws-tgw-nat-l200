@@ -77,7 +77,7 @@ d.line(C2 + 28, EY, X - 30, EY, LEAD, 1, dash="3,2")
 d.poly([(FK, EY), (FK, NY), (X - 30, NY)], LEAD, 1, dash="3,2")
 for yy in (EY, NY):
     d.circle(X - 30, yy, 3, LEAD)
-node_above("resource/Amazon-CloudWatch_Logs", C1, FY, [("CloudWatch Logs", "name"), ("Logs Insights로 조회", "sub")])
+node_above("resource/Amazon-CloudWatch_Logs", C1, FY, [("CloudWatch Logs", "name"), ("Log Analytics로 조회", "sub")])
 d.line(C2 - 28, FY, C1 + 28, FY, LEAD, 1.5, dash="5,4", marker="arrowGrey")
 
 # CloudWatch (metrics) at the top right, above the VPC-A attachment metrics

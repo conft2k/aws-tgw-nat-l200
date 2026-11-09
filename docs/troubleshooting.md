@@ -26,5 +26,5 @@
 | 웹 서버를 띄울 때 `Address already in use` | 온프레미스 VM(`vmN`) 터미널 | 끊긴 웹 터미널에서 띄운 서버가 남아 있음. `pkill -f 'http.server 8080'` 뒤 다시 실행 |
 | VPC-A EC2나 VPC-B EC2 터미널이 끊김 | — | 최대 1시간 유지. **Connect**로 다시 접속 |
 | 온프레미스 VM의 `nc -u`가 답 없이 끝남 | 온프레미스 VM(`vmN`) 터미널 | [2-3-7](lab2.md#lab2-7)의 명령을 그대로 보냄: `(echo hello; sleep 1) \| nc -u -w 2 100.64.2.10 9000; echo` |
-| NAT 지표가 비어 있음 | **CloudWatch** → **Metrics**([3-3-1](extra-c.md#c1)) | 지표는 몇 분 늦게 나타남. 온프레미스 VM에서 `ping -c 200 100.64.2.10`으로 트래픽을 만들고 3~5분 기다린 뒤, 오른쪽 위 시간 범위를 ping을 보낸 몇 분에 맞춰 다시 조회 |
-| Flow Logs 조회 결과가 비어 있음 | **CloudWatch** → **Logs Insights**([3-3-2](extra-c.md#c2)) | 로그도 몇 분 늦게 나타남. 트래픽을 만들고 3~5분 기다림. **Log group**이 쿼리에 맞는지(`/tgwnat/tgw-flow-logs`, `/tgwnat/vpc-flow-logs`), 시간 범위가 **1h**인지, 쿼리의 `N`을 내 Pod 번호로 바꿨는지 확인 |
+| NAT 지표가 비어 있음 | **CloudWatch** → **Metrics** → **Classic metrics**([3-3-1](extra-c.md#c1)) | 지표는 몇 분 늦게 나타남. 온프레미스 VM에서 `ping -c 200 100.64.2.10`으로 트래픽을 만들고 3~5분 기다린 뒤, 오른쪽 위 시간 범위를 ping을 보낸 몇 분에 맞춰 다시 조회 |
+| Flow Logs 조회 결과가 비어 있음 | **CloudWatch** → **Logs** → **Log Analytics**([3-3-2](extra-c.md#c2)) | 로그도 몇 분 늦게 나타남. 트래픽을 만들고 3~5분 기다림. **Log group**이 쿼리에 맞는지(`/tgwnat/tgw-flow-logs`, `/tgwnat/vpc-flow-logs`), 시간 범위가 **1h**인지, 쿼리의 `N`을 내 Pod 번호로 바꿨는지 확인 |
