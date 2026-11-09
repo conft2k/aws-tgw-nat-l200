@@ -111,18 +111,17 @@ show ip bgp | begin Network
 - `10.1.1.0/24`와 `100.64.2.0/24`를 받았습니다. 2-2-2에서 넣은 허용된 접두사입니다.
 - 콘솔의 두 전송 가상 인터페이스가 **Available**, **BGP status**가 **Up**입니다.
 
-이제 VPC-B까지 통신해 봅니다. Loopback1은 온프레미스 라우터 안의 가상 인터페이스입니다. 주소 `10.200.0.1`은 NAT 규칙의 원래 대역에 없으므로 바뀌지 않습니다.
+이제 VPC-B까지 통신해 봅니다. Loopback1은 온프레미스 라우터 안의 가상 인터페이스입니다. 주소 `10.200.0.1`은 NAT 규칙의 원래 대역에 없으므로 바뀌지 않습니다. 두 테스트 모두 보내는 주소를 Loopback1로 정합니다. `ping`은 `source`, `telnet`은 앞에 `/`를 붙인 `/source-interface`로 씁니다.
+
+명령은 한 줄씩 넣고, 앞 명령의 결과가 나온 뒤에 다음 명령을 넣습니다. 코드 상자 오른쪽 위의 복사 버튼을 누르면 그 줄이 복사됩니다.
+
+**ping 테스트**
 
 ```text
 ping 10.1.1.10 source Loopback1 repeat 5
-telnet 10.1.1.10 8080 /source-interface Loopback1
 ```
 
-두 명령 모두 보내는 주소를 Loopback1로 정합니다. `ping`은 `source`, `telnet`은 앞에 `/`를 붙인 `/source-interface`로 씁니다.
-
-`telnet`이 연결되면 `GET / HTTP/1.0`을 입력하고 Enter를 두 번 누릅니다.
-
-사전 테스트 때 실제로 나온 출력입니다(Pod 89). 포트 번호와 시간은 매번 다릅니다.
+사전 테스트 때 실제로 나온 출력입니다(Pod 89). 시간은 매번 다릅니다.
 
 ```text
 rt89#ping 10.1.1.10 source Loopback1 repeat 5
@@ -131,6 +130,30 @@ Sending 5, 100-byte ICMP Echos to 10.1.1.10, timeout is 2 seconds:
 Packet sent with a source address of 10.200.0.1
 !!!!!
 Success rate is 100 percent (5/5), round-trip min/avg/max = 5/6/10 ms
+```
+
+**성공 확인**: `!!!!!`이고 `Success rate is 100 percent (5/5)`입니다.
+
+**telnet 테스트**
+
+ping이 끝나고 프롬프트(`rtN#`)가 다시 나오면 넣습니다.
+
+```text
+telnet 10.1.1.10 8080 /source-interface Loopback1
+```
+
+`Trying 10.1.1.10, 8080 ... Open`이 나오면 그 다음 줄에서 커서만 깜박이고 아무것도 나오지 않습니다. 서버가 요청을 기다리는 상태입니다. 아래 줄을 넣고 Enter를 **두 번** 누르면 응답이 나옵니다.
+
+```text
+GET / HTTP/1.0
+```
+
+!!! warning "`Open` 뒤에 바로 끊기면"
+    `Open` 다음에 응답 없이 `[Connection to 10.1.1.10 closed by foreign host]`가 나오면 `telnet` 명령만 다시 넣고, `Open`이 나온 뒤에 `GET / HTTP/1.0`을 넣으세요. 2026-11-09 전에 내려받은 템플릿으로 만든 스택의 서버는 `GET` 줄보다 빈 줄(Enter)이 먼저 오면 연결을 끊습니다. 명령을 여러 줄 한꺼번에 붙여 넣으면 이렇게 될 수 있습니다.
+
+사전 테스트 때 실제로 나온 출력입니다(Pod 89). 포트 번호와 시간은 매번 다릅니다.
+
+```text
 rt89#telnet 10.1.1.10 8080 /source-interface Loopback1
 Trying 10.1.1.10, 8080 ... Open
 GET / HTTP/1.0
@@ -146,7 +169,7 @@ vpc-b-ec2 saw 10.200.0.1:30721
 [Connection to 10.1.1.10 closed by foreign host]
 ```
 
-**성공 확인**: ping이 `!!!!!`이고, 응답에 `vpc-b-ec2 saw 10.200.0.1:<포트>`가 보입니다. VPC-B가 보낸 쪽 주소를 바뀌지 않은 그대로 봤다는 뜻입니다.
+**성공 확인**: 응답에 `vpc-b-ec2 saw 10.200.0.1:<포트>`가 보입니다. VPC-B가 보낸 쪽 주소를 바뀌지 않은 그대로 봤다는 뜻입니다.
 
 ## 2-2-7. 라우팅 테이블 보기 { #lab1-7 }
 
