@@ -19,7 +19,7 @@
 | 나갈 때 | 받는 쪽 주소가 NAT 대역에 있으면 원래 주소로 되돌립니다 |
 | 상태 없음 | 연결을 기억하지 않습니다. 그래서 어느 쪽에서 먼저 보내도 똑같이 동작합니다 |
 | 적용 중 | 바꾸는 동안에도 연결은 **available** 상태를 유지합니다. NAT 상태는 enabling → enabled, 규칙은 activated가 됩니다 |
-| VPC 연결의 경로 | 규칙의 원래 대역이 VPC 대역과 똑같으면, VPC의 경로가 NAT 대역의 **System** 경로로 바뀝니다. NAT system routes는 항상 켜져 있습니다 |
+| VPC 연결의 경로 | 규칙의 원래 대역이 VPC 대역과 똑같으면, Transit Gateway가 VPC 대역 경로(**Propagated**)를 지우고 NAT 대역 경로(**System**)를 대신 만듭니다. NAT system routes는 항상 켜져 있습니다 |
 | DXGW 연결의 경로 | NAT system routes를 켜면(기본값) Transit Gateway가 NAT 대역 경로를 만듭니다. 끄면 온프레미스가 광고합니다([추가 과제 3-2](extra-b.md)) |
 | 경로 우선순위 | 같은 대역이면 static > system > prefix list > propagated 순서로 쓰입니다 |
 | 지표 | `PacketsInNAT`(들어올 때 바꾼 수), `PacketsOutNAT`(나갈 때 되돌린 수). 규칙이 쓰인 연결에 기록됩니다 |

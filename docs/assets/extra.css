@@ -89,6 +89,7 @@
 .md-typeset table:not([class]) th { background-color: var(--tgw-th); font-weight: 700; }
 .md-typeset table:not([class]) th, .md-typeset table:not([class]) td {
   padding: 0.75em 1em; border-top: 1px solid var(--tgw-line);
+  word-break: keep-all; overflow-wrap: break-word;   /* break Korean at spaces, not inside words */
 }
 .md-typeset table:not([class]) tr:first-child th { border-top: 0; }
 .md-typeset table:not([class]) code { white-space: nowrap; }

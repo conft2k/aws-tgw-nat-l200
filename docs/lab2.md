@@ -100,7 +100,7 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
 
     | 설정 | NAT 대역 경로를 만드는 쪽 | 라우팅 테이블의 유형 |
     |---|---|---|
-    | 켬(기본값, 이 실습) | Transit Gateway가 자동으로 만듦 | **System** |
+    | 켬 (기본값, 이 실습) | Transit Gateway가 자동으로 만듦 | **System** |
     | 끔 | 온프레미스 라우터가 BGP로 광고하거나, 정적 경로를 직접 추가 | **Propagated**(정적 경로면 **Static**) |
 
     켜 두었을 때 알아 둘 점이 있습니다.
@@ -114,12 +114,13 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
 
     설정을 끄고 NAT 대역을 직접 광고하면, BGP 속성으로 두 회선을 Active-Passive나 Active-Active로 쓰도록 조정할 수 있습니다. 직접 해 보는 방법은 [추가 과제 3-2](extra-b.md)에 있습니다.
 
-    | 연결 종류 | NAT system routes | NAT 대역에 가는 방법 |
-    |---|---|---|
-    | VPC | 항상 켬(바꿀 수 없음) | 규칙의 원래 대역이 VPC 대역과 **똑같으면** VPC 경로가 NAT 대역 경로로 바뀜 |
-    | Direct Connect gateway, Site-to-Site VPN(BGP) | 켬(기본값) 또는 끔 | Transit Gateway가 만들거나, 온프레미스가 광고하거나, 정적 경로 추가 |
-    | 피어링(정적 라우팅), Site-to-Site VPN(정적 라우팅) | 항상 끔 | NAT 대역 정적 경로를 직접 추가 |
-    | Connect, VPN Concentrator | 항상 끔 | BGP 피어가 NAT 대역을 광고하거나, 정적 경로 추가 |
+    | 연결 종류 | NAT system routes | NAT 대역 경로를 만드는 쪽 | 라우팅 테이블의 유형 |
+    |---|---|---|---|
+    | VPC | 항상 켬(바꿀 수 없음) | Transit Gateway. 규칙의 원래 대역이 VPC 대역과 **똑같을 때만** 만들고, 그 VPC 대역 경로는 지움 | **System** |
+    | Direct Connect gateway, Site-to-Site VPN(BGP) | 켬(기본값, 이 실습) | Transit Gateway | **System** |
+    | Direct Connect gateway, Site-to-Site VPN(BGP) | 끔 | 온프레미스 라우터가 BGP로 광고하거나, 정적 경로를 직접 추가 | **Propagated** 또는 **Static** |
+    | Transit Gateway 피어링, Site-to-Site VPN(정적 라우팅) | 항상 끔 | 정적 경로를 직접 추가 | **Static** |
+    | Connect, VPN Concentrator | 항상 끔 | BGP 피어가 광고하거나, 정적 경로를 직접 추가 | **Propagated** 또는 **Static** |
 
     VPC 연결에서 규칙의 원래 대역이 VPC 대역과 다르면(예: `/16` VPC 안의 `/24`) 주소는 바뀌지만 경로는 생기지 않습니다. 그러면 NAT 주소로 오는 패킷(응답 포함)이 VPC로 가지 못합니다. 이때는 NAT 대역 정적 경로를 직접 추가해야 합니다.
 
