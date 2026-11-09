@@ -13,6 +13,8 @@
 
 ## 2-1-2. hosted connection 수락 { #lab0-2 }
 
+hosted connection(호스팅 연결)은 Direct Connect 파트너가 만들어 여러분 계정에 넘겨 준 회선입니다. 수락해야 쓸 수 있습니다. 실습 2-2에서 이 회선 위에 전송 가상 인터페이스를 만듭니다. 용어는 [용어 풀이](glossary.md)를 보세요.
+
 1. AWS 콘솔에 로그인합니다. 오른쪽 위 리전을 **Asia Pacific (Seoul)** 로 맞춥니다.
 2. **Direct Connect** 콘솔 → 왼쪽 메뉴 **Connections**를 엽니다.
 3. 이름이 `awsdx1_…`, `awsdx2_…`인 hosted connection 2개가 보입니다. 상태는 **Ordering**입니다.
@@ -32,7 +34,16 @@
 
 ## 2-1-3. 스택 배포 { #lab0-3 }
 
-스택은 실습에 필요한 바탕을 만듭니다. Transit Gateway, VPC 2개, EC2 2대(VPC-A EC2, VPC-B EC2), EC2 접속용 엔드포인트, 로그 설정입니다. 핵심인 Direct Connect 연결과 1:1 NAT는 이어지는 실습에서 직접 만듭니다.
+스택은 실습의 바탕이 되는 다음 리소스를 만듭니다.
+
+- Transit Gateway
+- VPC-A(`172.20.N.0/24`)와 VPC-B(`10.1.1.0/24`)
+- 두 VPC를 Transit Gateway에 붙이는 Transit Gateway 연결 2개(VPC-A 연결, VPC-B 연결)
+- VPC-A EC2(`172.20.N.10`)와 VPC-B EC2(`10.1.1.10`)
+- EC2 Instance Connect Endpoint: 두 EC2에 브라우저로 접속할 때 씁니다
+- Flow Logs: Transit Gateway와 두 VPC에서 어떤 주소 사이에 트래픽이 오갔는지 기록합니다
+
+핵심인 Direct Connect 연결과 1:1 NAT는 이어지는 실습에서 직접 만듭니다. 용어는 [용어 풀이](glossary.md)를 보세요.
 
 1. 템플릿 파일을 내려받습니다: [tgw-nat-workshop.yaml](assets/tgw-nat-workshop.yaml){ download }
 2. **CloudFormation** 콘솔 → **Create stack** → **With new resources (standard)** 를 누릅니다.
@@ -40,11 +51,13 @@
 
     ![Create stack 화면: Upload a template file이 선택되어 있고 tgw-nat-workshop.yaml이 올라가 있다](images/console/lab0-cfn-01-upload.png){ .shot }
 
-4. **Stack name**에 `tgw-nat-workshop`을 넣습니다. **Parameters**의 **PodNumber**에 내 Pod 번호를 넣고 **Next**를 누릅니다. 다른 값은 그대로 둡니다.
+4. **Stack name**에 `tgw-nat-workshop`을 넣습니다. **Parameters**의 **PodNumber**에 내 Pod 번호 N을 넣고 **Next**를 누릅니다. 다른 값은 그대로 둡니다.
+
+    PodNumber는 VPC-A의 대역을 정합니다. VPC-A는 온프레미스 대역과 같은 `172.20.N.0/24`로 만들어집니다. 예를 들어 Pod 번호가 89이면 온프레미스와 VPC-A 모두 `172.20.89.0/24`입니다. 이 워크숍은 일부러 겹치게 만든 이 두 대역을 1:1 NAT로 잇습니다.
 
     ![Parameters 영역: PodNumber에 89가 들어가 있다](images/console/lab0-cfn-02-parameters.png){ .shot }
 
-5. 다음 화면 맨 아래 **Capabilities**에서 **I acknowledge that AWS CloudFormation might create IAM resources.** 를 선택하고 **Next**를 누릅니다. 로그를 저장하는 데 필요한 권한(IAM 역할)을 만들기 때문입니다.
+5. 다음 화면 맨 아래 **Capabilities**에서 **I acknowledge that AWS CloudFormation might create IAM resources.** 를 선택하고 **Next**를 누릅니다. Flow Logs를 저장하는 데 필요한 권한(IAM 역할)을 만들기 때문입니다.
 
     ![Capabilities 상자: IAM 확인란이 선택되어 있다](images/console/lab0-cfn-03-ack.png){ .shot }
 

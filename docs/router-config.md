@@ -8,7 +8,8 @@
 
 ![라우터 설정 값 지도: 공통 값은 1번 Pod 번호, 2번 온프레미스 대역 172.20.N.0/24, 3번 Loopback1 10.200.0.1/32, 4번 라우터 ASN 65000, 5번 Direct Connect gateway의 Amazon 쪽 ASN 65300이다. DX1(위)은 6번 라우터 인터페이스 GigabitEthernet1, 7번 VLAN, 8번 라우터 쪽 IP, 9번 Amazon 쪽 IP, 10번 BGP 키이고, DX2(아래)는 11번부터 15번까지 같은 순서이다. 두 전송 가상 인터페이스는 Direct Connect gateway와 Transit Gateway(AS 65400)로 이어진다](images/diagrams/router-config-map.png)
 
-- 값은 전송 가상 인터페이스 상세 → **Peerings** 탭에서 확인합니다.
+- 두 피어 IP와 BGP 키는 전송 가상 인터페이스 상세 → **Peerings** 탭에서 확인합니다([2-2-4](lab1.md#lab1-4)).
+- Pod 번호와 VLAN은 실습 장비 페이지에서 확인합니다. VLAN은 전송 가상 인터페이스 상세에도 있습니다.
 - 대역·ASN·인터페이스 이름은 워크숍 값이 미리 채워져 있습니다.
 
 !!! warning "그림의 값은 Pod 89의 예시입니다"
@@ -20,7 +21,12 @@
 
 **미리 채움**이라고 적힌 칸에는 워크숍 값이 들어 있습니다. 워크숍에서는 Pod 번호와 DX1·DX2의 VLAN, 피어 IP, BGP 키만 넣으면 됩니다. 온프레미스 대역은 Pod 번호를 넣으면 자동으로 채워집니다.
 
-DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 가져옵니다. 피어 IP는 `/29`를 붙인 채로 넣어도 되고 빼고 넣어도 됩니다. `/29`가 아닌 길이(`/30` 등)는 받지 않습니다.
+피어 IP와 BGP 키는 DX1이면 `tgw-nat-vif1`, DX2이면 `tgw-nat-vif2`의 **Peerings** 탭에서 가져옵니다. 피어 IP는 `/29`를 붙인 채로 넣어도 되고 빼고 넣어도 됩니다. `/29`가 아닌 길이(`/30` 등)는 받지 않습니다.
+
+③ Loopback1은 온프레미스 라우터 안의 가상 인터페이스입니다([용어집](glossary.md)). 주소 `10.200.0.1`은 NAT 규칙의 원래 대역(`172.20.N.0/24`) 밖에 있습니다. 이 주소를 출발지로 써서 두 가지를 확인합니다.
+
+- NAT를 켜기 전: VPC-B까지 통신되는지 확인합니다([2-2-6](lab1.md#lab1-6)).
+- NAT를 켠 뒤: 규칙에 없는 출발지 주소는 바뀌지 않는지 확인합니다([3-1-4](extra-a.md#a4)).
 
 <div class="gen-form">
   <fieldset class="gen-group gen-common">
@@ -56,6 +62,8 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
 <div class="gen-actions"><span id="g-msg" class="gen-msg" aria-live="polite"></span><button id="g-copy" class="md-button gen-copy" type="button">복사</button></div>
 
 <pre id="g-out" class="gen-out"></pre>
+
+복사한 설정을 온프레미스 라우터(`rtN`) 터미널에 붙여 넣은 뒤, [2-2-6 연결 확인](lab1.md#lab1-6)으로 돌아가 두 BGP 세션과 받은 경로를 확인합니다. "모든 값을 넣었습니다"는 입력이 끝났다는 뜻이고, BGP가 올라왔다는 뜻은 아닙니다.
 
 <script>
 (function () {
@@ -224,8 +232,26 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
       const s = window.getSelection();
       s.removeAllRanges();
       s.addRange(r);
-      el("msg").textContent = "아래 상자가 선택되었습니다. Ctrl+C로 복사하세요.";
+      let ok = false;
+      try { ok = document.execCommand("copy"); } catch (e2) { ok = false; }
+      el("msg").classList.remove("gen-warn");
+      el("msg").textContent = ok
+        ? "복사했습니다. 온프레미스 라우터(rtN) 터미널에 붙여 넣으세요."
+        : "아래 상자가 선택되었습니다. Ctrl+C(macOS는 Command+C)로 복사하세요.";
     }
+  });
+  // Copying a selection inside the output box: keep only the code text (no line badges), one line per row.
+  document.addEventListener("copy", (e) => {
+    const s = window.getSelection();
+    if (!s || !s.rangeCount || s.isCollapsed || !e.clipboardData) return;
+    const r = s.getRangeAt(0);
+    if (!el("out").contains(r.commonAncestorContainer)) return;
+    const frag = r.cloneContents();
+    frag.querySelectorAll(".gen-gutter").forEach((g) => g.remove());
+    const rows = frag.querySelectorAll(".gen-line");
+    const t = rows.length ? Array.from(rows, (l) => l.textContent).join("\n") : frag.textContent;
+    e.clipboardData.setData("text/plain", rows.length === el("out").children.length ? t + "\n" : t);
+    e.preventDefault();
   });
   render();
 })();
@@ -255,17 +281,29 @@ ASN은 BGP에서 서로를 알아보는 번호입니다. 만들어진 설정의 
 | 부분 | 쓰는 값 | 하는 일 |
 |---|---|---|
 | `GigabitEthernet1.<VLAN>`, `GigabitEthernet2.<VLAN>` | 6–8, 11–13 | 전송 가상 인터페이스마다 하나씩 만드는 서브인터페이스. VLAN 번호와 라우터 쪽 IP, 회선 끊김을 빨리 알아채는 BFD를 설정 |
-| `Loopback1` `10.200.0.1/32` | 3 | NAT 규칙에 없는 주소. 주소가 바뀌지 않는 경우를 확인할 때 씀 |
+| `Loopback1` `10.200.0.1/32` | 3 | NAT 규칙의 원래 대역 밖에 있는 시험용 출발지 주소([4-1-2](#form)) |
 | `router bgp 65000` | 4 | 온프레미스 라우터(`rtN`) 자신의 ASN으로 BGP를 켬 |
 | `neighbor … remote-as 65300` | 5, 9·10, 14·15 | Direct Connect gateway(AS 65300)와 BGP로 경로를 주고받음. BGP 키와 BFD를 함께 씀 |
 | `network 172.20.N.0 …`, `network 10.200.0.1 …` | 2, 3 | 온프레미스 대역과 Loopback1을 AWS에 광고 |
 | `maximum-paths 2` | — | 두 전송 가상 인터페이스로 받은 같은 경로를 함께 씀(ECMP) |
 
+NAT를 켠 뒤에도 `network 172.20.N.0 …` 줄은 지우지 않습니다. 원래 대역 광고를 그대로 두고, NAT 대역(`100.64.1.0/24`)은 광고하지 않습니다.
+
+- 이 워크숍은 **NAT system routes**를 켜 둡니다(기본값). 그러면 Transit Gateway가 NAT 대역 경로를 **System** 유형으로 만듭니다.
+- 이 경로는 온프레미스가 원래 대역과 겹치는 경로를 광고하는 동안만 **Active**입니다. 광고가 멈추면 **Blackhole**이 되고, NAT 대역으로 가는 패킷이 버려집니다.
+
+자세한 내용은 [2-3-4](lab2.md#lab2-4)에 있습니다.
+
 ## 4-1-6. 내 환경에서 다시 쓰기 { #reuse }
 
-회선 2개에 전송 가상 인터페이스를 하나씩 두는 구성이라면 이 생성기를 그대로 쓸 수 있습니다. 미리 채워진 값을 내 환경 값으로 바꾸면 됩니다.
+이 생성기는 다음 구성에 맞춰져 있습니다. 이런 구성이라면 미리 채워진 값을 내 환경 값으로 바꿔 그대로 쓸 수 있습니다.
 
-- 만들어지는 설정은 Cisco IOS XE 문법입니다. 다른 장비는 문법이 다릅니다.
+- 회선 2개에 전송 가상 인터페이스를 하나씩 둡니다.
+- 피어 IP가 `/29`입니다.
+- 온프레미스 라우터가 Cisco IOS XE입니다. 만들어지는 설정은 Cisco IOS XE 문법이고, 다른 장비는 문법이 다릅니다.
+
+그 밖에 확인할 점은 다음과 같습니다.
+
 - 온프레미스 대역(②)은 라우터의 라우팅 테이블에 **똑같은 대역**이 있어야 광고됩니다. 없으면 `network` 명령만으로는 광고되지 않습니다.
 - Loopback1(③)은 이 워크숍의 시험용입니다. 필요 없으면 칸을 비웁니다. 그러면 관련 줄이 만들어지지 않습니다.
 - BFD 값(300ms × 3)과 `maximum-paths 2`는 워크숍 값입니다. 내 환경의 기준에 맞는지 확인하세요.

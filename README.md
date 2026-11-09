@@ -12,7 +12,7 @@
 | `docs/` | 사이트 본문(MkDocs Material). `docs/assets/tgw-nat-workshop.yaml`은 참가자용 CloudFormation 템플릿 |
 | `docs/images/` | 구성도와 콘솔·웹 터미널 스크린샷. 계정 ID는 `111122223333`, BGP 키와 hosted connection ID는 가렸습니다. 그 밖의 리소스 ID는 사전 테스트 계정의 값입니다 |
 | `tools/console.py` | 콘솔 사전 테스트와 스크린샷용 Playwright 스크립트 |
-| `tools/diagrams/` | 구성도 10개의 생성 스크립트. 고치는 방법은 [`tools/diagrams/README.md`](tools/diagrams/README.md) |
+| `tools/diagrams/` | 구성도 9개의 생성 스크립트. 고치는 방법은 [`tools/diagrams/README.md`](tools/diagrams/README.md) |
 
 ## 페이지 번호
 
@@ -32,9 +32,8 @@
 | | 3-4. 리소스 정리 | `docs/extra-d.md` |
 | 4. 부록 | 4-1. 라우터 설정 생성기 | `docs/router-config.md` |
 | | 4-2. 1:1 NAT 개념과 제약 | `docs/concepts.md` |
-| | 4-3. 사전 테스트에서 관찰한 동작 | `docs/observed.md` |
-| | 4-4. 문제 해결 | `docs/troubleshooting.md` |
-| | 4-5. 참고 문서 | `docs/references.md` |
+| | 4-3. 문제 해결 | `docs/troubleshooting.md` |
+| | 4-4. 참고 문서 | `docs/references.md` |
 
 ## 로컬에서 보기
 

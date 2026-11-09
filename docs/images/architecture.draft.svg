@@ -58,7 +58,7 @@
 <text x="569" y="562" font-size="16" fill="#232F3E">→ 100.64.1.0/24</text>
 <text x="569" y="541" font-size="16" fill="#232F3E">172.20.N.0/24</text>
 <text x="569" y="520" font-size="16" fill="#232F3E">1:1 NAT 규칙 100:</text>
-<text x="569" y="499" font-size="16" fill="#232F3E">게이트웨이 연결</text>
+<text x="569" y="499" font-size="16" fill="#232F3E">TGW의 DXGW 연결</text>
 <g id="node:tgw">
 <image href="bundle:service/AWS-Transit-Gateway" x="740" y="572" width="48" height="48"/>
 <text x="800" y="594" font-size="19" fill="#232F3E">Transit Gateway · AS 65400</text>
@@ -85,6 +85,7 @@
 <image href="bundle:resource/Amazon-VPC_Endpoints" x="1018" y="349" width="48" height="48"/>
 <text x="1042" y="417" font-size="19" text-anchor="middle" fill="#232F3E">EICE</text>
 <text x="1042" y="438" font-size="16" text-anchor="middle" fill="#3B4552">EC2 Instance Connect</text>
+<text x="1042" y="459" font-size="16" text-anchor="middle" fill="#3B4552">Endpoint</text>
 </g>
 <line x1="1014" y1="373" x2="927" y2="373" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
 <text x="970.5" y="365" font-size="16" text-anchor="middle" fill="#232F3E">SSH</text>
@@ -112,6 +113,7 @@
 <image href="bundle:resource/Amazon-VPC_Endpoints" x="1018" y="764" width="48" height="48"/>
 <text x="1042" y="832" font-size="19" text-anchor="middle" fill="#232F3E">EICE</text>
 <text x="1042" y="853" font-size="16" text-anchor="middle" fill="#3B4552">EC2 Instance Connect</text>
+<text x="1042" y="874" font-size="16" text-anchor="middle" fill="#3B4552">Endpoint</text>
 </g>
 <line x1="1014" y1="788" x2="927" y2="788" stroke="#232F3E" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
 <text x="970.5" y="780" font-size="16" text-anchor="middle" fill="#232F3E">SSH</text>

@@ -57,8 +57,8 @@ DX_LINES = [("AWS Direct Connect", "name"), ("hosted connection 2개", "sub"),
             ("(50Mbps, 콘솔에서 수락)", "sub"), ("전송 가상 인터페이스 2개", "subink"), (CON, "tag")]
 DG_LINES = [("Direct Connect", "name"), ("gateway", "name"), ("AS 65300", "sub"), ("허용된 접두사:", "sub"),
             ("100.64.2.0/24,", "sub"), ("10.1.1.0/24", "sub"), (CON, "tag")]
-# DXGW attachment (gateway association) and its 1:1 NAT rule, above the DXGW -> TGW line (bottom up)
-R1_LINES = [("게이트웨이 연결", "subink"), ("1:1 NAT 규칙 100:", "subink"),
+# The TGW attachment for the DX gateway ("DXGW 연결", not the gateway association) and its 1:1 NAT rule, above the DXGW -> TGW line (bottom up)
+R1_LINES = [("TGW의 DXGW 연결", "subink"), ("1:1 NAT 규칙 100:", "subink"),
             ("172.20.N.0/24", "subink"), ("→ 100.64.1.0/24", "subink")]
 CW_LINES = [("Amazon CloudWatch", "name"), ("지표 (PacketsInNAT / PacketsOutNAT)", "sub"),
             ("로그 (TGW·VPC Flow Logs)", "sub"), (CFN, "tag")]
@@ -102,7 +102,7 @@ def vpc(x, y, name, cidr, note, ec2_sub):
     d.node("service/Amazon-EC2", ex, ey, [("EC2", "name")] + ec2_sub)
     end()
     grp(name.lower() + "-eice")
-    d.node("resource/Amazon-VPC_Endpoints", ix, ey, [("EICE", "name"), ("EC2 Instance Connect", "sub")])
+    d.node("resource/Amazon-VPC_Endpoints", ix, ey, [("EICE", "name"), ("EC2 Instance Connect", "sub"), ("Endpoint", "sub")])
     end()
     d.line(ix - 28, ey, ex + 28, ey, INK, dash="5,4", marker="arrow")
     d.text((ix + ex) / 2, ey - 8, "SSH", F_SUB, INK, None, "middle")

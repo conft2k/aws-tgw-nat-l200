@@ -21,14 +21,7 @@
 - 온프레미스 대역은 `172.20.N.0/24`입니다.
 - AWS의 VPC-A도 **똑같이** `172.20.N.0/24`를 씁니다.
 - 온프레미스 라우터(`rtN`)는 Direct Connect로 AWS에 연결됩니다.
-- 비교를 위해 NAT를 걸지 않는 VPC-B(`10.1.1.0/24`)도 있습니다.
-
-![워크숍 구성도: 왼쪽의 Pod N 온프레미스 라우터(rtN)에서 전송 가상 인터페이스 2개가 AWS Direct Connect를 지나 Direct Connect gateway에 닿고, Direct Connect gateway가 오른쪽의 Transit Gateway에 연결된다. Transit Gateway에서 위로 VPC-A, 아래로 VPC-B(NAT 없음)가 연결된다. DXGW 연결과 VPC-A 연결에 1:1 NAT 규칙이 있고, Transit Gateway 라우팅 테이블에 NAT 대역의 system 경로가 있다](images/architecture.png)
-
-그림의 태그는 누가 만드는지를 뜻합니다.
-
-- **콘솔에서 직접**: 실습하면서 AWS 콘솔에서 직접 만듭니다.
-- **CloudFormation**: 실습 스택이 미리 배포합니다(태그 붙은 VPC는 안의 리소스까지).
+- 비교를 위해 VPC-B(`10.1.1.0/24`)도 있습니다. VPC-B 연결에는 NAT 규칙을 넣지 않습니다.
 
 1:1 NAT를 적용하면 서로 이렇게 보입니다.
 
@@ -36,16 +29,47 @@
 |---|---|---|
 | 온프레미스 | `172.20.N.0/24` | `100.64.1.0/24` |
 | VPC-A | `172.20.N.0/24` | `100.64.2.0/24` |
-| VPC-B, 온프레미스 라우터 Loopback1 | `10.1.1.0/24`, `10.200.0.1` | 그대로 |
+| VPC-B | `10.1.1.0/24` | 그대로 |
+| 온프레미스 라우터 Loopback1 | `10.200.0.1` | 그대로 |
 
-호스트 비트와 포트는 그대로입니다. 예를 들어 온프레미스 VM(`vmN`)과 VPC-A EC2는 둘 다 `172.20.N.10`을 씁니다. 하지만 온프레미스 VM은 VPC-A EC2를 `100.64.2.10`으로 봅니다. VPC-A EC2는 온프레미스 VM을 `100.64.1.10`으로 봅니다.
+앞의 네트워크 부분(`172.20.N`)만 바뀌고, 마지막 숫자(호스트 비트)와 포트는 그대로입니다. 예를 들어 온프레미스 VM(`vmN`)과 VPC-A EC2는 둘 다 `172.20.N.10`을 씁니다. 하지만 온프레미스 VM은 VPC-A EC2를 `100.64.2.10`으로 봅니다. VPC-A EC2는 온프레미스 VM을 `100.64.1.10`으로 봅니다.
+
+1:1 NAT는 두 가지 일로 나뉩니다.
+
+- **주소 바꾸기**: Transit Gateway 연결(attachment)에서 **Enable NAT Gateway support**를 켜고 1:1 NAT 규칙(원래 대역 → NAT 대역)을 넣습니다. 이 실습에서는 DXGW 연결과 VPC-A 연결에 넣습니다. DXGW 연결은 Direct Connect gateway를 Transit Gateway에 붙인 Transit Gateway 연결입니다. Direct Connect gateway나 게이트웨이 연결(gateway association)이 주소를 바꾸는 것이 아닙니다.
+- **NAT 대역으로 가는 경로**: 바뀐 주소로 온 패킷을 어느 연결로 보낼지, Transit Gateway 라우팅 테이블에 경로가 있어야 합니다. 예를 들어 `100.64.2.10`으로 가는 패킷은 `100.64.2.0/24` → VPC-A 경로를 따라 VPC-A 연결로 갑니다. 이 실습에서는 **NAT system routes**가 켜져 있어, Transit Gateway가 이 경로를 **System** 유형으로 자동으로 만듭니다([2-3-6](lab2.md#lab2-6)).
+
+자세한 동작은 [4-2-1. 어떻게 동작하나](concepts.md#how)를 보세요.
+
+온프레미스 VM이 VPC-A EC2에 접속하면 주소가 이렇게 바뀝니다.
+
+1. 온프레미스 VM은 VPC-A EC2의 NAT 주소 `100.64.2.10`으로 보냅니다.
+2. DXGW 연결로 Transit Gateway에 들어올 때 출발지 `172.20.N.10`이 `100.64.1.10`으로 바뀝니다(SNAT).
+3. VPC-A 연결로 나갈 때 목적지 `100.64.2.10`이 실제 주소 `172.20.N.10`으로 되돌아갑니다(DNAT).
+4. 응답은 같은 규칙으로 반대로 바뀝니다. VPC-A 연결로 들어올 때 출발지가 `100.64.2.10`으로 바뀌고, DXGW 연결로 나갈 때 목적지가 `172.20.N.10`으로 되돌아갑니다.
+
+이 흐름은 [2-3-7. 통신해 보기](lab2.md#lab2-7)에서 직접 확인합니다.
+
+VPC-B와 Loopback1이 그대로인 이유는 서로 다릅니다.
+
+- **VPC-B**: VPC-B 연결에 규칙이 없어서 VPC-B 주소는 바뀌지 않습니다. 하지만 온프레미스 VM이 VPC-B로 보내는 패킷도 DXGW 연결로 들어올 때 출발지가 `100.64.1.10`으로 바뀝니다([3-1-1](extra-a.md#a1)).
+- **Loopback1**: `10.200.0.1`은 DXGW 연결 규칙의 원래 대역(`172.20.N.0/24`) 밖에 있어서 바뀌지 않습니다.
+
+![워크숍 구성도: 왼쪽의 Pod N 온프레미스 라우터(rtN)에서 전송 가상 인터페이스 2개가 AWS Direct Connect를 지나 Direct Connect gateway에 닿고, Direct Connect gateway가 오른쪽의 Transit Gateway에 연결된다. Transit Gateway에서 위로 VPC-A, 아래로 VPC-B(NAT 없음)가 연결된다. DXGW 연결과 VPC-A 연결에 1:1 NAT 규칙이 있고, Transit Gateway 라우팅 테이블에 NAT 대역의 system 경로가 있다](images/architecture.png)
+
+그림에서 DXGW 쪽과 VPC-A 쪽에 적힌 1:1 NAT 규칙은 둘 다 Transit Gateway 연결의 설정입니다. 라우팅 테이블의 system 경로는 위에서 말한 NAT 대역 경로입니다.
+
+그림의 태그는 누가 만드는지를 뜻합니다.
+
+- **콘솔에서 직접**: 실습하면서 AWS 콘솔에서 직접 만듭니다.
+- **CloudFormation**: 실습 스택이 미리 배포합니다(태그 붙은 VPC는 안의 리소스까지).
 
 ## 1-1-2. 무엇을 배우나요
 
 1. Direct Connect로 온프레미스를 Transit Gateway에 연결하는 방법
 2. 같은 대역을 쓰면 어떤 문제가 생기는지
-3. 콘솔에서 1:1 NAT를 설정하고 결과를 확인하는 방법
-4. 양쪽에서 상대 주소가 어떻게 보이는지
+3. 콘솔에서 1:1 NAT를 설정하고, NAT 주소로 ping이 되는지 확인하는 방법
+4. 양쪽 서버가 기록한 상대 주소로 주소가 바뀐 것을 확인하는 방법
 5. NAT 경로 설정과 관측 방법(추가 과제)
 
 ## 1-1-3. 진행 순서

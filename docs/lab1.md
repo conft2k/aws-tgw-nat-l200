@@ -2,17 +2,17 @@
 
 온프레미스 라우터(`rtN`)를 AWS의 Transit Gateway까지 연결합니다. 아직 NAT는 걸지 않습니다.
 
-아래 그림의 번호 순서로 만듭니다. ①(hosted connection 수락)은 실습 2-1에서 이미 했습니다.
+아래 그림의 번호 순서로 만듭니다. ①(hosted connection 수락)은 실습 2-1에서 이미 했습니다. 처음 보는 용어는 [1-3. 용어 풀이](glossary.md)를 보세요.
 
 ![Direct Connect 연결 구성: 온프레미스 라우터(rtN)의 서브인터페이스 2개가 hosted connection 2개와 전송 가상 인터페이스 2개를 거쳐 Direct Connect gateway와 Transit Gateway에 연결된다. 온프레미스 라우터는 172.20.N.0/24와 10.200.0.1/32를 광고하고, 허용된 접두사 100.64.2.0/24와 10.1.1.0/24를 받는다](images/diagrams/lab1-dx-build.png)
 
 | 번호 | 단계 | 내용 |
 |---|---|---|
 | ① | hosted connection 수락 | 파트너가 VLAN을 정해 만든 50 Mbps hosted connection 2개를 Direct Connect 콘솔에서 각각 수락합니다. |
-| ② | Direct Connect gateway 만들기 | Amazon 측 ASN은 65300입니다. 특정 리전에 속하지 않는 글로벌 리소스입니다. |
-| ③ | Transit Gateway와 게이트웨이 연결 | Transit Gateway(AS 65400)에 DXGW Transit Gateway 연결(attachment)이 생깁니다. 허용된 접두사 `100.64.2.0/24`, `10.1.1.0/24`가 그대로 온프레미스 라우터에 광고됩니다. |
-| ④ | 전송 가상 인터페이스 만들기 | hosted connection마다 하나씩, 그 VLAN으로 만들고 Direct Connect gateway에 붙입니다. BGP + BFD를 쓰고, 피어 IP(`169.254.x.x/29`)와 BGP 인증 키는 AWS가 만듭니다. |
-| ⑤ | 온프레미스 라우터 BGP 설정 | `GigabitEthernet1.<VLAN1>`, `GigabitEthernet2.<VLAN2>`에서 AS 65300과 피어링하고 `172.20.N.0/24`, `10.200.0.1/32`를 광고합니다. 두 VIF가 같은 경로를 받아 ECMP로 나눠 씁니다. |
+| ② | Direct Connect gateway(DXGW) 만들기 | 전송 가상 인터페이스와 Transit Gateway를 이어 주는 리소스입니다. 특정 리전에 속하지 않는 글로벌 리소스이고, Amazon 측 ASN은 65300입니다. |
+| ③ | Transit Gateway와 게이트웨이 연결 | Transit Gateway(AS 65400)에 DXGW 연결(Transit Gateway 연결)이 생깁니다. 허용된 접두사 `100.64.2.0/24`, `10.1.1.0/24`가 그대로 온프레미스 라우터에 광고됩니다. |
+| ④ | 전송 가상 인터페이스(transit VIF) 만들기 | hosted connection마다 하나씩, 그 VLAN으로 만들고 DXGW에 붙입니다. 피어 IP(`169.254.x.x/29`)와 BGP 인증 키는 AWS가 만듭니다. |
+| ⑤ | 온프레미스 라우터 BGP 설정 | `GigabitEthernet1.<VLAN1>`, `GigabitEthernet2.<VLAN2>`에서 AS 65300과 BGP로 연결하고 `172.20.N.0/24`, `10.200.0.1/32`를 광고합니다. 회선 끊김을 빨리 알아채도록 BFD를 함께 씁니다. 두 전송 가상 인터페이스로 받은 같은 경로는 둘에 나눠 보냅니다(ECMP). |
 
 시작하기 전에 확인합니다.
 
@@ -32,6 +32,13 @@ ASN은 BGP에서 쓰는 번호입니다. 이 워크숍은 온프레미스 라우
 
 게이트웨이 연결은 몇 분 걸리므로 일찍 시작해 둡니다.
 
+게이트웨이 연결의 허용된 접두사(**Allowed prefixes**)는 온프레미스 라우터(`rtN`)에 BGP로 **그대로 광고**할 대역입니다. 광고만 정할 뿐, NAT 규칙이나 Transit Gateway 경로를 만들지는 않습니다.
+
+- VPC-A의 실제 대역(`172.20.N.0/24`)은 넣지 않습니다. 온프레미스와 같은 대역이라 받아도 쓸 수 없기 때문입니다.
+- 대신 VPC-A가 NAT 뒤에 보일 대역 `100.64.2.0/24`를 넣습니다. 이 대역으로 가는 통신은 실습 2-3에서 NAT 규칙을 넣은 뒤에 확인합니다.
+
+아래 순서로 연결합니다.
+
 1. **Direct Connect gateways** 목록에서 방금 만든 게이트웨이의 ID를 누릅니다(목록에는 이름 대신 ID가 보입니다).
 2. **Gateway associations** 탭 → **Associate gateway**를 누릅니다.
 3. **Gateway**에서 스택이 만든 Transit Gateway(`tgwnat-tgw`)를 고릅니다.
@@ -43,8 +50,6 @@ ASN은 BGP에서 쓰는 번호입니다. 이 워크숍은 온프레미스 라우
     ```
 
 ![Associate gateway 화면: Gateway는 tgwnat-tgw, Allowed prefixes는 100.64.2.0/24와 10.1.1.0/24](images/console/lab1-assoc-02-form.png){ .shot }
-
-허용된 접두사는 온프레미스 라우터(`rtN`)에 **그대로 광고**됩니다. 그래서 VPC-A의 실제 대역(`172.20.N.0/24`)은 넣지 않습니다. 온프레미스와 같은 대역이라 받아도 쓸 수 없기 때문입니다. 대신 VPC-A가 NAT 뒤에 보일 대역 `100.64.2.0/24`를 넣습니다.
 
 **성공 확인**: 상태가 **associating**에서 약 3분 뒤 **associated**가 됩니다.
 
@@ -75,8 +80,18 @@ hosted connection 하나에는 전송 가상 인터페이스를 하나만 만들
 
 ## 2-2-4. BGP 값 확인 { #lab1-4 }
 
+온프레미스 라우터(`rtN`)가 전송 가상 인터페이스마다 AWS와 BGP 세션을 맺는 데 쓸 값을 확인합니다. 2-2-5에서 라우터 설정 생성기에 넣습니다.
+
+| 값 | 라우터 설정에서 쓰는 곳 | 생성기 칸(DX1 / DX2) |
+|---|---|---|
+| **Your router peer IP** | 온프레미스 라우터 서브인터페이스의 주소 | ⑧ / ⑬ |
+| **Amazon router peer IP** | BGP 이웃(AWS 쪽)의 주소 | ⑨ / ⑭ |
+| **BGP authentication key** | BGP 세션의 인증 키 | ⑩ / ⑮ |
+
+두 피어 IP는 전송 가상 인터페이스에서 온프레미스 라우터와 AWS 라우터가 쓰는 `169.254.x.x/29` 주소입니다. BGP와 BFD가 이 주소로 연결되고, Amazon router peer IP는 받은 경로의 **Next Hop**으로도 보입니다(2-2-6). 온프레미스 대역(`172.20.N.0/24`)이나 NAT 대역과는 관계가 없습니다.
+
 1. **Virtual interfaces**에서 `tgw-nat-vif1`의 ID를 누릅니다.
-2. **Peerings** 탭에서 세 값을 적습니다: **BGP authentication key**, **Your router peer IP**, **Amazon router peer IP**.
+2. **Peerings** 탭에서 위 세 값을 적습니다.
 3. `tgw-nat-vif2`도 같은 값을 적습니다.
 
 ![Peerings 탭(온프레미스 라우터 설정 뒤 화면): BGP ASN 65000, BGP 키(가림), Your router peer IP 169.254.96.54/29, Amazon router peer IP 169.254.96.49/29, BGP status Up](images/console/lab1-vif-05-peering.png){ .shot }
@@ -85,9 +100,13 @@ hosted connection 하나에는 전송 가상 인터페이스를 하나만 만들
 
 ## 2-2-5. 온프레미스 라우터 설정 { #lab1-5 }
 
-1. [라우터 설정 생성기](router-config.md)를 새 탭으로 엽니다.
-2. 페이지 위 그림에서 각 값이 어디에 쓰이는지 번호로 확인합니다. Pod 번호는 ①에 넣습니다. 온프레미스 대역(②)은 자동으로 채워집니다. Loopback1, ASN, 라우터 인터페이스는 워크숍 값이 미리 채워져 있습니다. ASN(④⑤)이 2-2-1, 2-2-3에서 넣은 값과 같은지만 봅니다. `tgw-nat-vif1` 값은 DX1(⑦–⑩), `tgw-nat-vif2` 값은 DX2(⑫–⑮) 칸에 넣습니다. 설정이 만들어지면 **복사**를 누릅니다.
-3. 온프레미스 라우터(`rtN`) 터미널에 붙여 넣습니다. `%`로 시작하는 오류가 없으면 됩니다.
+1. [라우터 설정 생성기](router-config.md)를 새 탭으로 엽니다. 페이지 위 그림의 번호는 입력 칸의 번호와 같습니다.
+2. Pod 번호(①)를 넣습니다. 온프레미스 대역(②)은 자동으로 채워집니다.
+3. 미리 채워진 값을 확인합니다. Loopback1(③)과 라우터 인터페이스(⑥⑪)는 그대로 둡니다. ASN(④⑤)은 2-2-1, 2-2-3에서 넣은 값과 같은지만 봅니다.
+4. DX1(⑦–⑩)에 `tgw-nat-vif1`의 값을 넣습니다. VLAN(⑦)은 전송 가상 인터페이스 상세의 **VLAN**이고, 나머지는 2-2-4에서 적은 값입니다.
+5. DX2(⑫–⑮)에 `tgw-nat-vif2`의 값을 같은 방법으로 넣습니다.
+6. 설정이 만들어지면 **복사**를 누릅니다.
+7. 온프레미스 라우터(`rtN`) 터미널에 붙여 넣습니다. `%`로 시작하는 오류가 없으면 됩니다.
 
 설정이 하는 일은 [라우터 설정 생성기](router-config.md#explain) 페이지에 설명해 두었습니다.
 
@@ -95,6 +114,8 @@ hosted connection 하나에는 전송 가상 인터페이스를 하나만 만들
     전송 가상 인터페이스의 **Actions** → **Sample configuration**에서도 라우터 설정 예시를 내려받을 수 있습니다. 다만 온프레미스 라우터의 종류가 목록에 없어 손볼 곳이 많습니다. 그래서 생성기를 씁니다.
 
 ## 2-2-6. 연결 확인 { #lab1-6 }
+
+라우터 설정을 붙여 넣은 뒤 BGP가 연결되고 두 전송 가상 인터페이스가 **Available**이 되기까지 몇 분 걸립니다. 사전 테스트(2026-11-03)에서는 약 3분 걸렸습니다.
 
 온프레미스 라우터(`rtN`) 터미널에서 실행합니다.
 
@@ -107,11 +128,18 @@ show ip bgp | begin Network
 
 **성공 확인**
 
-- 두 이웃의 마지막 칸이 숫자 `2`입니다. `Active`나 `Idle`이면 [문제 해결](troubleshooting.md)을 보세요.
+- 두 이웃의 마지막 칸(**State/PfxRcd**)이 숫자 `2`입니다. 이웃마다 경로를 2개 받았다는 뜻입니다. 몇 분 기다려도 `Active`나 `Idle`이면 [문제 해결](troubleshooting.md)을 보세요.
 - `10.1.1.0/24`와 `100.64.2.0/24`를 받았습니다. 2-2-2에서 넣은 허용된 접두사입니다.
+- 두 경로가 각각 **Next Hop** 2개(두 전송 가상 인터페이스의 Amazon router peer IP)로 보입니다. `*>`는 가장 좋은 경로, `*m`은 함께 쓰는 경로라는 표시입니다(ECMP).
 - 콘솔의 두 전송 가상 인터페이스가 **Available**, **BGP status**가 **Up**입니다.
 
-이제 VPC-B까지 통신해 봅니다. Loopback1은 온프레미스 라우터 안의 가상 인터페이스입니다. 주소 `10.200.0.1`은 NAT 규칙의 원래 대역에 없으므로 바뀌지 않습니다. 두 테스트 모두 보내는 주소를 Loopback1로 정합니다. `ping`은 `source`, `telnet`은 앞에 `/`를 붙인 `/source-interface`로 씁니다.
+이제 VPC-B까지 통신해 봅니다. 보내는 주소는 온프레미스 대역(`172.20.N.0/24`)이 아니라 Loopback1(`10.200.0.1`)로 정합니다. Loopback1은 온프레미스 라우터 안의 가상 인터페이스입니다.
+
+- `172.20.N.0/24`는 VPC-A와 겹칩니다. 그래서 VPC-B의 응답이 VPC-A로 갑니다. 이 문제는 실습 [2-3-2](lab2.md#lab2-2)에서 확인합니다.
+- `10.200.0.1`은 어디와도 겹치지 않습니다. 응답이 Transit Gateway 라우팅 테이블의 `10.200.0.1/32` 경로를 따라 DXGW 연결로 돌아오므로, NAT 없이 기본 연결을 확인할 수 있습니다.
+- 실습 2-3의 NAT 규칙(원래 대역 `172.20.N.0/24`)에도 들지 않으므로, NAT를 켠 뒤에도 이 주소는 바뀌지 않습니다.
+
+두 테스트 모두 보내는 주소를 Loopback1로 정합니다. `ping`은 `source`, `telnet`은 앞에 `/`를 붙인 `/source-interface`로 씁니다.
 
 명령은 한 줄씩 넣고, 앞 명령의 결과가 나온 뒤에 다음 명령을 넣습니다. 코드 상자 오른쪽 위의 복사 버튼을 누르면 그 줄이 복사됩니다.
 

@@ -7,7 +7,7 @@
 ```bash
 tools/diagrams/build.sh --check          # 스크립트 결과가 저장소의 draft와 같은지 확인(파일은 바꾸지 않음)
 tools/diagrams/build.sh extra-b          # 하나만 다시 만들기: draft → check_layout → SVG + PNG(가로 2배)
-tools/diagrams/build.sh                  # 10개 모두
+tools/diagrams/build.sh                  # 9개 모두
 ```
 
 - 필요한 것: `~/.claude/skills/skill-aws-arch-diagram`(다른 곳이면 `SKILL_DIR`로 지정), `uv`
@@ -26,10 +26,9 @@ tools/diagrams/build.sh                  # 10개 모두
 | `extra-a` | `extra_a.py` | `images/diagrams/extra-a-vpcb-and-original-route` | 3-1 |
 | `extra-b` | `extra_b.py` | `images/diagrams/extra-b-nat-system-routes` | 3-2 |
 | `extra-c` | `extra_c.py` | `images/diagrams/extra-c-observability` | 3-3 |
-| `observed` | `observed.py` | `images/diagrams/observed-loss-location` | 4-3 |
 | `router-config-map` | `router_config_map.py` | `images/diagrams/router-config-map` | 4-1 |
 
-`lib.py`(architecture, extra-a, extra-c)와 `dg.py`(extra-b, observed)는 공통 도우미입니다. 나머지는 스크립트 하나에 다 들어 있습니다. 각 스크립트는 실행할 때 900px 폭에서의 가장 작은 글자 크기 같은 값을 출력합니다.
+`lib.py`(architecture, extra-a, extra-c)와 `dg.py`(extra-b)는 공통 도우미입니다. 나머지는 스크립트 하나에 다 들어 있습니다. 각 스크립트는 실행할 때 900px 폭에서의 가장 작은 글자 크기 같은 값을 출력합니다.
 
 ## 그릴 때 지킨 규칙
 

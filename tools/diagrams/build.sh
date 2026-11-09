@@ -17,7 +17,6 @@ lab2-packet-walk|lab2_packet_walk.py|diagrams/lab2-packet-walk.draft.svg
 extra-a|extra_a.py|diagrams/extra-a-vpcb-and-original-route.draft.svg
 extra-b|extra_b.py|diagrams/extra-b-nat-system-routes.draft.svg
 extra-c|extra_c.py|diagrams/extra-c-observability.draft.svg
-observed|observed.py|diagrams/observed-loss-location.draft.svg
 router-config-map|router_config_map.py|diagrams/router-config-map.draft.svg"
 
 CHECK=0
