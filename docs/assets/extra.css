@@ -49,6 +49,7 @@
 .md-header--shadow { box-shadow: 0 1px 8px rgba(15, 23, 42, 0.06); }
 .md-header__title { font-weight: 700; letter-spacing: -0.01em; }
 .md-header__button.md-logo img { height: 1.6rem; }
+.md-search__form { background-color: transparent; border-radius: 0.5rem; }
 .md-search__input { border-radius: 0.5rem; background-color: var(--tgw-th); border: 1px solid var(--tgw-line); color: var(--md-default-fg-color); }
 .md-search__input:hover { background-color: var(--md-default-bg-color); }
 .md-search__input::placeholder, .md-search__input + .md-search__icon { color: var(--md-default-fg-color--light); }
