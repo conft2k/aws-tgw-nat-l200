@@ -11,7 +11,7 @@
 - [Transit Gateway quotas](https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-quotas.html) — Transit Gateway의 할당량
 
 !!! warning "NAT system routes를 끈 경우의 원래 대역 광고"
-    Routing behavior for 1:1 NAT와 How 1:1 NAT works는 NAT system routes를 끄면 원래 대역 대신 NAT 대역을 광고하라고 설명합니다. 하지만 사전 테스트(2026-11-03)에서는 원래 대역 광고를 멈추자 AWS → 온프레미스 방향 통신이 끊겼습니다. 실습에서는 원래 대역 광고를 계속 유지하세요. 자세한 내용은 [추가 과제 3-2-2](extra-b.md#b2)에 있습니다.
+    Routing behavior for 1:1 NAT와 How 1:1 NAT works는 NAT system routes를 끄면 원래 대역 대신 NAT 대역을 광고하라고 설명합니다. 하지만 사전 테스트에서는 원래 대역 광고를 멈추자 AWS → 온프레미스 방향 통신이 끊겼습니다. 실습에서는 원래 대역 광고를 계속 유지하세요. 자세한 내용은 [추가 과제 3-2-2](extra-b.md#b2)에 있습니다.
 
 ## 4-4-2. AWS Direct Connect
 
