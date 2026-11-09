@@ -29,6 +29,9 @@ TGW Flow Logs가 남기는 주소는 사전 테스트(2026-11-03)에서 관찰�
 ## 3-3-1. NAT 지표 { #c1 }
 
 1. **CloudWatch** 콘솔 → **Metrics** → **Classic metrics**를 엽니다. **Browse** 탭에서 **TransitGateway** → **Per-TransitGatewayAttachment Metrics**를 고릅니다.
+
+    목록에 다른 Transit Gateway의 줄이 보이면, 검색창에 내 Transit Gateway ID(**VPC** 콘솔 → **Transit gateways**)를 넣어 내 연결만 남깁니다. 지운 리소스의 지표도 마지막 데이터가 들어온 뒤 약 2주 동안 목록에 보입니다.
+
 2. 세 Transit Gateway 연결의 `PacketsInNAT`, `PacketsOutNAT`을 선택합니다.
 3. **Graphed metrics** 탭에서 **Statistic**을 **Sum**으로 바꿉니다.
 4. 그래프 종류를 **Number**로 바꿉니다. **Options** 탭의 **Value**에서 **Time range value**를 고릅니다(시간 범위 전체의 합을 보여 줍니다).
