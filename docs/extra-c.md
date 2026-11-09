@@ -29,7 +29,8 @@ ping -c 200 100.64.2.10
 
 **결과**
 
-- ping 200개를 보내면 DXGW 연결과 VPC-A 연결의 `PacketsInNAT`, `PacketsOutNAT`이 **모두 200**입니다. 두 연결 모두에서 주소가 바뀌었기 때문입니다.
+- 시간 범위 안에 이 ping 200개만 있으면 DXGW 연결과 VPC-A 연결의 `PacketsInNAT`, `PacketsOutNAT`이 **모두 200**입니다. 두 연결 모두에서 주소가 바뀌었기 때문입니다.
+- 시간 범위에 다른 실습 트래픽(확인용 ping, `curl` 등)이 들어가면 값이 200보다 커집니다. 사전 테스트에서는 확인용 ping 3개가 들어가 203이었습니다.
 - VPC-B 연결의 NAT 지표는 **0**입니다. 규칙이 없으니 바꾼 것이 없습니다.
 
 | 지표 | 뜻 |
@@ -68,6 +69,12 @@ parse @message "* * * * * * * * * * * * * * * * * * * *" as ver, vpc, eni, srcad
 | limit 10
 ```
 
+이 로그 그룹에는 VPC-A와 VPC-B의 기록이 함께 들어 있습니다. 결과는 `srcaddr`, `dstaddr`로 나눠 봅니다.
+
+- `srcaddr`나 `dstaddr`가 `10.1.1.x`이면 VPC-B의 기록입니다. 이 과제에서는 보지 않습니다.
+- `srcaddr`나 `dstaddr`가 `172.20.N.10`이고 반대쪽이 `100.64.1.10`이면 VPC-A EC2의 ENI입니다.
+- `srcaddr`나 `dstaddr`가 Transit Gateway 서브넷(`172.20.N.224/28`, `172.20.N.240/28`)의 주소이면 Transit Gateway의 ENI입니다.
+
 ![Logs Insights: VPC Flow Logs에서 VPC-A EC2의 ENI가 100.64.1.10과 172.20.89.10 사이 트래픽을 기록](images/console/extraC-03-vpc-flow-logs.png){ .shot }
 
 **결과**
@@ -75,5 +82,5 @@ parse @message "* * * * * * * * * * * * * * * * * * * *" as ver, vpc, eni, srcad
 - **TGW Flow Logs**는 온프레미스 VM(`vmN`)과 VPC-A EC2 사이 트래픽을 `172.20.N.10 → 172.20.N.10`처럼 **양 끝의 실제 주소**로 남깁니다. 출발지는 바뀌기 전, 목적지는 되돌린 뒤의 주소입니다. 이 내용은 사전 테스트(2026-11-03)에서 관찰한 것이고 문서에는 설명이 없습니다.
 - **VPC Flow Logs**는 VPC 안에서 보이는 주소를 남깁니다. 기록은 ENI(EC2나 Transit Gateway가 VPC 안에서 쓰는 네트워크 인터페이스)마다 남습니다.
     - VPC-A EC2의 ENI 기록에는 상대가 `100.64.1.10`으로 보입니다.
-    - Transit Gateway의 ENI 기록에서는 `srcaddr`가 그 ENI 자신의 주소입니다. 실제 상대 주소는 `pkt_srcaddr`, `pkt_dstaddr`에 있습니다.
+    - Transit Gateway의 ENI 기록에는 그 ENI 자신의 주소가 들어갑니다. 이 예에서는 `egress`이면 `srcaddr`에, `ingress`이면 `dstaddr`에 들어갑니다. 패킷의 실제 출발지와 목적지는 `pkt_srcaddr`, `pkt_dstaddr`로 봅니다.
 - 그래서 "상대에게 어떤 주소로 보였나"는 VPC Flow Logs나 패킷 캡처로 확인합니다.

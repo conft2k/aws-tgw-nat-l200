@@ -145,7 +145,7 @@ VPC 연결에서는 **NAT system routes**가 항상 켜져 있어 바꿀 수 없
 
 ## 2-3-6. 라우팅 테이블 다시 보기 { #lab2-6 }
 
-**Transit gateway route tables** → **Routes** 탭을 새로 고칩니다.
+**Transit gateway route tables** → [2-2-7](lab1.md#lab1-7)에서 연 라우팅 테이블 ID → **Routes** 탭을 엽니다.
 
 ![NAT 적용 후 라우팅 테이블: 100.64.1.0/24 System(Direct Connect Gateway), 100.64.2.0/24 System(VPC), 172.20.89.0/24 Propagated(Direct Connect Gateway)](images/console/lab2-tgw-rt-02-after-nat.png){ .shot }
 

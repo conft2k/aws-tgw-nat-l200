@@ -9,9 +9,9 @@ Description: >-
 
 Parameters:
   PodNumber:
-    Type: Number
-    MinValue: 1
-    MaxValue: 99
+    Type: String
+    AllowedPattern: "^([1-9]|[1-9][0-9])$"
+    ConstraintDescription: Enter a whole number from 1 to 99 with no leading zero.
     Description: Your pod number N from the participant page. VPC-A uses 172.20.N.0/24, the same CIDR as your on-premises pod LAN.
   OnPremNatCidr:
     Type: String
@@ -28,6 +28,8 @@ Parameters:
   VpcBCidr:
     Type: String
     Default: 10.1.1.0/24
+    AllowedValues: [10.1.1.0/24]
+    Description: Fixed at 10.1.1.0/24 for this workshop; the VPC-B subnets and test EC2 address are hard-coded to match it.
   TgwAsn:
     Type: Number
     Default: 65400

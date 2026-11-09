@@ -20,7 +20,7 @@
 
 **미리 채움**이라고 적힌 칸에는 워크숍 값이 들어 있습니다. 워크숍에서는 Pod 번호와 DX1·DX2의 VLAN, 피어 IP, BGP 키만 넣으면 됩니다. 온프레미스 대역은 Pod 번호를 넣으면 자동으로 채워집니다.
 
-DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 가져옵니다. 피어 IP는 `/29`를 붙인 채로 넣어도 됩니다.
+DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 가져옵니다. 피어 IP는 `/29`를 붙인 채로 넣어도 되고 빼고 넣어도 됩니다. `/29`가 아닌 길이(`/30` 등)는 받지 않습니다.
 
 <div class="gen-form">
   <fieldset class="gen-group gen-common">
@@ -51,7 +51,7 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
 
 ## 4-1-3. 만들어진 설정 { #output }
 
-줄 앞의 번호는 그 줄에 들어간 값입니다. 입력 칸을 누르면 그 값이 들어가는 줄이 강조됩니다. 번호는 복사되지 않습니다. 빈 줄은 읽기 쉽게 넣은 것으로, 붙여 넣어도 온프레미스 라우터(`rtN`)가 무시합니다.
+줄 앞의 번호는 그 줄에 들어간 값입니다. 입력 칸을 누르면 그 값이 들어가는 줄이 강조됩니다. 번호는 복사되지 않습니다. 빈 줄은 읽기 쉽게 넣은 것으로, 붙여 넣어도 온프레미스 라우터(`rtN`)가 무시합니다. 꼭 넣어야 하는 값이 비어 있거나 형식이 틀린 값이 있으면 **복사**를 눌러도 복사되지 않고, 고칠 값이 표시됩니다.
 
 <div class="gen-actions"><span id="g-msg" class="gen-msg" aria-live="polite"></span><button id="g-copy" class="md-button gen-copy" type="button">복사</button></div>
 
@@ -78,6 +78,7 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
   const maskInt = (len) => (len === 0 ? 0 : (0xffffffff << (32 - len)) >>> 0);
   const mask = (v, def) => toIp(maskInt(lenOf(v, def)));
   const netOf = (v, def) => toIp((toInt(v) & maskInt(lenOf(v, def))) >>> 0);
+  const isPeer = (v) => isIp(v) && lenOf(v, 29) === 29;
   const same29 = (a, b) => Math.floor(toInt(a) / 8) === Math.floor(toInt(b) / 8);
   const inRange = (v, lo, hi) => /^\d+$/.test(v) && +v >= lo && +v <= hi;
   const lanFromPod = (p) => (inRange(p, 1, 99) ? "172.20." + p + ".0/24" : "");
@@ -85,6 +86,7 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
   let focused = null;
   let text = "";
   let lanManual = false;
+  let blocked = "";
 
   function check(v) {
     const p = [];
@@ -99,9 +101,12 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
       if (f && /[\s.]/.test(f)) p.push(circ("if" + n) + " 인터페이스 이름만(.VLAN 없이)");
       else if (f && /^(gigabitethernet|gi)\s*4$/i.test(f)) p.push(circ("if" + n) + " 워크숍의 GigabitEthernet4는 실습 장비 연결용이라 쓰지 않음");
       if (v["vlan" + n] && !inRange(v["vlan" + n], 1, 4094)) p.push(circ("vlan" + n) + " VLAN은 1–4094");
-      for (const k of ["my" + n, "aws" + n]) if (v[k] && !isIp(v[k])) p.push(circ(k) + " IP 형식");
+      for (const k of ["my" + n, "aws" + n]) {
+        if (v[k] && !isIp(v[k])) p.push(circ(k) + " IP 형식");
+        else if (v[k] && !isPeer(v[k])) p.push(circ(k) + " 피어 IP의 길이는 /29만(생략 가능)");
+      }
       const a = v["my" + n], b = v["aws" + n];
-      if (a && b && isIp(a) && isIp(b)) {
+      if (a && b && isPeer(a) && isPeer(b)) {
         if (addr(a) === addr(b)) p.push(circ("my" + n) + circ("aws" + n) + " 두 IP가 같음");
         else if (!same29(a, b)) p.push(circ("my" + n) + circ("aws" + n) + " 같은 인터페이스의 값인지 확인(/29가 다름)");
       }
@@ -117,8 +122,10 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
     const problems = check(v);
     const msg = el("msg");
     msg.classList.toggle("gen-warn", problems.length > 0);
-    if (problems.length) msg.textContent = "확인하세요: " + problems.join(" · ");
-    else if (missing.length) msg.textContent = "아직 비어 있는 값: " + missing.map(circ).join(" ");
+    if (problems.length) blocked = "확인하세요: " + problems.join(" · ");
+    else if (missing.length) blocked = "아직 비어 있는 값: " + missing.map(circ).join(" ");
+    else blocked = "";
+    if (blocked) msg.textContent = blocked;
     else {
       const changed = ids.filter((k) => el(k).dataset.default !== undefined && v[k] !== el(k).dataset.default);
       if (lanManual && v.lan !== lanFromPod(v.pod)) changed.unshift("lan");
@@ -201,6 +208,12 @@ DX1 값은 `tgw-nat-vif1`, DX2 값은 `tgw-nat-vif2`의 **Peerings** 탭에서 �
     el(k).addEventListener("blur", () => { focused = null; render(); });
   });
   el("copy").addEventListener("click", async () => {
+    render();
+    if (blocked) {
+      el("msg").classList.add("gen-warn");
+      el("msg").textContent = "복사하지 않았습니다. " + blocked;
+      return;
+    }
     try {
       await navigator.clipboard.writeText(text);
       el("msg").classList.remove("gen-warn");

@@ -12,7 +12,7 @@
 | 온프레미스 대역 | — | 온프레미스 VM이 있는 네트워크 대역. 이 워크숍에서는 `172.20.N.0/24`이고, AWS에 BGP로 광고합니다 |
 | hosted connection(호스팅 연결) | Hosted connection | Direct Connect 파트너가 만들어 여러분 계정에 넘겨 준 회선. 수락해야 쓸 수 있습니다. VLAN 번호는 파트너가 정합니다 |
 | VLAN | VLAN | 한 회선에서 여러 통로를 나누는 번호. hosted connection마다 정해져 있습니다 |
-| ASN | ASN | BGP에서 라우터를 구분하는 번호. 이 워크숍은 온프레미스 라우터 65000, Direct Connect gateway 65300, Transit Gateway 65400을 씁니다 |
+| ASN | ASN | BGP에서 자율 시스템(AS, 한 조직이 관리하는 네트워크)을 구분하는 번호. 이 워크숍은 온프레미스 라우터 65000, Direct Connect gateway 65300, Transit Gateway 65400을 씁니다 |
 | 전송 가상 인터페이스 | Transit virtual interface (transit VIF) | hosted connection 위에 만드는 논리 인터페이스. 이 위에서 온프레미스 라우터와 AWS가 BGP로 경로를 주고받습니다 |
 | Direct Connect 게이트웨이(DXGW) | Direct Connect gateway | 전송 가상 인터페이스와 Transit Gateway를 이어 주는 AWS 리소스 |
 | 게이트웨이 연결 | Gateway association | DXGW와 Transit Gateway를 잇는 설정. 온프레미스에 광고할 대역(허용된 접두사)을 여기서 정합니다 |
@@ -25,7 +25,7 @@
 
 | 용어 | 콘솔 이름 | 뜻 |
 |---|---|---|
-| 1:1 NAT | 1:1 NAT | 대역을 다른 대역으로 한 주소씩 짝지어 바꾸는 기능. `172.20.N.10`은 항상 `100.64.1.10`처럼 같은 자리의 주소로 바뀝니다 |
+| 1:1 NAT | 1:1 NAT | 대역을 다른 대역으로 한 주소씩 짝지어 바꾸는 기능. 호스트 비트는 그대로입니다. 온프레미스의 `172.20.N.10`은 `100.64.1.10`으로, VPC-A의 `172.20.N.10`은 `100.64.2.10`으로 바뀝니다 |
 | 원래 대역, 원래 주소 | Source CIDR | 바뀌기 전의 실제 주소. 이 워크숍에서는 `172.20.N.0/24` |
 | NAT 대역, NAT 주소 | NAT CIDR | 바뀐 뒤의 주소. 이 워크숍에서는 `100.64.1.0/24`(온프레미스), `100.64.2.0/24`(VPC-A) |
 | 출발지 주소 바꾸기(SNAT) | — | 규칙이 있는 연결에서 Transit Gateway로 **들어오는** 패킷 가운데, 보낸 쪽 주소가 원래 대역에 있는 것만 NAT 주소로 바꾸는 것 |
