@@ -74,6 +74,7 @@
 }
 .md-typeset strong { font-weight: 700; }
 .md-typeset a { text-underline-offset: 0.2em; }
+.md-typeset a:not(.headerlink):not(.md-button) { font-weight: 700; }   /* links in page text stand out */
 .md-typeset a:hover { text-decoration: underline; }
 
 /* code */
