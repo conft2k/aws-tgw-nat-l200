@@ -1,11 +1,11 @@
 # 3-3. 지표와 로그로 확인하기
 
-1:1 NAT가 정말 주소를 바꿨는지 CloudWatch 지표와 Flow Logs로 확인합니다. [2-3-7](lab2.md#lab2-7)에서 통신이 되는 것을 확인한 뒤 진행합니다.
+1:1 NAT(Network Address Translation)가 정말 주소를 바꿨는지 CloudWatch 지표와 Flow Logs로 확인합니다. [2-3-7](lab2.md#lab2-7)에서 통신이 되는 것을 확인한 뒤 진행합니다.
 
 - **지표**: 연결마다 주소를 바꾼 패킷 수를 셉니다.
 - **Flow Logs**: 어떤 주소 사이에 트래픽이 오갔는지 기록합니다.
 
-지표와 로그는 몇 분 늦게 나타납니다. 그래서 먼저 온프레미스 VM(`vmN`) 터미널에서 트래픽을 만듭니다. `100.64.2.10`은 VPC-A EC2의 NAT 주소입니다([용어집](glossary.md)).
+지표와 로그는 몇 분 늦게 나타납니다. 그래서 먼저 온프레미스 VM(Virtual Machine, `vmN`) 터미널에서 트래픽을 만듭니다. `100.64.2.10`은 VPC-A EC2의 NAT 주소입니다([용어집](glossary.md)).
 
 ```bash
 ping -c 200 100.64.2.10
@@ -18,7 +18,7 @@ ping은 1초에 하나씩 보내므로 3분 20초쯤 걸립니다. 끝에 `200 p
 | 보는 곳 | 내용 |
 |---|---|
 | **CloudWatch 지표** | NAT 규칙이 실제로 번역한 연결에서만 늘어납니다(VPC-B 연결은 0). |
-| **TGW Flow Logs** | 양 끝의 실제 주소를 남깁니다: `172.20.N.10` → `172.20.N.10`(사전 테스트에서 관찰). |
+| **TGW(Transit Gateway) Flow Logs** | 양 끝의 실제 주소를 남깁니다: `172.20.N.10` → `172.20.N.10`(사전 테스트에서 관찰). |
 | **VPC Flow Logs** | VPC 안에서 보이는 주소를 남깁니다: `pkt-srcaddr` `100.64.1.10`. |
 | **확인 방법** | 상대에게 보인 주소는 VPC Flow Logs나 패킷 캡처로 봅니다. |
 
@@ -43,13 +43,13 @@ TGW Flow Logs에는 온프레미스 VM과 VPC-A EC2 사이 트래픽이 양 끝�
 
 | 지표 | 뜻 |
 |---|---|
-| `PacketsInNAT` | 그 연결로 Transit Gateway에 **들어올 때** 출발지 주소를 NAT 대역으로 바꾼(SNAT) 패킷 수 |
-| `PacketsOutNAT` | 그 연결로 Transit Gateway에서 **나갈 때** 목적지 주소를 원래 대역으로 되돌린(DNAT) 패킷 수 |
+| `PacketsInNAT` | 그 연결로 Transit Gateway에 **들어올 때** 출발지 주소를 NAT 대역으로 바꾼(SNAT, Source Network Address Translation) 패킷 수 |
+| `PacketsOutNAT` | 그 연결로 Transit Gateway에서 **나갈 때** 목적지 주소를 원래 대역으로 되돌린(DNAT, Destination Network Address Translation) 패킷 수 |
 | `PacketDropCountBlackhole` | Blackhole 경로 때문에 버린 패킷 수([3-2-1](extra-b.md#b1)에서 늘어남) |
 
 ping 하나는 네 지표에 하나씩 집계됩니다([4-2-1](concepts.md#how)).
 
-- **요청**: DXGW 연결 `PacketsInNAT`(출발지 `172.20.N.10` → `100.64.1.10`) → VPC-A 연결 `PacketsOutNAT`(목적지 `100.64.2.10` → `172.20.N.10`)
+- **요청**: DXGW(Direct Connect gateway) 연결 `PacketsInNAT`(출발지 `172.20.N.10` → `100.64.1.10`) → VPC-A 연결 `PacketsOutNAT`(목적지 `100.64.2.10` → `172.20.N.10`)
 - **응답**: VPC-A 연결 `PacketsInNAT`(출발지 `172.20.N.10` → `100.64.2.10`) → DXGW 연결 `PacketsOutNAT`(목적지 `100.64.1.10` → `172.20.N.10`)
 
 **결과**
@@ -101,7 +101,7 @@ parse @message "* * * * * * * * * * * * * * * * * * * *" as ver, vpc, eni, srcad
 이 로그 그룹에는 VPC-A와 VPC-B의 기록이 함께 들어 있습니다. 결과는 `srcaddr`, `dstaddr`로 나눠 봅니다.
 
 - `srcaddr`나 `dstaddr`가 `10.1.1.x`이면 VPC-B의 기록입니다. 이 과제에서는 보지 않습니다.
-- `srcaddr`나 `dstaddr`가 `172.20.N.10`이고 반대쪽이 `100.64.1.10`이면 VPC-A EC2의 ENI입니다.
+- `srcaddr`나 `dstaddr`가 `172.20.N.10`이고 반대쪽이 `100.64.1.10`이면 VPC-A EC2의 ENI(Elastic Network Interface)입니다.
 - `srcaddr`나 `dstaddr`가 Transit Gateway 서브넷(`172.20.N.224/28`, `172.20.N.240/28`)의 주소이면 Transit Gateway의 ENI입니다.
 
 VPC Flow Logs의 `direction`은 기록한 ENI를 기준으로 합니다. 지표의 들어올 때·나갈 때(Transit Gateway 기준)와 다릅니다.

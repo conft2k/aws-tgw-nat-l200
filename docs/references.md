@@ -2,7 +2,7 @@
 
 ## 4-4-1. AWS Transit Gateway 1:1 NAT
 
-- [1:1 NAT in AWS Transit Gateway](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html) — 1:1 NAT 개요
+- [1:1 NAT in AWS Transit Gateway](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html) — 1:1 NAT(Network Address Translation) 개요
 - [How 1:1 NAT works](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat-how-it-works.html) — 출발지·목적지 주소가 바뀌는 방식
 - [Routing behavior for 1:1 NAT](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat-routing.html) — **NAT system routes**와 NAT 대역으로 가는 경로가 만들어지는 방식
 - [Configure 1:1 NAT](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat-configure.html) — Transit Gateway 연결에서 1:1 NAT를 켜고 규칙을 넣는 방법
@@ -18,8 +18,8 @@
 용어의 뜻은 [1-3. 용어 풀이](glossary.md)에 있습니다.
 
 - [Hosted connections](https://docs.aws.amazon.com/directconnect/latest/UserGuide/hosted_connection.html) — hosted connection(호스팅 연결). Direct Connect 파트너가 만들어 여러분 계정에 넘겨 준 회선
-- [Transit virtual interfaces](https://docs.aws.amazon.com/directconnect/latest/UserGuide/WorkingWithVirtualInterfaces.html) — 전송 가상 인터페이스(transit VIF). hosted connection 위에서 온프레미스 라우터와 AWS가 BGP로 경로를 주고받는 인터페이스
-- [Direct Connect gateways and transit gateway associations](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-transit-gateways.html) — Direct Connect 게이트웨이(DXGW)와 Transit Gateway를 잇는 게이트웨이 연결
+- [Transit virtual interfaces](https://docs.aws.amazon.com/directconnect/latest/UserGuide/WorkingWithVirtualInterfaces.html) — 전송 가상 인터페이스(transit VIF, Virtual Interface). hosted connection 위에서 온프레미스 라우터와 AWS가 BGP(Border Gateway Protocol)로 경로를 주고받는 인터페이스
+- [Direct Connect gateways and transit gateway associations](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-transit-gateways.html) — Direct Connect 게이트웨이(DXGW, Direct Connect gateway)와 Transit Gateway를 잇는 게이트웨이 연결
 - [Allowed prefixes](https://docs.aws.amazon.com/directconnect/latest/UserGuide/allowed-to-prefixes.html) — 허용된 접두사. 게이트웨이 연결에 적은 대역으로, 적은 그대로 온프레미스 라우터에 광고됩니다
 
 ## 4-4-3. 그 밖에

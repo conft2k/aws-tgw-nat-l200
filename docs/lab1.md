@@ -1,6 +1,6 @@
 # 2-2. Direct Connect 연결 (30분)
 
-온프레미스 라우터(`rtN`)를 AWS의 Transit Gateway까지 연결합니다. 아직 NAT는 걸지 않습니다.
+온프레미스 라우터(`rtN`)를 AWS의 Transit Gateway까지 연결합니다. 아직 NAT(Network Address Translation)는 걸지 않습니다.
 
 아래 그림의 번호 순서로 만듭니다. ①(hosted connection 수락)은 실습 2-1에서 이미 했습니다. 처음 보는 용어는 [1-3. 용어 풀이](glossary.md)를 보세요.
 
@@ -8,11 +8,11 @@
 
 | 번호 | 단계 | 내용 |
 |---|---|---|
-| ① | hosted connection 수락 | 파트너가 VLAN을 정해 만든 50 Mbps hosted connection 2개를 Direct Connect 콘솔에서 각각 수락합니다. |
-| ② | Direct Connect gateway(DXGW) 만들기 | 전송 가상 인터페이스와 Transit Gateway를 이어 주는 리소스입니다. 특정 리전에 속하지 않는 글로벌 리소스이고, Amazon 측 ASN은 65300입니다. |
-| ③ | Transit Gateway와 게이트웨이 연결 | Transit Gateway(AS 65400)에 DXGW 연결(Transit Gateway 연결)이 생깁니다. 허용된 접두사 `100.64.2.0/24`, `10.1.1.0/24`가 그대로 온프레미스 라우터에 광고됩니다. |
-| ④ | 전송 가상 인터페이스(transit VIF) 만들기 | hosted connection마다 하나씩, 그 VLAN으로 만들고 DXGW에 붙입니다. 피어 IP(`169.254.x.x/29`)와 BGP 인증 키는 AWS가 만듭니다. |
-| ⑤ | 온프레미스 라우터 BGP 설정 | `GigabitEthernet1.<VLAN1>`, `GigabitEthernet2.<VLAN2>`에서 AS 65300과 BGP로 연결하고 `172.20.N.0/24`, `10.200.0.1/32`를 광고합니다. 회선 끊김을 빨리 알아채도록 BFD를 함께 씁니다. 두 전송 가상 인터페이스로 받은 같은 경로는 둘에 나눠 보냅니다(ECMP). |
+| ① | hosted connection 수락 | 파트너가 VLAN(Virtual LAN)을 정해 만든 50 Mbps hosted connection 2개를 Direct Connect 콘솔에서 각각 수락합니다. |
+| ② | Direct Connect gateway(DXGW) 만들기 | 전송 가상 인터페이스와 Transit Gateway를 이어 주는 리소스입니다. 특정 리전에 속하지 않는 글로벌 리소스이고, Amazon 측 ASN(Autonomous System Number)은 65300입니다. |
+| ③ | Transit Gateway와 게이트웨이 연결 | Transit Gateway(AS 65400, AS는 Autonomous System)에 DXGW 연결(Transit Gateway 연결)이 생깁니다. 허용된 접두사 `100.64.2.0/24`, `10.1.1.0/24`가 그대로 온프레미스 라우터에 광고됩니다. |
+| ④ | 전송 가상 인터페이스(transit VIF, Virtual Interface) 만들기 | hosted connection마다 하나씩, 그 VLAN으로 만들고 DXGW에 붙입니다. 피어 IP(`169.254.x.x/29`)와 BGP(Border Gateway Protocol) 인증 키는 AWS가 만듭니다. |
+| ⑤ | 온프레미스 라우터 BGP 설정 | `GigabitEthernet1.<VLAN1>`, `GigabitEthernet2.<VLAN2>`에서 AS 65300과 BGP로 연결하고 `172.20.N.0/24`, `10.200.0.1/32`를 광고합니다. 회선 끊김을 빨리 알아채도록 BFD(Bidirectional Forwarding Detection)를 함께 씁니다. 두 전송 가상 인터페이스로 받은 같은 경로는 둘에 나눠 보냅니다(ECMP, Equal-Cost Multi-Path). |
 
 시작하기 전에 확인합니다.
 

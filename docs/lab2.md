@@ -1,6 +1,6 @@
 # 2-3. 1:1 NAT 적용 (30분)
 
-먼저 같은 대역 때문에 생기는 문제를 눈으로 확인합니다. 그다음 1:1 NAT를 적용해 해결합니다.
+먼저 같은 대역 때문에 생기는 문제를 눈으로 확인합니다. 그다음 1:1 NAT(Network Address Translation)를 적용해 해결합니다.
 
 !!! tip "콘솔 탭을 두 개 여세요"
     VPC-A EC2 터미널은 지금 탭을 터미널 화면으로 바꿉니다. VPC 콘솔을 다른 탭에 따로 열어 두면 오가기 편합니다.
@@ -19,13 +19,13 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
 
 ## 2-3-2. 문제 확인: 응답이 엉뚱한 곳으로 갑니다 { #lab2-2 }
 
-온프레미스 VM(`vmN`)에서 VPC-B로 ping을 보내면 무슨 일이 생기는지 봅니다.
+온프레미스 VM(Virtual Machine, `vmN`)에서 VPC-B로 ping을 보내면 무슨 일이 생기는지 봅니다.
 
 ![NAT 적용 전 흐름: 온프레미스 VM이 VPC-B로 보낸 요청은 도착하지만, VPC-B의 응답은 라우팅 테이블의 172.20.N.0/24 → VPC-A 경로를 따라 VPC-A로 간다](images/diagrams/lab2-overlap-problem.png)
 
 | 번호 | 흐름 | 내용 |
 |---|---|---|
-| ① | 온프레미스 VM → VPC-B EC2 (요청) | 온프레미스 VM(`172.20.N.10`)이 `10.1.1.10`으로 ping을 보냅니다. Direct Connect를 거쳐 TGW 경로 `10.1.1.0/24` → VPC-B로 가고, VPC-B EC2가 요청을 받아 응답합니다. |
+| ① | 온프레미스 VM → VPC-B EC2 (요청) | 온프레미스 VM(`172.20.N.10`)이 `10.1.1.10`으로 ping을 보냅니다. Direct Connect를 거쳐 TGW(Transit Gateway) 경로 `10.1.1.0/24` → VPC-B로 가고, VPC-B EC2가 요청을 받아 응답합니다. |
 | ② | VPC-B EC2 → VPC-A (응답) | `172.20.N.10`으로 가는 응답이 `172.20.N.0/24` → VPC-A 경로를 따라 VPC-A로 갑니다. VPC-A EC2의 tcpdump에는 응답이 보이지만, 온프레미스 VM은 받지 못합니다(100% packet loss). |
 
 1. VPC-A EC2 터미널에서 ping 패킷을 지켜봅니다.
@@ -54,7 +54,7 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
 
 규칙은 Transit Gateway 연결마다 둡니다. 규칙 하나가 양쪽 방향을 모두 처리합니다.
 
-규칙에는 대역 두 개를 넣습니다. **Source CIDR**은 바꾸기 전의 실제 대역(원래 대역)입니다. **NAT CIDR**은 바뀐 뒤 상대에게 보이는 대역(NAT 대역)입니다([용어 풀이](glossary.md)).
+규칙에는 대역 두 개를 넣습니다. **Source CIDR**은 바꾸기 전의 실제 대역(원래 대역)입니다. **NAT CIDR**은 바뀐 뒤 상대에게 보이는 대역(NAT 대역)입니다([용어 풀이](glossary.md)). CIDR(Classless Inter-Domain Routing)는 `172.20.N.0/24`처럼 대역을 적는 방식입니다.
 
 ![1:1 NAT 규칙은 Transit Gateway의 DXGW 연결과 VPC-A 연결에 각각 있다. 그 연결로 Transit Gateway에 들어오는 패킷은 출발지 172.20.N.0/24를 NAT 대역(DXGW 연결 100.64.1.0/24, VPC-A 연결 100.64.2.0/24)으로 바꾸고(SNAT), 그 연결로 나가는 패킷은 목적지 NAT 대역을 172.20.N.0/24로 되돌린다(DNAT). VPC-B 연결에는 규칙이 없다](images/diagrams/concept-snat-dnat.png)
 
@@ -96,14 +96,14 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
     3. 패킷이 Transit Gateway에 오면, Transit Gateway는 라우팅 테이블에서 `100.64.1.10`으로 가는 길을 찾습니다.
     4. `100.64.1.0/24`는 NAT 규칙에서 새로 정한 대역입니다. 온프레미스 라우터(`rtN`)는 이 대역을 광고하지 않습니다. 경로가 없으면 Transit Gateway는 패킷을 어디로 보낼지 몰라 버립니다.
 
-    그래서 "`100.64.1.0/24`는 DXGW 연결(온프레미스 쪽)로 보내라"는 경로가 있어야 합니다.
+    그래서 "`100.64.1.0/24`는 DXGW(Direct Connect gateway) 연결(온프레미스 쪽)로 보내라"는 경로가 있어야 합니다.
 
     **NAT system routes는 이 경로를 누가 만들지 정합니다.** 주소를 바꾸는 일과는 상관없습니다. 주소 변환은 **Enable NAT Gateway support**와 규칙이 정합니다. 공식 문서와 API에서는 이 설정을 NAT system route support(`NatSystemRouteSupport`)라고 부릅니다.
 
     | 설정 | NAT 대역 경로를 만드는 쪽 | 라우팅 테이블의 유형 |
     |---|---|---|
     | 켬 (기본값, 이 실습) | Transit Gateway가 자동으로 만듦 | **System** |
-    | 끔 | 온프레미스 라우터가 BGP로 광고하거나, 정적 경로를 직접 추가 | **Propagated**(정적 경로면 **Static**) |
+    | 끔 | 온프레미스 라우터가 BGP(Border Gateway Protocol)로 광고하거나, 정적 경로를 직접 추가 | **Propagated**(정적 경로면 **Static**) |
 
     켜 두었을 때 알아 둘 점이 있습니다.
 
@@ -168,8 +168,8 @@ VPC 연결에서는 **NAT system routes**가 항상 켜져 있어 바꿀 수 없
 | 번호 | 지점 | 내용 |
 |---|---|---|
 | 1 | 온프레미스 VM이 보냄 | 온프레미스 VM이 VPC-A EC2의 NAT 주소 `100.64.2.10`으로 보냅니다. 온프레미스 라우터는 [2-2-2](lab1.md#lab1-2)의 허용된 접두사(Allowed prefixes)로 받은 `100.64.2.0/24` 경로를 따라 보냅니다. |
-| 2 | DXGW 연결 · 들어올 때 SNAT | 출발지 `172.20.N.10`이 Source CIDR `172.20.N.0/24` 안이므로 NAT 대역의 `100.64.1.10`으로 바뀝니다. 경로: `100.64.2.0/24` → VPC-A (system). |
-| 3 | VPC-A 연결 · 나갈 때 DNAT | 목적지 `100.64.2.10`이 NAT 대역 `100.64.2.0/24` 안이므로 원래 주소 `172.20.N.10`으로 되돌립니다. VPC-A EC2는 온프레미스 VM을 `100.64.1.10`으로 봅니다. |
+| 2 | DXGW 연결 · 들어올 때 SNAT(Source Network Address Translation) | 출발지 `172.20.N.10`이 Source CIDR `172.20.N.0/24` 안이므로 NAT 대역의 `100.64.1.10`으로 바뀝니다. 경로: `100.64.2.0/24` → VPC-A (system). |
+| 3 | VPC-A 연결 · 나갈 때 DNAT(Destination Network Address Translation) | 목적지 `100.64.2.10`이 NAT 대역 `100.64.2.0/24` 안이므로 원래 주소 `172.20.N.10`으로 되돌립니다. VPC-A EC2는 온프레미스 VM을 `100.64.1.10`으로 봅니다. |
 | 4 | VPC-A EC2가 응답 | VPC-A EC2가 `100.64.1.10`으로 응답합니다. 스택이 VPC 라우팅 테이블에 `100.64.1.0/24` → Transit Gateway 경로를 넣어 두었습니다. |
 | 5 | VPC-A 연결 · 들어올 때 SNAT | 출발지 `172.20.N.10`이 NAT 대역의 `100.64.2.10`으로 바뀝니다. 경로: `100.64.1.0/24` → DXGW (system). |
 | 6 | DXGW 연결 · 나갈 때 DNAT | 목적지 `100.64.1.10`을 원래 주소 `172.20.N.10`으로 되돌려 온프레미스 VM에 전달합니다. 온프레미스 VM은 VPC-A EC2를 `100.64.2.10`으로 봅니다. |
@@ -216,7 +216,7 @@ curl --local-port 40000 http://100.64.2.10:8080/
 백그라운드로 실행한 온프레미스 VM의 웹 서버는 `kill %1`로 멈춥니다.
 
 ??? note "(선택) UDP로도 확인하기"
-    온프레미스 VM(`vmN`) 터미널에서 VPC-A EC2의 UDP 9000번으로 보냅니다.
+    온프레미스 VM(`vmN`) 터미널에서 VPC-A EC2의 UDP(User Datagram Protocol) 9000번으로 보냅니다.
 
     ```bash
     (echo hello; sleep 1) | nc -u -w 2 100.64.2.10 9000; echo
@@ -231,7 +231,7 @@ curl --local-port 40000 http://100.64.2.10:8080/
     vpc-a-ec2 saw 100.64.1.10:53541 hello
     ```
 
-    VPC-A EC2는 온프레미스 VM을 UDP에서도 `100.64.1.10`으로 봅니다. TCP(`curl`)와 같습니다.
+    VPC-A EC2는 온프레미스 VM을 UDP에서도 `100.64.1.10`으로 봅니다. TCP(Transmission Control Protocol, `curl`)와 같습니다.
 
 ## 2-3-8. 정리 { #lab2-summary }
 

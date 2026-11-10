@@ -12,7 +12,7 @@
 
 ## 3-4-1. 1:1 NAT 끄기 (약 1분) { #d1 }
 
-두 Transit Gateway 연결의 주소 변환을 멈춥니다. **Enable NAT Gateway support**를 해제하면 저장된 규칙은 **Deactivated**(비활성)가 되어 적용되지 않습니다. 규칙은 지우지 않아도 됩니다. 화면에 남는 **NAT system routes**는 NAT 대역 경로를 자동으로 만들지 정하는 별도 설정이므로 그대로 둡니다([1-3 용어 풀이](glossary.md)).
+두 Transit Gateway 연결의 주소 변환을 멈춥니다. **Enable NAT Gateway support**를 해제하면 저장된 규칙은 **Deactivated**(비활성)가 되어 적용되지 않습니다. 규칙은 지우지 않아도 됩니다. 화면에 남는 **NAT system routes**는 NAT(Network Address Translation) 대역 경로를 자동으로 만들지 정하는 별도 설정이므로 그대로 둡니다([1-3 용어 풀이](glossary.md)).
 
 1. **VPC** 콘솔 → **Transit gateway attachments**에서 **Resource type**이 **Direct Connect Gateway**인 연결(DXGW 연결)의 ID를 누릅니다.
 2. **1:1 NAT** 탭에서 **Manage 1:1 NAT**를 누르고, **Enable NAT Gateway support**를 해제한 뒤 **Save changes**를 누릅니다.
@@ -56,6 +56,6 @@
 
 ## 3-4-6. 마무리 { #d6 }
 
-- 온프레미스 라우터(`rtN`)와 온프레미스 VM(`vmN`)에 추가한 설정은 그대로 두어도 됩니다. 운영자가 Pod를 처음 상태로 되돌립니다.
+- 온프레미스 라우터(`rtN`)와 온프레미스 VM(Virtual Machine, `vmN`)에 추가한 설정은 그대로 두어도 됩니다. 운영자가 Pod를 처음 상태로 되돌립니다.
 - 두 인터페이스의 **Deleted**, DXGW 삭제, 스택의 **DELETE_COMPLETE**를 모두 확인하면 정리가 끝납니다.
 - **Connections**의 hosted connection 2개는 지우지 않고 **Available**로 남겨 둡니다. 이 연결의 포트 요금은 운영자가 회수할 때까지 발생합니다([사전 준비](prerequisites.md)).

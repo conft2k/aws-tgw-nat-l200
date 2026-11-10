@@ -7,13 +7,13 @@
 | 항목 | 내용 |
 |---|---|
 | AWS 계정 | 실습용 계정 1개와 콘솔 로그인 정보 |
-| 온프레미스 Pod | 온프레미스 라우터(`rtN`, Cisco)와 온프레미스 VM(`vmN`, Linux). 온프레미스 대역은 `172.20.N.0/24` |
+| 온프레미스 Pod | 온프레미스 라우터(`rtN`, Cisco)와 온프레미스 VM(Virtual Machine, `vmN`, Linux). 온프레미스 대역은 `172.20.N.0/24` |
 | [hosted connection](glossary.md#1-3-1) 2개 | Direct Connect 파트너가 만들어 여러분 계정에 넘겨 준 회선입니다. 처음에는 **Ordering**(수락 대기) 상태입니다 |
 | 실습 장비 페이지 | 내 Pod 정보를 보고, 온프레미스 라우터와 온프레미스 VM의 터미널을 여는 페이지(링크는 운영자가 드립니다) |
 
 hosted connection 2개는 [실습 2-1](lab0.md#lab0-2)에서 수락합니다. 그다음 [실습 2-2](lab1.md)에서 연결마다 전송 가상 인터페이스를 하나씩 만듭니다.
 
-실습 장비 페이지는 아래처럼 보입니다. hosted connection 2개(DX1, DX2)와 각각의 VLAN, 내 온프레미스 라우터와 온프레미스 VM이 보입니다.
+실습 장비 페이지는 아래처럼 보입니다. hosted connection 2개(DX1, DX2)와 각각의 VLAN(Virtual LAN), 내 온프레미스 라우터와 온프레미스 VM이 보입니다.
 
 ![실습 장비 페이지: DX1·DX2 hosted connection(VLAN 189, 289)과 pod89의 온프레미스 라우터 rt89, 온프레미스 VM vm89](images/portal/lab0-portal-pod.png){ .shot }
 
@@ -55,4 +55,4 @@ hosted connection 2개는 [실습 2-1](lab0.md#lab0-2)에서 수락합니다. �
 - hosted connection 2개의 포트 요금(수락한 때부터 운영자가 회수할 때까지)과 Direct Connect 데이터 전송
 - Transit Gateway 연결 3개의 시간당 요금과 데이터 처리
 - EC2 2대(VPC-A EC2, VPC-B EC2), CloudWatch Logs 저장과 조회
-- 1:1 NAT 기능 자체의 요금은 확인 중입니다
+- 1:1 NAT(Network Address Translation) 기능 자체의 요금은 확인 중입니다

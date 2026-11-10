@@ -8,9 +8,9 @@
 
 ![라우터 설정 값 지도: 공통 값은 1번 Pod 번호, 2번 온프레미스 대역 172.20.N.0/24, 3번 Loopback1 10.200.0.1/32, 4번 라우터 ASN 65000, 5번 Direct Connect gateway의 Amazon 쪽 ASN 65300이다. DX1(위)은 6번 라우터 인터페이스 GigabitEthernet1, 7번 VLAN, 8번 라우터 쪽 IP, 9번 Amazon 쪽 IP, 10번 BGP 키이고, DX2(아래)는 11번부터 15번까지 같은 순서이다. 두 전송 가상 인터페이스는 Direct Connect gateway와 Transit Gateway(AS 65400)로 이어진다](images/diagrams/router-config-map.png)
 
-- 두 피어 IP와 BGP 키는 전송 가상 인터페이스 상세 → **Peerings** 탭에서 확인합니다([2-2-4](lab1.md#lab1-4)).
-- Pod 번호와 VLAN은 실습 장비 페이지에서 확인합니다. VLAN은 전송 가상 인터페이스 상세에도 있습니다.
-- 대역·ASN·인터페이스 이름은 워크숍 값이 미리 채워져 있습니다.
+- 두 피어 IP와 BGP(Border Gateway Protocol) 키는 전송 가상 인터페이스 상세 → **Peerings** 탭에서 확인합니다([2-2-4](lab1.md#lab1-4)).
+- Pod 번호와 VLAN(Virtual LAN)은 실습 장비 페이지에서 확인합니다. VLAN은 전송 가상 인터페이스 상세에도 있습니다.
+- 대역·ASN(Autonomous System Number)·인터페이스 이름은 워크숍 값이 미리 채워져 있습니다.
 
 !!! warning "그림의 값은 Pod 89의 예시입니다"
     그림의 VLAN과 피어 IP, 아래 Pod 번호·VLAN·피어 IP 입력 칸에 흐리게 보이는 예시 값(`89`, `189`, `169.254.96.54/29` 등)은 사전 테스트에 쓴 **Pod 89의 값**입니다. 그대로 쓰지 마세요. **Pod 번호부터 VLAN, 피어 IP, BGP 키까지 모두 내 Pod와 내 전송 가상 인터페이스의 값으로 바꿔 넣어야 합니다.** 값이 맞지 않으면 BGP 세션이 올라오지 않거나 온프레미스 대역이 제대로 광고되지 않습니다.
@@ -23,7 +23,7 @@
 
 피어 IP와 BGP 키는 DX1이면 `tgw-nat-vif1`, DX2이면 `tgw-nat-vif2`의 **Peerings** 탭에서 가져옵니다. 피어 IP는 `/29`를 붙인 채로 넣어도 되고 빼고 넣어도 됩니다. `/29`가 아닌 길이(`/30` 등)는 받지 않습니다.
 
-③ Loopback1은 온프레미스 라우터 안의 가상 인터페이스입니다([용어집](glossary.md)). 주소 `10.200.0.1`은 NAT 규칙의 원래 대역(`172.20.N.0/24`) 밖에 있습니다. 이 주소를 출발지로 써서 두 가지를 확인합니다.
+③ Loopback1은 온프레미스 라우터 안의 가상 인터페이스입니다([용어집](glossary.md)). 주소 `10.200.0.1`은 NAT(Network Address Translation) 규칙의 원래 대역(`172.20.N.0/24`) 밖에 있습니다. 이 주소를 출발지로 써서 두 가지를 확인합니다.
 
 - NAT를 켜기 전: VPC-B까지 통신되는지 확인합니다([2-2-6](lab1.md#lab1-6)).
 - NAT를 켠 뒤: 규칙에 없는 출발지 주소는 바뀌지 않는지 확인합니다([3-1-4](extra-a.md#a4)).
@@ -280,12 +280,12 @@ ASN은 BGP에서 서로를 알아보는 번호입니다. 만들어진 설정의 
 
 | 부분 | 쓰는 값 | 하는 일 |
 |---|---|---|
-| `GigabitEthernet1.<VLAN>`, `GigabitEthernet2.<VLAN>` | 6–8, 11–13 | 전송 가상 인터페이스마다 하나씩 만드는 서브인터페이스. VLAN 번호와 라우터 쪽 IP, 회선 끊김을 빨리 알아채는 BFD를 설정 |
+| `GigabitEthernet1.<VLAN>`, `GigabitEthernet2.<VLAN>` | 6–8, 11–13 | 전송 가상 인터페이스마다 하나씩 만드는 서브인터페이스. VLAN 번호와 라우터 쪽 IP, 회선 끊김을 빨리 알아채는 BFD(Bidirectional Forwarding Detection)를 설정 |
 | `Loopback1` `10.200.0.1/32` | 3 | NAT 규칙의 원래 대역 밖에 있는 시험용 출발지 주소([4-1-2](#form)) |
 | `router bgp 65000` | 4 | 온프레미스 라우터(`rtN`) 자신의 ASN으로 BGP를 켬 |
-| `neighbor … remote-as 65300` | 5, 9·10, 14·15 | Direct Connect gateway(AS 65300)와 BGP로 경로를 주고받음. BGP 키와 BFD를 함께 씀 |
+| `neighbor … remote-as 65300` | 5, 9·10, 14·15 | Direct Connect gateway(AS 65300, AS는 Autonomous System)와 BGP로 경로를 주고받음. BGP 키와 BFD를 함께 씀 |
 | `network 172.20.N.0 …`, `network 10.200.0.1 …` | 2, 3 | 온프레미스 대역과 Loopback1을 AWS에 광고 |
-| `maximum-paths 2` | — | 두 전송 가상 인터페이스로 받은 같은 경로를 함께 씀(ECMP) |
+| `maximum-paths 2` | — | 두 전송 가상 인터페이스로 받은 같은 경로를 함께 씀(ECMP, Equal-Cost Multi-Path) |
 
 NAT를 켠 뒤에도 `network 172.20.N.0 …` 줄은 지우지 않습니다. 원래 대역 광고를 그대로 두고, NAT 대역(`100.64.1.0/24`)은 광고하지 않습니다.
 

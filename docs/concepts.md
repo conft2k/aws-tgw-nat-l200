@@ -1,8 +1,8 @@
 # 4-2. 1:1 NAT 개념과 제약
 
-이 워크숍에서는 온프레미스 VM과 VPC-A EC2가 같은 주소 `172.20.N.10`을 씁니다. `N`은 내 Pod 번호입니다(Pod 89이면 `172.20.89.10`). 주소가 같으면 Transit Gateway는 그 주소로 가는 패킷을 한쪽으로만 보냅니다. 그래서 응답이 엉뚱한 곳으로 가거나, 다른 쪽에는 아예 닿지 못합니다([2-3-2](lab2.md#lab2-2)).
+이 워크숍에서는 온프레미스 VM(Virtual Machine)과 VPC-A EC2가 같은 주소 `172.20.N.10`을 씁니다. `N`은 내 Pod 번호입니다(Pod 89이면 `172.20.89.10`). 주소가 같으면 Transit Gateway는 그 주소로 가는 패킷을 한쪽으로만 보냅니다. 그래서 응답이 엉뚱한 곳으로 가거나, 다른 쪽에는 아예 닿지 못합니다([2-3-2](lab2.md#lab2-2)).
 
-Transit Gateway 1:1 NAT는 장비의 실제 주소를 그대로 둡니다. 대신 Transit Gateway를 지날 때 서로 다른 주소(NAT 대역)로 보이게 합니다. 온프레미스 VM은 `100.64.1.10`으로, VPC-A EC2는 `100.64.2.10`으로 보입니다.
+Transit Gateway 1:1 NAT(Network Address Translation)는 장비의 실제 주소를 그대로 둡니다. 대신 Transit Gateway를 지날 때 서로 다른 주소(NAT 대역)로 보이게 합니다. 온프레미스 VM은 `100.64.1.10`으로, VPC-A EC2는 `100.64.2.10`으로 보입니다.
 
 이 페이지에서는 주소를 바꾸는 방식과 필요한 경로(4-2-1), 지켜야 할 조건(4-2-2), 바꾸거나 끌 때 주의할 점(4-2-3), 설계할 때 생각할 점(4-2-4)을 정리합니다. 공식 문서([1:1 NAT](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat.html), [How it works](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat-how-it-works.html), [Routing](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat-routing.html), [Configure](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-nat-configure.html))를 바탕으로 쉽게 정리했습니다.
 
@@ -16,9 +16,9 @@ Transit Gateway 1:1 NAT는 장비의 실제 주소를 그대로 둡니다. 대�
 
 1. **주소 바꾸기**: Transit Gateway 연결의 **Enable NAT Gateway support**를 켜고 1:1 NAT 규칙(원래 대역 → NAT 대역)을 넣으면, 그 연결을 지나는 패킷의 주소를 바꿉니다.
 2. **NAT 대역으로 가는 경로 만들기**: 바뀐 주소로 오는 패킷을 어느 연결로 보낼지 Transit Gateway 라우팅 테이블에 경로가 있어야 합니다.
-    - 예를 들어 VPC-A EC2는 온프레미스 VM에 `100.64.1.10`으로 보냅니다. 그래서 `100.64.1.0/24` → DXGW 연결 경로가 필요합니다. 온프레미스 라우터는 이 대역을 광고하지 않습니다.
+    - 예를 들어 VPC-A EC2는 온프레미스 VM에 `100.64.1.10`으로 보냅니다. 그래서 `100.64.1.0/24` → DXGW(Direct Connect gateway) 연결 경로가 필요합니다. 온프레미스 라우터는 이 대역을 광고하지 않습니다.
     - **NAT system routes**를 켜 두면 Transit Gateway가 이 경로를 **System** 유형으로 자동으로 만듭니다.
-    - 끄면 온프레미스가 BGP로 광고하거나(**Propagated**) 정적 경로를 직접 넣어야(**Static**) 합니다.
+    - 끄면 온프레미스가 BGP(Border Gateway Protocol)로 광고하거나(**Propagated**) 정적 경로를 직접 넣어야(**Static**) 합니다.
 
 NAT system routes를 꺼도 주소 변환은 계속됩니다. 경로를 누가 만드느냐만 바뀝니다.
 
@@ -28,8 +28,8 @@ NAT system routes를 꺼도 주소 변환은 계속됩니다. 경로를 누가 �
 
 규칙은 그 규칙을 둔 Transit Gateway 연결을 지나는 패킷에만 적용됩니다. 들어옴과 나감은 그 연결에서 Transit Gateway를 기준으로 봅니다.
 
-- 그 연결로 Transit Gateway에 **들어오는** 패킷: 출발지가 원래 대역 안에 있으면 NAT 대역으로 바꿉니다(SNAT). 목적지는 따지지 않습니다.
-- 그 연결로 Transit Gateway에서 **나가는** 패킷: 목적지가 NAT 대역 안에 있으면 원래 대역으로 되돌립니다(DNAT).
+- 그 연결로 Transit Gateway에 **들어오는** 패킷: 출발지가 원래 대역 안에 있으면 NAT 대역으로 바꿉니다(SNAT, Source Network Address Translation). 목적지는 따지지 않습니다.
+- 그 연결로 Transit Gateway에서 **나가는** 패킷: 목적지가 NAT 대역 안에 있으면 원래 대역으로 되돌립니다(DNAT, Destination Network Address Translation).
 
 요청과 응답 모두 같은 규칙을 따릅니다. 온프레미스 VM이 VPC-A EC2(`100.64.2.10`)로 보내면 주소가 이렇게 바뀝니다.
 
@@ -79,7 +79,7 @@ Transit Gateway는 연결을 기억하지 않고 패킷마다 규칙만 보고 �
 | 조건 | 내용 |
 |---|---|
 | 대역 크기 | 원래 대역과 NAT 대역의 접두사 길이(예: /24)가 같아야 합니다 |
-| NAT 대역 | 사설 주소(RFC 1918) 또는 `100.64.0.0/10`만 쓸 수 있습니다 |
+| NAT 대역 | 사설 주소(RFC 1918, RFC는 Request for Comments) 또는 `100.64.0.0/10`만 쓸 수 있습니다 |
 | 원래 대역 | 멀티캐스트(224.0.0.0/4), 링크 로컬(169.254.0.0/16)은 안 됩니다 |
 | 같은 연결 안 | 규칙끼리 대역이 겹치면 안 됩니다 |
 | 다른 연결 사이의 원래 대역 | 겹쳐도 됩니다. 이 겹침이 1:1 NAT로 풀려는 문제입니다(이 실습: 온프레미스와 VPC-A 모두 `172.20.N.0/24`) |
@@ -104,5 +104,5 @@ Transit Gateway는 연결을 기억하지 않고 패킷마다 규칙만 보고 �
 
 - **DNS**: 1:1 NAT는 패킷의 주소만 바꾸고, DNS 응답에 담긴 주소는 바꾸지 않습니다. 상대 네트워크가 쓰는 DNS가 실제 주소를 돌려준다면, NAT 주소를 돌려주도록 레코드나 DNS 설정을 따로 준비해야 합니다(추론, 문서에서 DNS 설명은 찾지 못함).
 - **원래 경로**: NAT 뒤에도 온프레미스가 광고한 원래 경로는 Transit Gateway에 남습니다([3-1-3](extra-a.md#a3)).
-- **UDP**: 사전 테스트에서 UDP도 TCP, ICMP와 같은 방식으로 바뀌는 것을 확인했습니다.
+- **UDP**: 사전 테스트에서 UDP(User Datagram Protocol)도 TCP(Transmission Control Protocol), ICMP(Internet Control Message Protocol)와 같은 방식으로 바뀌는 것을 확인했습니다.
 - **pending 상태**: 문서에 나오지 않지만, 사전 테스트에서 규칙을 처음 저장한 직후 API 응답에 잠시 pending이 보였습니다. 콘솔에서는 바로 activated로 보였습니다.

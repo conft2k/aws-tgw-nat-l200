@@ -4,9 +4,9 @@
 
 ## 2-1-1. 웹 터미널 열어 보기 { #lab0-1 }
 
-1. 실습 장비 페이지를 엽니다. 내 Pod 번호, DX1·DX2 VLAN을 [적어 둡니다](prerequisites.md#notes).
+1. 실습 장비 페이지를 엽니다. 내 Pod 번호, DX1·DX2 VLAN(Virtual LAN)을 [적어 둡니다](prerequisites.md#notes).
 2. 온프레미스 라우터(`rtN`)를 누릅니다. 웹 터미널에 `rtN#`이 보이면 됩니다.
-3. 왼쪽 위 홈 아이콘으로 돌아와 온프레미스 VM(`vmN`)도 엽니다. `labuser@vmN:~$`가 보이면 됩니다.
+3. 왼쪽 위 홈 아이콘으로 돌아와 온프레미스 VM(Virtual Machine, `vmN`)도 엽니다. `labuser@vmN:~$`가 보이면 됩니다.
 
 !!! tip "탭을 여러 개 쓰세요"
     온프레미스 라우터, 온프레미스 VM, AWS 콘솔을 브라우저 탭으로 따로 열어 두면 오가기 편합니다.
@@ -43,7 +43,7 @@ hosted connection(호스팅 연결)은 Direct Connect 파트너가 만들어 여
 - EC2 Instance Connect Endpoint: 두 EC2에 브라우저로 접속할 때 씁니다
 - Flow Logs: Transit Gateway와 두 VPC에서 어떤 주소 사이에 트래픽이 오갔는지 기록합니다
 
-핵심인 Direct Connect 연결과 1:1 NAT는 이어지는 실습에서 직접 만듭니다. 용어는 [용어 풀이](glossary.md)를 보세요.
+핵심인 Direct Connect 연결과 1:1 NAT(Network Address Translation)는 이어지는 실습에서 직접 만듭니다. 용어는 [용어 풀이](glossary.md)를 보세요.
 
 1. 템플릿 파일을 내려받습니다: [tgw-nat-workshop.yaml](assets/tgw-nat-workshop.yaml){ download }
 2. **CloudFormation** 콘솔 → **Create stack** → **With new resources (standard)** 를 누릅니다.
