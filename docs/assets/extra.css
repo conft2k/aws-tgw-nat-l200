@@ -249,3 +249,10 @@
   max-width: none; margin: 0.6em auto 0; font-style: normal; font-size: 0.75rem;
   font-weight: 600; color: var(--md-default-fg-color--light);
 }
+/* router config generator: fields every trainee must fill with their own values */
+:root { --gen-must: #a16207; --gen-must-bg: #fefce8; }
+[data-md-color-scheme="slate"] { --gen-must: #facc15; --gen-must-bg: rgba(250, 204, 21, 0.1); }
+.gen-group { align-items: end; }   /* inputs in one row line up even when a label wraps */
+.gen-group label.gen-must input { border-color: var(--gen-must); box-shadow: 0 0 0 1px var(--gen-must); background: var(--gen-must-bg); }   /* same box size as other fields */
+.gen-group label.gen-must input:focus { outline-color: var(--gen-must); border-color: var(--gen-must); }
+.gen-group label.gen-must .gen-name small { color: var(--gen-must); font-weight: 600; }

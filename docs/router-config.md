@@ -22,7 +22,7 @@
 
 ## 4-1-2. 값 넣기 { #form }
 
-**미리 채움**이라고 적힌 칸에는 워크숍 값이 들어 있습니다. 워크숍에서는 Pod 번호와 DX1·DX2의 VLAN, 피어 IP, BGP 키만 넣으면 됩니다. 온프레미스 대역은 Pod 번호를 넣으면 자동으로 채워집니다.
+**미리 채움**이라고 적힌 칸에는 워크숍 값이 들어 있습니다. 워크숍에서는 Pod 번호와 DX1·DX2의 VLAN, 피어 IP, BGP 키만 넣으면 됩니다. 이 칸들은 **노란색 테두리**로 표시되어 있고, 참가자마다 값이 다르므로 꼭 내 값으로 넣습니다. 온프레미스 대역은 Pod 번호를 넣으면 자동으로 채워집니다.
 
 피어 IP와 BGP 키는 DX1이면 `tgw-nat-vif1`, DX2이면 `tgw-nat-vif2`의 **Peerings** 탭에서 가져옵니다. 피어 IP는 `/29`를 붙인 채로 넣어도 되고 빼고 넣어도 됩니다. `/29`가 아닌 길이(`/30` 등)는 받지 않습니다.
 
@@ -34,7 +34,7 @@
 <div class="gen-form">
   <fieldset class="gen-group gen-common">
     <legend>공통 · 온프레미스와 BGP</legend>
-    <label><span class="gen-badge">1</span><span class="gen-name">Pod 번호 N<small>실습 장비 페이지의 podN</small></span><input id="g-pod" inputmode="numeric" placeholder="89"></label>
+    <label class="gen-must"><span class="gen-badge">1</span><span class="gen-name">Pod 번호 N<small>실습 장비 페이지의 podN</small></span><input id="g-pod" inputmode="numeric" placeholder="89"></label>
     <label><span class="gen-badge">2</span><span class="gen-name">온프레미스 대역<small>CIDR · AWS에 광고 · Pod 번호로 채움</small></span><input id="g-lan" placeholder="172.20.N.0/24" spellcheck="false"></label>
     <label><span class="gen-badge">3</span><span class="gen-name">Loopback1 주소<small>AWS에 광고 · 미리 채움 · 비우면 만들지 않음</small></span><input id="g-loop" value="10.200.0.1/32" data-default="10.200.0.1/32" spellcheck="false"></label>
     <label><span class="gen-badge">4</span><span class="gen-name">라우터 ASN<small>2-2-3의 BGP ASN · 미리 채움</small></span><input id="g-asn" inputmode="numeric" value="65000" data-default="65000"></label>
@@ -43,18 +43,18 @@
   <fieldset class="gen-group gen-dx1">
     <legend>DX1 · <code>awsdx1_…</code> · <code>tgw-nat-vif1</code></legend>
     <label><span class="gen-badge">6</span><span class="gen-name">라우터 인터페이스<small>물리 인터페이스 이름 · 미리 채움</small></span><input id="g-if1" value="GigabitEthernet1" data-default="GigabitEthernet1" spellcheck="false"></label>
-    <label><span class="gen-badge">7</span><span class="gen-name">VLAN</span><input id="g-vlan1" inputmode="numeric" placeholder="189"></label>
-    <label><span class="gen-badge">8</span><span class="gen-name">Your router peer IP<small>라우터 쪽 IP</small></span><input id="g-my1" placeholder="169.254.96.54/29"></label>
-    <label><span class="gen-badge">9</span><span class="gen-name">Amazon router peer IP<small>AWS 쪽 IP</small></span><input id="g-aws1" placeholder="169.254.96.49/29"></label>
-    <label><span class="gen-badge">10</span><span class="gen-name">BGP authentication key</span><input id="g-key1" autocomplete="off" spellcheck="false"></label>
+    <label class="gen-must"><span class="gen-badge">7</span><span class="gen-name">VLAN<small>내 값으로 꼭 입력</small></span><input id="g-vlan1" inputmode="numeric" placeholder="189"></label>
+    <label class="gen-must"><span class="gen-badge">8</span><span class="gen-name">Your router peer IP<small>라우터 쪽 IP</small></span><input id="g-my1" placeholder="169.254.96.54/29"></label>
+    <label class="gen-must"><span class="gen-badge">9</span><span class="gen-name">Amazon router peer IP<small>AWS 쪽 IP</small></span><input id="g-aws1" placeholder="169.254.96.49/29"></label>
+    <label class="gen-must"><span class="gen-badge">10</span><span class="gen-name">BGP authentication key<small>내 값으로 꼭 입력</small></span><input id="g-key1" autocomplete="off" spellcheck="false"></label>
   </fieldset>
   <fieldset class="gen-group gen-dx2">
     <legend>DX2 · <code>awsdx2_…</code> · <code>tgw-nat-vif2</code></legend>
     <label><span class="gen-badge">11</span><span class="gen-name">라우터 인터페이스<small>물리 인터페이스 이름 · 미리 채움</small></span><input id="g-if2" value="GigabitEthernet2" data-default="GigabitEthernet2" spellcheck="false"></label>
-    <label><span class="gen-badge">12</span><span class="gen-name">VLAN</span><input id="g-vlan2" inputmode="numeric" placeholder="289"></label>
-    <label><span class="gen-badge">13</span><span class="gen-name">Your router peer IP<small>라우터 쪽 IP</small></span><input id="g-my2" placeholder="169.254.96.46/29"></label>
-    <label><span class="gen-badge">14</span><span class="gen-name">Amazon router peer IP<small>AWS 쪽 IP</small></span><input id="g-aws2" placeholder="169.254.96.41/29"></label>
-    <label><span class="gen-badge">15</span><span class="gen-name">BGP authentication key</span><input id="g-key2" autocomplete="off" spellcheck="false"></label>
+    <label class="gen-must"><span class="gen-badge">12</span><span class="gen-name">VLAN<small>내 값으로 꼭 입력</small></span><input id="g-vlan2" inputmode="numeric" placeholder="289"></label>
+    <label class="gen-must"><span class="gen-badge">13</span><span class="gen-name">Your router peer IP<small>라우터 쪽 IP</small></span><input id="g-my2" placeholder="169.254.96.46/29"></label>
+    <label class="gen-must"><span class="gen-badge">14</span><span class="gen-name">Amazon router peer IP<small>AWS 쪽 IP</small></span><input id="g-aws2" placeholder="169.254.96.41/29"></label>
+    <label class="gen-must"><span class="gen-badge">15</span><span class="gen-name">BGP authentication key<small>내 값으로 꼭 입력</small></span><input id="g-key2" autocomplete="off" spellcheck="false"></label>
   </fieldset>
 </div>
 
