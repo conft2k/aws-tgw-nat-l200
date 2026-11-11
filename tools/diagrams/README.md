@@ -20,7 +20,7 @@ tools/diagrams/build.sh                  # 10개 모두
 |---|---|---|---|
 | `architecture` | `architecture.py` | `images/architecture` | 1-1 |
 | `concept-snat-dnat` | `concept_snat_dnat.py` | `images/diagrams/concept-snat-dnat` | 2-3, 4-2 |
-| `concept-snat-dnat-steps` | `concept_snat_dnat.py --steps` | `images/diagrams/concept-snat-dnat-steps` | 1-1 (단계 번호 ①~④를 더한 것) |
+| `concept-snat-dnat-steps` | `concept_snat_dnat.py --steps` | `images/diagrams/concept-snat-dnat-steps` | 1-1 (단계 번호 ①~⑤를 더한 것) |
 | `lab1-dx-build` | `lab1_dx_build.py` | `images/diagrams/lab1-dx-build` | 2-2 |
 | `lab2-overlap-problem` | `lab2_overlap.py` | `images/diagrams/lab2-overlap-problem` | 2-3 |
 | `lab2-packet-walk` | `lab2_packet_walk.py` | `images/diagrams/lab2-packet-walk` | 2-3 |

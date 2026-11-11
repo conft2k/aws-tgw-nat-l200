@@ -108,14 +108,15 @@ NAT 대역은 CGNAT 대역(RFC 6598, `100.64.0.0/10`)처럼 따로 떼어 둔 �
 온프레미스 VM이 VPC-A EC2에 접속하면 주소가 이렇게 바뀝니다. 그림 2의 번호는 아래 단계 번호와 같습니다.
 
 <figure markdown="span">
-  ![1:1 NAT 규칙은 Transit Gateway의 DXGW 연결과 VPC-A 연결에 각각 있다. 그 연결로 Transit Gateway에 들어오는 패킷은 출발지 172.20.N.0/24를 NAT 대역(DXGW 연결 100.64.1.0/24, VPC-A 연결 100.64.2.0/24)으로 바꾸고(SNAT), 그 연결로 나가는 패킷은 목적지 NAT 대역을 172.20.N.0/24로 되돌린다(DNAT). VPC-B 연결에는 규칙이 없다. 번호는 아래 단계와 같다: 1 VM이 보냄, 2 DXGW 연결로 들어올 때 SNAT, 3 VPC-A 연결로 나갈 때 DNAT, 4 응답이 VPC-A 연결로 들어올 때 SNAT, DXGW 연결로 나갈 때 DNAT](images/diagrams/concept-snat-dnat-steps.png)
+  ![1:1 NAT 규칙은 Transit Gateway의 DXGW 연결과 VPC-A 연결에 각각 있다. 그 연결로 Transit Gateway에 들어오는 패킷은 출발지 172.20.N.0/24를 NAT 대역(DXGW 연결 100.64.1.0/24, VPC-A 연결 100.64.2.0/24)으로 바꾸고(SNAT), 그 연결로 나가는 패킷은 목적지 NAT 대역을 172.20.N.0/24로 되돌린다(DNAT). VPC-B 연결에는 규칙이 없다. 번호는 아래 단계와 같다: 1 VM이 보냄, 2 DXGW 연결로 들어올 때 SNAT, 3 VPC-A 연결로 나갈 때 DNAT, 4 응답이 VPC-A 연결로 들어올 때 SNAT, 5 응답이 DXGW 연결로 나갈 때 DNAT](images/diagrams/concept-snat-dnat-steps.png)
   <figcaption>그림 2. 1:1 NAT 규칙이 주소를 바꾸는 곳(SNAT·DNAT)</figcaption>
 </figure>
 
 1. 온프레미스 VM은 VPC-A EC2의 NAT 주소 `100.64.2.10`으로 보냅니다.
 2. DXGW 연결로 Transit Gateway에 들어올 때 출발지 `172.20.N.10`이 `100.64.1.10`으로 바뀝니다(SNAT, Source Network Address Translation).
 3. VPC-A 연결로 나갈 때 목적지 `100.64.2.10`이 실제 주소 `172.20.N.10`으로 되돌아갑니다(DNAT, Destination Network Address Translation).
-4. 응답은 같은 규칙으로 반대로 바뀝니다. VPC-A 연결로 들어올 때 출발지가 `100.64.2.10`으로 바뀌고, DXGW 연결로 나갈 때 목적지가 `172.20.N.10`으로 되돌아갑니다.
+4. 응답은 같은 규칙으로 반대로 바뀝니다. VPC-A EC2가 `100.64.1.10`으로 보낸 응답이 VPC-A 연결로 들어올 때 출발지 `172.20.N.10`이 `100.64.2.10`으로 바뀝니다(SNAT).
+5. DXGW 연결로 나갈 때 목적지 `100.64.1.10`이 실제 주소 `172.20.N.10`으로 되돌아갑니다(DNAT). 온프레미스 VM은 응답을 `100.64.2.10`에서 온 것으로 받습니다.
 
 이 흐름은 [2-3-7. 통신해 보기](lab2.md#lab2-7)에서 직접 확인합니다.
 

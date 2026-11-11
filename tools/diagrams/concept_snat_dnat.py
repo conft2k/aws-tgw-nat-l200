@@ -1,5 +1,5 @@
 """Generate docs/images/diagrams/concept-snat-dnat.draft.svg (layout source).
-With --steps, also draw step badges 1-4 matching the numbered walk-through in docs/index.md 1-1-3
+With --steps, also draw step badges 1-5 matching the numbered walk-through in docs/index.md 1-1-3
 (written to concept-snat-dnat-steps.draft.svg by build.sh); the drawing is otherwise identical.
 
 Concept: a TGW 1:1 NAT rule belongs to one Transit Gateway attachment and applies to every
@@ -144,15 +144,20 @@ line(rt_cx + h, M, dx_cx - h, M)
 line(dx_cx + h, M, dxgw_cx - h, M)
 el.append(f'  <polyline points="{tgw_cx + S / 2:g},{M + 19:g} {trunk:g},{M + 19:g} {trunk:g},{vb_cy:g} '
           f'{vpc_cx - h:g},{vb_cy:g}" fill="none" stroke="#232F3E" stroke-width="1.5"/>')
-# Each NAT-rule attachment is drawn as an arrow pair between the TGW and its peer:
-# upper arrow = into the TGW (SNAT), lower arrow = out of the TGW (DNAT), name under the pair
+# Each NAT-rule attachment is drawn as an arrow pair between the TGW and its peer.
+# The upper arrows run left to right (the request: on-prem -> TGW -> VPC-A), the lower ones right to left
+# (the reply), so each flow reads along one line. Into the TGW = SNAT, out of the TGW = DNAT; name under the pair.
 def pair(p_cx, t_cx, lab_x, name):
-    sgn = 1 if t_cx > p_cx else -1
-    p_edge, t_edge = p_cx + sgn * h, t_cx - sgn * h
-    line(p_edge, M - OFF, t_edge, M - OFF, arrow=True)
-    line(t_edge, M + OFF, p_edge, M + OFF, arrow=True)
-    T(lab_x, M - OFF - 8, "SNAT", s, "middle", True)
-    T(lab_x, M + OFF + 19, "DNAT", s, "middle", True)
+    left = p_cx < t_cx                          # peer on the left: its upper arrow enters the TGW
+    p_edge, t_edge = (p_cx + h, t_cx - h) if left else (p_cx - h, t_cx + h)
+    if left:
+        line(p_edge, M - OFF, t_edge, M - OFF, arrow=True)
+        line(t_edge, M + OFF, p_edge, M + OFF, arrow=True)
+    else:
+        line(t_edge, M - OFF, p_edge, M - OFF, arrow=True)
+        line(p_edge, M + OFF, t_edge, M + OFF, arrow=True)
+    T(lab_x, M - OFF - 8, "SNAT" if left else "DNAT", s, "middle", True)
+    T(lab_x, M + OFF + 19, "DNAT" if left else "SNAT", s, "middle", True)
     T(lab_x, M + OFF + 19 + 26, name, L, "middle")
 pair(dxgw_cx, tgw_cx, dx_lab, ATT_DX)
 pair(vpc_cx, tgw_cx, a_lab, ATT_A)
@@ -170,7 +175,7 @@ def rule_box(bx, lines, lead_x):
     line(lead_x, box_y + box_h, lead_x, M - OFF, dash="4 3", stroke=PURPLE)
 rule_box(box_dx_x, RULE_DX, dx_lead)
 rule_box(box_a_x, RULE_A, a_lead)
-# optional step badges (1 send, 2 SNAT into the TGW on DXGW, 3 DNAT out of the TGW on VPC-A, 4 reply)
+# optional step badges (1 send, 2 SNAT into the TGW on DXGW, 3 DNAT out of the TGW on VPC-A, 4-5 reply)
 def badge(cx, cy, n):
     el.append(f'  <circle cx="{cx:g}" cy="{cy:g}" r="13" fill="{INK}" stroke="#FFFFFF" stroke-width="2"/>')
     T(cx, cy + 0.35 * s, str(n), s, "middle", True, "#FFFFFF")
@@ -179,9 +184,9 @@ if STEPS:
     gap = tw("SNAT", s) / 2 + 22
     badge(rt_cx + 24, (vm_cy + h + M - h) / 2, 1)                # VM -> router: the request leaves
     badge(dx_lab - gap, up, 2)                                   # DXGW attachment, into the TGW: SNAT
-    badge(a_lab + gap, dn, 3)                                    # VPC-A attachment, out of the TGW: DNAT
-    badge(a_lab + gap, up, 4)                                    # reply: VPC-A in (SNAT) ...
-    badge(dx_lab - gap, dn, 4)                                   # ... and DXGW out (DNAT)
+    badge(a_lab + gap, up, 3)                                    # VPC-A attachment, out of the TGW: DNAT
+    badge(a_lab + gap, dn, 4)                                    # reply: VPC-A in (SNAT) ...
+    badge(dx_lab - gap, dn, 5)                                   # ... then DXGW out (DNAT)
     assert dx_lab - gap - 13 >= dx_lead + 8 and a_lab + gap + 13 <= a_lead - 8
 
 open(OUT, "w").write(hdr + "\n" + "\n".join(el) + "\n</svg>\n")
