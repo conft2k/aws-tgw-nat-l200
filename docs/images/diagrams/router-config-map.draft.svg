@@ -1,5 +1,5 @@
 <svg viewBox="0 0 1154 550" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif">
-  <!-- Router config map (docs/router-config.md): badges 1-15 = input field numbers (1-5 common, 6-10 DX1, 11-15 DX2). Blue = DX1 (upper path), orange = DX2 (lower path). Example values = form placeholders (Pod 89). Sized for a ~900px page column: 18px labels, 16px secondary text and badge digits. -->
+  <!-- Router config map (docs/router-config.md): badges 1-15 = input field numbers (1-5 common, 6-10 DX1, 11-15 DX2). Blue = DX1 (upper path), orange = DX2 (lower path). Values marked 예: are Pod 89 examples (form placeholders); each trainee enters their own. Sized for a ~900px page column: 18px labels, 16px secondary text and badge digits. -->
   <rect width="1154" height="550" fill="#FFFFFF"/>
   <rect x="16" y="16" width="352" height="518" fill="none" stroke="#7D8998" stroke-width="2"/>
   <image href="bundle:group/Corporate-data-center_32" x="16" y="16" width="28" height="28"/>
@@ -35,49 +35,49 @@
   <polyline points="498,120 588,120 588,199 646,199" fill="none" stroke="#2563EB" stroke-width="1.5"/>
   <image href="bundle:service/AWS-Direct-Connect" x="438" y="92" width="56" height="56"/>
   <circle cx="48" cy="120" r="15" fill="#2563EB"/>
-  <text x="48" y="125.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">8</text>
-  <text x="69" y="126" font-size="18" font-weight="500" fill="#2563EB">라우터 169.254.96.54/29</text>
+  <text x="48" y="125.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">9</text>
+  <text x="69" y="126" font-size="18" font-weight="500" fill="#2563EB">라우터 예: 169.254.96.54/29</text>
   <circle cx="48" cy="156" r="15" fill="#2563EB"/>
   <text x="48" y="161.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">6</text>
   <text x="69" y="162" font-size="18" font-weight="500" fill="#2563EB">GigabitEthernet1.&lt;VLAN1&gt;</text>
   <circle cx="613" cy="120" r="15" fill="#2563EB"/>
-  <text x="613" y="125.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">9</text>
-  <text x="634" y="126" font-size="18" font-weight="500" fill="#2563EB">AWS 169.254.96.49/29</text>
+  <text x="613" y="125.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">10</text>
+  <text x="634" y="126" font-size="18" font-weight="500" fill="#2563EB">AWS 예: 169.254.96.49/29</text>
   <text x="466" y="170" font-size="18" text-anchor="middle" fill="#232F3E">hosted connection</text>
   <text x="466" y="192" font-size="16" text-anchor="middle" fill="#3F4650">awsdx1_…</text>
   <text x="466" y="214" font-size="16" text-anchor="middle" fill="#3F4650">전송 가상 인터페이스 1</text>
-  <circle cx="423.4" cy="240" r="15" fill="#2563EB"/>
-  <text x="423.4" y="245.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">7</text>
-  <text x="444.4" y="246" font-size="18" font-weight="500" fill="#2563EB">VLAN 189</text>
+  <circle cx="404.5" cy="240" r="15" fill="#2563EB"/>
+  <text x="404.5" y="245.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">7</text>
+  <text x="425.5" y="246" font-size="18" font-weight="500" fill="#2563EB">VLAN 예: 189</text>
   <polyline points="348,114 348,72 588,72 588,114" fill="none" stroke="#2563EB" stroke-width="1.5" stroke-dasharray="5,4"/>
   <text x="338" y="78" font-size="18" font-weight="500" text-anchor="end" fill="#2563EB">DX1</text>
   <text x="380.6" y="58" font-size="16" fill="#3F4650">BGP 세션</text>
   <circle cx="472.8" cy="52" r="15" fill="#2563EB"/>
-  <text x="472.8" y="57.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">10</text>
+  <text x="472.8" y="57.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">8</text>
   <text x="493.8" y="58" font-size="18" font-weight="500" fill="#2563EB">BGP 키</text>
   <polyline points="298,215 348,215 348,441 434,441" fill="none" stroke="#C2410C" stroke-width="1.5"/>
   <polyline points="498,441 588,441 588,215 646,215" fill="none" stroke="#C2410C" stroke-width="1.5"/>
   <image href="bundle:service/AWS-Direct-Connect" x="438" y="413" width="56" height="56"/>
   <circle cx="48" cy="441" r="15" fill="#C2410C"/>
-  <text x="48" y="446.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">13</text>
-  <text x="69" y="447" font-size="18" font-weight="500" fill="#C2410C">라우터 169.254.96.46/29</text>
+  <text x="48" y="446.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">14</text>
+  <text x="69" y="447" font-size="18" font-weight="500" fill="#C2410C">라우터 예: 169.254.96.46/29</text>
   <circle cx="48" cy="405" r="15" fill="#C2410C"/>
   <text x="48" y="410.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">11</text>
   <text x="69" y="411" font-size="18" font-weight="500" fill="#C2410C">GigabitEthernet2.&lt;VLAN2&gt;</text>
   <circle cx="613" cy="441" r="15" fill="#C2410C"/>
-  <text x="613" y="446.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">14</text>
-  <text x="634" y="447" font-size="18" font-weight="500" fill="#C2410C">AWS 169.254.96.41/29</text>
+  <text x="613" y="446.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">15</text>
+  <text x="634" y="447" font-size="18" font-weight="500" fill="#C2410C">AWS 예: 169.254.96.41/29</text>
   <text x="466" y="399" font-size="18" text-anchor="middle" fill="#232F3E">hosted connection</text>
   <text x="466" y="377" font-size="16" text-anchor="middle" fill="#3F4650">awsdx2_…</text>
   <text x="466" y="355" font-size="16" text-anchor="middle" fill="#3F4650">전송 가상 인터페이스 2</text>
-  <circle cx="423.4" cy="323" r="15" fill="#C2410C"/>
-  <text x="423.4" y="328.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">12</text>
-  <text x="444.4" y="329" font-size="18" font-weight="500" fill="#C2410C">VLAN 289</text>
+  <circle cx="404.5" cy="323" r="15" fill="#C2410C"/>
+  <text x="404.5" y="328.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">12</text>
+  <text x="425.5" y="329" font-size="18" font-weight="500" fill="#C2410C">VLAN 예: 289</text>
   <polyline points="348,447 348,489 588,489 588,447" fill="none" stroke="#C2410C" stroke-width="1.5" stroke-dasharray="5,4"/>
   <text x="338" y="495" font-size="18" font-weight="500" text-anchor="end" fill="#C2410C">DX2</text>
   <text x="380.6" y="515" font-size="16" fill="#3F4650">BGP 세션</text>
   <circle cx="472.8" cy="509" r="15" fill="#C2410C"/>
-  <text x="472.8" y="514.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">15</text>
+  <text x="472.8" y="514.5" font-size="16" font-weight="700" text-anchor="middle" fill="#FFFFFF">13</text>
   <text x="493.8" y="515" font-size="18" font-weight="500" fill="#C2410C">BGP 키</text>
   <image href="bundle:resource/AWS-Direct-Connect_Gateway" x="650" y="179" width="56" height="56"/>
   <text x="678" y="257" font-size="18" text-anchor="middle" fill="#232F3E">Direct Connect</text>

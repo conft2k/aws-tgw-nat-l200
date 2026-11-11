@@ -95,9 +95,9 @@ hosted connection 하나에는 전송 가상 인터페이스를 하나만 만들
 
 | 값 | 라우터 설정에서 쓰는 곳 | 생성기 칸(DX1 / DX2) |
 |---|---|---|
-| **Your router peer IP** | 온프레미스 라우터 서브인터페이스의 주소 | ⑧ / ⑬ |
-| **Amazon router peer IP** | BGP 이웃(AWS 쪽)의 주소 | ⑨ / ⑭ |
-| **BGP authentication key** | BGP 세션의 인증 키 | ⑩ / ⑮ |
+| **BGP authentication key** | BGP 세션의 인증 키 | ⑧ / ⑬ |
+| **Your router peer IP** | 온프레미스 라우터 서브인터페이스의 주소 | ⑨ / ⑭ |
+| **Amazon router peer IP** | BGP 이웃(AWS 쪽)의 주소 | ⑩ / ⑮ |
 
 두 피어 IP는 전송 가상 인터페이스에서 온프레미스 라우터와 AWS 라우터가 쓰는 `169.254.x.x/29` 주소입니다. BGP와 BFD가 이 주소로 연결되고, Amazon router peer IP는 받은 경로의 **Next Hop**으로도 보입니다(2-2-6). 온프레미스 대역(`172.20.N.0/24`)이나 NAT 대역과는 관계가 없습니다.
 

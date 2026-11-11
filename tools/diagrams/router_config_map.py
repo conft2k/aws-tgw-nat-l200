@@ -148,10 +148,10 @@ def dx_path(y, sign, color, n_ip, ip, n_if, ifname, n_vlan, vlan, n_aws, aws, n_
     badge(left + tw(l1, FS) + 10 + R_B, cy, n_key, color, "BGP 키")
 
 
-dx_path(Y1, -1, BLUE, 8, "라우터 169.254.96.54/29", 6, "GigabitEthernet1.<VLAN1>", 7, "VLAN 189",
-        9, "AWS 169.254.96.49/29", 10, "DX1", "awsdx1_…", "전송 가상 인터페이스 1", YB1)
-dx_path(Y2, +1, ORANGE, 13, "라우터 169.254.96.46/29", 11, "GigabitEthernet2.<VLAN2>", 12, "VLAN 289",
-        14, "AWS 169.254.96.41/29", 15, "DX2", "awsdx2_…", "전송 가상 인터페이스 2", YB2)
+dx_path(Y1, -1, BLUE, 9, "라우터 예: 169.254.96.54/29", 6, "GigabitEthernet1.<VLAN1>", 7, "VLAN 예: 189",
+        10, "AWS 예: 169.254.96.49/29", 8, "DX1", "awsdx1_…", "전송 가상 인터페이스 1", YB1)
+dx_path(Y2, +1, ORANGE, 14, "라우터 예: 169.254.96.46/29", 11, "GigabitEthernet2.<VLAN2>", 12, "VLAN 예: 289",
+        15, "AWS 예: 169.254.96.41/29", 13, "DX2", "awsdx2_…", "전송 가상 인터페이스 2", YB2)
 
 # DX gateway and TGW
 icon("resource/AWS-Direct-Connect_Gateway", GWX, M)
@@ -168,7 +168,7 @@ head = (f'<svg viewBox="0 0 {W:g} {H}" xmlns="http://www.w3.org/2000/svg" '
         "font-family=\"'Noto Sans CJK KR', 'Pretendard', Arial, sans-serif\">\n"
         "  <!-- Router config map (docs/router-config.md): badges 1-15 = input field numbers "
         "(1-5 common, 6-10 DX1, 11-15 DX2). Blue = DX1 (upper path), orange = DX2 (lower path). "
-        "Example values = form placeholders (Pod 89). Sized for a ~900px page column: "
+        "Values marked 예: are Pod 89 examples (form placeholders); each trainee enters their own. Sized for a ~900px page column: "
         "18px labels, 16px secondary text and badge digits. -->\n")
 sys.stdout.write(head + "\n".join(out) + "\n</svg>\n")
 print(f"canvas {W:g} x {H}", file=sys.stderr)

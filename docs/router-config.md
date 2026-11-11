@@ -7,8 +7,8 @@
 그림 10의 번호는 아래 입력 칸의 번호와 같습니다. 위쪽 회선이 **DX1**, 아래쪽 회선이 **DX2**입니다.
 
 <figure markdown="span">
-  ![라우터 설정 값 지도: 공통 값은 1번 Pod 번호, 2번 온프레미스 대역 172.20.N.0/24, 3번 Loopback1 10.200.0.1/32, 4번 라우터 ASN 65000, 5번 Direct Connect gateway의 Amazon 쪽 ASN 65300이다. DX1(위)은 6번 라우터 인터페이스 GigabitEthernet1, 7번 VLAN, 8번 라우터 쪽 IP, 9번 Amazon 쪽 IP, 10번 BGP 키이고, DX2(아래)는 11번부터 15번까지 같은 순서이다. 두 전송 가상 인터페이스는 Direct Connect gateway와 Transit Gateway(AS 65400)로 이어진다](images/diagrams/router-config-map.png)
-  <figcaption>그림 10. 라우터 설정 값 지도</figcaption>
+  ![생성기 입력 칸 번호와 값이 쓰이는 곳. "예:"가 붙은 VLAN과 피어 IP는 Pod 89의 예시 값이다. 공통 값은 1번 Pod 번호, 2번 온프레미스 대역 172.20.N.0/24, 3번 Loopback1 10.200.0.1/32, 4번 라우터 ASN 65000, 5번 Direct Connect gateway의 Amazon 쪽 ASN 65300이다. DX1(위)은 6번 라우터 인터페이스 GigabitEthernet1, 7번 VLAN, 8번 BGP 키, 9번 라우터 쪽 IP, 10번 Amazon 쪽 IP이고, DX2(아래)는 11번부터 15번까지 같은 순서이다. 두 전송 가상 인터페이스는 Direct Connect gateway와 Transit Gateway(AS 65400)로 이어진다](images/diagrams/router-config-map.png)
+  <figcaption>그림 10. 생성기 입력 칸 번호와 값이 쓰이는 곳("예:"는 Pod 89 예시 값)</figcaption>
 </figure>
 
 - 두 피어 IP와 BGP(Border Gateway Protocol) 키는 전송 가상 인터페이스 상세 → **Peerings** 탭에서 확인합니다([2-2-4](lab1.md#lab1-4)).
@@ -44,17 +44,17 @@
     <legend>DX1 · <code>awsdx1_…</code> · <code>tgw-nat-vif1</code></legend>
     <label><span class="gen-badge">6</span><span class="gen-name">라우터 인터페이스<small>물리 인터페이스 이름 · 미리 채움</small></span><input id="g-if1" value="GigabitEthernet1" data-default="GigabitEthernet1" spellcheck="false"></label>
     <label class="gen-must"><span class="gen-badge">7</span><span class="gen-name">VLAN<small>내 값으로 꼭 입력</small></span><input id="g-vlan1" inputmode="numeric" placeholder="189"></label>
-    <label class="gen-must"><span class="gen-badge">8</span><span class="gen-name">Your router peer IP<small>라우터 쪽 IP</small></span><input id="g-my1" placeholder="169.254.96.54/29"></label>
-    <label class="gen-must"><span class="gen-badge">9</span><span class="gen-name">Amazon router peer IP<small>AWS 쪽 IP</small></span><input id="g-aws1" placeholder="169.254.96.49/29"></label>
-    <label class="gen-must"><span class="gen-badge">10</span><span class="gen-name">BGP authentication key<small>내 값으로 꼭 입력</small></span><input id="g-key1" autocomplete="off" spellcheck="false"></label>
+    <label class="gen-must"><span class="gen-badge">8</span><span class="gen-name">BGP authentication key<small>내 값으로 꼭 입력</small></span><input id="g-key1" autocomplete="off" spellcheck="false"></label>
+    <label class="gen-must"><span class="gen-badge">9</span><span class="gen-name">Your router peer IP<small>라우터 쪽 IP</small></span><input id="g-my1" placeholder="169.254.96.54/29"></label>
+    <label class="gen-must"><span class="gen-badge">10</span><span class="gen-name">Amazon router peer IP<small>AWS 쪽 IP</small></span><input id="g-aws1" placeholder="169.254.96.49/29"></label>
   </fieldset>
   <fieldset class="gen-group gen-dx2">
     <legend>DX2 · <code>awsdx2_…</code> · <code>tgw-nat-vif2</code></legend>
     <label><span class="gen-badge">11</span><span class="gen-name">라우터 인터페이스<small>물리 인터페이스 이름 · 미리 채움</small></span><input id="g-if2" value="GigabitEthernet2" data-default="GigabitEthernet2" spellcheck="false"></label>
     <label class="gen-must"><span class="gen-badge">12</span><span class="gen-name">VLAN<small>내 값으로 꼭 입력</small></span><input id="g-vlan2" inputmode="numeric" placeholder="289"></label>
-    <label class="gen-must"><span class="gen-badge">13</span><span class="gen-name">Your router peer IP<small>라우터 쪽 IP</small></span><input id="g-my2" placeholder="169.254.96.46/29"></label>
-    <label class="gen-must"><span class="gen-badge">14</span><span class="gen-name">Amazon router peer IP<small>AWS 쪽 IP</small></span><input id="g-aws2" placeholder="169.254.96.41/29"></label>
-    <label class="gen-must"><span class="gen-badge">15</span><span class="gen-name">BGP authentication key<small>내 값으로 꼭 입력</small></span><input id="g-key2" autocomplete="off" spellcheck="false"></label>
+    <label class="gen-must"><span class="gen-badge">13</span><span class="gen-name">BGP authentication key<small>내 값으로 꼭 입력</small></span><input id="g-key2" autocomplete="off" spellcheck="false"></label>
+    <label class="gen-must"><span class="gen-badge">14</span><span class="gen-name">Your router peer IP<small>라우터 쪽 IP</small></span><input id="g-my2" placeholder="169.254.96.46/29"></label>
+    <label class="gen-must"><span class="gen-badge">15</span><span class="gen-name">Amazon router peer IP<small>AWS 쪽 IP</small></span><input id="g-aws2" placeholder="169.254.96.41/29"></label>
   </fieldset>
 </div>
 
@@ -70,7 +70,7 @@
 
 <script>
 (function () {
-  const ids = ["pod", "lan", "loop", "asn", "amzasn", "if1", "vlan1", "my1", "aws1", "key1", "if2", "vlan2", "my2", "aws2", "key2"];
+  const ids = ["pod", "lan", "loop", "asn", "amzasn", "if1", "vlan1", "key1", "my1", "aws1", "if2", "vlan2", "key2", "my2", "aws2"];
   const optional = ["pod", "loop"];
   const badge = Object.fromEntries(ids.map((k, i) => [k, i + 1]));
   const group = (k) => (/1$/.test(k) ? "dx1" : /2$/.test(k) ? "dx2" : "common");
@@ -271,9 +271,9 @@
 | 5 | Amazon 쪽 ASN | 2-2-1에서 Direct Connect gateway에 넣은 **Amazon-side ASN**. 워크숍 값 `65300`이 미리 채워져 있음 |
 | 6, 11 | 라우터 인터페이스 | 워크숍 값 `GigabitEthernet1`, `GigabitEthernet2`가 미리 채워져 있음 |
 | 7, 12 | VLAN | 실습 장비 페이지, 또는 전송 가상 인터페이스 상세의 **VLAN** |
-| 8, 13 | Your router peer IP | 전송 가상 인터페이스 상세 → **Peerings** 탭 |
-| 9, 14 | Amazon router peer IP | 전송 가상 인터페이스 상세 → **Peerings** 탭 |
-| 10, 15 | BGP authentication key | 전송 가상 인터페이스 상세 → **Peerings** 탭 |
+| 8, 13 | BGP authentication key | 전송 가상 인터페이스 상세 → **Peerings** 탭 |
+| 9, 14 | Your router peer IP | 전송 가상 인터페이스 상세 → **Peerings** 탭 |
+| 10, 15 | Amazon router peer IP | 전송 가상 인터페이스 상세 → **Peerings** 탭 |
 
 DX1(6–10)은 `awsdx1_…` 위에 만든 `tgw-nat-vif1`, DX2(11–15)는 `awsdx2_…` 위에 만든 `tgw-nat-vif2`의 값입니다. 두 인터페이스의 값을 섞으면 BGP가 올라오지 않습니다. 생성기는 같은 인터페이스의 두 피어 IP가 같은 `/29`에 있는지 확인해 알려 줍니다.
 
@@ -283,10 +283,10 @@ ASN은 BGP에서 서로를 알아보는 번호입니다. 만들어진 설정의 
 
 | 부분 | 쓰는 값 | 하는 일 |
 |---|---|---|
-| `GigabitEthernet1.<VLAN>`, `GigabitEthernet2.<VLAN>` | 6–8, 11–13 | 전송 가상 인터페이스마다 하나씩 만드는 서브인터페이스. VLAN 번호와 라우터 쪽 IP, 회선 끊김을 빨리 알아채는 BFD(Bidirectional Forwarding Detection)를 설정 |
+| `GigabitEthernet1.<VLAN>`, `GigabitEthernet2.<VLAN>` | 6·7·9, 11·12·14 | 전송 가상 인터페이스마다 하나씩 만드는 서브인터페이스. VLAN 번호와 라우터 쪽 IP, 회선 끊김을 빨리 알아채는 BFD(Bidirectional Forwarding Detection)를 설정 |
 | `Loopback1` `10.200.0.1/32` | 3 | NAT 규칙의 원래 대역 밖에 있는 시험용 출발지 주소([4-1-2](#form)) |
 | `router bgp 65000` | 4 | 온프레미스 라우터(`rtN`) 자신의 ASN으로 BGP를 켬 |
-| `neighbor … remote-as 65300` | 5, 9·10, 14·15 | Direct Connect gateway(AS 65300, AS는 Autonomous System)와 BGP로 경로를 주고받음. BGP 키와 BFD를 함께 씀 |
+| `neighbor … remote-as 65300` | 5, 8·10, 13·15 | Direct Connect gateway(AS 65300, AS는 Autonomous System)와 BGP로 경로를 주고받음. BGP 키와 BFD를 함께 씀 |
 | `network 172.20.N.0 …`, `network 10.200.0.1 …` | 2, 3 | 온프레미스 대역과 Loopback1을 AWS에 광고 |
 | `maximum-paths 2` | — | 두 전송 가상 인터페이스로 받은 같은 경로를 함께 씀(ECMP, Equal-Cost Multi-Path) |
 
