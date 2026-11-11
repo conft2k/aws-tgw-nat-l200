@@ -243,3 +243,9 @@
 .gen-msg { font-size: 0.8rem; color: var(--md-accent-fg-color); }
 .gen-msg.gen-warn { color: #c2410c; font-weight: 600; }
 .gen-code:empty::after { content: " "; }
+/* diagram captions: numbered so instructors can point at "그림 N" */
+.md-typeset figure { margin: 1.4em auto; }
+.md-typeset figure figcaption {
+  max-width: none; margin: 0.6em auto 0; font-style: normal; font-size: 0.75rem;
+  font-weight: 600; color: var(--md-default-fg-color--light);
+}

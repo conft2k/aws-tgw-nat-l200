@@ -9,7 +9,10 @@ DXGW(Direct Connect gateway) 연결의 **NAT system routes** 설정을 켜고 �
 
 NAT system routes를 꺼도 주소 변환은 계속됩니다. 경로를 누가 만드느냐만 바뀝니다.
 
-![NAT system routes 켬과 끔 비교: 켜면 Transit Gateway가 100.64.1.0/24 system 경로를 만들고, 온프레미스가 겹치는 경로를 광고하는 동안만 Active다. 끄면 온프레미스 라우터가 100.64.1.0/24를 직접 광고하고 Transit Gateway는 propagated로 배운다. 끌 때도 원래 대역 광고를 유지한다](images/diagrams/extra-b-nat-system-routes.png)
+<figure markdown="span">
+  ![NAT system routes 켬과 끔 비교: 켜면 Transit Gateway가 100.64.1.0/24 system 경로를 만들고, 온프레미스가 겹치는 경로를 광고하는 동안만 Active다. 끄면 온프레미스 라우터가 100.64.1.0/24를 직접 광고하고 Transit Gateway는 propagated로 배운다. 끌 때도 원래 대역 광고를 유지한다](images/diagrams/extra-b-nat-system-routes.png)
+  <figcaption>그림 8. NAT system routes를 켰을 때와 껐을 때</figcaption>
+</figure>
 
 | 설정 | `100.64.1.0/24` 경로를 준비하는 방법 | Route type |
 |---|---|---|

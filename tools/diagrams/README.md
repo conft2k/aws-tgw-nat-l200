@@ -19,7 +19,7 @@ tools/diagrams/build.sh                  # 9개 모두
 | 이름 | 스크립트 | 구성도 | 쓰는 페이지 |
 |---|---|---|---|
 | `architecture` | `architecture.py` | `images/architecture` | 1-1 |
-| `concept-snat-dnat` | `concept_snat_dnat.py` | `images/diagrams/concept-snat-dnat` | 2-3, 4-2 |
+| `concept-snat-dnat` | `concept_snat_dnat.py` | `images/diagrams/concept-snat-dnat` | 1-1, 2-3, 4-2 |
 | `lab1-dx-build` | `lab1_dx_build.py` | `images/diagrams/lab1-dx-build` | 2-2 |
 | `lab2-overlap-problem` | `lab2_overlap.py` | `images/diagrams/lab2-overlap-problem` | 2-3 |
 | `lab2-packet-walk` | `lab2_packet_walk.py` | `images/diagrams/lab2-packet-walk` | 2-3 |
@@ -36,3 +36,4 @@ tools/diagrams/build.sh                  # 9개 모두
 - 온프레미스는 왼쪽에 두고, 폭이 모자라면 아래에 둡니다(extra-a, extra-c).
 - TGW 라우팅 표는 컨테이너와 겹쳐도 되지만 맨 위에 그리고, TGW 바로 옆에 두며, 보라색 점선(`#8C4FFF`, 1.5px, `4 3`)으로 TGW와 잇습니다.
 - 설명 글상자는 그림에 넣지 않고 페이지 본문의 그림 아래에 씁니다.
+- 페이지에서는 `<figure markdown="span">`으로 감싸고 `<figcaption>그림 N. 제목</figcaption>`을 붙입니다. 번호는 사이트 메뉴 순서로 나오는 차례대로 1부터 매기고(같은 그림을 다시 써도 새 번호), 그림을 넣거나 빼면 뒤 번호와 본문의 "그림 N" 표현을 함께 고칩니다.

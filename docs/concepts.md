@@ -8,7 +8,10 @@ Transit Gateway 1:1 NAT(Network Address Translation)는 장비의 실제 주소�
 
 규칙에는 대역 두 개를 넣습니다. 콘솔의 **Source CIDR**은 바꾸기 전의 실제 대역(원래 대역), **NAT CIDR**은 상대에게 보이는 대역(NAT 대역)입니다([용어 풀이](glossary.md)).
 
-![1:1 NAT 규칙은 Transit Gateway의 DXGW 연결과 VPC-A 연결에 각각 있다. 그 연결로 Transit Gateway에 들어오는 패킷은 출발지 172.20.N.0/24를 NAT 대역(DXGW 연결 100.64.1.0/24, VPC-A 연결 100.64.2.0/24)으로 바꾸고(SNAT), 그 연결로 나가는 패킷은 목적지 NAT 대역을 172.20.N.0/24로 되돌린다(DNAT). VPC-B 연결에는 규칙이 없다](images/diagrams/concept-snat-dnat.png)
+<figure markdown="span">
+  ![1:1 NAT 규칙은 Transit Gateway의 DXGW 연결과 VPC-A 연결에 각각 있다. 그 연결로 Transit Gateway에 들어오는 패킷은 출발지 172.20.N.0/24를 NAT 대역(DXGW 연결 100.64.1.0/24, VPC-A 연결 100.64.2.0/24)으로 바꾸고(SNAT), 그 연결로 나가는 패킷은 목적지 NAT 대역을 172.20.N.0/24로 되돌린다(DNAT). VPC-B 연결에는 규칙이 없다](images/diagrams/concept-snat-dnat.png)
+  <figcaption>그림 11. 1:1 NAT 규칙이 주소를 바꾸는 곳(SNAT·DNAT)</figcaption>
+</figure>
 
 ## 4-2-1. 어떻게 동작하나 { #how }
 

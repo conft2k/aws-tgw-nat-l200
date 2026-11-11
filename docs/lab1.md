@@ -2,9 +2,12 @@
 
 온프레미스 라우터(`rtN`)를 AWS의 Transit Gateway까지 연결합니다. 아직 NAT(Network Address Translation)는 걸지 않습니다.
 
-아래 그림의 번호 순서로 만듭니다. ①(hosted connection 수락)은 실습 2-1에서 이미 했습니다. 처음 보는 용어는 [1-3. 용어 풀이](glossary.md)를 보세요.
+아래 그림 3의 번호 순서로 만듭니다. ①(hosted connection 수락)은 실습 2-1에서 이미 했습니다. 처음 보는 용어는 [1-3. 용어 풀이](glossary.md)를 보세요.
 
-![Direct Connect 연결 구성: 온프레미스 라우터(rtN)의 서브인터페이스 2개가 hosted connection 2개와 전송 가상 인터페이스 2개를 거쳐 Direct Connect gateway와 Transit Gateway에 연결된다. 온프레미스 라우터는 172.20.N.0/24와 10.200.0.1/32를 광고하고, 허용된 접두사 100.64.2.0/24와 10.1.1.0/24를 받는다](images/diagrams/lab1-dx-build.png)
+<figure markdown="span">
+  ![Direct Connect 연결 구성: 온프레미스 라우터(rtN)의 서브인터페이스 2개가 hosted connection 2개와 전송 가상 인터페이스 2개를 거쳐 Direct Connect gateway와 Transit Gateway에 연결된다. 온프레미스 라우터는 172.20.N.0/24와 10.200.0.1/32를 광고하고, 허용된 접두사 100.64.2.0/24와 10.1.1.0/24를 받는다](images/diagrams/lab1-dx-build.png)
+  <figcaption>그림 3. Direct Connect 연결 구성</figcaption>
+</figure>
 
 | 번호 | 단계 | 내용 |
 |---|---|---|
@@ -100,7 +103,7 @@ hosted connection 하나에는 전송 가상 인터페이스를 하나만 만들
 
 ## 2-2-5. 온프레미스 라우터 설정 { #lab1-5 }
 
-1. [라우터 설정 생성기](router-config.md)를 새 탭으로 엽니다. 페이지 위 그림의 번호는 입력 칸의 번호와 같습니다.
+1. [라우터 설정 생성기](router-config.md)를 새 탭으로 엽니다. 페이지 위 그림 10의 번호는 입력 칸의 번호와 같습니다.
 2. Pod 번호(①)를 넣습니다. 온프레미스 대역(②)은 자동으로 채워집니다.
 3. 미리 채워진 값을 확인합니다. Loopback1(③)과 라우터 인터페이스(⑥⑪)는 그대로 둡니다. ASN(④⑤)은 2-2-1, 2-2-3에서 넣은 값과 같은지만 봅니다.
 4. DX1(⑦–⑩)에 `tgw-nat-vif1`의 값을 넣습니다. VLAN(⑦)은 전송 가상 인터페이스 상세의 **VLAN**이고, 나머지는 2-2-4에서 적은 값입니다.

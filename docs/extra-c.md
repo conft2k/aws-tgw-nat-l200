@@ -13,7 +13,10 @@ ping -c 200 100.64.2.10
 
 ping은 1초에 하나씩 보내므로 3분 20초쯤 걸립니다. 끝에 `200 packets transmitted, 200 received, 0% packet loss`가 나오는지 확인합니다. 그다음 3~5분 기다립니다.
 
-![지표와 로그가 기록하는 곳: DXGW 연결과 VPC-A 연결에서 PacketsInNAT·PacketsOutNAT(Transit Gateway 기준)가 늘어나고 VPC-B 연결은 0이다. TGW Flow Logs는 Transit Gateway 하나에 설정하고 기록은 연결·방향별로 남으며, 사전 테스트에서는 양 끝의 실제 주소가 남았다. VPC Flow Logs는 EC2 ENI와 Transit Gateway ENI에서 ENI 기준 방향으로 VPC 안에서 보이는 주소를 기록한다](images/diagrams/extra-c-observability.png)
+<figure markdown="span">
+  ![지표와 로그가 기록하는 곳: DXGW 연결과 VPC-A 연결에서 PacketsInNAT·PacketsOutNAT(Transit Gateway 기준)가 늘어나고 VPC-B 연결은 0이다. TGW Flow Logs는 Transit Gateway 하나에 설정하고 기록은 연결·방향별로 남으며, 사전 테스트에서는 양 끝의 실제 주소가 남았다. VPC Flow Logs는 EC2 ENI와 Transit Gateway ENI에서 ENI 기준 방향으로 VPC 안에서 보이는 주소를 기록한다](images/diagrams/extra-c-observability.png)
+  <figcaption>그림 9. NAT 지표와 Flow Logs가 기록하는 곳</figcaption>
+</figure>
 
 | 보는 곳 | 내용 |
 |---|---|
@@ -22,7 +25,7 @@ ping은 1초에 하나씩 보내므로 3분 20초쯤 걸립니다. 끝에 `200 p
 | **VPC Flow Logs** | VPC 안에서 보이는 주소를 남깁니다: `pkt-srcaddr` `100.64.1.10`. |
 | **확인 방법** | 상대에게 보인 주소는 VPC Flow Logs나 패킷 캡처로 봅니다. |
 
-그림의 선: 검은 실선 화살표는 요청, 초록 점선 화살표는 응답, 회색 점선 화살표는 로그 전송입니다.
+그림 9의 선: 검은 실선 화살표는 요청, 초록 점선 화살표는 응답, 회색 점선 화살표는 로그 전송입니다.
 
 TGW Flow Logs에는 온프레미스 VM과 VPC-A EC2 사이 트래픽이 양 끝의 실제 주소로 기록됩니다(`172.20.N.10 → 172.20.N.10`). 출발지는 NAT로 바꾸기 전, 목적지는 원래 주소로 되돌린 뒤의 주소입니다. 이 동작은 AWS 문서에 설명이 없고, 사전 테스트에서 이렇게 기록되는 것을 확인했습니다. 상대에게 어떤 주소로 보였는지는 VPC Flow Logs로 봅니다([3-3-2](#c2)).
 

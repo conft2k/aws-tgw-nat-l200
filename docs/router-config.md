@@ -4,16 +4,19 @@
 
 ## 4-1-1. 값이 쓰이는 곳 { #map }
 
-그림의 번호는 아래 입력 칸의 번호와 같습니다. 위쪽 회선이 **DX1**, 아래쪽 회선이 **DX2**입니다.
+그림 10의 번호는 아래 입력 칸의 번호와 같습니다. 위쪽 회선이 **DX1**, 아래쪽 회선이 **DX2**입니다.
 
-![라우터 설정 값 지도: 공통 값은 1번 Pod 번호, 2번 온프레미스 대역 172.20.N.0/24, 3번 Loopback1 10.200.0.1/32, 4번 라우터 ASN 65000, 5번 Direct Connect gateway의 Amazon 쪽 ASN 65300이다. DX1(위)은 6번 라우터 인터페이스 GigabitEthernet1, 7번 VLAN, 8번 라우터 쪽 IP, 9번 Amazon 쪽 IP, 10번 BGP 키이고, DX2(아래)는 11번부터 15번까지 같은 순서이다. 두 전송 가상 인터페이스는 Direct Connect gateway와 Transit Gateway(AS 65400)로 이어진다](images/diagrams/router-config-map.png)
+<figure markdown="span">
+  ![라우터 설정 값 지도: 공통 값은 1번 Pod 번호, 2번 온프레미스 대역 172.20.N.0/24, 3번 Loopback1 10.200.0.1/32, 4번 라우터 ASN 65000, 5번 Direct Connect gateway의 Amazon 쪽 ASN 65300이다. DX1(위)은 6번 라우터 인터페이스 GigabitEthernet1, 7번 VLAN, 8번 라우터 쪽 IP, 9번 Amazon 쪽 IP, 10번 BGP 키이고, DX2(아래)는 11번부터 15번까지 같은 순서이다. 두 전송 가상 인터페이스는 Direct Connect gateway와 Transit Gateway(AS 65400)로 이어진다](images/diagrams/router-config-map.png)
+  <figcaption>그림 10. 라우터 설정 값 지도</figcaption>
+</figure>
 
 - 두 피어 IP와 BGP(Border Gateway Protocol) 키는 전송 가상 인터페이스 상세 → **Peerings** 탭에서 확인합니다([2-2-4](lab1.md#lab1-4)).
 - Pod 번호와 VLAN(Virtual LAN)은 실습 장비 페이지에서 확인합니다. VLAN은 전송 가상 인터페이스 상세에도 있습니다.
 - 대역·ASN(Autonomous System Number)·인터페이스 이름은 워크숍 값이 미리 채워져 있습니다.
 
-!!! warning "그림의 값은 Pod 89의 예시입니다"
-    그림의 VLAN과 피어 IP, 아래 Pod 번호·VLAN·피어 IP 입력 칸에 흐리게 보이는 예시 값(`89`, `189`, `169.254.96.54/29` 등)은 사전 테스트에 쓴 **Pod 89의 값**입니다. 그대로 쓰지 마세요. **Pod 번호부터 VLAN, 피어 IP, BGP 키까지 모두 내 Pod와 내 전송 가상 인터페이스의 값으로 바꿔 넣어야 합니다.** 값이 맞지 않으면 BGP 세션이 올라오지 않거나 온프레미스 대역이 제대로 광고되지 않습니다.
+!!! warning "그림 10의 값은 Pod 89의 예시입니다"
+    그림 10의 VLAN과 피어 IP, 아래 Pod 번호·VLAN·피어 IP 입력 칸에 흐리게 보이는 예시 값(`89`, `189`, `169.254.96.54/29` 등)은 사전 테스트에 쓴 **Pod 89의 값**입니다. 그대로 쓰지 마세요. **Pod 번호부터 VLAN, 피어 IP, BGP 키까지 모두 내 Pod와 내 전송 가상 인터페이스의 값으로 바꿔 넣어야 합니다.** 값이 맞지 않으면 BGP 세션이 올라오지 않거나 온프레미스 대역이 제대로 광고되지 않습니다.
 
     **미리 채움** 칸은 모든 참가자가 같이 쓰는 워크숍 값이므로 워크숍에서는 그대로 둡니다. 워크숍이 아닌 내 환경에서 쓸 때는 이 칸도 내 환경의 값으로 바꿉니다([4-1-6](#reuse)).
 

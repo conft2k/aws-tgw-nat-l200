@@ -21,7 +21,10 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
 
 온프레미스 VM(Virtual Machine, `vmN`)에서 VPC-B로 ping을 보내면 무슨 일이 생기는지 봅니다.
 
-![NAT 적용 전 흐름: 온프레미스 VM이 VPC-B로 보낸 요청은 도착하지만, VPC-B의 응답은 라우팅 테이블의 172.20.N.0/24 → VPC-A 경로를 따라 VPC-A로 간다](images/diagrams/lab2-overlap-problem.png)
+<figure markdown="span">
+  ![NAT 적용 전 흐름: 온프레미스 VM이 VPC-B로 보낸 요청은 도착하지만, VPC-B의 응답은 라우팅 테이블의 172.20.N.0/24 → VPC-A 경로를 따라 VPC-A로 간다](images/diagrams/lab2-overlap-problem.png)
+  <figcaption>그림 4. NAT 적용 전: VPC-B의 응답이 VPC-A로 가는 문제</figcaption>
+</figure>
 
 | 번호 | 흐름 | 내용 |
 |---|---|---|
@@ -56,7 +59,10 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
 
 규칙에는 대역 두 개를 넣습니다. **Source CIDR**은 바꾸기 전의 실제 대역(원래 대역)입니다. **NAT CIDR**은 바뀐 뒤 상대에게 보이는 대역(NAT 대역)입니다([용어 풀이](glossary.md)). CIDR(Classless Inter-Domain Routing)는 `172.20.N.0/24`처럼 대역을 적는 방식입니다.
 
-![1:1 NAT 규칙은 Transit Gateway의 DXGW 연결과 VPC-A 연결에 각각 있다. 그 연결로 Transit Gateway에 들어오는 패킷은 출발지 172.20.N.0/24를 NAT 대역(DXGW 연결 100.64.1.0/24, VPC-A 연결 100.64.2.0/24)으로 바꾸고(SNAT), 그 연결로 나가는 패킷은 목적지 NAT 대역을 172.20.N.0/24로 되돌린다(DNAT). VPC-B 연결에는 규칙이 없다](images/diagrams/concept-snat-dnat.png)
+<figure markdown="span">
+  ![1:1 NAT 규칙은 Transit Gateway의 DXGW 연결과 VPC-A 연결에 각각 있다. 그 연결로 Transit Gateway에 들어오는 패킷은 출발지 172.20.N.0/24를 NAT 대역(DXGW 연결 100.64.1.0/24, VPC-A 연결 100.64.2.0/24)으로 바꾸고(SNAT), 그 연결로 나가는 패킷은 목적지 NAT 대역을 172.20.N.0/24로 되돌린다(DNAT). VPC-B 연결에는 규칙이 없다](images/diagrams/concept-snat-dnat.png)
+  <figcaption>그림 5. 1:1 NAT 규칙이 주소를 바꾸는 곳(SNAT·DNAT)</figcaption>
+</figure>
 
 1:1 NAT에는 두 가지 특징이 있습니다.
 
@@ -161,9 +167,12 @@ VPC 연결에서는 **NAT system routes**가 항상 켜져 있어 바꿀 수 없
 
 패킷이 지나가며 주소가 이렇게 바뀝니다.
 
-![NAT 후 패킷 흐름 6단계: 온프레미스 VM이 172.20.N.10에서 100.64.2.10으로 보내면 DXGW 연결에서 출발지가 100.64.1.10으로, VPC-A 연결에서 목적지가 172.20.N.10으로 바뀐다. 응답은 반대로 바뀐다](images/diagrams/lab2-packet-walk.png)
+<figure markdown="span">
+  ![NAT 후 패킷 흐름 6단계: 온프레미스 VM이 172.20.N.10에서 100.64.2.10으로 보내면 DXGW 연결에서 출발지가 100.64.1.10으로, VPC-A 연결에서 목적지가 172.20.N.10으로 바뀐다. 응답은 반대로 바뀐다](images/diagrams/lab2-packet-walk.png)
+  <figcaption>그림 6. NAT 적용 후 패킷 흐름</figcaption>
+</figure>
 
-그림이 작게 보이면 [원본 크기로 보기](images/diagrams/lab2-packet-walk.png)를 누릅니다.
+그림 6이 작게 보이면 [원본 크기로 보기](images/diagrams/lab2-packet-walk.png)를 누릅니다.
 
 | 번호 | 지점 | 내용 |
 |---|---|---|

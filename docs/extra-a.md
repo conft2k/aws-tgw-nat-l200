@@ -2,7 +2,10 @@
 
 NAT(Network Address Translation) 규칙이 없는 VPC-B와 통신할 때 주소가 어떻게 보이는지 봅니다. 그리고 NAT 뒤에도 남아 있는 원래 경로 때문에 생기는 일을 확인합니다. [실습 2-3](lab2.md)을 마친 뒤에 합니다.
 
-![세 흐름을 실선(요청)과 점선(응답)으로 그린 그림. A1(초록): 온프레미스 VM이 VPC-B로 보내면 Transit Gateway의 DXGW 연결이 출발지를 100.64.1.10으로 바꾼다. A2(파랑): VPC-B가 NAT 주소로 보내면 받는 쪽 Transit Gateway 연결이 목적지를 원래 주소로 되돌리고, 응답의 출발지를 NAT 주소로 바꿔 돌려보낸다. A3(주황 요청, 빨강 응답): VPC-B가 원래 주소 172.20.N.10으로 보내면 남아 있는 172.20.N.0/24 경로를 따라 온프레미스 VM에 도착하지만, 응답이 100.64.1.10에서 온 것으로 보여 ping은 세지 않고(추론) TCP SYN-ACK는 보안 그룹이 거부한다](images/diagrams/extra-a-vpcb-and-original-route.png)
+<figure markdown="span">
+  ![세 흐름을 실선(요청)과 점선(응답)으로 그린 그림. A1(초록): 온프레미스 VM이 VPC-B로 보내면 Transit Gateway의 DXGW 연결이 출발지를 100.64.1.10으로 바꾼다. A2(파랑): VPC-B가 NAT 주소로 보내면 받는 쪽 Transit Gateway 연결이 목적지를 원래 주소로 되돌리고, 응답의 출발지를 NAT 주소로 바꿔 돌려보낸다. A3(주황 요청, 빨강 응답): VPC-B가 원래 주소 172.20.N.10으로 보내면 남아 있는 172.20.N.0/24 경로를 따라 온프레미스 VM에 도착하지만, 응답이 100.64.1.10에서 온 것으로 보여 ping은 세지 않고(추론) TCP SYN-ACK는 보안 그룹이 거부한다](images/diagrams/extra-a-vpcb-and-original-route.png)
+  <figcaption>그림 7. VPC-B에서 본 세 가지 흐름(A1·A2·A3)</figcaption>
+</figure>
 
 | 흐름 | 경로 | 내용 |
 |---|---|---|
