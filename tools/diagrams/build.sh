@@ -11,6 +11,7 @@ SKILL=${SKILL_DIR:-$HOME/.claude/skills/skill-aws-arch-diagram}/scripts
 # name | generator | draft path (relative to docs/images)
 TABLE="architecture|architecture.py|architecture.draft.svg
 concept-snat-dnat|concept_snat_dnat.py|diagrams/concept-snat-dnat.draft.svg
+concept-snat-dnat-steps|concept_snat_dnat.py|diagrams/concept-snat-dnat-steps.draft.svg
 lab1-dx-build|lab1_dx_build.py|diagrams/lab1-dx-build.draft.svg
 lab2-overlap-problem|lab2_overlap.py|diagrams/lab2-overlap-problem.draft.svg
 lab2-packet-walk|lab2_packet_walk.py|diagrams/lab2-packet-walk.draft.svg
@@ -23,10 +24,11 @@ CHECK=0
 if [[ ${1:-} == --check ]]; then CHECK=1; shift; fi
 WANT=" $* "
 
-gen() {  # gen <script> <out>
-  case $1 in
-    lab2_packet_walk.py) python3 "$HERE/$1" 20 17 "$2" ;;
-    router_config_map.py) python3 "$HERE/$1" > "$2" ;;
+gen() {  # gen <script> <out> [name]
+  case ${3:-}:$1 in
+    concept-snat-dnat-steps:*) python3 "$HERE/$1" "$2" --steps ;;
+    *:lab2_packet_walk.py) python3 "$HERE/$1" 20 17 "$2" ;;
+    *:router_config_map.py) python3 "$HERE/$1" > "$2" ;;
     *) python3 "$HERE/$1" "$2" ;;
   esac
 }
@@ -37,12 +39,12 @@ while IFS='|' read -r name script draft; do
   [[ $# -gt 0 && $WANT != *" $name "* ]] && continue
   dest="$ROOT/docs/images/$draft"
   if (( CHECK )); then
-    gen "$script" "$TMP/$name.svg" >/dev/null 2>&1
+    gen "$script" "$TMP/$name.svg" "$name" >/dev/null 2>&1
     if cmp -s "$TMP/$name.svg" "$dest"; then echo "same     $name"; else echo "differs  $name"; rc=1; fi
     continue
   fi
   echo "== $name"
-  gen "$script" "$dest"
+  gen "$script" "$dest" "$name"
   python3 "$SKILL/check_layout.py" "$dest" || echo "!! check_layout reported the problems above (route-table cells are known false positives)"
   w=$(grep -o 'viewBox="0 0 [0-9.]*' "$dest" | awk '{print $3}')
   w=$(python3 -c "print(round(float('$w') * 2))")

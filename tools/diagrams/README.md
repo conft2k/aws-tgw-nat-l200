@@ -7,7 +7,7 @@
 ```bash
 tools/diagrams/build.sh --check          # 스크립트 결과가 저장소의 draft와 같은지 확인(파일은 바꾸지 않음)
 tools/diagrams/build.sh extra-b          # 하나만 다시 만들기: draft → check_layout → SVG + PNG(가로 2배)
-tools/diagrams/build.sh                  # 9개 모두
+tools/diagrams/build.sh                  # 10개 모두
 ```
 
 - 필요한 것: `~/.claude/skills/skill-aws-arch-diagram`(다른 곳이면 `SKILL_DIR`로 지정), `uv`
@@ -19,7 +19,8 @@ tools/diagrams/build.sh                  # 9개 모두
 | 이름 | 스크립트 | 구성도 | 쓰는 페이지 |
 |---|---|---|---|
 | `architecture` | `architecture.py` | `images/architecture` | 1-1 |
-| `concept-snat-dnat` | `concept_snat_dnat.py` | `images/diagrams/concept-snat-dnat` | 1-1, 2-3, 4-2 |
+| `concept-snat-dnat` | `concept_snat_dnat.py` | `images/diagrams/concept-snat-dnat` | 2-3, 4-2 |
+| `concept-snat-dnat-steps` | `concept_snat_dnat.py --steps` | `images/diagrams/concept-snat-dnat-steps` | 1-1 (단계 번호 ①~④를 더한 것) |
 | `lab1-dx-build` | `lab1_dx_build.py` | `images/diagrams/lab1-dx-build` | 2-2 |
 | `lab2-overlap-problem` | `lab2_overlap.py` | `images/diagrams/lab2-overlap-problem` | 2-3 |
 | `lab2-packet-walk` | `lab2_packet_walk.py` | `images/diagrams/lab2-packet-walk` | 2-3 |

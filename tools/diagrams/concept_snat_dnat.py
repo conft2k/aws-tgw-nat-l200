@@ -1,4 +1,6 @@
 """Generate docs/images/diagrams/concept-snat-dnat.draft.svg (layout source).
+With --steps, also draw step badges 1-4 matching the numbered walk-through in docs/index.md 1-1-3
+(written to concept-snat-dnat-steps.draft.svg by build.sh); the drawing is otherwise identical.
 
 Concept: a TGW 1:1 NAT rule belongs to one Transit Gateway attachment and applies to every
 packet crossing it. Entering the TGW through the attachment: SNAT (source, original range ->
@@ -10,6 +12,7 @@ sys.path.insert(0, os.path.expanduser("~/.claude/skills/skill-aws-arch-diagram/s
 from check_layout import text_width as tw
 
 OUT = sys.argv[1]
+STEPS = "--steps" in sys.argv[2:]
 L, s, CL = 18.5, 16, 19.5          # node/container labels, secondary, AWS Cloud title
 S = 52                             # node icon size
 INK, GREY, TEAL, PURPLE = "#232F3E", "#7D8998", "#00A4A6", "#8C4FFF"
@@ -167,6 +170,19 @@ def rule_box(bx, lines, lead_x):
     line(lead_x, box_y + box_h, lead_x, M - OFF, dash="4 3", stroke=PURPLE)
 rule_box(box_dx_x, RULE_DX, dx_lead)
 rule_box(box_a_x, RULE_A, a_lead)
+# optional step badges (1 send, 2 SNAT into the TGW on DXGW, 3 DNAT out of the TGW on VPC-A, 4 reply)
+def badge(cx, cy, n):
+    el.append(f'  <circle cx="{cx:g}" cy="{cy:g}" r="13" fill="{INK}" stroke="#FFFFFF" stroke-width="2"/>')
+    T(cx, cy + 0.35 * s, str(n), s, "middle", True, "#FFFFFF")
+if STEPS:
+    up, dn = M - OFF - 8 - 0.35 * s, M + OFF + 19 - 0.35 * s      # centers of the SNAT / DNAT labels
+    gap = tw("SNAT", s) / 2 + 22
+    badge(rt_cx + 24, (vm_cy + h + M - h) / 2, 1)                # VM -> router: the request leaves
+    badge(dx_lab - gap, up, 2)                                   # DXGW attachment, into the TGW: SNAT
+    badge(a_lab + gap, dn, 3)                                    # VPC-A attachment, out of the TGW: DNAT
+    badge(a_lab + gap, up, 4)                                    # reply: VPC-A in (SNAT) ...
+    badge(dx_lab - gap, dn, 4)                                   # ... and DXGW out (DNAT)
+    assert dx_lab - gap - 13 >= dx_lead + 8 and a_lab + gap + 13 <= a_lead - 8
 
 open(OUT, "w").write(hdr + "\n" + "\n".join(el) + "\n</svg>\n")
 k = 900 / W
