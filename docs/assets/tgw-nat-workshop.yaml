@@ -42,6 +42,20 @@ Parameters:
   LogRetentionDays:
     Type: Number
     Default: 7
+  Az1:
+    Type: String
+    Default: ""
+    AllowedPattern: "^([a-z0-9-]+)?$"
+    Description: Optional (instructor). AZ for the test EC2 instances, EICE and the first TGW attachment subnets, e.g. ap-northeast-2a. Leave empty to use the Region's first AZ. Pick one that offers the InstanceType.
+  Az2:
+    Type: String
+    Default: ""
+    AllowedPattern: "^([a-z0-9-]+)?$"
+    Description: Optional (instructor). AZ for the second TGW attachment subnets (no instances there), e.g. ap-northeast-2c. Leave empty to use the Region's second AZ.
+
+Conditions:
+  HasAz1: !Not [!Equals [!Ref Az1, ""]]
+  HasAz2: !Not [!Equals [!Ref Az2, ""]]
 
 Resources:
   # ---------------------------------------------------------------- TGW
@@ -72,27 +86,27 @@ Resources:
     Properties:
       VpcId: !Ref VpcA
       CidrBlock: !Sub "172.20.${PodNumber}.0/26"
-      AvailabilityZone: !Sub "${AWS::Region}a"
+      AvailabilityZone: !If [HasAz1, !Ref Az1, !Select [0, !GetAZs ""]]   # Az1, else the Region's first AZ
       Tags:
-        - { Key: Name, Value: tgwnat-vpc-a-app-2a }
+        - { Key: Name, Value: tgwnat-vpc-a-app-az1 }
 
   VpcATgwSubnetA:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VpcA
       CidrBlock: !Sub "172.20.${PodNumber}.224/28"
-      AvailabilityZone: !Sub "${AWS::Region}a"
+      AvailabilityZone: !If [HasAz1, !Ref Az1, !Select [0, !GetAZs ""]]   # Az1, else the Region's first AZ
       Tags:
-        - { Key: Name, Value: tgwnat-vpc-a-tgw-2a }
+        - { Key: Name, Value: tgwnat-vpc-a-tgw-az1 }
 
   VpcATgwSubnetC:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VpcA
       CidrBlock: !Sub "172.20.${PodNumber}.240/28"
-      AvailabilityZone: !Sub "${AWS::Region}c"
+      AvailabilityZone: !If [HasAz2, !Ref Az2, !Select [1, !GetAZs ""]]   # Az2, else the second AZ (TGW attachment ENIs only)
       Tags:
-        - { Key: Name, Value: tgwnat-vpc-a-tgw-2c }
+        - { Key: Name, Value: tgwnat-vpc-a-tgw-az2 }
 
   VpcAAppRouteTable:
     Type: AWS::EC2::RouteTable
@@ -283,27 +297,27 @@ Resources:
     Properties:
       VpcId: !Ref VpcB
       CidrBlock: 10.1.1.0/26
-      AvailabilityZone: !Sub "${AWS::Region}a"
+      AvailabilityZone: !If [HasAz1, !Ref Az1, !Select [0, !GetAZs ""]]   # Az1, else the Region's first AZ
       Tags:
-        - { Key: Name, Value: tgwnat-vpc-b-app-2a }
+        - { Key: Name, Value: tgwnat-vpc-b-app-az1 }
 
   VpcBTgwSubnetA:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VpcB
       CidrBlock: 10.1.1.224/28
-      AvailabilityZone: !Sub "${AWS::Region}a"
+      AvailabilityZone: !If [HasAz1, !Ref Az1, !Select [0, !GetAZs ""]]   # Az1, else the Region's first AZ
       Tags:
-        - { Key: Name, Value: tgwnat-vpc-b-tgw-2a }
+        - { Key: Name, Value: tgwnat-vpc-b-tgw-az1 }
 
   VpcBTgwSubnetC:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VpcB
       CidrBlock: 10.1.1.240/28
-      AvailabilityZone: !Sub "${AWS::Region}c"
+      AvailabilityZone: !If [HasAz2, !Ref Az2, !Select [1, !GetAZs ""]]   # Az2, else the second AZ (TGW attachment ENIs only)
       Tags:
-        - { Key: Name, Value: tgwnat-vpc-b-tgw-2c }
+        - { Key: Name, Value: tgwnat-vpc-b-tgw-az2 }
 
   VpcBAppRouteTable:
     Type: AWS::EC2::RouteTable

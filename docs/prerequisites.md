@@ -38,7 +38,7 @@ hosted connection 2개는 [실습 2-1](lab0.md#lab0-2)에서 수락합니다. �
 
 - 따로 설치할 프로그램은 없습니다. 콘솔, 웹 터미널, VPC-A EC2와 VPC-B EC2 접속 모두 브라우저에서 합니다.
 - 콘솔 언어를 **English**로 바꾸면 이 안내와 화면이 같습니다. 콘솔 오른쪽 위 톱니바퀴 아이콘(**Unified Settings**) → **Language**에서 바꿉니다.
-- 콘솔 오른쪽 위 리전을 **Asia Pacific (Seoul)** 로 맞춥니다. Direct Connect 콘솔에는 **Global**로 보이지만 괜찮습니다.
+- 콘솔 오른쪽 위 리전을 **강사가 안내한 리전**으로 맞춥니다. 예제 화면은 **Asia Pacific (Seoul)** 기준입니다. Direct Connect 콘솔에는 **Global**로 보이지만 괜찮습니다.
 
 ## 1-2-4. 꼭 지켜 주세요
 

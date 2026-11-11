@@ -15,7 +15,7 @@
 
 hosted connection(호스팅 연결)은 Direct Connect 파트너가 만들어 여러분 계정에 넘겨 준 회선입니다. 수락해야 쓸 수 있습니다. 실습 2-2에서 이 회선 위에 전송 가상 인터페이스를 만듭니다. 용어는 [용어 풀이](glossary.md)를 보세요.
 
-1. AWS 콘솔에 로그인합니다. 오른쪽 위 리전을 **Asia Pacific (Seoul)** 로 맞춥니다.
+1. AWS 콘솔에 로그인합니다. 오른쪽 위 리전을 강사가 안내한 리전으로 맞춥니다. 예제 화면은 **Asia Pacific (Seoul)** 기준입니다.
 2. **Direct Connect** 콘솔 → 왼쪽 메뉴 **Connections**를 엽니다.
 3. 이름이 `awsdx1_…`, `awsdx2_…`인 hosted connection 2개가 보입니다. 상태는 **Ordering**입니다.
 
@@ -34,6 +34,13 @@ hosted connection(호스팅 연결)은 Direct Connect 파트너가 만들어 여
 
 ## 2-1-3. 스택 배포 { #lab0-3 }
 
+!!! warning "배포하기 전에 리전부터 확인합니다"
+    스택은 **강사가 안내한 리전**에 배포합니다. AWS 콘솔 오른쪽 위의 리전 선택 메뉴에서 그 리전을 먼저 고른 뒤 시작합니다.
+
+    이 워크숍의 예제 화면은 **아시아 태평양(서울) `ap-northeast-2`**에서 진행한다고 보고 만들었습니다. 다른 리전을 안내받아도 실습 순서는 같습니다.
+
+    스택이 만드는 Transit Gateway, VPC, EC2, Flow Logs는 모두 이 리전에 생깁니다. 이후 실습에서 이 리소스를 볼 때도 같은 리전을 고릅니다.
+
 스택은 실습의 바탕이 되는 다음 리소스를 만듭니다.
 
 - Transit Gateway
@@ -51,7 +58,7 @@ hosted connection(호스팅 연결)은 Direct Connect 파트너가 만들어 여
 
     ![Create stack 화면: Upload a template file이 선택되어 있고 tgw-nat-workshop.yaml이 올라가 있다](images/console/lab0-cfn-01-upload.png){ .shot }
 
-4. **Stack name**에 `tgw-nat-workshop`을 넣습니다. **Parameters**의 **PodNumber**에 내 Pod 번호 N을 넣고 **Next**를 누릅니다. 다른 값은 그대로 둡니다.
+4. **Stack name**에 `tgw-nat-workshop`을 넣습니다. **Parameters**의 **PodNumber**에 내 Pod 번호 N을 넣습니다. 강사가 가용 영역을 안내했다면 **Az1**, **Az2**에도 넣습니다. 나머지 값은 그대로 두고 **Next**를 누릅니다.
 
     PodNumber는 VPC-A의 대역을 정합니다. VPC-A는 온프레미스 대역과 같은 `172.20.N.0/24`로 만들어집니다. 예를 들어 Pod 번호가 89이면 온프레미스와 VPC-A 모두 `172.20.89.0/24`입니다. 이 워크숍은 일부러 겹치게 만든 이 두 대역을 1:1 NAT로 잇습니다.
 
