@@ -61,10 +61,10 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
 
 <figure markdown="span">
   ![1:1 NAT 규칙은 Transit Gateway의 DXGW 연결과 VPC-A 연결에 각각 있다. 그 연결로 Transit Gateway에 들어오는 패킷은 출발지 172.20.N.0/24를 NAT 대역(DXGW 연결 100.64.1.0/24, VPC-A 연결 100.64.2.0/24)으로 바꾸고(SNAT), 그 연결로 나가는 패킷은 목적지 NAT 대역을 172.20.N.0/24로 되돌린다(DNAT). VPC-B 연결에는 규칙이 없다](images/diagrams/concept-snat-dnat.png)
-  <figcaption>그림 5. 1:1 NAT 규칙이 주소를 바꾸는 곳(SNAT·DNAT)</figcaption>
+  <figcaption>그림 5. Transit Gateway 1:1 NAT 규칙이 주소를 바꾸는 곳(SNAT·DNAT)</figcaption>
 </figure>
 
-1:1 NAT에는 두 가지 특징이 있습니다.
+Transit Gateway에서 제공하는 1:1 NAT에는 두 가지 특징이 있습니다.
 
 - **1:1로 바꿉니다**: 주소 하나를 정해진 주소 하나로 바꿉니다. 원래 대역과 NAT 대역은 접두사 길이가 같아야 합니다([지켜야 할 조건](concepts.md#limits)). 앞의 네트워크 부분만 바뀌고, 호스트 부분(호스트 비트)과 포트는 그대로입니다. 이 실습은 `/24`라서 마지막 숫자가 그대로입니다. 그래서 온프레미스 VM `172.20.N.10`은 늘 `100.64.1.10`으로, VPC-A EC2 `172.20.N.10`은 늘 `100.64.2.10`으로 보입니다.
 - **연결을 기억하지 않습니다(stateless)**: Transit Gateway는 패킷마다 규칙만 보고 주소를 바꿉니다. 그래서 어느 쪽에서 먼저 통신을 시작해도 똑같이 동작합니다.
