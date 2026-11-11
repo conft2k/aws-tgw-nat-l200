@@ -55,9 +55,7 @@ VPC-A EC2에는 인터넷 주소가 없습니다. 그래서 스택이 만든 EC2
 
 ## 2-3-3. 1:1 NAT는 어디서 주소를 바꾸나 { #lab2-3 }
 
-규칙은 Transit Gateway 연결마다 둡니다. 규칙 하나가 양쪽 방향을 모두 처리합니다.
-
-규칙에는 대역 두 개를 넣습니다. **Source CIDR**은 바꾸기 전의 실제 대역(원래 대역)입니다. **NAT CIDR**은 바뀐 뒤 상대에게 보이는 대역(NAT 대역)입니다([용어 풀이](glossary.md)). CIDR(Classless Inter-Domain Routing)는 `172.20.N.0/24`처럼 대역을 적는 방식입니다.
+1:1 NAT 규칙은 Transit Gateway 연결(attachment)마다 둡니다. 규칙에는 대역 두 개를 넣습니다. **Source CIDR**은 바꾸기 전의 실제 대역(원래 대역)입니다. **NAT CIDR**은 바뀐 뒤 상대에게 보이는 대역(NAT 대역)입니다([용어 풀이](glossary.md)). CIDR(Classless Inter-Domain Routing)는 `172.20.N.0/24`처럼 대역을 적는 방식입니다.
 
 <figure markdown="span">
   ![1:1 NAT 규칙은 Transit Gateway의 DXGW 연결과 VPC-A 연결에 각각 있다. 그 연결로 Transit Gateway에 들어오는 패킷은 출발지 172.20.N.0/24를 NAT 대역(DXGW 연결 100.64.1.0/24, VPC-A 연결 100.64.2.0/24)으로 바꾸고(SNAT), 그 연결로 나가는 패킷은 목적지 NAT 대역을 172.20.N.0/24로 되돌린다(DNAT). VPC-B 연결에는 규칙이 없다](images/diagrams/concept-snat-dnat.png)
@@ -69,10 +67,12 @@ Transit Gateway에서 제공하는 1:1 NAT에는 두 가지 특징이 있습니�
 - **1:1로 바꿉니다**: 주소 하나를 정해진 주소 하나로 바꿉니다. 원래 대역과 NAT 대역은 접두사 길이가 같아야 합니다([지켜야 할 조건](concepts.md#limits)). 앞의 네트워크 부분만 바뀌고, 호스트 부분(호스트 비트)과 포트는 그대로입니다. 이 실습은 `/24`라서 마지막 숫자가 그대로입니다. 그래서 온프레미스 VM `172.20.N.10`은 늘 `100.64.1.10`으로, VPC-A EC2 `172.20.N.10`은 늘 `100.64.2.10`으로 보입니다.
 - **연결을 기억하지 않습니다(stateless)**: Transit Gateway는 패킷마다 규칙만 보고 주소를 바꿉니다. 그래서 어느 쪽에서 먼저 통신을 시작해도 똑같이 동작합니다.
 
-규칙은 이렇게 적용됩니다.
+주소를 바꾸는 곳은 Transit Gateway 연결입니다. 그래서 1:1 NAT 설정도 Transit Gateway 연결에 있습니다(**Transit gateway attachments** → 연결 → **1:1 NAT** 탭). 규칙 하나는 그 연결을 지나는 패킷의 방향에 따라 SNAT과 DNAT을 짝으로 처리합니다.
 
-- **들어올 때**: 보낸 쪽 주소가 규칙의 원래 대역에 있으면 NAT 대역으로 바꿉니다. 목적지가 어디든 바꿉니다.
-- **나갈 때**: 받는 쪽 주소가 NAT 대역에 있으면 원래 주소로 되돌립니다.
+- **그 연결로 Transit Gateway에 들어올 때(SNAT)**: 출발지 주소가 원래 대역에 있으면 NAT 대역으로 바꿉니다. 목적지가 어디든 바꿉니다.
+- **그 연결로 Transit Gateway에서 나갈 때(DNAT)**: 목적지 주소가 NAT 대역에 있으면 원래 주소로 되돌립니다.
+
+요청과 응답은 같은 연결을 반대 방향으로 지나갑니다. 그래서 규칙 하나로 두 방향이 모두 처리되고, 돌아오는 방향의 규칙은 따로 넣지 않습니다.
 
 ## 2-3-4. DXGW 연결에 규칙 넣기 { #lab2-4 }
 
