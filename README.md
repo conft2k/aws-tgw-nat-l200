@@ -33,7 +33,7 @@
 | 2. 실습 | 2-1. 시작하기 | `docs/lab0.md` |
 | | 2-2. Direct Connect 연결 | `docs/lab1.md` |
 | | 2-3. 1:1 NAT 적용 | `docs/lab2.md` |
-| 3. 추가 과제 | 3-1. NAT 없는 VPC와 원래 경로 | `docs/extra-a.md` |
+| 3. 추가 과제 | 3-1. Transit Gateway NAT의 동작 특성 | `docs/extra-a.md` |
 | | 3-2. 경로 설치 옵션 | `docs/extra-b.md` |
 | | 3-3. 지표와 Flow Logs | `docs/extra-c.md` |
 | | 3-4. 리소스 정리 | `docs/extra-d.md` |
