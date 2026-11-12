@@ -58,11 +58,11 @@ hosted connection(호스팅 연결)은 Direct Connect 파트너가 만들어 여
 
     ![Create stack 화면: Upload a template file이 선택되어 있고 tgw-nat-workshop.yaml이 올라가 있다](images/console/lab0-cfn-01-upload.png){ .shot }
 
-4. **Stack name**에 `tgw-nat-workshop`을 넣습니다. **Parameters**의 **PodNumber**에 내 Pod 번호 N을 넣습니다. 강사가 가용 영역을 안내했다면 **Az1**, **Az2**에도 넣습니다. 나머지 값은 그대로 두고 **Next**를 누릅니다.
+4. **Stack name**에 `tgw-nat-workshop`을 넣습니다. **Parameters** 맨 위의 **PodNumber**에 내 Pod 번호 N을 넣습니다. 나머지 값은 그대로 두고 **Next**를 누릅니다.
 
     PodNumber는 VPC-A의 대역을 정합니다. VPC-A는 온프레미스 대역과 같은 `172.20.N.0/24`로 만들어집니다. 예를 들어 Pod 번호가 89이면 온프레미스와 VPC-A 모두 `172.20.89.0/24`입니다. 이 워크숍은 일부러 겹치게 만든 이 두 대역을 1:1 NAT로 잇습니다.
 
-    ![Parameters 영역: PodNumber에 89가 들어가 있다](images/console/lab0-cfn-02-parameters.png){ .shot }
+    ![Parameters 영역: On-premises 그룹 맨 위의 PodNumber에 89가 들어가 있다](images/console/lab0-cfn-02-parameters.png){ .shot }
 
 5. 다음 화면 맨 아래 **Capabilities**에서 **I acknowledge that AWS CloudFormation might create IAM resources.** 를 선택하고 **Next**를 누릅니다. Flow Logs를 저장하는 데 필요한 권한(IAM 역할)을 만들기 때문입니다.
 

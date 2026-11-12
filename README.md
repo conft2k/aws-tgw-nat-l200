@@ -18,7 +18,7 @@
 
 사이트의 예제 화면은 아시아 태평양(서울) `ap-northeast-2` 기준이고, 참가자는 강사가 안내한 리전에 스택을 배포합니다. 템플릿은 리전 이름을 고정하지 않지만, 서울이 아닌 리전에서 진행하기 전에 강사가 다음을 확인합니다.
 
-- 테스트 EC2(`t4g.micro`)와 EC2 Instance Connect Endpoint는 리전의 첫째 AZ에, Transit Gateway 연결 서브넷은 첫째·둘째 AZ에 만들어집니다. 첫째 AZ에서 `t4g.micro`를 쓸 수 없거나 계정의 기본 서브넷 구성 때문에 AZ가 하나만 잡히면, 스택 파라미터 `Az1`, `Az2`에 쓸 AZ를 직접 넣으라고 안내합니다.
+- 테스트 EC2(`t4g.micro`)와 EC2 Instance Connect Endpoint는 리전의 첫째 AZ에, Transit Gateway 연결 서브넷은 첫째·둘째 AZ에 만들어집니다. AZ를 고르는 파라미터는 없습니다. 첫째 AZ에서 `t4g.micro`를 쓸 수 없거나 계정의 기본 서브넷 구성 때문에 AZ가 하나만 잡히면, 각 서브넷의 `AvailabilityZone` 식을 쓸 AZ 이름으로 바꾼 템플릿을 나눠 줍니다.
 - hosted connection과 전송 가상 인터페이스는 회선이 연결된 Direct Connect 위치의 리전에 속합니다. Direct Connect gateway는 글로벌 리소스라 다른 리전의 Transit Gateway에도 연결할 수 있습니다.
 
 ## 페이지 번호
